@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="onsphere_core_view_users_form" model="ir.ui.view">
+            <field name="name">onsphere_core_view_users_form</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='access_rights']" position="after">
+                    <page string="MOM Extra Info" name="mom_extra_info">
+                        <group>
+                            <field name="uuid" string="Unique ID"/>
+                            <field name="hmi_role_id" required="1" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>

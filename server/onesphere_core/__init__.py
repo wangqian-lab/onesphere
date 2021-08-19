@@ -8,7 +8,8 @@ def _default_group_mrp_routing(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
     ResConfig = env['res.config.settings']
     default_values = ResConfig.default_get(list(ResConfig.fields_get()))
-
+    if default_values.get('group_mrp_routings', False):
+        return
     default_values.update({'group_mrp_routings': True})
     ResConfig.create(default_values).execute()
     cr.commit()  # force commit

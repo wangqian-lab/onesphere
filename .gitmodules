@@ -1,3 +1,3 @@
 [submodule "server/oneshare_base"]
 	path = server/oneshare_base
-	url = https://33f4916070221e133b60884daa1c145e3495e3ec:x-oauth-basic@github.com.cnpmjs.org/masami10/oneshare_odoo_base.git
+	url = https://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:x-oauth-basic@github.com.cnpmjs.org/masami10/oneshare_odoo_base.git

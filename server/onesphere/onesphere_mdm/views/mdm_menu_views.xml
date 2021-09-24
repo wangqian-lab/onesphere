@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+        <menuitem
+                id="oneshare_mom_menu_mdm_root"
+                name="Master Data Management(MOM)"
+                web_icon="onesphere_mdm,static/description/icon.png"
+                groups="mrp.group_mrp_manager"
+                sequence="25"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_area"
+                name="Work Area"
+                parent="oneshare_mom_menu_mdm_root"
+                groups="mrp.group_mrp_user"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_material"
+                name="Material Management"
+                parent="oneshare_mom_menu_mdm_root"
+                groups="mrp.group_mrp_user"
+                sequence="20"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_routing"
+                name="Manufacturing Process"
+                parent="oneshare_mom_menu_mdm_root"
+                groups="mrp.group_mrp_user"
+                sequence="30"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting"
+                name="Settings"
+                parent="oneshare_mom_menu_mdm_root"
+                groups="mrp.group_mrp_manager"
+                sequence="50"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_work_area_category"
+                name="Work Area Category"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="oneshare_action_open_work_area_category"
+                groups="mrp.group_mrp_manager"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_equipment_category"
+                name="Equipment Category"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="maintenance.hr_equipment_category_action"
+                groups="maintenance.group_equipment_manager"
+                sequence="20"/>
+
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_product_category"
+                name="Product Category"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="product.product_category_action_form"
+                groups="product.group_product_variant"
+                sequence="30"/>
+
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_shop_floor"
+                name="Shop Floor"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="oneshare_action_open_shop_floor"
+                groups="mrp.group_mrp_user"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_production_line"
+                name="Production Line"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="oneshare_action_open_production_line"
+                sequence="20"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_segment"
+                name="Work Segment"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="oneshare_action_open_work_segment"
+                sequence="30"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_station"
+                name="Work Station"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="mrp.mrp_workcenter_action"
+                sequence="40"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_area_station"
+                name="Work Area Station"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="oneshare_action_open_work_station"
+                groups="base.group_no_one,mrp.group_mrp_user"
+                sequence="45"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_station_unit"
+                name="Work Station Unit"
+                parent="oneshare_mom_menu_manufacturing_work_area"
+                action="oneshare_action_open_work_station_unit"
+                sequence="50"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_work_area_category"
+                name="Work Area Category"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="oneshare_action_open_work_area_category"
+                groups="mrp.group_mrp_manager"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_product"
+                name="Product"
+                parent="oneshare_mom_menu_manufacturing_material"
+                action="oneshare_mrp_product_variant_action"
+                groups="product.group_product_variant"
+                sequence="20"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_consumable"
+                name="Consumable"
+                parent="oneshare_mom_menu_manufacturing_material"
+                action="oneshare_mrp_consumable_action"
+                groups="product.group_product_variant"
+                sequence="20"/>
+
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_bill_of_material"
+                name="Bill Of Material"
+                parent="oneshare_mom_menu_manufacturing_routing"
+                action="mrp.mrp_bom_form_action"
+                groups="mrp.group_mrp_user"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_routing_routing_workcenter"
+                name="Operation"
+                parent="oneshare_mom_menu_manufacturing_routing"
+                action="mrp.mrp_routing_action"
+                groups="mrp.group_mrp_user"
+                sequence="20"/>
+
+
+    </data>
+</odoo>

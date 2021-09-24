@@ -1,0 +1,37 @@
+name: Onesphere CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [ created ]
+  repository_dispatch:
+  workflow_dispatch:
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get committer details
+        run: |
+          echo Actor: ${{ github.actor }}
+          echo Committed By: ${{ github.event.commits[0].author.name }}
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          submodules: 'true'
+          lfs: 'true'
+          token: ${{ secrets.PAT }}
+      - name: docker login github package
+        run: |
+          docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.PAT }}
+      - name: build image
+        run: |
+          cd ./server
+          docker build --tag "docker.pkg.github.com/masami10/onesphere/onesphere:14" --no-cache=true .
+      - name: publish github docker registry
+        run: |
+          docker push docker.pkg.github.com/masami10/onesphere/onesphere:14

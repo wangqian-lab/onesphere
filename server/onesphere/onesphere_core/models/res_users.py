@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 
 class HMIUserRole(models.Model):
-    _name = 'hmi.user.role'
+    _name = 'oneshare.hmi.user.role'
 
     _description = 'MOM HMI User Role'
 
@@ -17,7 +17,7 @@ class ResUsers(models.Model):
     uuid = fields.Char(string='UUID')
 
     hmi_role_id = fields.Many2one(
-        'hmi.user.role',
+        'oneshare.hmi.user.role',
         'HMI角色')
 
     _sql_constraints = [

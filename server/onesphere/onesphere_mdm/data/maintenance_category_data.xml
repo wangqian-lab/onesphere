@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Equipment categories -->
+        <record id="equipment_hmi" model="maintenance.equipment.category">
+            <field name="name">Human Machine Interface</field>
+            <field name="technical_name">hmi</field>
+        </record>
+        <!-- Equipment Tightening Tool -->
+        <record id="equipment_electric_controller" model="maintenance.equipment.category">
+            <field name="name">Tightening Electric Controller</field>
+            <field name="technical_name">tightening_controller</field>
+        </record>
+        <record id="equipment_nut_runner" model="maintenance.equipment.category">
+            <field name="name">Tightening Tool(Nut Runner)</field>
+            <field name="technical_name">tightening_nut_runner</field>
+        </record>
+
+        <record id="equipment_Wrench" model="maintenance.equipment.category">
+            <field name="name">Tightening Tool(Wrench)</field>
+            <field name="technical_name">tightening_wrench</field>
+        </record>
+
+        <record id="equipment_Spindle" model="maintenance.equipment.category">
+            <field name="name">Tightening Tool(Spindle)</field>
+            <field name="technical_name">tightening_spindle</field>
+        </record>
+
+        <record id="equipment_io" model="maintenance.equipment.category">
+            <field name="name">Remote Input/Output</field>
+            <field name="technical_name">remote_io</field>
+        </record>
+
+        <record id="equipment_plc" model="maintenance.equipment.category">
+            <field name="name">Programmable Logic Controller</field>
+            <field name="technical_name">plc</field>
+        </record>
+
+        <record id="equipment_rfid_reader" model="maintenance.equipment.category">
+            <field name="name">Radio Frequency Identification Reader</field>
+            <field name="technical_name">rfid_reader</field>
+        </record>
+
+    </data>
+</odoo>

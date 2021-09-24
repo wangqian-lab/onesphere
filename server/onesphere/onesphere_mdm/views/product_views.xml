@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record id="oneshare_mrp_product_product_search_view" model="ir.ui.view">
+            <field name="name">oneshare_mrp_product_product_search_view</field>
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="mrp.mrp_product_product_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='consumable']" position="after">
+                    <filter string="Consumable" name="supplies" domain="[('type', '=', ['consu'])]"/>
+                </xpath>
+                <xpath expr="//filter[@name='consumable']" position="attributes">
+                    <attribute name="domain">[('type', '=', 'product')]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oneshare_mrp_product_variant_action" model="ir.actions.act_window">
+            <field name="name">Product</field>
+            <field name="res_model">product.product</field>
+            <field name="search_view_id" ref="oneshare_mrp_product_product_search_view"/>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{"search_default_manufactured_products": 1}</field>
+        </record>
+
+        <record id="oneshare_mrp_consumable_action" model="ir.actions.act_window">
+            <field name="name">Consumable Product</field>
+            <field name="res_model">product.product</field>
+            <field name="search_view_id" ref="oneshare_mrp_product_product_search_view"/>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{"search_default_supplies": 1}</field>
+        </record>
+    </data>
+</odoo>

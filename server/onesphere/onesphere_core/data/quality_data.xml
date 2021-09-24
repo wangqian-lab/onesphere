@@ -1,0 +1,116 @@
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="decimal_quality" model="decimal.precision">
+            <field name="name">Quality Tests</field>
+            <field name="digits">2</field>
+        </record>
+
+        <record id="sequence_quality_measurement_item" model="ir.sequence">
+            <field name="name">Quality Measurement Item</field>
+            <field name="code">oneshare.quality.measurement.item</field>
+            <field name="prefix">QCMI</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_quality_point" model="ir.sequence">
+            <field name="name">Quality Point</field>
+            <field name="code">oneshare.quality.point</field>
+            <field name="prefix">QCP</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_quality_check" model="ir.sequence">
+            <field name="name">Quality Check</field>
+            <field name="code">oneshare.quality.check</field>
+            <field name="prefix">QC</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_quality_alert" model="ir.sequence">
+            <field name="name">Quality Alert</field>
+            <field name="code">oneshare.quality.alert</field>
+            <field name="prefix">QA</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+
+        <record id="reason_workcenter" model="oneshare.quality.reason">
+            <field name="name">Workcenter Failure</field>
+        </record>
+        <record id="reason_parts" model="oneshare.quality.reason">
+            <field name="name">Parts Quality</field>
+        </record>
+        <record id="reason_wo" model="oneshare.quality.reason">
+            <field name="name">Work Operation</field>
+        </record>
+        <record id="reason_other" model="oneshare.quality.reason">
+            <field name="name">Others</field>
+        </record>
+
+        <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
+            <field name="name">Register Consumed Materials</field>
+            <field name="technical_name">register_consumed_materials</field><!--拣货-->
+        </record>
+
+        <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
+            <field name="name">Register Consumed Materials</field>
+            <field name="technical_name">register_consumed_materials</field><!--拣货-->
+        </record>
+
+        <record id="test_type_register_byproducts" model="oneshare.quality.point.test_type">
+            <field name="name">Register By-products</field>
+            <field name="technical_name">register_byproducts</field><!--扫码-->
+        </record>
+
+        <record id="test_type_print_label" model="oneshare.quality.point.test_type">
+            <field name="name">Print label</field>
+            <field name="technical_name">print_label</field><!--打印-->
+        </record>
+
+        <record id="test_type_passfail" model="oneshare.quality.point.test_type">
+            <field name="name">Pass - Fail</field>
+            <field name="technical_name">passfail</field><!--passfail-->
+        </record>
+
+        <record id="test_type_measure" model="oneshare.quality.point.test_type">
+            <field name="name">Measure</field>
+            <field name="technical_name">measure</field><!--测量工步-->
+        </record>
+
+        <record id="test_type_multi_measure" model="oneshare.quality.point.test_type">
+            <field name="name">Multi Measure</field>
+            <field name="technical_name">multi_measure</field><!--多项测量工步-->
+        </record>
+
+        <record id="test_type_text" model="oneshare.quality.point.test_type">
+            <field name="name">Text</field>
+            <field name="technical_name">text</field><!--文本指令-->
+        </record>
+        <record id="test_type_picture" model="oneshare.quality.point.test_type">
+            <field name="name">Take a Picture</field>
+            <field name="technical_name">picture</field><!--拍照-->
+        </record>
+
+        <record id="test_type_video" model="oneshare.quality.point.test_type">
+            <field name="name">Show a Video</field>
+            <field name="technical_name">video</field><!--播放一段视频-->
+        </record>
+
+        <record id="test_type_tightening" model="oneshare.quality.point.test_type">
+            <field name="name">Tightening Work Step</field>
+            <field name="technical_name">tightening</field><!--拧紧工步-->
+        </record>
+
+        <record id="test_type_tightening_point" model="oneshare.quality.point.test_type">
+            <field name="name">Tightening Point</field>
+            <field name="technical_name">tightening_point</field><!--拧紧点-->
+        </record>
+
+    </data>
+</odoo>

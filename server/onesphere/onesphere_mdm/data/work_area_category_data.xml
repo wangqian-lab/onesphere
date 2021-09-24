@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="oneshare_work_area_category_1" model="oneshare.mrp.work.area.category">
+            <field name="name">车间</field>
+            <field name="color" eval="1"/>
+        </record>
+        <record id="oneshare_work_area_category_2" model="oneshare.mrp.work.area.category">
+            <field name="name">生产线</field>
+            <field name="color" eval="2"/>
+        </record>
+        <record id="oneshare_work_area_category_3" model="oneshare.mrp.work.area.category">
+            <field name="name">工段</field>
+            <field name="color" eval="3"/>
+        </record>
+        <record id="oneshare_work_area_category_4" model="oneshare.mrp.work.area.category">
+            <field name="name">工位</field>
+            <field name="color" eval="4"/>
+        </record>
+        <record id="oneshare_work_area_category_5" model="oneshare.mrp.work.area.category">
+            <field name="name">工位拾取区域</field>
+            <field name="color" eval="5"/>
+        </record>
+    </data>
+</odoo>

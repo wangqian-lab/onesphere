@@ -1,0 +1,209 @@
+<odoo>
+    <data>
+        <record id="oneshare_mom_work_area_view_form" model="ir.ui.view">
+            <field name="name">oneshare_mom_work_area_view_form</field>
+            <field name="model">oneshare.mrp.work.area</field>
+            <field name="arch" type="xml">
+                <form string="Work Area" js_class="onesphere_work_area_form">
+                    <sheet>
+                        <field name="technical_name" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_children_work_area_tree_view" class="oe_stat_button" type="object"
+                                    icon="fa-bookmark"
+                                    attrs="{'invisible': [('technical_name', 'in', (False, '工位拾取区域'))]}">
+                                <div class="o_stat_info">
+                                    <field name="children_count"/>
+                                    <span class="o_stat_text">Children Work Areas</span>
+                                </div>
+                            </button>
+                            <button name="action_open_related_work_center_form_view" class="oe_stat_button"
+                                    type="object"
+                                    icon="fa-bookmark"
+                                    attrs="{'invisible': [('related_workcenter_ids', '=', False)]}">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Work Center</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="name" string="Work Area Name" required="True"/>
+                                <field name="category_id" readonly="1"/>
+                                <field name="parent_id" attrs="{'invisible': [('technical_name', '=', '车间')]}"/>
+                                <field name="related_workcenter_ids" readonly="1" widget="many2many_tags"
+                                       attrs="{'invisible': [('technical_name', '!=', '工位')]}"/>
+                            </group>
+                            <group>
+                                <field name="code" required="1"/>
+                                <field name="resource_calendar_id" required="1"/>
+                                <field name="company_id" groups="base.group_multi_company"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="oneshare_mom_work_area_view_tree" model="ir.ui.view">
+            <field name="name">oneshare_mom_work_area_view_tree</field>
+            <field name="model">oneshare.mrp.work.area</field>
+            <field name="arch" type="xml">
+                <tree string="Work Area" js_class="onesphere_work_area_tree">
+                    <field name="sequence" widget="handle"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="parent_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="oneshare_work_area_category_filter" model="ir.ui.view">
+            <field name="name">oneshare_work_area_category_filter</field>
+            <field name="model">oneshare.mrp.work.area.category</field>
+            <field name="arch" type="xml">
+                <search string="Work Area Category">
+                    <field name="name" string="Work Area Category"
+                           filter_domain="[('name','ilike',self)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="oneshare_work_area_filter" model="ir.ui.view">
+            <field name="name">oneshare_work_area_filter</field>
+            <field name="model">oneshare.mrp.work.area</field>
+            <field name="arch" type="xml">
+                <search string="Work Area">
+                    <field name="name" string="Work Area"
+                           filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <field name="parent_id" string="Parent Work Area"/>
+                    <filter name="is_shop_floor" string="Shop Floor" domain="[('technical_name', '=', '车间')]"/>
+                    <filter name="is_production_line" string="Production Line"
+                            domain="[('technical_name', '=', '生产线')]"/>
+                    <filter name="is_work_segment" string="Work Segment"
+                            domain="[('technical_name', '=', '工段')]"/>
+                    <filter name="is_work_station" string="Work Station"
+                            domain="[('technical_name', '=', '工位')]"/>
+                    <filter name="is_workstation_unit" string="Work Station Unit"
+                            domain="[('technical_name', '=', '工位拾取区域')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_by_category" domain="[]"
+                                context="{'group_by': 'category_id'}"/>
+                        <filter string="Parent" name="group_by_parent" domain="[]"
+                                context="{'group_by': 'parent_id'}"/>
+                        <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}"
+                                groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="oneshare_action_open_shop_floor" model="ir.actions.act_window">
+            <field name="name">Shop Floor</field>
+            <field name="res_model">oneshare.mrp.work.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_filter"/>
+            <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+            <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
+            <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
+            <!--                ]"/>-->
+            <field name="context">{"search_default_is_shop_floor":1 }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a shop floor.
+                </p>
+            </field>
+        </record>
+
+        <record id="oneshare_action_open_production_line" model="ir.actions.act_window">
+            <field name="name">Production Line</field>
+            <field name="res_model">oneshare.mrp.work.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_filter"/>
+            <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+            <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
+            <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
+            <!--                ]"/>-->
+            <field name="context">{"search_default_is_production_line":1, "search_default_group_by_parent":1 }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a production line.
+                </p>
+            </field>
+        </record>
+
+        <record id="oneshare_action_open_work_segment" model="ir.actions.act_window">
+            <field name="name">Work Segment</field>
+            <field name="res_model">oneshare.mrp.work.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_filter"/>
+            <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+            <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
+            <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
+            <!--                ]"/>-->
+            <field name="context">{"search_default_is_work_segment":1, "search_default_group_by_parent":1 }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a work segment.
+                </p>
+            </field>
+        </record>
+
+        <record id="mrp.mrp_workcenter_action" model="ir.actions.act_window">
+            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":1 }</field>
+        </record>
+
+        <record id="oneshare_action_open_work_station" model="ir.actions.act_window">
+            <field name="name">Work Station</field>
+            <field name="res_model">oneshare.mrp.work.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_filter"/>
+            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":1 }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a work station.
+                </p>
+            </field>
+        </record>
+
+        <record id="oneshare_action_open_work_station_unit" model="ir.actions.act_window">
+            <field name="name">Work station Unit</field>
+            <field name="res_model">oneshare.mrp.work.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_filter"/>
+            <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+            <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
+            <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
+            <!--                ]"/>-->
+            <field name="context">{"search_default_is_workstation_unit":1, "search_default_group_by_parent":1 }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a work station unit.
+                </p>
+            </field>
+        </record>
+
+        <record id="oneshare_action_open_work_area_category" model="ir.actions.act_window">
+            <field name="name">Work Area Category</field>
+            <field name="res_model">oneshare.mrp.work.area.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_work_area_category_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a work area category.
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

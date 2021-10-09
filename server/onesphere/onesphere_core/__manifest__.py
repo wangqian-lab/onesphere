@@ -23,7 +23,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/onesphere_core_rules.xml',
+        'security/ir.model.access.csv',
         'data/base_groups.xml',
         'views/res_users_views.xml',
     ],

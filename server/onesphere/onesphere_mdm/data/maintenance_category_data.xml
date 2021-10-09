@@ -6,25 +6,6 @@
             <field name="name">Human Machine Interface</field>
             <field name="technical_name">hmi</field>
         </record>
-        <!-- Equipment Tightening Tool -->
-        <record id="equipment_electric_controller" model="maintenance.equipment.category">
-            <field name="name">Tightening Electric Controller</field>
-            <field name="technical_name">tightening_controller</field>
-        </record>
-        <record id="equipment_nut_runner" model="maintenance.equipment.category">
-            <field name="name">Tightening Tool(Nut Runner)</field>
-            <field name="technical_name">tightening_nut_runner</field>
-        </record>
-
-        <record id="equipment_Wrench" model="maintenance.equipment.category">
-            <field name="name">Tightening Tool(Wrench)</field>
-            <field name="technical_name">tightening_wrench</field>
-        </record>
-
-        <record id="equipment_Spindle" model="maintenance.equipment.category">
-            <field name="name">Tightening Tool(Spindle)</field>
-            <field name="technical_name">tightening_spindle</field>
-        </record>
 
         <record id="equipment_io" model="maintenance.equipment.category">
             <field name="name">Remote Input/Output</field>

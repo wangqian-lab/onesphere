@@ -5,6 +5,7 @@ from odoo import models, fields, api
 
 class MaintenanceEquipmentCategory(models.Model):
     _inherit = 'maintenance.equipment.category'
+    _rec_name = 'technical_name'
 
     @api.depends('name')
     def _compute_technical_name(self):

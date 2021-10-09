@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_LIMIT
 
 
 class OneshareTestType(models.Model):
@@ -50,7 +49,7 @@ class OneshareQuality(models.Model):
 
     active = fields.Boolean(default=True)
     check_count = fields.Integer(compute=_compute_check_count)
-    quality_check_ids = fields.One2many('oneshare.quality.check', 'quality_point_id')
+    # quality_check_ids = fields.One2many('oneshare.quality.check', 'quality_point_id')
     test_type_id = fields.Many2one('oneshare.quality.point.test_type', 'Test Type',
                                    help="Defines the type of the quality control point.",
                                    required=True, default=_get_default_test_type_id)

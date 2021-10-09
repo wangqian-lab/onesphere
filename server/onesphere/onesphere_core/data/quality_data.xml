@@ -102,15 +102,5 @@
             <field name="technical_name">video</field><!--播放一段视频-->
         </record>
 
-        <record id="test_type_tightening" model="oneshare.quality.point.test_type">
-            <field name="name">Tightening Work Step</field>
-            <field name="technical_name">tightening</field><!--拧紧工步-->
-        </record>
-
-        <record id="test_type_tightening_point" model="oneshare.quality.point.test_type">
-            <field name="name">Tightening Point</field>
-            <field name="technical_name">tightening_point</field><!--拧紧点-->
-        </record>
-
     </data>
 </odoo>

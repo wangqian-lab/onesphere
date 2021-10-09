@@ -2,10 +2,13 @@
 import json
 import ast
 from odoo import models, fields, api
-from odoo.tools import pycompat
+from odoo.tools import pycompat, ustr
 from asteval import Interpreter
+import logging
 
 aeval = Interpreter()
+
+_logger = logging.getLogger(__name__)
 
 
 class OneshareMrpWorkArea(models.Model):
@@ -176,6 +179,14 @@ class OneshareMrpWorkArea(models.Model):
     def default_get(self, fields_list):
         ret = super(OneshareMrpWorkArea, self).default_get(fields_list)
         context = self.env.context
+        if 'resource_calendar_id' in fields_list:
+            try:
+                ret.update({
+                    'resource_calendar_id': self.env.ref('onesphere_core.resource_calendar_std_140h',
+                                                         raise_if_not_found=True).id
+                })
+            except Exception as e:
+                _logger.error(ustr(e))
         if context.get('search_default_is_shop_floor'):
             ret.update({
                 'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id

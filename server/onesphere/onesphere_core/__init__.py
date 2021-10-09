@@ -16,8 +16,20 @@ def _default_group_mrp_routing(cr):
             continue
         default_values.update({key: True})
     ResConfig.create(default_values).execute()
-    cr.commit()  # force commit
+
+
+def _modify_all_workcenter_resource_calendar(cr, resource_xml_id):
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    WorkCenter = env['mrp.workcenter'].search([(1, '=', 1)])
+    calendar_id = env.ref(resource_xml_id)
+    if calendar_id:
+        WorkCenter.write({'resource_calendar_id': calendar_id.id})
 
 
 def _onesphere_core_post_init(cr, registry):
     _default_group_mrp_routing(cr)
+    _modify_all_workcenter_resource_calendar(cr, 'onesphere_core.resource_calendar_std_140h')
+
+
+def _oneshare_core_uninstall_hook(cr, registry):
+    _modify_all_workcenter_resource_calendar(cr, 'resource.resource_calendar_std')

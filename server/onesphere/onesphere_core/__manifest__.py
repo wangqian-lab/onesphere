@@ -25,9 +25,11 @@
     'data': [
         'security/onesphere_core_rules.xml',
         'security/ir.model.access.csv',
+        'data/resource_data.xml',
         'data/base_groups.xml',
         'views/res_users_views.xml',
     ],
     'post_init_hook': '_onesphere_core_post_init',
+    'uninstall_hook': '_oneshare_core_uninstall_hook',
     'auto_install': False
 }

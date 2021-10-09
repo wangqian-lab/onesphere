@@ -10,7 +10,6 @@ RUN pip3 install --upgrade pip \
 
 COPY ./onesphere /mnt/extra-addons/
 COPY ./oneshare_base /mnt/extra-addons/
-COPY ./oneshare_enterprise /mnt/extra-addons/
 
 # oneshare base requirements
 RUN pip3 install -r /mnt/extra-addons/requirements.txt

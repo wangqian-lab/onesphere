@@ -12,6 +12,8 @@ COPY ./onesphere /mnt/extra-addons/
 COPY ./oneshare_base /mnt/extra-addons/
 
 # oneshare base requirements
-RUN pip3 install -r /mnt/extra-addons/requirements.txt
+RUN pip3 install -r /mnt/extra-addons/requirements.txt \
+    && rm -f /requirements.txt \
+    && rm -f /mnt/extra-addons/requirements.txt
 
 USER odoo

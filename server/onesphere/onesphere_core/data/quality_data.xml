@@ -73,6 +73,11 @@
             <field name="technical_name">print_label</field><!--打印-->
         </record>
 
+        <record id="test_type_printer" model="oneshare.quality.point.test_type">
+            <field name="name">Print</field>
+            <field name="technical_name">printer</field><!--打印-->
+        </record>
+
         <record id="test_type_passfail" model="oneshare.quality.point.test_type">
             <field name="name">Pass - Fail</field>
             <field name="technical_name">passfail</field><!--passfail-->

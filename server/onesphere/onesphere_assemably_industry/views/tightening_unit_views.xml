@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <record id="onesphere_tightening_unit_view_form" model="ir.ui.view">
+            <field name="name">onesphere_tightening_unit_view_form</field>
+            <field name="model">onesphere.tightening.unit</field>
+            <field name="arch" type="xml">
+                <form string="Tightening Unit">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" string="Name" placeholder="Tightening Unit Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="category_id" options="{&quot;no_open&quot;: True}"
+                                       context="{'default_company_id':company_id}"/>
+                                <field name="company_id" groups="base.group_multi_company"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description" name="description">
+                                <field name="note"/>
+                            </page>
+                            <page string="Product Information" name="product_information">
+                                <group>
+                                    <group>
+                                        <field name="partner_id"/>
+                                        <field name="model"/>
+                                        <field name="serial_no"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="onesphere_tightening_unit_view_tree" model="ir.ui.view">
+            <field name="name">onesphere_tightening_unit_view_tree</field>
+            <field name="model">onesphere.tightening.unit</field>
+            <field name="arch" type="xml">
+                <tree string="Tightening Unit" sample="1">
+                    <field name="name"/>
+                    <!-- <field name="active" invisible="1"/> -->
+                    <field name="serial_no"/>
+                    <field name="category_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="onesphere_tightening_unit_action" model="ir.actions.act_window">
+            <field name="name">Tightening Unit</field>
+            <field name="res_model">onesphere.tightening.unit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new tightening unit
+                </p>
+                <p>
+                    Track equipments and link it to an employee or department.
+                    You will be able to manage allocations, issues and maintenance of your equipment.
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_resource_tightening_unit"
+                name="Tightening Unit"
+                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_resource"
+                action="onesphere_tightening_unit_action"
+                sequence="20"/>
+
+    </data>
+</odoo>

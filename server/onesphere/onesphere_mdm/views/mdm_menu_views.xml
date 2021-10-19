@@ -38,7 +38,6 @@
                 id="oneshare_mom_menu_manufacturing_resource_equipment"
                 name="Manufacturing Equipment"
                 parent="oneshare_mom_menu_manufacturing_resource"
-                groups="mrp.group_mrp_user"
                 action="maintenance.hr_equipment_action"
                 sequence="10"/>
 

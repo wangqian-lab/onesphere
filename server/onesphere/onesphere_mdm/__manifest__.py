@@ -34,5 +34,8 @@
         'views/mrp_routing_workcenter_views.xml',
         'views/work_area_views.xml',
         'views/mdm_menu_views.xml',
-    ]
+    ],
+    'demo': [
+        'data/mrp_demo.xml',
+    ],
 }

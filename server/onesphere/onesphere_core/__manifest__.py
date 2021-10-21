@@ -28,6 +28,7 @@
         'data/resource_data.xml',
         'data/base_groups.xml',
         'views/res_users_views.xml',
+        'views/mrp_workcenter_group_views.xml',
     ],
     'post_init_hook': '_onesphere_core_post_init',
     'uninstall_hook': '_oneshare_core_uninstall_hook',

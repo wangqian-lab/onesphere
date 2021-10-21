@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mrp.mrp_workcenter_3" model="mrp.workcenter">
+            <field name="code">AL1</field>
+        </record>
+
+        <record id="mrp.mrp_workcenter_1" model="mrp.workcenter">
+            <field name="code">DS1</field>
+        </record>
+
+        <record id="mrp.mrp_workcenter_2" model="mrp.workcenter">
+            <field name="code">AL2</field>
+        </record>
+    </data>
+</odoo>

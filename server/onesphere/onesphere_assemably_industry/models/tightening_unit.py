@@ -10,8 +10,8 @@ class OnesphereTighteningUnit(models.Model):
     _log_access = False
     _check_company_auto = True
 
+    ref = fields.Char('Tightening Unit Ref', required=True)
     name = fields.Char('Tightening Unit', related='tightening_tool_id.name', required=True, readonly=False)
-    active = fields.Boolean(default=True, related='tightening_tool_id.active', readonly=False)
     tightening_tool_id = fields.Many2one('maintenance.equipment', 'Tightening Tool', ondelete='cascade',
                                          check_company=True,
                                          required=True,
@@ -35,3 +35,9 @@ class OnesphereTighteningUnit(models.Model):
         readonly=False)
 
     note = fields.Text('Note', related='tightening_tool_id.note', readonly=False)
+
+    def name_get(self):
+        res = []
+        for unit in self:
+            res.append((unit.id, '#%s@%s' % (unit.ref, unit.workcenter_id.display_name)))
+        return res

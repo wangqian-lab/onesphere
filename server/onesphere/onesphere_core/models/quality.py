@@ -56,3 +56,7 @@ class OneshareQuality(models.Model):
     test_type = fields.Char(related='test_type_id.technical_name', readonly=True)
     note = fields.Html('Note')
     reason = fields.Html('Cause')
+
+    norm = fields.Float('Norm', digits='Quality Tests')
+    tolerance_min = fields.Float('Min Tolerance', digits='Quality Tests')
+    tolerance_max = fields.Float('Max Tolerance', digits='Quality Tests')

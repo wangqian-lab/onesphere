@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="oneshare_mrp_workcenter_group_tree_view" model="ir.ui.view">
+            <field name="name">oneshare_mrp_workcenter_group_tree_view</field>
+            <field name="model">mrp.workcenter.group</field>
+            <field name="arch" type="xml">
+                <tree string="Work Center Group">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="onesphere_workcenter_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="oneshare_mrp_workcenter_group_form_view" model="ir.ui.view">
+            <field name="name">oneshare_mrp_workcenter_group_form_view</field>
+            <field name="model">mrp.workcenter.group</field>
+            <field name="arch" type="xml">
+                <form string="Work Center Group">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="onesphere_workcenter_ids" widget="many2many_tags"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="oneshare_workcenter_group_filter" model="ir.ui.view">
+            <field name="name">oneshare_workcenter_group_filter</field>
+            <field name="model">mrp.workcenter.group</field>
+            <field name="arch" type="xml">
+                <search string="Work Center Group">
+                    <field name="name" string="Work Center Group"
+                           filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}"
+                                groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="oneshare_action_open_workcenter_group" model="ir.actions.act_window">
+            <field name="name">Work Center Group</field>
+            <field name="res_model">mrp.workcenter.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="oneshare_workcenter_group_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's create a work center group.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_workcenter_group"
+                name="Work Center Group"
+                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_setting"
+                action="oneshare_action_open_workcenter_group"
+                groups="mrp.group_mrp_manager"
+                sequence="40"/>
+    </data>
+</odoo>

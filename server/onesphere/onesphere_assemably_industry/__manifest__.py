@@ -26,6 +26,7 @@
         'security/ir.model.access.csv',
         'data/maintenance_category_data.xml',
         'data/quality_data.xml',
+        'data/tightening_data.xml',
         'views/tightening_unit_views.xml',
         'views/mdm_menu_views.xml',
     ],

@@ -61,13 +61,5 @@
             </field>
         </record>
 
-
-        <menuitem
-                id="oneshare_mom_menu_manufacturing_setting_workcenter_group"
-                name="Work Center Group"
-                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_setting"
-                action="oneshare_action_open_workcenter_group"
-                groups="mrp.group_mrp_manager"
-                sequence="40"/>
     </data>
 </odoo>

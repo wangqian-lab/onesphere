@@ -3,38 +3,44 @@
 
         <record id="tightening_tool_1" model="maintenance.equipment">
             <field name="name">测试拧紧单元1</field>
-            <field name="category_id" ref="onesphere_assemably_industry.equipment_electric_controller"/>
-            <field name="partner_id" ref="onesphere_assemably_industry.tightening_vendor_desoutter"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_unit_1</field>
             <field name="model">EAD0001</field>
         </record>
 
         <record id="tightening_tool_2" model="maintenance.equipment">
             <field name="name">测试拧紧单元2</field>
-            <field name="category_id" ref="onesphere_assemably_industry.equipment_electric_controller"/>
-            <field name="partner_id" ref="onesphere_assemably_industry.tightening_vendor_atlas"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_2</field>
             <field name="model">ETV SB63</field>
         </record>
 
         <record id="tightening_tool_3" model="maintenance.equipment">
             <field name="name">测试拧紧单元3</field>
-            <field name="category_id" ref="onesphere_assemably_industry.equipment_electric_controller"/>
-            <field name="partner_id" ref="onesphere_assemably_industry.tightening_vendor_atlas"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_3</field>
             <field name="model">ETV SB63</field>
         </record>
 
         <record id="tightening_unit_1" model="onesphere.tightening.unit">
+            <field name="ref">51</field>
             <field name="tightening_tool_id" ref="tightening_tool_1"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
         <record id="tightening_unit_2" model="onesphere.tightening.unit">
+            <field name="ref">52</field>
             <field name="tightening_tool_id" ref="tightening_tool_2"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
         </record>
 
         <record id="tightening_unit_3" model="onesphere.tightening.unit">
+            <field name="ref">53</field>
             <field name="tightening_tool_id" ref="tightening_tool_3"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
         </record>
 
 

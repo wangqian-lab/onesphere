@@ -55,7 +55,7 @@ class TighteningOprPoint(models.Model):
 
     test_type_id = fields.Many2one('oneshare.quality.point.test_type', related='quality_point_id.test_type_id',
                                    default=lambda self: self.env.ref(
-                                       'onesphere_assemably_industry.test_type_tightening_point'))
+                                       'onesphere_assembly_industry.test_type_tightening_point'))
 
     max_attempt_times = fields.Integer(string='Tightening Operation Max Attempt Times', default=3)
 

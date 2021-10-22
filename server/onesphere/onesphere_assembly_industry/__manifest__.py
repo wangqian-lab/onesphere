@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "onesphere_assemably_industry",
+    'name': "onesphere_assembly_industry",
 
     'summary': """
         智能装配行业扩展模块""",

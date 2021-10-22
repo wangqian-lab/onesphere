@@ -32,9 +32,17 @@ class OnesphereTighteningUnit(models.Model):
     model = fields.Char('Model', related='tightening_tool_id.model', readonly=False)
     workcenter_id = fields.Many2one(
         'mrp.workcenter', string='Work Center', related='tightening_tool_id.workcenter_id', check_company=True,
-        readonly=False)
+        readonly=False, store=True)
 
     note = fields.Text('Note', related='tightening_tool_id.note', readonly=False)
+
+    _sql_constraints = [
+        (
+            'unique_tightening_unit_per_work_center',
+            'UNIQUE(ref, workcenter_id)',
+            'Unique Tightening Unit Ref Per Work Center',
+        ),
+    ]
 
     def name_get(self):
         res = []

@@ -33,6 +33,7 @@
         'views/mrp_workcenter_views.xml',
         'views/mrp_routing_workcenter_views.xml',
         'views/work_area_views.xml',
+        'views/mrp_workcenter_group_views.xml',
         'views/mdm_menu_views.xml',
     ],
     'demo': [

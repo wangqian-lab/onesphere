@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="onesphere_oss_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">onesphere_oss_res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="120"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id='about' position="before">
+                <h2>Object Storage Service</h2>
+                <div class="row mt16 o_settings_container" name="oss_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_onesphere_oss">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group mt16">
+                                <label for="oss_bucket_name" class="o_light_label"/>
+                                <field name="oss_bucket_name"/>
+                            </div>
+                            <div class="content-group mt16">
+                                <label for="oss_endpoint" class="o_light_label"/>
+                                <field name="oss_endpoint"/>
+                            </div>
+                            <div class="content-group mt16">
+                                <label for="oss_access_key" class="o_light_label"/>
+                                <field name="oss_access_key"/>
+                            </div>
+                            <div class="content-group mt16">
+                                <label for="oss_secret_key" class="o_light_label"/>
+                                <field name="oss_secret_key"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

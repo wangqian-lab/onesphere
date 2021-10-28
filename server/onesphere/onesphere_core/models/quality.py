@@ -42,7 +42,7 @@ class OneshareQuality(models.Model):
         'product.product', string='Products',
         domain="[('type', 'in', ['product', 'consu']),'|', ('company_id', '=', False), ('company_id', '=', company_id.id)]")
     picking_type_ids = fields.Many2many(
-        'stock.picking.type', string='Operation Types', required=True, check_company=True)
+        'oneshare.operation.type', string='Operation Types', required=True, check_company=True)
     company_id = fields.Many2one(
         'res.company', string='Company', required=True, index=True,
         default=lambda self: self.env.company)

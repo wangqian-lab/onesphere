@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="oneshare_operation_type_view_tree">
+        <field name="name">oneshare_operation_type_view_tree</field>
+        <field name="model">oneshare.operation.type</field>
+        <field name="arch" type="xml">
+            <tree string="Operation Types">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="oneshare_operation_type_view_form">
+        <field name="name">oneshare_operation_type_view_form</field>
+        <field name="model">oneshare.operation.type</field>
+        <field name="arch" type="xml">
+            <form string="Operation Types">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

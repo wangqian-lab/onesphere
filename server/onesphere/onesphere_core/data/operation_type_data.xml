@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="mrp_operation_type" model="oneshare.operation.type">
+            <field name="code">mrp_operation</field>
+            <field name="color">1</field>
+            <field name="sequence">1</field>
+        </record>
+    </data>
+</odoo>

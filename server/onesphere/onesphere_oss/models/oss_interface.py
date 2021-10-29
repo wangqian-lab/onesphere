@@ -12,6 +12,7 @@ from odoo.addons.oneshare_utils.constants import ENV_OSS_BUCKET, ENV_OSS_ENDPOIN
 
 _logger = logging.getLogger(__name__)
 
+_http_client = False
 
 def oss_wrapper(raw_resp=True):
     """
@@ -46,11 +47,12 @@ class OSSInterface(models.AbstractModel):
     _name = 'onesphere.oss.interface'
     _description = '对象存储接口抽象类'
 
-    _http_client = None
+    # _http_client = None
 
     def ensure_oss_client(self):
-        if self._http_client:
-            return self._http_client
+        global _http_client
+        if _http_client:
+            return _http_client
         ICP = self.env['ir.config_parameter']
         endpoint = ICP.get_param('oss.endpoint', ENV_OSS_ENDPOINT)
         access_key = ICP.get_param('oss.access_key', ENV_OSS_ACCESS_KEY)
@@ -63,10 +65,18 @@ class OSSInterface(models.AbstractModel):
                                                       status_forcelist=[500, 502, 503, 504],
                                                   ),
                                                   ), )
-        self._http_client = c
-        return self._http_client
+        _http_client = c
+        return _http_client
 
     @oss_wrapper(raw_resp=False)
     def get_oss_object(self, bucket_name: str, object_name: str):
+        # 获取minio数据
         c = self.ensure_oss_client()
         return c.get_object(bucket_name, object_name)
+
+
+    def put_oss_object(self, bucket_name: str, object_name: str, data: bytes, length: int):
+        # 上传minio数据
+        c = self.ensure_oss_client()
+        return c.put_object(bucket_name, object_name, data, length)
+

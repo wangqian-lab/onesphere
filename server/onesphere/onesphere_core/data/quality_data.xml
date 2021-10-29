@@ -40,18 +40,18 @@
         </record>
 
 
-        <record id="reason_workcenter" model="oneshare.quality.reason">
-            <field name="name">Workcenter Failure</field>
-        </record>
-        <record id="reason_parts" model="oneshare.quality.reason">
-            <field name="name">Parts Quality</field>
-        </record>
-        <record id="reason_wo" model="oneshare.quality.reason">
-            <field name="name">Work Operation</field>
-        </record>
-        <record id="reason_other" model="oneshare.quality.reason">
-            <field name="name">Others</field>
-        </record>
+<!--        <record id="reason_workcenter" model="oneshare.quality.reason">-->
+<!--            <field name="name">Workcenter Failure</field>-->
+<!--        </record>-->
+<!--        <record id="reason_parts" model="oneshare.quality.reason">-->
+<!--            <field name="name">Parts Quality</field>-->
+<!--        </record>-->
+<!--        <record id="reason_wo" model="oneshare.quality.reason">-->
+<!--            <field name="name">Work Operation</field>-->
+<!--        </record>-->
+<!--        <record id="reason_other" model="oneshare.quality.reason">-->
+<!--            <field name="name">Others</field>-->
+<!--        </record>-->
 
         <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
             <field name="name">Register Consumed Materials</field>

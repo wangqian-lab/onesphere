@@ -1,6 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_oneshare_hmi_user_role_user,oneshare.hmi.user.role.user,model_oneshare_hmi_user_role,base.group_user,1,0,0,0
 access_oneshare_hmi_user_role_manager,oneshare.hmi.user.role.manager,model_oneshare_hmi_user_role,base.group_erp_manager,1,1,1,1
+access_oneshare_operation_type_user,access_oneshare_operation_type_user,model_oneshare_operation_type,base.group_user,1,1,1,1
 access_oneshare_daq_item_user,oneshare.daq.item.user,model_onesphere_daq_item,base.group_user,1,0,0,0
 access_oneshare_daq_item_manager,oneshare.daq.item.manager,model_onesphere_daq_item,base.group_erp_manager,1,1,1,1
 access_oneshare_quality_point_test_type_user,oneshare.quality.point.test_type.user,model_oneshare_quality_point_test_type,onesphere_core.group_quality_user,1,0,0,0

@@ -167,6 +167,14 @@
                 groups="mrp.group_mrp_manager"
                 sequence="40"/>
 
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_quality_test_type"
+                name="Quality Point Test Type"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="onesphere_core.onesphere_action_open_quality_point_test_type"
+                groups="mrp.group_mrp_manager"
+                sequence="50"/>
+
 
     </data>
 </odoo>

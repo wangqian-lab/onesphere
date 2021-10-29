@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- quality point test type -->
+    <record id="onesphere_quality_point_test_type_view_tree" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_test_type_view_tree</field>
+        <field name="model">oneshare.quality.point.test_type</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Point Type">
+                <field name="name"/>
+                <field name="technical_name" optional="show"/>
+                <field name="active" optional="show" string="Active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_test_type_view_form" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_test_type_view_form</field>
+        <field name="model">oneshare.quality.point.test_type</field>
+        <field name="arch" type="xml">
+            <form string="Quality Point Type">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name"/>
+                        </div>
+                        <h1 class="mb32">
+                            <field name="name" class="mb16"/>
+                        </h1>
+                        <field name="active" invisible="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_test_type_filter" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_test_type_filter</field>
+        <field name="model">oneshare.quality.point.test_type</field>
+        <field name="arch" type="xml">
+            <search string="Quality Point Type">
+                <field name="name" string="Quality Point Type Name"
+                       filter_domain="[('name','ilike',self)]"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <record id="onesphere_action_open_quality_point_test_type" model="ir.actions.act_window">
+        <field name="name">Quality Point Type</field>
+        <field name="res_model">oneshare.quality.point.test_type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="onesphere_quality_point_test_type_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Let's create a quality point test type.
+            </p>
+        </field>
+    </record>
+</odoo>

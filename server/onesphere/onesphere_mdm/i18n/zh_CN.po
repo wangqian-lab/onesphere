@@ -1,0 +1,1201 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* onesphere_core
+# 	* onesphere_certification_authority
+# 	* onesphere_mdm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-27 09:44+0000\n"
+"PO-Revision-Date: 2021-10-27 09:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_ca_res_config_settings_view_form
+msgid "<span class=\"o_form_label\">认证中心</span>"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+msgid "<span class=\"o_stat_text\">Certifications</span>"
+msgstr "<span class=\"o_stat_text\">证书</span>"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "<span class=\"o_stat_text\">Children Work Areas</span>"
+msgstr "子工作区"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "<span class=\"o_stat_text\">Work Center</span>"
+msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+msgid "<span class=\"o_stat_text\">Work Station Area</span>"
+msgstr "工作区工位"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. modules: onesphere_core, onesphere_certification_authority, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__active
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__active
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+msgid "Active"
+msgstr "激活"
+
+#. module: onesphere_core
+#: model:res.groups,name:onesphere_core.group_quality_manager
+msgid "Administrator"
+msgstr ""
+
+#. modules: onesphere_certification_authority, onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_category_filter
+msgid "Archived"
+msgstr "归档"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+msgid "Area Information"
+msgstr "区域信息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_bill_of_material
+msgid "Bill Of Material"
+msgstr "物料清单"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.onesahre_issue_cert_wizard_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Category"
+msgstr "类别"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__technical_name
+msgid "Category Name"
+msgstr "类别名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__reason
+msgid "Cause"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.ui.menu,name:onesphere_certification_authority.menu_certification_authority
+msgid "Certification Authority"
+msgstr "认证中心"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_ca_res_config_settings_view_form
+msgid "Certification Authority Settings"
+msgstr "认证中心设置"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__certification_count
+msgid "Certification Count"
+msgstr "证书总数"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__certification_ids
+msgid "Certifications"
+msgstr "证书"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__check_count
+msgid "Check Count"
+msgstr "检测个数"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__child_ids
+msgid "Child Work Areas"
+msgstr "子工作区"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__code
+msgid "Code"
+msgstr "编号"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__color
+msgid "Color Index"
+msgstr "颜色索引"
+
+#. modules: onesphere_core, onesphere_certification_authority, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__company_id
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__company_id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__company_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__company_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__company_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Company"
+msgstr "公司"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__complete_name
+msgid "Complete Name"
+msgstr "完整名称"
+
+#. module: onesphere_certification_authority
+#: model:ir.model,name:onesphere_certification_authority.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_consumable
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_product_product_search_view
+msgid "Consumable"
+msgstr "可消耗"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_mrp_consumable_action
+msgid "Consumable Product"
+msgstr "可消耗产品"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__children_count
+msgid "Count Of Work Production Line"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.onesahre_issue_cert_wizard_form
+msgid "Create Certification"
+msgstr "生成证书"
+
+#. module: onesphere_certification_authority
+#: model:ir.actions.act_window,name:onesphere_certification_authority.oneshare_issue_cert_wizard_action
+msgid "Create Certification Items"
+msgstr "生成证书项"
+
+#. modules: onesphere_core, onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__create_uid
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__create_uid
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. modules: onesphere_core, onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__create_date
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__create_date
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__crypt_content
+#: model:ir.model.fields,help:onesphere_certification_authority.field_oneshare_certification__crypt_content
+msgid "Crypt Content"
+msgstr "加密内容"
+
+#. module: onesphere_certification_authority
+#: code:addons/onesphere_certification_authority/models/res_config_settings.py:0
+#: model:ir.actions.act_window,name:onesphere_certification_authority.oneshare_action_open_crypt_key
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_tree
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_filter
+#, python-format
+msgid "Crypt Key"
+msgstr "加密秘钥"
+
+#. module: onesphere_certification_authority
+#: model:ir.ui.menu,name:onesphere_certification_authority.menu_cryptography_key
+msgid "Cryptography Key"
+msgstr "加密秘钥"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields.selection,name:onesphere_certification_authority.selection__res_config_settings__ca_algorithm__dsa
+msgid "DSA"
+msgstr "DSA算法"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
+msgid "Define the schedule of resource"
+msgstr "定义资源调度"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__test_type_id
+msgid "Defines the type of the quality control point."
+msgstr "定义质量控制点的类型"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__digest
+msgid "Digest"
+msgstr "数字签名"
+
+#. modules: onesphere_core, onesphere_certification_authority, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__display_name
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__display_name
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__display_name
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields.selection,name:onesphere_certification_authority.selection__res_config_settings__ca_algorithm__ecdsa
+msgid "ECDSA"
+msgstr "ECDSA算法"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_equipment_category
+msgid "Equipment Category"
+msgstr "设备类别"
+
+#. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_res_users_unique_uuid
+msgid "Every User unique UUID"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__expected_mtbf
+msgid "Expected MTBF"
+msgstr "预计的MTBF"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__expected_mtbf
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Expected Mean Time Between Failure"
+msgstr "预计的平均故障间隔时间"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "关注者(渠道)"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "订阅者(业务伙伴)"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_ca_res_config_settings_view_form
+msgid "Generate Cert Bundle"
+msgstr "生成证书对"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__sequence
+msgid "Gives the sequence order when displaying a list of work area."
+msgstr ""
+
+#. modules: onesphere_certification_authority, onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Group By"
+msgstr "分组"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__code
+msgid "HMI User Role Code"
+msgstr "HMI用户编号"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__name
+msgid "HMI User Role Name"
+msgstr "HMI用户名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__hmi_role_id
+msgid "HMI角色"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.module.category,description:onesphere_core.module_category_manufacturing_quality
+msgid "Helps you manage your quality alerts and quality checks."
+msgstr "帮你管理质量警告和质量检查"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_hmi
+msgid "Human Machine Interface"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_onesphere_daq_item
+msgid "Hyper Model"
+msgstr ""
+
+#. modules: onesphere_core, onesphere_certification_authority, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__id
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__id
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__id
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__id
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__id
+msgid "ID"
+msgstr "唯一识别码"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_needaction
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "如果勾选此项，有新消息会提醒你"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_mrp_workcenter_group__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the bills of "
+"material without removing it."
+msgstr "如果该有效字段设置为否，可以不用删除就隐藏物料清单"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area_category__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the category "
+"without removing it."
+msgstr "如果该有效字段设置为否，可以不用删除就隐藏类别"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the resource "
+"record without removing it."
+msgstr "如果该有效字段设置为否，可以不用删除就隐藏此记录"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+msgid "Inactive"
+msgstr "归档"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_is_follower
+msgid "Is Follower"
+msgstr "是关注者"
+
+#. module: onesphere_certification_authority
+#: model:ir.model,name:onesphere_certification_authority.model_onesahre_issue_cert_wizard
+msgid "Issue Cert Wizard"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_form
+msgid "Issued"
+msgstr "签发"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_filter
+msgid "Issued Cert"
+msgstr "签发的证书"
+
+#. module: onesphere_certification_authority
+#: code:addons/onesphere_certification_authority/models/certification_authority.py:0
+#: code:addons/onesphere_certification_authority/wizard/oneshare_issued_certification.py:0
+#: model:ir.actions.act_window,name:onesphere_certification_authority.oneshare_action_open_issued_certification
+#: model:ir.ui.menu,name:onesphere_certification_authority.menu_certification_issued
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_tree
+#, python-format
+msgid "Issued Certification"
+msgstr "签发的证书"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_tree
+msgid "Issued Date"
+msgstr "签发日期"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__crypt_key_id
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__crypt_key_id
+msgid "Key"
+msgstr "秘钥"
+
+#. modules: onesphere_core, onesphere_certification_authority, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard____last_update
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification____last_update
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key____last_update
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. modules: onesphere_core, onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__write_uid
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__write_uid
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. modules: onesphere_core, onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__write_date
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__write_date
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__write_date
+msgid "Last Updated on"
+msgstr "最后更新日"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.actions.act_window,help:onesphere_certification_authority.oneshare_action_open_crypt_key
+msgid "Let's Edit a Crypt Key."
+msgstr "让我们编辑一个加密秘钥"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.actions.act_window,help:onesphere_certification_authority.oneshare_action_open_issued_certification
+msgid "Let's Edit a Issued Certification."
+msgstr "让我们编辑一个签发的证书"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_production_line
+msgid "Let's create a production line."
+msgstr "让我们创建一条产线"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_shop_floor
+msgid "Let's create a shop floor."
+msgstr "让我们创建一个车间"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_area_category
+msgid "Let's create a work area category."
+msgstr "让我们创建一个工作区"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_workcenter_group
+msgid "Let's create a work center group."
+msgstr "让我们创建一个工作中心组"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_segment
+msgid "Let's create a work segment."
+msgstr "让我们创建一个工段"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_station_unit
+msgid "Let's create a work station unit."
+msgstr "让我们创建一个工位单元"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_station
+msgid "Let's create a work station."
+msgstr "让我们创建一个工位"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onsphere_core_view_users_form
+msgid "MOM Extra Info"
+msgstr "MOM额外信息"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_hmi_user_role
+msgid "MOM HMI User Role"
+msgstr "MOM HMI用户角色"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__mtbf
+msgid "MTBF"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__mttr
+msgid "MTTR"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "附件"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_maintenance_equipment
+msgid "Maintenance Equipment"
+msgstr "设备保养"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_maintenance_equipment_category
+msgid "Maintenance Equipment Category"
+msgstr "维护设备类别"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource_equipment
+msgid "Manufacturing Equipment"
+msgstr "产品设备"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing
+msgid "Manufacturing Process"
+msgstr "产品工艺"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource
+msgid "Manufacturing Resource"
+msgstr "产品资源"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_oneshare_mrp_work_area
+msgid "Manufacturing Work Area"
+msgstr "产品工作区"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_mdm_root
+msgid "Master Data Management(MOM)"
+msgstr "主数据管理(MOM)"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_material
+msgid "Material Management"
+msgstr "物料管理"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__tolerance_max
+msgid "Max Tolerance"
+msgstr "最大冗余"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Mean Time Between Failure"
+msgstr "平均故障间隔时间"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__mtbf
+msgid ""
+"Mean Time Between Failure, computed based on done corrective maintenances."
+msgstr "平均故障间隔时间，基于完成的纠正维护计算"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__mttr
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Mean Time To Repair"
+msgstr "平均修复时间"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_error
+msgid "Message Delivery error"
+msgstr "信息传递错误"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_ids
+msgid "Messages"
+msgstr "信息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__tolerance_min
+msgid "Min Tolerance"
+msgstr "最小角度"
+
+#. modules: onesphere_core, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__name
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+msgid "Name"
+msgstr "名称"
+
+#. module: onesphere_core
+#: code:addons/onesphere_core/models/quality.py:0
+#, python-format
+msgid "New"
+msgstr "新建"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__norm
+msgid "Norm"
+msgstr "标准值"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__note
+msgid "Note"
+msgstr "备注"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_needaction_counter
+msgid "Number of Actions"
+msgstr "行动数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_error_counter
+msgid "Number of errors"
+msgstr "错误数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "需要行动消息的数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "传递错误的消息数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_unread_counter
+msgid "Number of unread messages"
+msgstr "未读消息数量"
+
+#. module: onesphere_mdm
+#: model:ir.model.constraint,message:onesphere_mdm.constraint_mrp_workcenter_group_code_uniq
+msgid "Only one code per Work Center Group is allowed"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing_routing_workcenter
+msgid "Operation"
+msgstr "作业"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__picking_type_ids
+msgid "Operation Types"
+msgstr "作业类型"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Parent"
+msgstr "上级"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__parent_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Parent Work Area"
+msgstr "上级工作区"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__private_key
+msgid "Private Key"
+msgstr "私钥"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_mrp_product_variant_action
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_product
+msgid "Product"
+msgstr "产品"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_product_category
+msgid "Product Category"
+msgstr "产品类别"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_production_line
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__parent_id
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_production_line
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Production Line"
+msgstr "产线"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Production Line Name"
+msgstr "产线名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__product_ids
+msgid "Products"
+msgstr "产品"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_plc
+msgid "Programmable Logic Controller"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__public_key
+msgid "Public Key"
+msgstr "公钥"
+
+#. module: onesphere_core
+#: model:ir.module.category,name:onesphere_core.module_category_manufacturing_quality
+msgid "Quality"
+msgstr "质量"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_quality_point
+msgid "Quality Control Point"
+msgstr "质量控制点"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_quality_point_test_type
+msgid "Quality Control Test Type"
+msgstr "质量控制类型"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields.selection,name:onesphere_certification_authority.selection__res_config_settings__ca_algorithm__rsa
+msgid "RSA"
+msgstr "RSA算法"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_rfid_reader
+msgid "Radio Frequency Identification Reader"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__content
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__content
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.onesahre_issue_cert_wizard_form
+msgid "Raw Content"
+msgstr "原始内容"
+
+#. modules: onesphere_core, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__code
+msgid "Reference"
+msgstr "参照"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__related_work_area_id
+msgid "Related Work Area"
+msgstr "关联工作区"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__related_workcenter_ids
+msgid "Related Work Center(Station)"
+msgstr "关联工作中心(工位)"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_io
+msgid "Remote Input/Output"
+msgstr "远程输入/输出"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__resource_id
+msgid "Resource"
+msgstr "资源"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_onesahre_issue_cert_wizard__revision
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__revision
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__revision
+msgid "Rev"
+msgstr "修订版本号"
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_crypt_key_view_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_issued_cert_view_filter
+msgid "Revision"
+msgstr "修订版本号"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+msgid "Routing"
+msgstr "工艺路线"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__secret_key
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_cryptography_key__secret_key
+msgid "Secret Key"
+msgstr "密钥"
+
+#. modules: onesphere_core, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__sequence
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting
+msgid "Settings"
+msgstr "设置"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_shop_floor
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_shop_floor
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Shop Floor"
+msgstr "车间"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Shop Floor Name"
+msgstr "车间名称"
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_oneshare_certification__signature
+msgid "Signature"
+msgstr "签名"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__name
+msgid "Tag Name"
+msgstr "标签名"
+
+#. modules: onesphere_core, onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__test_type
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__technical_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__technical_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__technical_name
+msgid "Technical name"
+msgstr "技术名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__test_type_id
+msgid "Test Type"
+msgstr "测试类型"
+
+#. module: onesphere_core
+#: model:res.groups,comment:onesphere_core.group_quality_manager
+msgid "The quality manager manages the quality process"
+msgstr "质检管理员管理质检过程"
+
+#. module: onesphere_core
+#: model:res.groups,comment:onesphere_core.group_quality_user
+msgid "The quality user uses the quality process"
+msgstr "质检用户使用质检过程"
+
+#. module: onesphere_mdm
+#: model:ir.model.constraint,message:onesphere_mdm.constraint_maintenance_equipment_category_technical_name_uniq
+msgid "The technical name of the equipment category must be unique!"
+msgstr "设备类别名称要唯一！"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__tz
+msgid ""
+"This field is used in order to define in which timezone the resources will "
+"work."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__time_efficiency
+msgid ""
+"This field is used to calculate the expected duration of a work order at "
+"this work center. For example, if a work order takes one hour and the "
+"efficiency factor is 100%, then the expected duration will be one hour. If "
+"the efficiency factor is 200%, however the expected duration will be 30 "
+"minutes."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__time_efficiency
+msgid "Time Efficiency"
+msgstr "时间功率"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__tz
+msgid "Timezone"
+msgstr "时区"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__uuid
+msgid "UUID"
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onsphere_core_view_users_form
+msgid "Unique ID"
+msgstr "唯一ID"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_unread
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "未读消息数量"
+
+#. module: onesphere_core
+#: model:res.groups,name:onesphere_core.group_quality_user
+msgid "User"
+msgstr "用户"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__website_message_ids
+msgid "Website Messages"
+msgstr "网站消息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__website_message_ids
+msgid "Website communication history"
+msgstr "网站沟通历史"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__name
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_area
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_tree
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Area"
+msgstr "工作区"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_area_category
+#: model:ir.model,name:onesphere_mdm.model_oneshare_mrp_work_area_category
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__category_id
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_work_area_category
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_category_filter
+msgid "Work Area Category"
+msgstr "工作区类型"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "Work Area Name"
+msgstr "工作区名称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_area_station
+msgid "Work Area Station"
+msgstr "工作区工位"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__workcenter_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Work Center"
+msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_workcenter_group
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter_group
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__name
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_workcenter_group
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_group_form_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_group_tree_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Work Center Group"
+msgstr "工作中心组"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "工作中心使用情况"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__onesphere_workcenter_ids
+msgid "Work Centers"
+msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workorder
+msgid "Work Order"
+msgstr "工单"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_segment
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_segment
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Segment"
+msgstr "工段"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Segment Name"
+msgstr "工段名称"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_station
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Station"
+msgstr "工位"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Station Name"
+msgstr "工位名称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station_unit
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Station Unit"
+msgstr "工位单元"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Station Unit Name"
+msgstr "工位单元名称"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_station_unit
+msgid "Work station Unit"
+msgstr "工位单元"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter_productivity
+msgid "Workcenter Productivity Log"
+msgstr "工作中心生产力日志"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
+msgid "Working Hours"
+msgstr "工作时间"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__active
+msgid "active"
+msgstr "有效"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "days"
+msgstr "天"
+
+#. module: onesphere_mdm
+#: code:addons/onesphere_mdm/models/maintenance.py:0
+#, python-format
+msgid "work centers"
+msgstr "工作中心"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__attribute_uom
+msgid "单位"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__ca_secret_key
+msgid "对称加密秘钥"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__attribute_val
+msgid "数值"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__control_time
+msgid "数据生成时间"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__attribute_type
+msgid "数据类型"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__quality_point_id
+msgid "相关联质量控制点"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model,name:onesphere_certification_authority.model_oneshare_cryptography_key
+msgid "秘钥"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model,name:onesphere_certification_authority.model_oneshare_certification
+msgid "签发证书"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model_terms:ir.ui.view,arch_db:onesphere_certification_authority.oneshare_ca_res_config_settings_view_form
+msgid "认证中心"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__ca_public_key
+msgid "认证公钥"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__ca_algorithm
+msgid "认证加密算法"
+msgstr ""
+
+#. module: onesphere_certification_authority
+#: model:ir.model.fields,field_description:onesphere_certification_authority.field_res_config_settings__ca_private_key
+msgid "认证私钥"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__attribute_equipment_no
+msgid "设备序列号"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__track_no
+msgid "追溯码"
+msgstr ""

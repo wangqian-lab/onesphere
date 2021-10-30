@@ -151,11 +151,28 @@
                 groups="mrp.group_mrp_user"
                 sequence="10"/>
 
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_process"
+                name="Manufacturing Process"
+                parent="oneshare_mom_menu_manufacturing_routing"
+                groups="mrp.group_mrp_user"
+                sequence="20"/>
+
+
         <menuitem
                 id="oneshare_mom_menu_manufacturing_routing_routing_workcenter"
                 name="Operation"
-                parent="oneshare_mom_menu_manufacturing_routing"
+                parent="oneshare_mom_menu_manufacturing_process"
                 action="mrp.mrp_routing_action"
+                groups="mrp.group_mrp_user"
+                sequence="10"/>
+
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_work_step"
+                name="MRP Working Step"
+                parent="oneshare_mom_menu_manufacturing_process"
+                action="onesphere_core.onesphere_action_open_work_step"
                 groups="mrp.group_mrp_user"
                 sequence="20"/>
 

@@ -1,13 +1,56 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 import uuid
+
+
+class TighteningOprPointGroup(models.Model):
+    _name = 'onesphere.tightening.opr.point.group'
+    _log_access = False
+
+    _description = '螺栓拧紧点组(多轴)'
+
+    _order = "sequence"
+
+    sequence = fields.Integer('sequence', default=1)
+
+    proposal_key_num = fields.Integer(default=0, copy=False)
+
+    name = fields.Char('Operation Point Group', required=True,
+                       default=lambda self: self.env['ir.sequence'].next_by_code('tightening.operation.point.group'))
+    key_num = fields.Integer(string='Tightening Key Point Count', copy=False, compute="_compute_key_point_count",
+                             inverse='_inverse_key_point_count',
+                             store=True)
+
+    quality_point_id = fields.Many2one('oneshare.quality.point', ondelete='cascade', index=True)
+
+    operation_point_ids = fields.One2many('onesphere.tightening.opr.point', 'group_id',
+                                          string='Tightening Points', copy=False)
+
+    _sql_constraints = [
+        ('name_uniq', 'unique(name)', 'Tightening Operation Point Group Name MUST BE Unique!')]
+
+    def _inverse_key_point_count(self):
+        for record in self:
+            record.proposal_key_num = record.key_num
+
+    @api.constrains('key_num')
+    def _constraint_key_num(self):
+        for record in self:
+            lk = len(record.operation_point_ids.filtered(lambda r: r.is_key))
+            if record.key_num < lk:
+                raise ValidationError(_('Key Point Number Can Not Less Than Operation Point Key Total'))
+
+    @api.depends('operation_point_ids.is_key', 'proposal_key_num')
+    def _compute_key_point_count(self):
+        for record in self:
+            lk = len(record.operation_point_ids.filtered(lambda r: r.is_key))
+            record.key_num = max(record.proposal_key_num, lk)
 
 
 class TighteningOprPoint(models.Model):
     _name = 'onesphere.tightening.opr.point'
     _log_access = False
-
-    _inherits = {'oneshare.quality.point': 'quality_point_id'}
 
     _description = '螺栓拧紧点'
 
@@ -20,7 +63,7 @@ class TighteningOprPoint(models.Model):
 
     sequence = fields.Integer('sequence', default=1)
 
-    name = fields.Char('Tightening Point Name(Bolt Number)', related='quality_point_id.name', inherited=True,
+    name = fields.Char('Tightening Point Name(Bolt Number)',
                        default=lambda self: str(uuid.uuid4()))  # 如果未定义拧紧点编号，即自动生成uuid号作为唯一标示,螺栓编号
 
     group_id = fields.Many2one('onesphere.tightening.opr.point.group', string='Tightening Point Group',
@@ -28,10 +71,8 @@ class TighteningOprPoint(models.Model):
 
     group_sequence = fields.Integer(string='Group Sequence for Multi Spindle', help='拧紧组定义，当多轴或者多人同时作业时使用,定义其顺序')
 
-    product_ids = fields.Many2many('product.product', 'Consume Product(Tightening Bolt/Screw)',
-                                   related='quality_point_id.product_id',
-                                   inherited=True,
-                                   domain="[('onesphere_product_type', 'in', ['screw', 'bolt'])]")
+    product_id = fields.Many2one('product.product', 'Consume Product(Tightening Bolt/Screw)',
+                                 domain="[('onesphere_product_type', 'in', ['screw', 'bolt'])]")
 
     product_qty = fields.Float('Product Quantity', default=1.0, digits='Product Unit of Measure')
 
@@ -49,11 +90,7 @@ class TighteningOprPoint(models.Model):
     parent_quality_point_id = fields.Many2one('oneshare.quality.point', ondelete='cascade', index=True,
                                               string='Quality Control Point(Tightening Operation Step)')
 
-    quality_point_id = fields.Many2one('oneshare.quality.point', required=True,
-                                       string='Quality Control Point(Tightening Work Step)',
-                                       ondelete='cascade', auto_join=True)
-
-    test_type_id = fields.Many2one('oneshare.quality.point.test_type', related='quality_point_id.test_type_id',
+    test_type_id = fields.Many2one('oneshare.quality.point.test_type',
                                    default=lambda self: self.env.ref(
                                        'onesphere_assembly_industry.test_type_tightening_point'))
 

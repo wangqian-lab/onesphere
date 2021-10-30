@@ -58,11 +58,6 @@
             <field name="technical_name">register_consumed_materials</field><!--拣货-->
         </record>
 
-        <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
-            <field name="name">Register Consumed Materials</field>
-            <field name="technical_name">register_consumed_materials</field><!--拣货-->
-        </record>
-
         <record id="test_type_register_byproducts" model="oneshare.quality.point.test_type">
             <field name="name">Register By-products</field>
             <field name="technical_name">register_byproducts</field><!--扫码-->

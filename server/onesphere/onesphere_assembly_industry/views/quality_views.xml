@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="onesphere_assembly_industry_quality_point_view_form_inherit" model="ir.ui.view">
+            <field name="name">onesphere_assembly_industry_quality_point_view_form_inherit</field>
+            <field name="model">oneshare.quality.point</field>
+            <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Tightening Image" name="tightening_img"
+                          attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))],'required': [('test_type','in',('tightening', 'promiscuous_tightening'))]}">
+                        <field name="worksheet_img" widget="imageEditor"/>
+                    </page>
+<!--                    <page string="检测项" name="multi_measurement_items"-->
+<!--                          attrs="{'invisible': [('test_type','!=','multi_measure')],'required': [('test_type','=','multi_measure')]}">-->
+<!--                        <field name="multi_measurement_ids" nolabel="1" widget="one2many_list">-->
+<!--                            <tree string="Measurement Items" editable="bottom">-->
+<!--                                <field name="qcp_id" invisible="1"/>-->
+<!--                                <field name="name" string="Reference"/>-->
+<!--                                <field name="note"/>-->
+<!--                                <field name="test_type"/>-->
+<!--                                <field name="norm" string="Normal"/>-->
+<!--                                <field name="tolerance_min" string="Tolerance(min)"/>-->
+<!--                                <field name="tolerance_max" string="Tolerance(max)"/>-->
+<!--                                <field name="norm_unit"/>-->
+<!--                                <field name="measure" attrs="{'readonly': [('test_type','=','passfail')]}"/>-->
+<!--                                <field name="measure_success" groups="base.group_no_one"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

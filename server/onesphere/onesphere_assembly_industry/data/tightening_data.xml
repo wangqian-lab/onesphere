@@ -5,5 +5,10 @@
             <field name="name">Unit of Tightening Opr Point Offset</field>
             <field name="digits" eval="2"/>
         </record>
+
+        <record forcecreate="True" id="decimal_tightening_result_measurement" model="decimal.precision">
+            <field name="name">Unit of Tightening Result Measurement</field>
+            <field name="digits">3</field>
+        </record>
     </data>
 </odoo>

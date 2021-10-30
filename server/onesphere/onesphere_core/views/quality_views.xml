@@ -43,11 +43,115 @@
         <field name="arch" type="xml">
             <search string="Quality Point Type">
                 <field name="name" string="Quality Point Type Name"
-                       filter_domain="[('name','ilike',self)]"/>
-                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                       filter_domain="['|', ('name','ilike',self), ('technical_name','ilike',self)]"/>
                 <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
-
             </search>
+        </field>
+    </record>
+
+    <!--quality point-->
+
+    <record id="onesphere_quality_point_view_tree" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_tree</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" decoration-bf="1"/>
+                <field name="code" optional="show"/>
+                <field name="operation_type_ids" widget="many2many_tags" optional="show" string="Operation Type"/>
+                <field name="onesphere_operation_ids" widget="many2many_tags" optional="hide"
+                       string="Work Order Operations"/>
+                <field name="test_type_id" optional="show" string="Type"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_view_form" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_form</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <h2>
+                        <field name="name" readonly="1"/>
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="code" string="Reference(External)"/>
+                            <field name="operation_type_ids" string="Operation Types" widget="many2many_tags"/>
+                            <field string="Work Order Operations" name="onesphere_operation_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('is_workorder_step', '=', False)]}"
+                                   groups="mrp.group_mrp_routings" options="{'no_create': True}"/>
+                            <field name="is_workorder_step" invisible="1"/>
+                            <field name="can_do_skip" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
+                            <field name="can_do_rework" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="test_type" invisible="1"/>
+                            <field string="Type" name="test_type_id" widget="selection"
+                                   domain="[('technical_name', '!=', 'tightening_point')]"/>
+                            <field name="component_id"
+                                   attrs="{'required': [('test_type', 'in', ('register_byproducts', 'register_consumed_materials'))], 'invisible': ['|', '|', ('is_workorder_step', '=', False), ('onesphere_operation_ids', '=', False), ('test_type', 'not in', ('register_byproducts', 'register_consumed_materials'))]}"
+                                   domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Instructions" name="instructions">
+                            <field name="note" placeholder="Describe the quality check to do..."/>
+                        </page>
+                        <page string="Notes" name="Notes">
+                            <field name="reason" string="Note"
+                                   placeholder="Describe why you need to perform this quality check..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_view_search" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_search</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Control Point" filter_domain="[
+                    '|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="operation_type_ids"/>
+                <field name="test_type_id"/>
+                <field name="onesphere_operation_ids" filter_domain="[('onesphere_operation_ids', 'ilike', self)]"/>
+                <filter string="Work Step" name="is_work_step" domain="[('is_workorder_step', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Test Type" name="groupby_test_type" context="{'group_by': 'test_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="onesphere_action_open_work_step" model="ir.actions.act_window">
+        <field name="name">Work Step</field>
+        <field name="res_model">oneshare.quality.point</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="onesphere_quality_point_view_search"/>
+        <field name="context">{"default_is_workorder_step": True, "default_operation_type": "mrp_operation",
+            "search_default_is_work_step": 1 }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Let's create a work step.
+            </p>
         </field>
     </record>
 

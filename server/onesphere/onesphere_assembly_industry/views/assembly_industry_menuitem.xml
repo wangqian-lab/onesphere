@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top menu item -->
+    <menuitem name="Assembly Industry"
+        id="menu_assembly_industry"
+        web_icon="onesphere_assembly_industry,static/description/icon.png"
+        sequence="120">
+    </menuitem>
+
+</odoo>

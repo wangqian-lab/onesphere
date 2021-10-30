@@ -1,0 +1,9 @@
+<odoo>
+    <template id="assets" name="Backend Assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <script src="/onesphere_assembly_industry/static/src/lib/interact/interact.min.js"/>
+            <link href="/onesphere_assembly_industry/static/src/scss/modal.scss" rel="stylesheet" type="text/scss"/>
+            <script src="/onesphere_assembly_industry/static/src/js/tightening_image_editor.js"/>
+        </xpath>
+    </template>
+</odoo>

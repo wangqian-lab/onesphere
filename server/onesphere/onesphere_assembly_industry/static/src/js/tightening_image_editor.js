@@ -23,27 +23,39 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
 
         markPoints: [],
 
+        _notifyInfo: function (type, title, message, sticky) {
+            return this.displayNotification({
+                type: type,
+                title: title,
+                message: message,
+                sticky: sticky,
+            });
+        },
+
         _saveAllMask: function () {
             var self = this;
-            var active_id = this.view.dataset.context.active_record_id;
-            var url = '/api/v1/sa.quality.point/';
+            var active_id = this.recordData.res_record_id;
+            var url = '/api/v1/tightening_work_step/';
             var markPoints = JSON.stringify(self.markPoints);
             try {
                 $.ajax({
                     type: "PUT",
-                    url: url.concat(active_id, '/points_edit'),
+                    url: url.concat(active_id, '/opr_points_edit'),
                     timeout: 2000, //超时时间设置，单位毫秒
                     dataType: 'json',
                     data: markPoints,
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('Content-Type', 'application/json');
-                    }
-                }).then(function (resp) {
-                    self.do_notify(_t("Success"), _t('Save Tightening Points Success!'), true);
+                        xhr.setRequestHeader('X-Org-Name', 'oneshare');
+                    },
+                }).done(function (resp) {
+                    self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), true);
                     self.do_action({"type": "ir.actions.act_window_close"});
+                }).fail(function () {
+                    self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), true);
                 });
             } catch (e) {
-                self.do_notify(_t("Error"), e.error(), true);
+                self._notifyInfo('danger', _t("Error"), e.error(), true);
             }
         },
 
@@ -96,7 +108,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                     })
                 });
             } catch (e) {
-                self.do_notify(_t("Error"), e.error(), true);
+                self._notifyInfo('danger', _t("Error"), e.error(), true);
                 console.error(e);
             }
         },

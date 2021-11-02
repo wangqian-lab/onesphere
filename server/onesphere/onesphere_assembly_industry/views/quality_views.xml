@@ -11,23 +11,66 @@
                           attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))],'required': [('test_type','in',('tightening', 'promiscuous_tightening'))]}">
                         <field name="worksheet_img" widget="imageEditor"/>
                     </page>
-<!--                    <page string="检测项" name="multi_measurement_items"-->
-<!--                          attrs="{'invisible': [('test_type','!=','multi_measure')],'required': [('test_type','=','multi_measure')]}">-->
-<!--                        <field name="multi_measurement_ids" nolabel="1" widget="one2many_list">-->
-<!--                            <tree string="Measurement Items" editable="bottom">-->
-<!--                                <field name="qcp_id" invisible="1"/>-->
-<!--                                <field name="name" string="Reference"/>-->
-<!--                                <field name="note"/>-->
-<!--                                <field name="test_type"/>-->
-<!--                                <field name="norm" string="Normal"/>-->
-<!--                                <field name="tolerance_min" string="Tolerance(min)"/>-->
-<!--                                <field name="tolerance_max" string="Tolerance(max)"/>-->
-<!--                                <field name="norm_unit"/>-->
-<!--                                <field name="measure" attrs="{'readonly': [('test_type','=','passfail')]}"/>-->
-<!--                                <field name="measure_success" groups="base.group_no_one"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
-<!--                    </page>-->
+                    <page string="Tightening Points" name="tightening_opr_points"
+                          attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))],'required': [('test_type','in',('tightening', 'promiscuous_tightening'))]}">
+                        <field name="tightening_opr_point_ids" nolabel="1" widget="one2many" string="Tightening Points">
+                            <tree name="tightening_opr_point_tree" string="Tightening Points" editable="bottom"
+                                  context="{'default_parent_quality_point_id': active_id}">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name" required="1"/>
+                                <field name="product_id"/>
+                                <field name="control_mode" optional="hide"/>
+                                <field name="tightening_pet"/>
+                                <field name="x_offset"/>
+                                <field name="y_offset"/>
+                                <field name="max_attempt_times"/>
+                                <field name="tightening_tool_ids" optional="hide" widget="many2many_tags"/>
+                                <field name="parent_quality_point_id" optional="hide"/>
+                                <field name="group_id" optional="hide"/>
+                                <field name="group_sequence" optional="hide"/>
+                            </tree>
+                            <form name="tightening_opr_point_form" string="Tightening Points">
+                                <group>
+                                    <group>
+                                        <field name="name" required="1"/>
+                                        <field name="product_id"/>
+                                        <field name="parent_quality_point_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="tightening_tool_ids" widget="many2many_tags"/>
+                                        <field name="control_mode"/>
+                                        <field name="tightening_pet"/>
+                                    </group>
+                                    <group>
+                                        <field name="x_offset"/>
+                                        <field name="y_offset"/>
+                                        <field name="max_attempt_times"/>
+                                    </group>
+                                    <group>
+                                        <field name="group_id"/>
+                                        <field name="group_sequence"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <!--                    <page string="检测项" name="multi_measurement_items"-->
+                    <!--                          attrs="{'invisible': [('test_type','!=','multi_measure')],'required': [('test_type','=','multi_measure')]}">-->
+                    <!--                        <field name="multi_measurement_ids" nolabel="1" widget="one2many_list">-->
+                    <!--                            <tree string="Measurement Items" editable="bottom">-->
+                    <!--                                <field name="qcp_id" invisible="1"/>-->
+                    <!--                                <field name="name" string="Reference"/>-->
+                    <!--                                <field name="note"/>-->
+                    <!--                                <field name="test_type"/>-->
+                    <!--                                <field name="norm" string="Normal"/>-->
+                    <!--                                <field name="tolerance_min" string="Tolerance(min)"/>-->
+                    <!--                                <field name="tolerance_max" string="Tolerance(max)"/>-->
+                    <!--                                <field name="norm_unit"/>-->
+                    <!--                                <field name="measure" attrs="{'readonly': [('test_type','=','passfail')]}"/>-->
+                    <!--                                <field name="measure_success" groups="base.group_no_one"/>-->
+                    <!--                            </tree>-->
+                    <!--                        </field>-->
+                    <!--                    </page>-->
                 </xpath>
             </field>
         </record>

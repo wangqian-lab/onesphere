@@ -36,6 +36,7 @@ class OnesphereAssemablyIndustry(http.Controller):
                     methods=['PUT', 'OPTIONS'], auth='user', cors='*', csrf=False,
                     schema=api_edit_tightening_opr_points_item)
     def _edit_tightening_opr_points(self, tightening_work_step_id=None):
+        cr = request.cr
         env = api.Environment(request.cr, SUPERUSER_ID, request.context)
         tightening_opr_point_obj = env['onesphere.tightening.opr.point']
         tightening_work_step = env['oneshare.quality.point'].browse(tightening_work_step_id)
@@ -92,5 +93,5 @@ class OnesphereAssemablyIndustry(http.Controller):
             _logger.error(
                 "Delete Tightening Operation Point Fail, Points: {0}".format(
                     pprint.pformat(need_delete_points, indent=4)))
-
+        cr.commit()  # 强制提交
         return oneshare_json_success_resp(msg="Edit point success")

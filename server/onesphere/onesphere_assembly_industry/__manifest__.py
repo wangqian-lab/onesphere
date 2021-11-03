@@ -24,6 +24,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'data/product_data.xml',
         'data/maintenance_category_data.xml',
         'data/quality_data.xml',
         'data/tightening_data.xml',

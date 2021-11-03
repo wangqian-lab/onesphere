@@ -58,13 +58,15 @@ class OnesphereAssemablyIndustry(http.Controller):
                                                                                       None):
                 # 混杂默认默认取得原来的工步上定义的拧紧工具
                 val.update({'tightening_tool_ids': [(6, 0, tightening_work_step.tightening_tool_ids.ids)]})
+            val.update({
+                'x_offset': val['x_offset'],
+                'y_offset': val['y_offset'],
+            })
             if not point_id:
                 # 新增
                 val.update({
                     'parent_quality_point_id': tightening_work_step_id,
                     'sequence': sequence,
-                    'x_offset': val['x_offset'],
-                    'y_offset': val['y_offset'],
                     'product_id': env.ref('onesphere_assembly_industry.product_product_screw_default').id  # 获取默认螺栓
                 })
 

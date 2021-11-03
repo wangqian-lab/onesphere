@@ -49,13 +49,13 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                         xhr.setRequestHeader('X-Org-Name', 'oneshare');
                     },
                 }).done(function (resp) {
-                    self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), true);
+                    self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), false);
                     self.do_action({"type": "ir.actions.act_window_close"});
-                }).fail(function () {
-                    self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), true);
+                }).fail(function (resp) {
+                    self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), false);
                 });
             } catch (e) {
-                self._notifyInfo('danger', _t("Error"), e.error(), true);
+                self._notifyInfo('danger', _t("Error"), e.error(), false);
             }
         },
 
@@ -108,7 +108,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                     })
                 });
             } catch (e) {
-                self._notifyInfo('danger', _t("Error"), e.error(), true);
+                self._notifyInfo('danger', _t("Error"), e.error(), false);
                 console.error(e);
             }
         },

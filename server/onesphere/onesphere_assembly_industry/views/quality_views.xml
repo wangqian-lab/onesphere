@@ -21,9 +21,10 @@
                                 <field name="product_id"/>
                                 <field name="control_mode" optional="hide"/>
                                 <field name="tightening_pet"/>
-                                <field name="x_offset"/>
-                                <field name="y_offset"/>
+                                <field name="x_offset" required="1"/>
+                                <field name="y_offset" required="1"/>
                                 <field name="max_attempt_times"/>
+                                <field name="tightening_tool_id" required="1"/>
                                 <field name="tightening_tool_ids" optional="hide" widget="many2many_tags"/>
                                 <field name="parent_quality_point_id" optional="hide"/>
                                 <field name="group_id" optional="hide"/>
@@ -54,23 +55,6 @@
                             </form>
                         </field>
                     </page>
-                    <!--                    <page string="检测项" name="multi_measurement_items"-->
-                    <!--                          attrs="{'invisible': [('test_type','!=','multi_measure')],'required': [('test_type','=','multi_measure')]}">-->
-                    <!--                        <field name="multi_measurement_ids" nolabel="1" widget="one2many_list">-->
-                    <!--                            <tree string="Measurement Items" editable="bottom">-->
-                    <!--                                <field name="qcp_id" invisible="1"/>-->
-                    <!--                                <field name="name" string="Reference"/>-->
-                    <!--                                <field name="note"/>-->
-                    <!--                                <field name="test_type"/>-->
-                    <!--                                <field name="norm" string="Normal"/>-->
-                    <!--                                <field name="tolerance_min" string="Tolerance(min)"/>-->
-                    <!--                                <field name="tolerance_max" string="Tolerance(max)"/>-->
-                    <!--                                <field name="norm_unit"/>-->
-                    <!--                                <field name="measure" attrs="{'readonly': [('test_type','=','passfail')]}"/>-->
-                    <!--                                <field name="measure_success" groups="base.group_no_one"/>-->
-                    <!--                            </tree>-->
-                    <!--                        </field>-->
-                    <!--                    </page>-->
                 </xpath>
             </field>
         </record>

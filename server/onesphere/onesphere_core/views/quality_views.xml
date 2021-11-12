@@ -104,6 +104,23 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Measurement Items" name="multi_measurement_items"
+                              attrs="{'invisible': [('test_type','not in',('multi_measure', 'measure'))],'required': [('test_type','in', ('multi_measure', 'measure'))]}">
+                            <field name="multi_measurement_ids" nolabel="1" widget="one2many">
+                                <tree string="Measurement Items" editable="bottom"
+                                      context="{'default_parent_quality_point_id': active_id}">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="parent_quality_point_id" optional="hide"/>
+                                    <field name="name" string="Reference" required="1"/>
+                                    <field name="note"/>
+                                    <field name="test_type"/>
+                                    <field name="norm" string="Normal"/>
+                                    <field name="tolerance_min" string="Tolerance(min)"/>
+                                    <field name="tolerance_max" string="Tolerance(max)"/>
+                                    <field name="norm_unit" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
                         <page string="Instructions" name="instructions">
                             <field name="note" placeholder="Describe the quality check to do..."/>
                         </page>

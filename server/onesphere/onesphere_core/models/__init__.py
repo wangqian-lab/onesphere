@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import res_users
+from . import quality_measurement
 from . import operation_type
 from . import quality
 from . import daq

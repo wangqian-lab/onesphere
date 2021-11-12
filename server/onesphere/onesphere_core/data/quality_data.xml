@@ -14,6 +14,14 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
+        <record id="sequence_measurement_item" model="ir.sequence">
+            <field name="name">Measurement Item</field>
+            <field name="code">oneshare.measurement.item</field>
+            <field name="prefix">QMI</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
         <record id="sequence_quality_point" model="ir.sequence">
             <field name="name">Quality Point</field>
             <field name="code">oneshare.quality.point</field>

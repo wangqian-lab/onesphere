@@ -22,7 +22,7 @@ class OperationResult(HModel):
 
     _dimensions = ['attribute_equipment_no']
 
-    control_time = fields.Date(string=u'数据生成时间', default=fields.Date.today, required=True)
+    control_time = fields.Datetime(string=u'数据生成时间', default=fields.Datetime.now, required=True)
 
     track_no = fields.Char(default='', string=u'追溯码')
 

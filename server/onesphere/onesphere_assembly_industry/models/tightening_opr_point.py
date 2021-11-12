@@ -80,7 +80,7 @@ class TighteningOprPoint(models.Model):
 
     y_offset = fields.Float('y axis offset from top(%)', default=0.0, digits='Unit of Tightening Opr Point Offset')
 
-    tightening_pet = fields.Integer(string='程序号(Pset/Job)')
+    tightening_pet = fields.Integer(string='Program Number(Pset/Job)')
 
     control_mode = fields.Selection([('pset', 'Parameter Set'),
                                      ('job', 'Assembly Process')],

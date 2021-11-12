@@ -68,11 +68,14 @@ class OneshareQuality(models.Model):
     # 工步相关
     is_workorder_step = fields.Boolean('Is MRP Working Step?')
 
-    can_do_skip = fields.Boolean(string='Allow Do Skip', default=False, Help='Whether This Step Can Be Skipped')
-    can_do_rework = fields.Boolean(string='Allow Do Redo', default=True, Help='Whether This Step Can Be Rework')
+    can_do_skip = fields.Boolean(string='Allow Do Skip', default=False, help='Whether This Step Can Be Skipped')
+    can_do_rework = fields.Boolean(string='Allow Do Redo', default=True, help='Whether This Step Can Be Rework')
     onesphere_operation_ids = fields.Many2many(
         'mrp.routing.workcenter', 'onesphere_mrp_operation_step_rel', 'work_step_id', 'operation_id',
         string='Operations', check_company=True)
+
+    multi_measurement_ids = fields.One2many('oneshare.measurement.item', 'parent_quality_point_id',
+                                            string='Measurement Items')
 
     component_id = fields.Many2one('product.product', 'Product To Register', check_company=True)
 
@@ -106,5 +109,5 @@ class OneshareQuality(models.Model):
     @api.model
     def create(self, vals):
         if 'name' not in vals or vals['name'] == _('New'):
-            vals['name'] = self.env['ir.sequence'].next_by_code('quality.point') or _('New')
+            vals['name'] = self.env['ir.sequence'].next_by_code('oneshare.quality.point') or _('New')
         return super(OneshareQuality, self).create(vals)

@@ -2,6 +2,28 @@
 from odoo import api, fields, models, _
 
 
+class OneshareOperationStepRel(models.Model):
+    _name = 'onesphere.mrp.operation.step.rel'
+
+    _log_access = False
+
+    _order = "sequence asc, id desc"
+
+    sequence = fields.Integer('Sequence', default=0)
+
+    operation_id = fields.Many2one('mrp.routing.workcenter', required=True)
+
+    work_step_id = fields.Many2one('oneshare.quality.point', required=True, domain=[('is_workorder_step', '=', True)])
+
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
+
+    def name_get(self):
+        res = []
+        for point in self:
+            res.append((point.id, f'#{point.sequence}[{point.operation_id.name}]'))
+        return res
+
+
 class OneshareTestType(models.Model):
     _name = "oneshare.quality.point.test_type"
     _description = "Quality Control Test Type"
@@ -70,9 +92,8 @@ class OneshareQuality(models.Model):
 
     can_do_skip = fields.Boolean(string='Allow Do Skip', default=False, help='Whether This Step Can Be Skipped')
     can_do_rework = fields.Boolean(string='Allow Do Redo', default=True, help='Whether This Step Can Be Rework')
-    onesphere_operation_ids = fields.Many2many(
-        'mrp.routing.workcenter', 'onesphere_mrp_operation_step_rel', 'work_step_id', 'operation_id',
-        string='Operations', check_company=True)
+    onesphere_operation_ids = fields.One2many('onesphere.mrp.operation.step.rel', 'work_step_id',
+                                              string='Operations', check_company=True)
 
     multi_measurement_ids = fields.One2many('oneshare.measurement.item', 'parent_quality_point_id',
                                             string='Measurement Items')

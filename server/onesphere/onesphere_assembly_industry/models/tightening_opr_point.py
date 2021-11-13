@@ -3,6 +3,8 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 import uuid
 
+ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tightening_spindle']
+
 
 class TighteningOprPointGroup(models.Model):
     _name = 'onesphere.tightening.opr.point.group'
@@ -117,5 +119,5 @@ class TighteningOprPoint(models.Model):
                                            string='Tightening Tools', copy=False)
 
     tightening_tool_id = fields.Many2one('maintenance.equipment', string='Prefer Tightening Tool',
-                                         domain="[('category_name', 'in', ['tightening_wrench', 'tightening_nut_runner', 'tightening_spindle'])]",
+                                         domain=[('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)],
                                          copy=False)

@@ -81,7 +81,7 @@ class MrpWorkcenterGroupTool(models.Model):
                                     ondelete='cascade', required=True)
 
     tightening_tool_id = fields.Many2one('maintenance.equipment', string='Tightening Tool', copy=False,
-                                         domain=[('category_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)],
+                                         domain=[('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)],
                                          ondelete='cascade', required=True)
 
     _sql_constraints = [

@@ -88,7 +88,7 @@
                             <field string="Work Order Operations" name="onesphere_operation_ids" widget="many2many_tags"
                                    attrs="{'invisible': [('is_workorder_step', '=', False)]}"
                                    groups="mrp.group_mrp_routings" options="{'no_create': True}"/>
-                            <field name="is_workorder_step" invisible="1"/>
+                            <field name="is_workorder_step" groups="base.group_no_one"/>
                             <field name="can_do_skip" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
                             <field name="can_do_rework" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
                             <field name="company_id" groups="base.group_multi_company"/>
@@ -158,7 +158,7 @@
     </record>
 
     <record id="onesphere_action_open_work_step" model="ir.actions.act_window">
-        <field name="name">Work Step</field>
+        <field name="name">Working Step</field>
         <field name="res_model">oneshare.quality.point</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="onesphere_quality_point_view_search"/>

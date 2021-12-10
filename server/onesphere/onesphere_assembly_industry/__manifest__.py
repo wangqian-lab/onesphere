@@ -28,6 +28,7 @@
         'data/maintenance_category_data.xml',
         'data/quality_data.xml',
         'data/tightening_data.xml',
+        'data/tightening_vendor_data.xml',
         'wizards/oneshare_modal.xml',
         'wizards/assembly_industry_spc_views.xml',
         'views/tightening_result_views.xml',
@@ -39,7 +40,6 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/tightening_vendor_data.xml',
         'demo/tightening_unit_demo.xml',
         'demo/tightening_result_demo.xml',
     ],

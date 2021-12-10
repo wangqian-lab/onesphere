@@ -1,5 +1,5 @@
 <odoo>
-    <data noupdate="1">
+    <data>
         <record id="tightening_vendor_desoutter" model="res.partner">
             <field name="name">Desoutter</field>
             <field name="company_type">company</field>

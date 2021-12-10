@@ -1,5 +1,5 @@
 <odoo>
-    <data noupdate="1">
+    <data>
         <record id="sequence_tightening_op_group" model="ir.sequence">
             <field name="name">Tightening Point Group</field>
             <field name="code">tightening.operation.point.group</field>

@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <menuitem
+                id="onesphere_spc_root"
+                name="Statistical Process Control(SPC)"
+                web_icon="onesphere_spc,static/description/icon.png"
+                groups="mrp.group_mrp_manager"
+                sequence="90"/>
+
+
+  </data>
+</odoo>

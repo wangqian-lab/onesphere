@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_onesphere_spc_onesphere_spc,onesphere_spc.onesphere_spc,model_onesphere_spc_onesphere_spc,base.group_user,1,1,1,1

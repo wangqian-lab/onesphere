@@ -19,7 +19,7 @@
     'version': '14.0.10.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['onesphere_mdm', 'onesphere_oss', 'web_image_editor'],
+    'depends': ['onesphere_mdm', 'onesphere_oss', 'web_image_editor', 'onesphere_spc', 'web_echarts'],
 
     # always loaded
     'data': [
@@ -29,6 +29,8 @@
         'data/quality_data.xml',
         'data/tightening_data.xml',
         'wizards/oneshare_modal.xml',
+        'wizards/assembly_industry_spc_views.xml',
+        'views/tightening_result_views.xml',
         'views/templates.xml',
         'views/tightening_unit_views.xml',
         'views/quality_views.xml',
@@ -39,6 +41,7 @@
     'demo': [
         'demo/tightening_vendor_data.xml',
         'demo/tightening_unit_demo.xml',
+        'demo/tightening_result_demo.xml',
     ],
     'qweb': [
         'static/xml/template.xml',

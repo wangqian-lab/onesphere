@@ -2,3 +2,4 @@
 
 
 from . import oneshare_modal
+from . import assembly_industry_spc

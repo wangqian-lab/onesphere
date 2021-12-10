@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 
 class OneshareOperationStepRel(models.Model):
     _name = 'onesphere.mrp.operation.step.rel'
+    _description = '工步作业关联表'
 
     _log_access = False
 

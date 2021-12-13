@@ -44,12 +44,13 @@ if __name__ == '__main__':
     for i in range(1000):
         torque = round(random.uniform(3.5, 5.4), 2)
         degree = round(random.uniform(165.5, 187.5), 2)
-        result = random.choice(['ok', 'nok'])
+        result = random.choice(['ok', 'nok', 'ak2'])
         tightening_strategy = random.choice(['AD', 'AW'])
         delta_day = random.choice([1, 2])
         track_no = random.choice(['0781213', '0781214', '0781215'])
-        attribute_equipment_no= random.choice(['E111', 'E222', 'E333'])
-        m = gen_record_msg(id=i, attribute_equipment_no=attribute_equipment_no, track_no=track_no, torque=torque, degree=degree, result=result,
+        attribute_equipment_no = random.choice(['tightening_unit_1', 'tightening_unit_2', 'tightening_unit_3'])
+        m = gen_record_msg(id=i, attribute_equipment_no=attribute_equipment_no, track_no=track_no, torque=torque,
+                           degree=degree, result=result,
                            tightening_strategy=tightening_strategy,
                            delta_day=delta_day, tightening_id=i + 1)
         rec_str.append(m)

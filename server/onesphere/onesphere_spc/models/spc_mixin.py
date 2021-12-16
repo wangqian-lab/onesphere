@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, exceptions, fields, models, _
+from odoo.exceptions import UserError
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
 
 
@@ -9,8 +10,6 @@ class OnesphereSPCMixin(models.AbstractModel):
 
     query_date_from = fields.Datetime(string='Query Date From')
     query_date_to = fields.Datetime(string='Query Date to', default=fields.Datetime.now)
-
-    limit = fields.Integer('Query Limit', default=ONESHARE_DEFAULT_SPC_MAX_LIMIT)
 
     model_object = fields.Many2one('ir.model', string='Model')
 
@@ -28,3 +27,9 @@ class OnesphereSPCMixin(models.AbstractModel):
     cmk = fields.Float(string='Machine Capability Index(CMK)', default=0.0, store=False)
 
     cpk = fields.Float(string='Process Capability Index(CPK)', default=0.0, store=False)
+
+    limit = fields.Integer(string='SPC Query Record Count Limit', default=ONESHARE_DEFAULT_SPC_MAX_LIMIT)
+
+    @api.model
+    def query_spc(self, *args, **kwargs):
+        raise UserError(_('Please Implement Via Every SPC Modules, No Mixin Class'))

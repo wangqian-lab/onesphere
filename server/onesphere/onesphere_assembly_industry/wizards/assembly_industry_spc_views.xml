@@ -11,7 +11,7 @@
             <field name="name">onesphere_tightening_result_spc</field>
             <field name="model">onesphere.assy.industry.spc</field>
             <field name="arch" type="xml">
-                <form string="Tightening Result SPC" js_class="spc_form">
+                <form string="Tightening Result SPC" js_class="tightening_spc_form">
                     <div class="o_calendar_buttons">
                     </div>
                     <sheet>
@@ -25,12 +25,13 @@
                             </group>
                             <group string="Product">
                             </group>
-                            <group string="Manufacture">
+                            <group string="SPC Parameter">
                                 <field name="spc_step" widget="radio"/>
+                                <field name="limit" required="1"/>
                             </group>
-                            <group>
-                                <field name="model_object" required="1"/>
-                                <field name="model_object_field" required="1"/>
+                            <group string="Model Info">
+                                <field name="model_object" required="1" readonly="1"/>
+                                <field name="model_object_field" required="1" readonly="1"/>
                             </group>
                             <group string="Standard Setting(规格设定)">
                                 <field name="usl" required="1"/>
@@ -49,7 +50,7 @@
                         </page>
                         <page string="Scatter" class="o_spc_scatter">
                         </page>
-                        <page string="X-R(X-R控制图)" class="o_spc_xr_chart"/>
+                        <page string="X-R(X-R Control Chart)" class="o_spc_xr_chart"/>
                     </notebook>
                 </form>
             </field>

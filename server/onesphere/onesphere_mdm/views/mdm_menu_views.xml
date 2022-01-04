@@ -192,6 +192,14 @@
                 groups="mrp.group_mrp_manager"
                 sequence="50"/>
 
+        <menuitem
+                id="oneshare_mom_menu_manufacturing_setting_measurement_calc_type"
+                name="Measurement Calculate Type"
+                parent="oneshare_mom_menu_manufacturing_setting"
+                action="onesphere_core.onesphere_action_open_measurement_calc_type"
+                groups="mrp.group_mrp_manager"
+                sequence="60"/>
+
 
     </data>
 </odoo>

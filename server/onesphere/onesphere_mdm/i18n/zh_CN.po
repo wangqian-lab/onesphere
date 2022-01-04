@@ -1,0 +1,624 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* onesphere_mdm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-31 07:40+0000\n"
+"PO-Revision-Date: 2021-12-31 07:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "<span class=\"o_stat_text\">Children Work Areas</span>"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "<span class=\"o_stat_text\">Work Center</span>"
+msgstr "<span class=\"o_stat_text\">工作中心</span>"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+msgid "<span class=\"o_stat_text\">Work Station Area</span>"
+msgstr "<span class=\"o_stat_text\">工位</span>"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__active
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__active
+msgid "Active"
+msgstr "激活"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_category_filter
+msgid "Archived"
+msgstr "归档"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+msgid "Area Information"
+msgstr "工作区域信息"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_bill_of_material
+msgid "Bill Of Material"
+msgstr "物料清单"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Category"
+msgstr "类别"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__technical_name
+msgid "Category Name"
+msgstr "类别"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__child_ids
+msgid "Child Work Areas"
+msgstr "子工作区域"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__code
+msgid "Code"
+msgstr "唯一代码"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__color
+msgid "Color Index"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__company_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__company_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Company"
+msgstr "公司"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__complete_name
+msgid "Complete Name"
+msgstr "工作区域全称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_consumable
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_product_product_search_view
+msgid "Consumable"
+msgstr "耗材"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_mrp_consumable_action
+msgid "Consumable Product"
+msgstr "耗材"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__children_count
+msgid "Count Of Work Production Line"
+msgstr "产线总数"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
+msgid "Define the schedule of resource"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_equipment_category
+msgid "Equipment Category"
+msgstr "设备类别"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__expected_mtbf
+msgid "Expected MTBF"
+msgstr "期望的MTBF"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__expected_mtbf
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Expected Mean Time Between Failure"
+msgstr "期望的MTBF"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__sequence
+msgid "Gives the sequence order when displaying a list of work area."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Group By"
+msgstr "分组"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_hmi
+msgid "Human Machine Interface"
+msgstr "人机交互界面"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__id
+msgid "ID"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_mrp_workcenter_group__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the bills of "
+"material without removing it."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area_category__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the category "
+"without removing it."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the resource "
+"record without removing it."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_production_line
+msgid "Let's create a production line."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_shop_floor
+msgid "Let's create a shop floor."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_area_category
+msgid "Let's create a work area category."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_workcenter_group
+msgid "Let's create a work center group."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_segment
+msgid "Let's create a work segment."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_station_unit
+msgid "Let's create a work station unit."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_work_station
+msgid "Let's create a work station."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_step
+msgid "MRP Working Step"
+msgstr "工步"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__mtbf
+msgid "MTBF"
+msgstr "MTBF"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__mttr
+msgid "MTTR"
+msgstr "MTTR"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_maintenance_equipment
+msgid "Maintenance Equipment"
+msgstr "设备保养"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_maintenance_equipment_category
+msgid "Maintenance Equipment Category"
+msgstr "维护设备类别"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource_equipment
+msgid "Manufacturing Equipment"
+msgstr "设备"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_process
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing
+msgid "Manufacturing Process"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource
+msgid "Manufacturing Resource"
+msgstr "生产资源"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_oneshare_mrp_work_area
+msgid "Manufacturing Work Area"
+msgstr "生产工作区域"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_mdm_root
+msgid "Master Data Management(MOM)"
+msgstr "主数据管理"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_material
+msgid "Material Management"
+msgstr "物料管理"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Mean Time Between Failure"
+msgstr "MTBF"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__mtbf
+msgid ""
+"Mean Time Between Failure, computed based on done corrective maintenances."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_maintenance_equipment__mttr
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Mean Time To Repair"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_measurement_calc_type
+msgid "Measurement Calculate Type"
+msgstr "工步测量计算类型"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+msgid "Name"
+msgstr "名称"
+
+#. module: onesphere_mdm
+#: model:ir.model.constraint,message:onesphere_mdm.constraint_mrp_workcenter_group_code_uniq
+msgid "Only one code per Work Center Group is allowed"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing_routing_workcenter
+msgid "Operation"
+msgstr "作业"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Parent"
+msgstr "父区域"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__parent_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Parent Work Area"
+msgstr "父区域"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_mrp_product_variant_action
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_product
+msgid "Product"
+msgstr "产品"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_product_category
+msgid "Product Category"
+msgstr "产品类别"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_production_line
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__parent_id
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_production_line
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Production Line"
+msgstr "生产线"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Production Line Name"
+msgstr "生产线名称"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_plc
+msgid "Programmable Logic Controller"
+msgstr "可编程逻辑控制器"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_quality_test_type
+msgid "Quality Point Test Type"
+msgstr "质量控制点类别"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_rfid_reader
+msgid "Radio Frequency Identification Reader"
+msgstr "射频识别模块(RFID)"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__code
+msgid "Reference"
+msgstr "唯一识别码"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__related_work_area_id
+msgid "Related Work Area"
+msgstr "相关工作区域"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__related_workcenter_ids
+msgid "Related Work Center(Station)"
+msgstr "相关工位"
+
+#. module: onesphere_mdm
+#: model:maintenance.equipment.category,name:onesphere_mdm.equipment_io
+msgid "Remote Input/Output"
+msgstr "远程输入输出模块(IO)"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__resource_id
+msgid "Resource"
+msgstr "资源"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+msgid "Routing"
+msgstr "工艺路线"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__sequence
+msgid "Sequence"
+msgstr "序列"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting
+msgid "Settings"
+msgstr "设置"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_shop_floor
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_shop_floor
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Shop Floor"
+msgstr "车间"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Shop Floor Name"
+msgstr "车间名称"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__name
+msgid "Tag Name"
+msgstr "标签名称"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__technical_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__technical_name
+msgid "Technical name"
+msgstr "名称"
+
+#. module: onesphere_mdm
+#: model:ir.model.constraint,message:onesphere_mdm.constraint_maintenance_equipment_category_technical_name_uniq
+msgid "The technical name of the equipment category must be unique!"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__tz
+msgid ""
+"This field is used in order to define in which timezone the resources will "
+"work."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__time_efficiency
+msgid ""
+"This field is used to calculate the expected duration of a work order at "
+"this work center. For example, if a work order takes one hour and the "
+"efficiency factor is 100%, then the expected duration will be one hour. If "
+"the efficiency factor is 200%, however the expected duration will be 30 "
+"minutes."
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__time_efficiency
+msgid "Time Efficiency"
+msgstr "时间效率"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__tz
+msgid "Timezone"
+msgstr "时区"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__name
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_area
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_tree
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Area"
+msgstr "工作区域"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_area_category
+#: model:ir.model,name:onesphere_mdm.model_oneshare_mrp_work_area_category
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__category_id
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_work_area_category
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_category_filter
+msgid "Work Area Category"
+msgstr "工作区域类别"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mom_work_area_view_form
+msgid "Work Area Name"
+msgstr "工作区域名称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_area_station
+msgid "Work Area Station"
+msgstr "工位"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__workcenter_id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__workcenter_id
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "Work Center"
+msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_workcenter_group
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter_group
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__name
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_workcenter_group
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_group_form_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_group_tree_view
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_workcenter_group_filter
+msgid "Work Center Group"
+msgstr "工作中心组"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "工作中心使用情况"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__onesphere_workcenter_ids
+msgid "Work Centers"
+msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workorder
+msgid "Work Order"
+msgstr "工单"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_segment
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_segment
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Segment"
+msgstr "工段"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Segment Name"
+msgstr "工段名称"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_station
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Station"
+msgstr "工位"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Station Name"
+msgstr "工位名称"
+
+#. module: onesphere_mdm
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station_unit
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
+msgid "Work Station Unit"
+msgstr "工位"
+
+#. module: onesphere_mdm
+#. openerp-web
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#: code:addons/onesphere_mdm/static/src/js/work_area_view.js:0
+#, python-format
+msgid "Work Station Unit Name"
+msgstr "工位名称"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_station_unit
+msgid "Work station Unit"
+msgstr "工位"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter_productivity
+msgid "Workcenter Productivity Log"
+msgstr "工作中心生产力日志"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
+msgid "Working Hours"
+msgstr "工作时长"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
+msgid "days"
+msgstr "天"
+
+#. module: onesphere_mdm
+#: code:addons/onesphere_mdm/models/maintenance.py:0
+#, python-format
+msgid "work centers"
+msgstr "工作中心"

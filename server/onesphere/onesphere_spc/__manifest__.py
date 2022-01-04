@@ -27,4 +27,5 @@
     'qweb': [
         "static/xml/spc_view_template.xml",
     ],
+    'application': True,
 }

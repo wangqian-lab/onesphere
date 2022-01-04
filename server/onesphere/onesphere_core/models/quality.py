@@ -99,6 +99,9 @@ class OneshareQuality(models.Model):
     multi_measurement_ids = fields.One2many('oneshare.measurement.item', 'parent_quality_point_id',
                                             string='Measurement Items')
 
+    multi_measurement_calc_ids = fields.One2many('oneshare.measurement.calc.item', 'parent_quality_point_id',
+                                                 string='Measurement Calculate Items')
+
     component_id = fields.Many2one('product.product', 'Product To Register', check_company=True)
 
     _sql_constraints = [('code_uniq', 'unique(code)', 'Only one code per working step is allowed')]

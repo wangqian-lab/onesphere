@@ -277,7 +277,7 @@ msgstr "设备"
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_process
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing
 msgid "Manufacturing Process"
-msgstr ""
+msgstr "生产过程"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource

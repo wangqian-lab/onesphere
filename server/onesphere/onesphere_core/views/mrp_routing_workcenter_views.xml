@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- mrp routing workcenter views -->
+    <record id="onesphere_core_mrp_routing_workcenter_form_view_inherit" model="ir.ui.view">
+        <field name="name">onesphere_core_mrp_routing_workcenter_form_view_inherit</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="button_mrp_workorder_step" type="object" class="oe_stat_button"
+                            icon="fa-cogs" attrs="{'invisible': [('work_step_count', '=', 0)]}"
+                            groups="mrp.group_mrp_routings">
+                        <div class="o_stat_info">
+                            <field name="work_step_count"/>
+                            <span class="o_stat_text">Working Steps</span>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page string="Working Steps" name="mrp_workorder_step">
+                    <field name="work_step_ids" nolabel="1" widget="many2many" string="Working Steps"
+                           context="{'default_operation_id': active_id}">
+                        <tree name="mrp_workorder_step_tree" string="Working Steps" editable="bottom"
+                              context="{'default_operation_id': active_id}">
+                            <field name="sequence" widget="handle"/>
+                            <field name="operation_id" required="1" readonly="1"/>
+                            <field name="work_step_id" required="1"/>
+                        </tree>
+                        <form name="mrp_workorder_step_form" string="Working Steps">
+                            <group>
+                                <group>
+                                    <field name="operation_id" required="1" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="work_step_id" required="1"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

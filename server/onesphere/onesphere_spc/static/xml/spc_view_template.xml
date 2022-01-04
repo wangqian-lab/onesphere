@@ -1,0 +1,28 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SPCViews.buttons">
+        <div class="o_calendar_buttons">
+
+            <button class="o_calendar_button_prev btn btn-primary">
+                <span class="fa fa-arrow-left"/>
+            </button>
+            <button class="o_calendar_button_today btn btn-primary">Today</button>
+            <button class="o_calendar_button_this_week btn btn-primary">This Week</button>
+            <button class="o_calendar_button_this_month btn btn-primary">This Month</button>
+            <button class="o_calendar_button_next btn  btn-primary">
+                <span class="fa fa-arrow-right"/>
+            </button>
+
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="o_calendar_button_days btn btn-default">Day</button>
+                <button type="button" class="o_calendar_button_weeks btn btn-default">Week</button>
+                <button type="button" class="o_calendar_button_months btn btn-default">Month</button>
+            </div>
+
+            <button string="Query" type="button"
+                    class="o_spc_button_query oe_highlight btn btn-primary oe_right btn_default">Query
+            </button>
+
+        </div>
+    </t>
+</templates>

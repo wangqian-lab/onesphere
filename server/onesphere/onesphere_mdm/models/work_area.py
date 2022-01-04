@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
-import json
-import ast
 from odoo import models, fields, api
 from odoo.tools import pycompat, ustr
-from asteval import Interpreter
 import logging
-
-aeval = Interpreter()
 
 _logger = logging.getLogger(__name__)
 

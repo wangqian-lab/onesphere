@@ -11,6 +11,19 @@ _logger = logging.getLogger(__name__)
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
+    def download_work_process(self):
+        """
+            下发生产工艺工序
+        """
+        operation_obj = self.env['mrp.routing.workcenter']
+        for work_center in self:
+            need_download_operation_ids = operation_obj.search([('workcenter_id', '=', work_center.id)])
+            if not need_download_operation_ids:
+                continue
+            # 执行下载工艺
+
+
+
     @api.model
     def default_get(self, fields):
         vals = super(MrpWorkcenter, self).default_get(fields)

@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <menuitem
+                id="onesphere_tightening_result_spc_analysis"
+                name="Statistical Process Control(SPC)"
+                parent="onesphere_spc.onesphere_spc_root"
+                groups="mrp.group_mrp_manager"
+                sequence="10"/>
+
+        <record id="onesphere_tightening_result_spc" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_spc</field>
+            <field name="model">onesphere.assy.industry.spc</field>
+            <field name="arch" type="xml">
+                <form string="Tightening Result SPC" js_class="tightening_spc_form">
+                    <div class="o_calendar_buttons">
+                    </div>
+                    <sheet>
+                        <group string="Query Parameters">
+                            <group string="Type">
+                                <field name="measurement_type" widget="radio"/>
+                            </group>
+                            <group string="Time">
+                                <field name="query_date_from" required="1"/>
+                                <field name="query_date_to"/>
+                            </group>
+                            <group string="Product">
+                            </group>
+                            <group string="SPC Parameter">
+                                <field name="spc_step" widget="radio"/>
+                                <field name="limit" required="1"/>
+                            </group>
+                            <group string="Model Info">
+                                <field name="model_object" required="1" readonly="1"/>
+                                <field name="model_object_field" required="1" readonly="1"/>
+                            </group>
+                            <group string="Standard Setting(规格设定)">
+                                <field name="usl" required="1"/>
+                                <field name="lsl" required="1"/>
+                            </group>
+                            <group string="Quality SPC">
+                                <field name="cmk" readonly="1"/>
+                                <field name="cpk" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <notebook>
+                        <page string="Normal Distribution" class="o_spc_norm_dist">
+                        </page>
+                        <page string="Weibull Distribution" class="o_spc_weibull_dist">
+                        </page>
+                        <page string="Scatter" class="o_spc_scatter">
+                        </page>
+                        <page string="X-R(X-R Control Chart)" class="o_spc_xr_chart"/>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_tightening_result_spc_form" model="ir.actions.act_window">
+            <field name="name">Tightening Result SPC</field>
+            <field name="res_model">onesphere.assy.industry.spc</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="binding_model_id" ref="model_onesphere_assy_industry_spc"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <menuitem id="menu_assembly_tightening_result_spc" name="Tightening Result SPC"
+                  action="action_tightening_result_spc_form"
+                  parent="onesphere_tightening_result_spc_analysis" sequence="10"/>
+    </data>
+</odoo>

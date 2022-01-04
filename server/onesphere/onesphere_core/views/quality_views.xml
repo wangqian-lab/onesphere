@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- measurement calculate type -->
+    <record id="onesphere_measurement_calc_type_view_tree" model="ir.ui.view">
+        <field name="name">onesphere_measurement_calc_type_view_tree</field>
+        <field name="model">oneshare.measurement.calc.type</field>
+        <field name="arch" type="xml">
+            <tree string="Measurement Calculate Type">
+                <field name="code" string="Reference Code"/>
+                <field name="formula" optional="show"/>
+                <field name="desc" optional="show"/>
+                <field name="active" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="onesphere_measurement_calc_type_view_form" model="ir.ui.view">
+        <field name="name">onesphere_measurement_calc_type_view_form</field>
+        <field name="model">oneshare.measurement.calc.type</field>
+        <field name="arch" type="xml">
+            <form string="Measurement Calculate Type">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="code"/>
+                        </div>
+                        <h1 class="mb32">
+                            <field name="code" class="mb16"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="formula"/>
+                        </group>
+                        <group>
+                            <field name="desc"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <!-- quality point test type -->
     <record id="onesphere_quality_point_test_type_view_tree" model="ir.ui.view">
         <field name="name">onesphere_quality_point_test_type_view_tree</field>
@@ -43,11 +90,157 @@
         <field name="arch" type="xml">
             <search string="Quality Point Type">
                 <field name="name" string="Quality Point Type Name"
-                       filter_domain="[('name','ilike',self)]"/>
-                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                       filter_domain="['|', ('name','ilike',self), ('technical_name','ilike',self)]"/>
                 <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
-
             </search>
+        </field>
+    </record>
+
+    <record id="onesphere_measurement_calc_type_filter" model="ir.ui.view">
+        <field name="name">onesphere_measurement_calc_type_filter</field>
+        <field name="model">oneshare.measurement.calc.type</field>
+        <field name="arch" type="xml">
+            <search string="Measurement Calculate Type">
+                <field name="code" string="Measurement Calculate Type Name"
+                       filter_domain="['|', ('code','ilike',self), ('desc','ilike',self)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--quality point-->
+
+    <record id="onesphere_quality_point_view_tree" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_tree</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" decoration-bf="1"/>
+                <field name="code" optional="show"/>
+                <field name="operation_type_ids" widget="many2many_tags" optional="show" string="Operation Type"/>
+                <field name="onesphere_operation_ids" widget="many2many_tags" optional="hide"
+                       string="Work Order Operations"/>
+                <field name="test_type_id" optional="show" string="Type"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_view_form" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_form</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <h2>
+                        <field name="name" readonly="1"/>
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="code" string="Reference(External)"/>
+                            <field name="operation_type_ids" string="Operation Types" widget="many2many_tags"/>
+                            <field string="Work Order Operations" name="onesphere_operation_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('is_workorder_step', '=', False)]}"
+                                   groups="mrp.group_mrp_routings" options="{'no_create': True}"/>
+                            <field name="is_workorder_step" groups="base.group_no_one"/>
+                            <field name="can_do_skip" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
+                            <field name="can_do_rework" attrs="{'invisible': [('is_workorder_step', '=', False)]}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="test_type" invisible="1"/>
+                            <field string="Type" name="test_type_id" widget="selection"
+                                   domain="[('technical_name', '!=', 'tightening_point')]"/>
+                            <field name="component_id"
+                                   attrs="{'required': [('test_type', 'in', ('register_byproducts', 'register_consumed_materials'))], 'invisible': ['|', '|', ('is_workorder_step', '=', False), ('onesphere_operation_ids', '=', False), ('test_type', 'not in', ('register_byproducts', 'register_consumed_materials'))]}"
+                                   domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Measurement Items" name="multi_measurement_items"
+                              attrs="{'invisible': [('test_type','not in',('multi_measure', 'measure'))],'required': [('test_type','in', ('multi_measure', 'measure'))]}">
+                            <field name="multi_measurement_ids" nolabel="1" widget="one2many">
+                                <tree string="Measurement Items" editable="bottom"
+                                      context="{'default_parent_quality_point_id': active_id}">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="parent_quality_point_id" optional="hide"/>
+                                    <field name="name" string="Reference" required="1"/>
+                                    <field name="note"/>
+                                    <field name="test_type"/>
+                                    <field name="norm" string="Normal"/>
+                                    <field name="tolerance_min" string="Tolerance(min)"/>
+                                    <field name="tolerance_max" string="Tolerance(max)"/>
+                                    <field name="norm_unit" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Measurement Calc Items" name="measurement_calc_items"
+                              attrs="{'invisible': ['|', ('test_type','not in',('multi_measure', 'measure')), ('multi_measurement_ids', '=', False)]}">
+                            <field name="multi_measurement_calc_ids" nolabel="1" widget="one2many">
+                                <tree string="Measurement Calculate Items" editable="bottom"
+                                      context="{'default_parent_quality_point_id': active_id}">
+                                    <field name="parent_quality_point_id" optional="hide"/>
+                                    <field name="name" string="Reference" required="1"/>
+                                    <field name="note"/>
+                                    <field name="measurement_calc_type_id" required="1"/>
+                                    <field name="measurement_item_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Instructions" name="instructions">
+                            <field name="note" placeholder="Describe the quality check to do..."/>
+                        </page>
+                        <page string="Notes" name="Notes">
+                            <field name="reason" string="Note"
+                                   placeholder="Describe why you need to perform this quality check..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="onesphere_quality_point_view_search" model="ir.ui.view">
+        <field name="name">onesphere_quality_point_view_search</field>
+        <field name="model">oneshare.quality.point</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Control Point" filter_domain="[
+                    '|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="operation_type_ids"/>
+                <field name="test_type_id"/>
+                <field name="onesphere_operation_ids" filter_domain="[('onesphere_operation_ids', 'ilike', self)]"/>
+                <filter string="Work Step" name="is_work_step" domain="[('is_workorder_step', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Test Type" name="groupby_test_type" context="{'group_by': 'test_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="onesphere_action_open_work_step" model="ir.actions.act_window">
+        <field name="name">Working Step</field>
+        <field name="res_model">oneshare.quality.point</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="onesphere_quality_point_view_search"/>
+        <field name="context">{"default_is_workorder_step": True, "default_operation_type": "mrp_operation",
+            "search_default_is_work_step": 1 }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Let's create a work step.
+            </p>
         </field>
     </record>
 
@@ -60,6 +253,19 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Let's create a quality point test type.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="onesphere_action_open_measurement_calc_type" model="ir.actions.act_window">
+        <field name="name">Measurement Calculate Type</field>
+        <field name="res_model">oneshare.measurement.calc.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="onesphere_measurement_calc_type_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Let's create a measurement calculate type.
             </p>
         </field>
     </record>

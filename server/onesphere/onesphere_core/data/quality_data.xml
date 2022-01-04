@@ -14,6 +14,14 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
+        <record id="sequence_measurement_item" model="ir.sequence">
+            <field name="name">Measurement Item</field>
+            <field name="code">oneshare.measurement.item</field>
+            <field name="prefix">QMI</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
         <record id="sequence_quality_point" model="ir.sequence">
             <field name="name">Quality Point</field>
             <field name="code">oneshare.quality.point</field>
@@ -52,11 +60,6 @@
 <!--        <record id="reason_other" model="oneshare.quality.reason">-->
 <!--            <field name="name">Others</field>-->
 <!--        </record>-->
-
-        <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
-            <field name="name">Register Consumed Materials</field>
-            <field name="technical_name">register_consumed_materials</field><!--拣货-->
-        </record>
 
         <record id="test_type_register_consumed_materials" model="oneshare.quality.point.test_type">
             <field name="name">Register Consumed Materials</field>

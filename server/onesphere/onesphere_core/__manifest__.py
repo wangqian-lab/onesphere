@@ -31,6 +31,8 @@
         'data/quality_data.xml',
         'views/quality_views.xml',
         'views/res_users_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/mrp_routing_workcenter_views.xml',
     ],
     'post_init_hook': '_onesphere_core_post_init',
     'uninstall_hook': '_oneshare_core_uninstall_hook',

@@ -1,0 +1,147 @@
+<odoo>
+    <data>
+        <menuitem
+                id="onesphere_tightening_result"
+                name="Tightening Results"
+                parent="onesphere_spc.onesphere_spc_root"
+                groups="mrp.group_mrp_manager"
+                sequence="20"/>
+
+        <record id="onesphere_tightening_result_view_form" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_view_form</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <form string="Tightening Result" edit="0" create="0" delete="0" duplicate="0">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Base Info">
+                            <group string="Product">
+                                <field name="track_no"/>
+                            </group>
+                            <group string="Manufacturing Info">
+                                <field name="attribute_equipment_no"/>
+                                <field name="control_time" string="Tightening Date Time"/>
+                            </group>
+                            <group string="Tightening Params">
+                                <field name="tightening_process_no"/>
+                                <field name="tightening_strategy"/>
+                            </group>
+                        </group>
+                        <group string="Result">
+                            <group string="Tightening Final Result">
+                                <field name="tightening_result"/>
+                                <field name="measurement_final_torque"/>
+                                <field name="measurement_final_angle"/>
+                                <field name="tightening_id"/>
+                            </group>
+                            <group string="Tightening Step Result">
+                                <field name="measurement_step_results"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="error_code" attrs="{'invisible': [('tightening_result', '!=', 'nok')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="onesphere_tightening_result_view_tree" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_view_tree</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <tree string="Tightening Result" edit="0" create="0" delete="0" duplicate="0"
+                      decoration-danger="tightening_result == 'nok'"
+                      decoration-bf="tightening_result == 'ak2'"
+                      decoration-success="tightening_result == 'ok'"
+                      groups_limit="200"
+                >
+                    <field name="track_no"/>
+                    <field name="attribute_equipment_no"/>
+                    <field name="control_time" string="Tightening Date Time"/>
+                    <field name="tightening_result"/>
+                    <field name="measurement_final_torque"/>
+                    <field name="measurement_final_angle"/>
+                    <field name="tightening_id" optional="hide"/>
+                    <field name="error_code" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="onesphere_tightening_result_filter" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_filter</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <search string="Tightening Result">
+                    <field name="track_no" string="Track Number/Equipment"
+                           filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
+                    <separator/>
+                    <filter string="OK" name="filter_ok"
+                            domain="[('tightening_result', '=', 'ok')]"/>
+                    <filter string="NOK" name="filter_nok"
+                            domain="[('tightening_result', '=', 'nok')]"/>
+                    <filter string="Discharged" name="filter_discharged"
+                            domain="[('tightening_result', '=', 'ak2')]"/><!-- 放行 -->
+                    <separator/>
+                    <filter string="Today" name="today_filter"
+                            domain="[
+                        ('control_time', '>=', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                        ('control_time', '&lt;', (datetime.datetime.combine(context_today(), datetime.time(23,59,59)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter name="last_week_filter" string="Last Week" domain="[
+                        ('control_time', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-2,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                        ('control_time', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter name="this_week_filter" string="This Week" domain="[
+                        ('control_time', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                        ('control_time', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter string="Occur Time" name="filter_occur_time" date="control_time"
+                            default_period="this_month"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Equipment" name="group_by_equipment" domain="[]"
+                                context="{'group_by': 'attribute_equipment_no'}"/>
+                        <filter string="Occur Time" name="group_by_daily_time" domain="[]"
+                                context="{'group_by': 'control_time:day'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_nok_tightening_result" model="ir.actions.act_window">
+            <field name="name">Tightening Result(NOK)</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_nok": 1 }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view tightening result.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_ak2_tightening_result" model="ir.actions.act_window">
+            <field name="name">Tightening Result(AK2)</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_discharged": 1 }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view tightening result.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_assembly_nok_tightening_result" name="Tightening Result(NOK)"
+                  action="action_nok_tightening_result"
+                  parent="onesphere_tightening_result" sequence="10"/>
+        <menuitem id="menu_assembly_ak2_tightening_result" name="Tightening Result(AK2)"
+                  action="action_ak2_tightening_result"
+                  parent="onesphere_tightening_result" sequence="20"/>
+    </data>
+</odoo>

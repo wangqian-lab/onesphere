@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import io
 import os
 from odoo import api, exceptions, fields, models, _
 from odoo.tools import ustr
@@ -7,31 +7,42 @@ import logging
 import functools
 import urllib3
 from minio import Minio
+from minio.helpers import ObjectWriteResult
 from odoo.addons.oneshare_utils.constants import ENV_OSS_BUCKET, ENV_OSS_ENDPOINT, ENV_OSS_ACCESS_KEY, \
     ENV_OSS_SECRET_KEY
 
+from typing import Optional, Union
+
 _logger = logging.getLogger(__name__)
 
-_http_client = False
+_gbl_http_client = None
+
 
 def oss_wrapper(raw_resp=True):
     """
 
-    :param raw_resp: boolean, 是否返回urllib3.Response对象
+    :param raw_resp: boolean, 是否返回urllib3.HTTPResponse对象
     :return:
     """
+
     def decorator(f):
         @functools.wraps(f)
         def _oss_wrap(*args, **kw):
             data = None
             resp = None
+            _logger.debug(f"params:{args}, object params: {kw}")
             try:
-                resp = f(*args, **kw)
-                data = resp.data
+                resp: Optional[ObjectWriteResult, urllib3.response.HTTPResponse] = f(*args, **kw)
+                if isinstance(resp, ObjectWriteResult):
+                    data = resp.object_name
+                if isinstance(resp, urllib3.response.HTTPResponse):
+                    data = resp.data
             except Exception as e:
                 _logger.error(f"{f.__name__}: {ustr(e)}")
             finally:
-                if resp:
+                if not resp:
+                    return resp
+                if isinstance(resp, urllib3.response.HTTPResponse):
                     resp.close()
                     resp.release_conn()
                 if raw_resp:
@@ -47,12 +58,10 @@ class OSSInterface(models.AbstractModel):
     _name = 'onesphere.oss.interface'
     _description = '对象存储接口抽象类'
 
-    # _http_client = None
-
     def ensure_oss_client(self):
-        global _http_client
-        if _http_client:
-            return _http_client
+        global _gbl_http_client
+        if _gbl_http_client:
+            return _gbl_http_client
         ICP = self.env['ir.config_parameter']
         endpoint = ICP.get_param('oss.endpoint', ENV_OSS_ENDPOINT)
         access_key = ICP.get_param('oss.access_key', ENV_OSS_ACCESS_KEY)
@@ -65,8 +74,8 @@ class OSSInterface(models.AbstractModel):
                                                       status_forcelist=[500, 502, 503, 504],
                                                   ),
                                                   ), )
-        _http_client = c
-        return _http_client
+        _gbl_http_client = c
+        return _gbl_http_client
 
     @oss_wrapper(raw_resp=False)
     def get_oss_object(self, bucket_name: str, object_name: str):
@@ -74,9 +83,11 @@ class OSSInterface(models.AbstractModel):
         c = self.ensure_oss_client()
         return c.get_object(bucket_name, object_name)
 
-
-    def put_oss_object(self, bucket_name: str, object_name: str, data: bytes, length: int):
-        # 上传minio数据
+    @oss_wrapper(raw_resp=False)
+    def put_oss_object(self, bucket_name: str, object_name: str, data: Union[bytes, str]):
         c = self.ensure_oss_client()
-        return c.put_object(bucket_name, object_name, data, length)
-
+        if isinstance(data, str):
+            data = data.encode('utf-8')
+        length = len(data)
+        f = io.BytesIO(data)
+        return c.put_object(bucket_name, object_name, f, length)

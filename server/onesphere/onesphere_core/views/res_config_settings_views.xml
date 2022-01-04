@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="onesphere_core_res_config_settings_view_form_inherit" model="ir.ui.view">
+            <field name="name">onesphere_core_res_config_settings_view_form_inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="35"/>
+            <field name="inherit_id" ref="mrp.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="mrp_lock" position="after">
+                    <div class="col-lg-6 col-12 o_setting_box" id="mrp_workorder_operation_merge"
+                         title="Makes confirmed manufacturing operation Merge. When operations in same work center.">
+                        <div class="o_setting_left_pane">
+                            <field name="workorder_operation_merge"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="workorder_operation_merge"/>
+                            <div class="text-muted">
+                                Makes confirmed manufacturing operation Merge. When operations in same work center.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

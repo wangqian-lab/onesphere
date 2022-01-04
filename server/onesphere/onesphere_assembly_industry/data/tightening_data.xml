@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
         <record forcecreate="True" id="decimal_unit_of_tightening_operation_point_offset" model="decimal.precision">
             <field name="name">Unit of Tightening Opr Point Offset</field>
             <field name="digits" eval="2"/>
+        </record>
+
+        <record forcecreate="True" id="decimal_tightening_result_measurement" model="decimal.precision">
+            <field name="name">Unit of Tightening Result Measurement</field>
+            <field name="digits">3</field>
         </record>
     </data>
 </odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OneshareTighteningImageEditor" t-extend="OneshareImageEditor">
+        <t t-jquery="#img_block" t-operation="before">
+            <button type="button" class="btn btn-primary js_padding_normal js_add_mask">Add New Mark</button>
+            <button type="button" class="btn btn-warning js_padding_normal js_remove_mask">Remove Mark</button>
+            <button type="button" class="btn btn-danger js_padding_normal js_remove_all_mask">Remove All Mark</button>
+            <button type="button"
+                    class="btn btn-primary btn-sm o_form_button_save js_padding_normal js_save">Save</button>
+        </t>
+
+    </t>
+
+
+</templates>

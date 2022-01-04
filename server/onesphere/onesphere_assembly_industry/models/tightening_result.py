@@ -54,6 +54,8 @@ class OperationResult(HModel):
 
     error_code = fields.Char(string='Error Code', help='Error Code')
 
+    display_name = fields.Char(string='Display Name')
+
     # FIXME: 拧紧曲线数据保存在数据库中, TSV格式
     curve_data = fields.Binary('Tightening Curve Data', help=u'Tightening Curve Content Data', attachment=False)
 

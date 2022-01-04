@@ -40,4 +40,6 @@ odoo.define('onesphere.spc.view', function (require) {
 
     viewRegistry.add('spc_form', SPCFormView);
 
+    return SPCFormView;
+
 });

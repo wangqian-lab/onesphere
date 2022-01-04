@@ -9,7 +9,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
 
     var _t = core._t;
 
-    var OneshareImageEditor = fieldRegistry.get('oneshare_image_editor');
+    const OneshareImageEditor = require('oneshare.field_image_editor');
 
     var OneshareTighteningImageEditor = OneshareImageEditor.extend({
         description: _lt("Tightening Image Editor"),
@@ -208,4 +208,6 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
 
     });
     fieldRegistry.add('oneshare_tightening_image_editor', OneshareTighteningImageEditor);
+
+    return OneshareTighteningImageEditor;
 });

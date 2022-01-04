@@ -3,7 +3,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
 
     const SPCViewerController = require('onesphere.spc.controller');
     var viewRegistry = require('web.view_registry');
-    const SPCFormView = viewRegistry.get('spc_form');
+    const SPCFormView = require('onesphere.spc.view');
     var Dialog = require('web.Dialog');
 
     var core = require('web.core');

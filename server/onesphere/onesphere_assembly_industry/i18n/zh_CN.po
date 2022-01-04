@@ -406,7 +406,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:onesphere_assembly_industry.action_ak2_tightening_result
 #: model_terms:ir.actions.act_window,help:onesphere_assembly_industry.action_nok_tightening_result
 msgid "Let's view tightening result."
-msgstr ""
+msgstr "让我们看下拧紧结果"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__location
@@ -466,7 +466,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Manufacturing Info"
-msgstr ""
+msgstr "制造信息"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_unit__mtbf
@@ -709,7 +709,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Result"
-msgstr ""
+msgstr "结果"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__message_has_sms_error
@@ -878,7 +878,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Tightening Params"
-msgstr ""
+msgstr "拧紧参数"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_id
@@ -899,7 +899,7 @@ msgstr "拧紧点"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tightening_process_no
 msgid "Tightening Process(Pset/Job)"
-msgstr ""
+msgstr "拧紧程序(Pset/Job)"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
@@ -936,17 +936,17 @@ msgstr "拧紧结果"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Tightening Step Result"
-msgstr ""
+msgstr "拧紧工步结果"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__measurement_step_results
 msgid "Tightening Step Results"
-msgstr ""
+msgstr "拧紧工步结果"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tightening_strategy
 msgid "Tightening Strategy"
-msgstr ""
+msgstr "拧紧策略"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool__tightening_tool_id
@@ -1022,7 +1022,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__onesphere_assy_industry_spc__measurement_type__torque
 msgid "Torque"
-msgstr ""
+msgstr "扭矩"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__onesphere_tightening_result__tightening_strategy__ad

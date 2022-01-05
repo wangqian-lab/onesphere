@@ -26,6 +26,10 @@ class OperationResult(HModel):
 
     _inherit = ["onesphere.daq.item"]
 
+    def _compute_display_name(self):
+        for result in self:
+            result.display_name = result.tightening_result or 'New Tightening Result'
+
     tightening_process_no = fields.Char(string='Tightening Process(Pset/Job)')
 
     tightening_strategy = fields.Selection([('AD', 'Torque tightening'),
@@ -54,7 +58,7 @@ class OperationResult(HModel):
 
     error_code = fields.Char(string='Error Code', help='Error Code')
 
-    display_name = fields.Char(string='Display Name')
+    display_name = fields.Char(string='Display Name', compute=_compute_display_name)
 
     # FIXME: 拧紧曲线数据保存在数据库中, TSV格式
     curve_data = fields.Binary('Tightening Curve Data', help=u'Tightening Curve Content Data', attachment=False)

@@ -1,0 +1,112 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* onesphere_spc
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-04 09:42+0000\n"
+"PO-Revision-Date: 2022-01-04 09:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: onesphere_spc
+#: model:ir.model.fields.selection,name:onesphere_spc.selection__onesphere_spc_mixin__spc_step__0_1
+msgid "0.1"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields.selection,name:onesphere_spc.selection__onesphere_spc_mixin__spc_step__0_2
+msgid "0.2"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields.selection,name:onesphere_spc.selection__onesphere_spc_mixin__spc_step__0_5
+msgid "0.5"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__model_object_field
+msgid "Field"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__id
+msgid "ID"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__cmk
+msgid "Machine Capability Index(CMK)"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__model_object
+msgid "Model"
+msgstr ""
+
+#. module: onesphere_spc
+#: code:addons/onesphere_spc/models/spc_mixin.py:0
+#, python-format
+msgid "Please Implement Via Every SPC Modules, No Mixin Class"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__cpk
+msgid "Process Capability Index(CPK)"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__query_date_from
+msgid "Query Date From"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__query_date_to
+msgid "Query Date to"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__spc_step
+msgid "SPC Analysis Step"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__limit
+msgid "SPC Query Record Count Limit"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.ui.menu,name:onesphere_spc.onesphere_spc_root
+msgid "Statistical Process Control(SPC)"
+msgstr "质量过程控制(SPC)"
+
+#. module: onesphere_spc
+#: model:ir.model,name:onesphere_spc.model_onesphere_spc_mixin
+msgid "统计过程控制MIXIN类"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__usl
+msgid "规格上限(USL)"
+msgstr ""
+
+#. module: onesphere_spc
+#: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__lsl
+msgid "规格下限(LSL)"
+msgstr ""

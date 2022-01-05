@@ -30,7 +30,7 @@ class OneshareTestType(models.Model):
     _description = "Quality Control Test Type"
 
     # Used instead of selection field in order to hide a choice depending on the view.
-    name = fields.Char('Name', required=True)
+    name = fields.Char('Name', required=True, translate=True)
     technical_name = fields.Char('Technical name', required=True)
     active = fields.Boolean('active', default=True)
 

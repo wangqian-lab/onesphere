@@ -1,0 +1,807 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* onesphere_core
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-05 05:38+0000\n"
+"PO-Revision-Date: 2022-01-05 05:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_core_mrp_routing_workcenter_form_view_inherit
+msgid "<span class=\"o_stat_text\">Working Steps</span>"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__active
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__active
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__active
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_tree
+msgid "Active"
+msgstr "激活"
+
+#. module: onesphere_core
+#: model:res.groups,name:onesphere_core.group_quality_manager
+msgid "Administrator"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__can_do_rework
+msgid "Allow Do Redo"
+msgstr "允许重做"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__can_do_skip
+msgid "Allow Do Skip"
+msgstr "允许跳过"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Archived"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__reason
+msgid "Cause"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__code
+msgid "Code"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__color
+msgid "Color"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__company_id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Control Point"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__create_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__create_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_onesphere_daq_item
+msgid "Daq Operation Result Abstract Model"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__test_type_id
+msgid "Defines the type of the quality control point."
+msgstr "定义质量控制点的类型"
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_operation_type__code__outgoing
+msgid "Delivery"
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Describe the quality check to do..."
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Describe why you need to perform this quality check..."
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__note
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__desc
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__note
+msgid "Description"
+msgstr "描述"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_res_users_unique_uuid
+msgid "Every User unique UUID"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_oneshare_measurement_calc_type_code_unique
+msgid "Field code must be unique per measurement calculate type."
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "关注者(渠道)"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "订阅者(业务伙伴)"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__formula
+msgid "Formula"
+msgstr "计算公式"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__code
+msgid "HMI User Role Code"
+msgstr "HMI用户编号"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__name
+msgid "HMI User Role Name"
+msgstr "HMI用户名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__hmi_role_id
+msgid "HMI角色"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.module.category,description:onesphere_core.module_category_manufacturing_quality
+msgid "Helps you manage your quality alerts and quality checks."
+msgstr "帮你管理质量警告和质量检查"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__id
+#: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__id
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__id
+msgid "ID"
+msgstr "唯一识别码"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_needaction
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "如果勾选此项，有新消息会提醒你"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_has_error
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Instructions"
+msgstr "工步指令"
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_operation_type__code__internal
+msgid "Internal Transfer"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_is_follower
+msgid "Is Follower"
+msgstr "是关注者"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__is_workorder_step
+msgid "Is MRP Working Step?"
+msgstr "是否为MRP工步"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__write_uid
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__write_date
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__write_date
+msgid "Last Updated on"
+msgstr "最后更新日"
+
+#. module: onesphere_core
+#: model_terms:ir.actions.act_window,help:onesphere_core.onesphere_action_open_measurement_calc_type
+msgid "Let's create a measurement calculate type."
+msgstr "创建一个测量计算类型"
+
+#. module: onesphere_core
+#: model_terms:ir.actions.act_window,help:onesphere_core.onesphere_action_open_quality_point_test_type
+msgid "Let's create a quality point test type."
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.actions.act_window,help:onesphere_core.onesphere_action_open_work_step
+msgid "Let's create a work step."
+msgstr "创建一个工步"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onsphere_core_view_users_form
+msgid "MOM Extra Info"
+msgstr "MOM额外信息"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_hmi_user_role
+msgid "MOM HMI User Role"
+msgstr "MOM HMI用户角色"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "附件"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_core_res_config_settings_view_form_inherit
+msgid ""
+"Makes confirmed manufacturing operation Merge. When operations in same work "
+"center."
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_operation_type__code__mrp_operation
+msgid "Manufacturing"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__tolerance_max
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__tolerance_max
+msgid "Max Tolerance"
+msgstr "最大冗余"
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_measurement_item__test_type__measure
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_measure
+msgid "Measure"
+msgstr "测量"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Measurement Calc Items"
+msgstr "测量计算项"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__measurement_calc_type_id
+msgid "Measurement Calc Type"
+msgstr "测量计算类型"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__multi_measurement_calc_ids
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Measurement Calculate Items"
+msgstr "测量计算项"
+
+#. module: onesphere_core
+#: model:ir.actions.act_window,name:onesphere_core.onesphere_action_open_measurement_calc_type
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_tree
+msgid "Measurement Calculate Type"
+msgstr "测量计算类型"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_filter
+msgid "Measurement Calculate Type Name"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_measurement_item
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__measurement_item_ids
+msgid "Measurement Item"
+msgstr "测量项"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__multi_measurement_ids
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Measurement Items"
+msgstr "测量项"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_error
+msgid "Message Delivery error"
+msgstr "信息传递错误"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_ids
+msgid "Messages"
+msgstr "信息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__tolerance_min
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__tolerance_min
+msgid "Min Tolerance"
+msgstr "最小角度"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_multi_measure
+msgid "Multi Measure"
+msgstr "混合测量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__name
+msgid "Name"
+msgstr "名称"
+
+#. module: onesphere_core
+#: code:addons/onesphere_core/models/quality.py:0
+#: code:addons/onesphere_core/models/quality.py:0
+#: code:addons/onesphere_core/models/quality.py:0
+#: code:addons/onesphere_core/models/quality_measurement.py:0
+#: code:addons/onesphere_core/models/quality_measurement.py:0
+#: code:addons/onesphere_core/models/quality_measurement.py:0
+#: code:addons/onesphere_core/models/quality_measurement.py:0
+#, python-format
+msgid "New"
+msgstr "新建"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__norm
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__norm
+msgid "Norm"
+msgstr "标准值"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Normal"
+msgstr "标准值"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__note
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Note"
+msgstr "备注"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Notes"
+msgstr "备注"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_needaction_counter
+msgid "Number of Actions"
+msgstr "行动数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_error_counter
+msgid "Number of errors"
+msgstr "错误数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "需要行动消息的数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "传递错误的消息数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__message_unread_counter
+msgid "Number of unread messages"
+msgstr "未读消息数量"
+
+#. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_oneshare_quality_point_code_uniq
+msgid "Only one code per working step is allowed"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__operation_id
+msgid "Operation"
+msgstr "作业"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_tree
+msgid "Operation Type"
+msgstr "作业类型"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__operation_type_ids
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Operation Types"
+msgstr "作业类型"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__onesphere_operation_ids
+msgid "Operations"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_measurement_item__test_type__passfail
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_passfail
+msgid "Pass - Fail"
+msgstr "pass/fail"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_printer
+msgid "Print"
+msgstr "打印"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_print_label
+msgid "Print label"
+msgstr "打印标签"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__component_id
+msgid "Product To Register"
+msgstr "所需物料"
+
+#. module: onesphere_core
+#: model:ir.module.category,name:onesphere_core.module_category_manufacturing_quality
+msgid "Quality"
+msgstr "质量"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_quality_point
+msgid "Quality Control Point"
+msgstr "质量控制点"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_quality_point_test_type
+msgid "Quality Control Test Type"
+msgstr "质量控制类型"
+
+#. module: onesphere_core
+#: model:ir.actions.act_window,name:onesphere_core.onesphere_action_open_quality_point_test_type
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_tree
+msgid "Quality Point Type"
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_filter
+msgid "Quality Point Type Name"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_operation_type__code__incoming
+msgid "Receipt"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_type__code
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__name
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Reference"
+msgstr "参照"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_measurement_calc_type_view_tree
+msgid "Reference Code"
+msgstr "参照编号"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__code
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Reference(External)"
+msgstr "参照(外部)"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_register_byproducts
+msgid "Register By-products"
+msgstr "扫码"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_register_consumed_materials
+msgid "Register Consumed Materials"
+msgstr "拣货"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__sequence
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__sequence
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_video
+msgid "Show a Video"
+msgstr "录像"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_picture
+msgid "Take a Picture"
+msgstr "拍照"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__test_type
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__technical_name
+msgid "Technical name"
+msgstr "技术名称"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_equipment_id
+msgid "Test Equipment"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_type
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__test_type_id
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Test Type"
+msgstr "测量类型"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_text
+msgid "Text"
+msgstr "文本"
+
+#. module: onesphere_core
+#: model:res.groups,comment:onesphere_core.group_quality_manager
+msgid "The quality manager manages the quality process"
+msgstr "质检管理员管理质检过程"
+
+#. module: onesphere_core
+#: model:res.groups,comment:onesphere_core.group_quality_user
+msgid "The quality user uses the quality process"
+msgstr "质检用户使用质检过程"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Tolerance(max)"
+msgstr "上限值"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+msgid "Tolerance(min)"
+msgstr "下限值"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_tree
+msgid "Type"
+msgstr "类型"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__code
+msgid "Type of Operation"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_res_users__uuid
+msgid "UUID"
+msgstr ""
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onsphere_core_view_users_form
+msgid "Unique ID"
+msgstr "唯一ID"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__norm_unit
+msgid "Unit of Measure"
+msgstr "测量单位"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_unread
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "未读消息数量"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_operation_type__sequence
+msgid "Used to order the 'All Operations' kanban view"
+msgstr ""
+
+#. module: onesphere_core
+#: model:res.groups,name:onesphere_core.group_quality_user
+msgid "User"
+msgstr "用户"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__website_message_ids
+msgid "Website Messages"
+msgstr "网站消息"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__website_message_ids
+msgid "Website communication history"
+msgstr "网站沟通历史"
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__can_do_rework
+msgid "Whether This Step Can Be Rework"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__can_do_skip
+msgid "Whether This Step Can Be Skipped"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_mrp_workcenter
+msgid "Work Center"
+msgstr "工作中心"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "工作中心使用情况"
+
+#. module: onesphere_core
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_tree
+msgid "Work Order Operations"
+msgstr "工单作业"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__work_step_ids
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__work_step_id
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
+msgid "Work Step"
+msgstr "工步"
+
+#. module: onesphere_core
+#: model:ir.actions.act_window,name:onesphere_core.onesphere_action_open_work_step
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__parent_quality_point_id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__parent_quality_point_id
+msgid "Working Step"
+msgstr "工步"
+
+#. module: onesphere_core
+#: code:addons/onesphere_core/models/mrp_routing_workcenter.py:0
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__work_step_count
+#: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_core_mrp_routing_workcenter_form_view_inherit
+#, python-format
+msgid "Working Steps"
+msgstr "工步"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__active
+msgid "active"
+msgstr "有效"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__sequence
+msgid "sequence"
+msgstr "序号"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_operation_type
+msgid "作业类型"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__workorder_operation_merge
+msgid "单工位工序合并工单"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_onesphere_mrp_operation_step_rel
+msgid "工步作业关联表"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__control_time
+msgid "数据生成时间"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_item
+#: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_type
+msgid "测量计算类型"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__attribute_equipment_no
+msgid "设备序列号"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__track_no
+msgid "追溯码"
+msgstr ""

@@ -79,6 +79,7 @@ class OSSInterface(models.AbstractModel):
 
     @oss_wrapper(raw_resp=False)
     def get_oss_object(self, bucket_name: str, object_name: str):
+        # 获取minio数据
         c = self.ensure_oss_client()
         return c.get_object(bucket_name, object_name)
 

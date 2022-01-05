@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-04 07:31+0000\n"
-"PO-Revision-Date: 2022-01-04 07:31+0000\n"
+"POT-Creation-Date: 2022-01-05 05:38+0000\n"
+"PO-Revision-Date: 2022-01-05 05:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -346,8 +346,9 @@ msgstr "最大冗余"
 
 #. module: onesphere_core
 #: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_measurement_item__test_type__measure
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_measure
 msgid "Measure"
-msgstr ""
+msgstr "测量"
 
 #. module: onesphere_core
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
@@ -405,6 +406,11 @@ msgstr "信息"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__tolerance_min
 msgid "Min Tolerance"
 msgstr "最小角度"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_multi_measure
+msgid "Multi Measure"
+msgstr "混合测量"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__name
@@ -498,8 +504,19 @@ msgstr ""
 
 #. module: onesphere_core
 #: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_measurement_item__test_type__passfail
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_passfail
 msgid "Pass - Fail"
-msgstr ""
+msgstr "pass/fail"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_printer
+msgid "Print"
+msgstr "打印"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_print_label
+msgid "Print label"
+msgstr "打印标签"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__component_id
@@ -560,6 +577,16 @@ msgid "Reference(External)"
 msgstr "参照(外部)"
 
 #. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_register_byproducts
+msgid "Register By-products"
+msgstr "扫码"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_register_consumed_materials
+msgid "Register Consumed Materials"
+msgstr "拣货"
+
+#. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
@@ -570,6 +597,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__sequence
 msgid "Sequence"
 msgstr "序号"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_video
+msgid "Show a Video"
+msgstr "录像"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_picture
+msgid "Take a Picture"
+msgstr "拍照"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__test_type
@@ -588,6 +625,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
 msgid "Test Type"
 msgstr "测量类型"
+
+#. module: onesphere_core
+#: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_text
+msgid "Text"
+msgstr "文本"
 
 #. module: onesphere_core
 #: model:res.groups,comment:onesphere_core.group_quality_manager

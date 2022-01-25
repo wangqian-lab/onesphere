@@ -28,6 +28,7 @@
         'data/work_area_category_data.xml',
         'data/maintenance_category_data.xml',
         'views/assets.xml',
+        'views/equipment_connection_views.xml',
         'views/maintenance_views.xml',
         'views/product_views.xml',
         'views/mrp_workcenter_views.xml',

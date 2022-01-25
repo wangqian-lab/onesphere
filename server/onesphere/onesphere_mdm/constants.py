@@ -1,0 +1,16 @@
+# 工步类型
+MEASURE_TEST_TYPE = "measure"
+MULTI_MEASURE_TIGHTENING_TEST_TYPE = "multi_measure"
+PASS_TEST_TYPE = "pass_fail"
+
+ALL_MEASURE_TEST_TYPE_LIST = [MEASURE_TEST_TYPE, MULTI_MEASURE_TIGHTENING_TEST_TYPE, PASS_TEST_TYPE]
+
+# endpoint
+HEALTHZ_URL = "api/v1/healthz"
+
+# protocol
+MODBUSTCP_TYPE = "modbustcp"
+MODBUSRTU_TYPE = "modbusrtu"
+RAWTCP_TYPE = "rawtcp"
+RAWUDP_TYPE = "rawudp"
+HTTP_TYPE = "http"

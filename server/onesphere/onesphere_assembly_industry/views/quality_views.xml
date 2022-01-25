@@ -6,6 +6,9 @@
             <field name="model">oneshare.quality.point</field>
             <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='test_type_id']" position="before">
+                        <field name="step_version" readonly="1"/>
+                </xpath>
                 <xpath expr="//notebook/page[1]" position="before">
                     <page string="Tightening Image" name="tightening_img"
                           attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))],'required': [('test_type','in',('tightening', 'promiscuous_tightening'))]}">

@@ -15,8 +15,8 @@ class MrpWorkcenterGroup(models.Model):
         workgroup_id = ret
         equipment_obj = self.env['maintenance.equipment'].sudo()
         workgroup_tool_obj = self.env['mrp.workcenter.group.tool'].sudo()
-        tightening_tool_ids = equipment_obj.search[('workcenter_id', 'in', ret.onesphere_workcenter_ids.ids),
-                                                   ('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)]
+        tightening_tool_ids = equipment_obj.search([('workcenter_id', 'in', ret.onesphere_workcenter_ids.ids),
+                                                   ('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)])
 
         vals = []
         for tool in tightening_tool_ids:

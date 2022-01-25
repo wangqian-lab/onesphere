@@ -12,7 +12,7 @@ class OneshareOperationStepRel(models.Model):
 
     sequence = fields.Integer('Sequence', default=0)
 
-    operation_id = fields.Many2one('mrp.routing.workcenter', required=True)
+    operation_id = fields.Many2one('mrp.routing.workcenter', )
 
     work_step_id = fields.Many2one('oneshare.quality.point', required=True, domain=[('is_workorder_step', '=', True)])
 
@@ -87,6 +87,7 @@ class OneshareQuality(models.Model):
     norm = fields.Float('Norm', digits='Quality Tests')
     tolerance_min = fields.Float('Min Tolerance', digits='Quality Tests')
     tolerance_max = fields.Float('Max Tolerance', digits='Quality Tests')
+    norm_unit = fields.Char('Unit of Measure', default=lambda self: 'mm')
 
     # 工步相关
     is_workorder_step = fields.Boolean('Is MRP Working Step?')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models
+from odoo import api, exceptions, fields, models, _
 
 
 class MrpWorkcenterGroup(models.Model):
@@ -27,4 +27,35 @@ class MrpWorkcenterGroup(models.Model):
         res = []
         for center_group in self:
             res.append((center_group.id, '[%s] %s' % (center_group.code, center_group.name)))
+        return res
+
+class MrpWorkcenterGroupTool(models.Model):
+    _name = 'mrp.workcenter.group.tool'
+    _description = 'Work Center Group Tool'
+    _order = "id"
+
+    workgroup_id = fields.Many2one('mrp.workcenter.group', string='Work Group', copy=False,
+                                   ondelete='cascade', required=True)
+
+    workcenter_id = fields.Many2one('mrp.workcenter', string='Work Centre', copy=False,
+                                    ondelete='cascade', required=True)
+
+    tool_id = fields.Many2one('maintenance.equipment', string='Tightening Tool(Tightening Gun/Wrench)', copy=False,
+                              ondelete='cascade', required=True)
+
+    _sql_constraints = [
+        ('each_uniq', 'unique(workgroup_id,workcenter_id,tool_id)', 'Every Record Is Unique')]
+
+    @api.model
+    def create(self, vals):
+        context = self.env.context
+        if context.get('force_uncreate_group_tool', False):
+            return self
+        return super(MrpWorkcenterGroupTool, self).create(vals)
+
+    def name_get(self):
+        res = []
+        for tool_group_id in self:
+            res.append((tool_group_id.id, _('[%s]@%s@%s') % (
+                tool_group_id.tool_id.serial_no, tool_group_id.workcenter_id.name, tool_group_id.workgroup_id.name)))
         return res

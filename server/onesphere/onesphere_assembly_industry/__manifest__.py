@@ -38,7 +38,7 @@
         'views/mdm_menu_views.xml',
         # 'views/mrp_routing_workcenter_views.xml',
         'views/real_oper_version_views.xml',
-        # 'views/mrp_bom.xml',
+        'views/mrp_bom.xml',
         'views/assembly_industry_menuitem.xml',
     ],
     # only loaded in demonstration mode

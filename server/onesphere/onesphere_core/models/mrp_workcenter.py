@@ -36,3 +36,10 @@ class MrpWorkcenter(models.Model):
             except Exception as e:
                 _logger.error(ustr(e))
         return vals
+
+
+    def get_workcenter_masterpc_http_connect(self):
+        workcenter_id = self
+        master_pcs = self.env['maintenance.equipment'].search(
+            [('workcenter_id', '=', workcenter_id.id), ('category_name', '=', 'mpc')])
+        return master_pcs

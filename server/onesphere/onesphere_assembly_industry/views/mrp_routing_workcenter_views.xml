@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="oneshare_mrp_routing_workcenter_ver_form_inherit" model="ir.ui.view">
+            <field name="name">oneshare_mrp_routing_workcenter_ver_form_inherit</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="onesphere_core.onesphere_core_mrp_routing_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_mrp_workorder_step']" position="before">
+                        <button string="Download Operation" type="object" name="button_send_mrp_routing_workcenter"
+                            class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                        <field name="workcenter_group_id"/>
+                        <field name="workcenter_ids" readonly="1" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                        <field name="oper_version" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

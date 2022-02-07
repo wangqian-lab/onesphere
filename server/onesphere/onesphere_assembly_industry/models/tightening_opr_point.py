@@ -3,7 +3,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 import uuid
 
-ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tightening_spindle']
+from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME
 
 
 class TighteningOprPointGroup(models.Model):

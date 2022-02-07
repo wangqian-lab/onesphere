@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 
-ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tightening_spindle']
+from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME
 
 
 class MrpWorkcenterGroup(models.Model):
@@ -14,9 +14,9 @@ class MrpWorkcenterGroup(models.Model):
             return ret
         workgroup_id = ret
         equipment_obj = self.env['maintenance.equipment'].sudo()
-        workgroup_tool_obj = self.env['mrp.workcenter.group.tool'].sudo()
+        workgroup_tool_obj = self.env['mrp.workcenter.group.tightening.tool'].sudo()
         tightening_tool_ids = equipment_obj.search([('workcenter_id', 'in', ret.onesphere_workcenter_ids.ids),
-                                                   ('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)])
+                                                    ('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)])
 
         vals = []
         for tool in tightening_tool_ids:
@@ -30,9 +30,9 @@ class MrpWorkcenterGroup(models.Model):
         return ret
 
     def _update_create_workcenter_group_tool(self):
-        workgroup_tool_obj = self.env['mrp.workcenter.group.tool'].sudo()
+        workgroup_tool_obj = self.env['mrp.workcenter.group.tightening.tool'].sudo()
         for wg in self:
-            already_workcenter_ids = self.env['mrp.workcenter.group.tool'].search(
+            already_workcenter_ids = self.env['mrp.workcenter.group.tightening.tool'].search(
                 [('workgroup_id', '=', wg.id)]).mapped('workcenter_id')
             workcenter_ids = wg.onesphere_workcenter_ids - already_workcenter_ids
             if not workcenter_ids:
@@ -51,9 +51,9 @@ class MrpWorkcenterGroup(models.Model):
             workgroup_tool_obj.create(vals)
 
     def _update_unlink_workcenter_group_tool(self):
-        need_unlink_recs = self.env['mrp.workcenter.group.tool']
+        need_unlink_recs = self.env['mrp.workcenter.group.tightening.tool']
         for wg in self:
-            recs = self.env['mrp.workcenter.group.tool'].search([('workgroup_id', '=', wg.id),
+            recs = self.env['mrp.workcenter.group.tightening.tool'].search([('workgroup_id', '=', wg.id),
                                                                  ('workcenter_id', 'not in',
                                                                   wg.onesphere_workcenter_ids.ids)])
             need_unlink_recs |= recs
@@ -85,7 +85,7 @@ class MrpWorkcenterGroupTool(models.Model):
                                          ondelete='cascade', required=True)
 
     _sql_constraints = [
-        ('each_uniq', 'unique(workgroup_id,workcenter_id,tightening_tool_id)', 'Every Record Is Unique')]
+        ('uniq_group_center_tool', 'unique(workgroup_id,workcenter_id,tightening_tool_id)', 'Every Record Is Unique')]
 
     @api.model_create_multi
     def create(self, vals):
@@ -97,7 +97,8 @@ class MrpWorkcenterGroupTool(models.Model):
     def name_get(self):
         res = []
         for tool_group_id in self:
-            res.append((tool_group_id.id, '[%s]@%s@%s' % (
-                tool_group_id.tightening_tool_id.serial_no, tool_group_id.workcenter_id.name,
-                tool_group_id.workgroup_id.name)))
+            serial_no = tool_group_id.tightening_tool_id.serial_no if tool_group_id.tightening_tool_id else 'None'
+            workcenter_name = tool_group_id.workcenter_id.name if tool_group_id.workcenter_id else 'None'
+            workgroup_name = tool_group_id.workgroup_id.name if tool_group_id.workgroup_id else 'None'
+            res.append((tool_group_id.id, f'[{serial_no}]@{workcenter_name}@{workgroup_name}'))
         return res

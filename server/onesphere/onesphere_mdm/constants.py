@@ -8,9 +8,9 @@ ALL_MEASURE_TEST_TYPE_LIST = [MEASURE_TEST_TYPE, MULTI_MEASURE_TIGHTENING_TEST_T
 # endpoint
 HEALTHZ_URL = "api/v1/healthz"
 
-# protocol
-MODBUSTCP_TYPE = "modbustcp"
-MODBUSRTU_TYPE = "modbusrtu"
-RAWTCP_TYPE = "rawtcp"
-RAWUDP_TYPE = "rawudp"
-HTTP_TYPE = "http"
+# protocol type
+MODBUSTCP_PROTOCOL_TYPE = "modbustcp"
+MODBUSRTU_PROTOCOL_TYPE = "modbusrtu"
+RAWTCP_PROTOCOL_TYPE = "rawtcp"
+RAWUDP_PROTOCOL_TYPE = "rawudp"
+HTTP_PROTOCOL_TYPE = "http"

@@ -12,9 +12,9 @@ class OneshareOperationStepRel(models.Model):
 
     sequence = fields.Integer('Sequence', default=0)
 
-    operation_id = fields.Many2one('mrp.routing.workcenter', )
+    operation_id = fields.Many2one('mrp.routing.workcenter', string='Operation')
 
-    work_step_id = fields.Many2one('oneshare.quality.point', required=True, domain=[('is_workorder_step', '=', True)])
+    work_step_id = fields.Many2one('oneshare.quality.point', string='Work step', required=True, domain=[('is_workorder_step', '=', True)])
 
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
 

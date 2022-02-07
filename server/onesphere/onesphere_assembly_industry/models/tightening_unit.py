@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 
-ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tightening_spindle']
 
 
 class OnesphereTighteningUnit(models.Model):

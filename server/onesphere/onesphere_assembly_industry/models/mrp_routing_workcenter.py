@@ -8,14 +8,13 @@ from odoo.exceptions import UserError, ValidationError
 import requests as Requests
 from requests import ConnectionError, RequestException
 from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
-    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE
+    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
 from distutils.util import strtobool
 from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items, \
     package_multi_measure_4_measure_step
 
 _logger = logging.getLogger(__name__)
 
-MASTER_ROUTING_API = '/rush/v1/mrp.routing.workcenter'
 
 
 # ENV_MEAS_STEP_DOWNLOAD_ENABLE = strtobool(os.getenv('ENV_MEAS_STEP_DOWNLOAD_ENABLE', 'false'))
@@ -27,8 +26,8 @@ MASTER_ROUTING_API = '/rush/v1/mrp.routing.workcenter'
 class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
-    oper_version = fields.Integer(default=1)
-    workcenter_group_id = fields.Many2one('mrp.workcenter.group')
+    oper_version = fields.Integer('Oper Version', default=1)
+    workcenter_group_id = fields.Many2one('mrp.workcenter.group', string='Workcenter Group')
     workcenter_ids = fields.Many2many(
         'mrp.workcenter',
         related='workcenter_group_id.onesphere_workcenter_ids',
@@ -42,6 +41,7 @@ class MrpRoutingWorkcenter(models.Model):
         return super(MrpRoutingWorkcenter, self).write(vals)
 
     def _create_update_val_record(self, equipment, success_flag):
+        self.ensure_one()
         ver_model = self.env['real.oper.version'].sudo()
         ver_record = ver_model.search([('equipment_id', '=', equipment.id), ('operation_id', '=', self.id)])
         if ver_record and success_flag:

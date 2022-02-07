@@ -8,7 +8,7 @@ from validators import ip_address, ValidationFailure
 from odoo.tools import ustr
 from odoo.addons.oneshare_utils.constants import DEFAULT_TIMEOUT
 from odoo.addons.onesphere_mdm.constants import HEALTHZ_URL, \
-    MODBUSTCP_TYPE, MODBUSRTU_TYPE, RAWTCP_TYPE, RAWUDP_TYPE, HTTP_TYPE
+    MODBUSTCP_PROTOCOL_TYPE, MODBUSRTU_PROTOCOL_TYPE, RAWTCP_PROTOCOL_TYPE, RAWUDP_PROTOCOL_TYPE, HTTP_PROTOCOL_TYPE
 
 
 class MaintenanceEquipment(models.Model):
@@ -68,6 +68,7 @@ class MaintenanceEquipmentCategory(models.Model):
 class EquipmentConnection(models.Model):
     _name = 'maintenance.equipment.connection'
     _description = 'Equipment Connection'
+    _log_access = False
 
     active = fields.Boolean(default=True)
     name = fields.Char(string='Connection', required=True, default='Connection')
@@ -78,17 +79,17 @@ class EquipmentConnection(models.Model):
 
     port = fields.Integer(string='port', default=0)
     unitid = fields.Integer(string='Unit ID', help='Modbus need this ID for identification', default=0)
-    protocol = fields.Selection([(MODBUSTCP_TYPE, 'ModbusTCP'), (MODBUSRTU_TYPE, 'ModbusRTU'), (HTTP_TYPE, "HTTP"),
-                                 (RAWTCP_TYPE, 'TCP'), (RAWUDP_TYPE, 'UDP')], string='Protocol')
+    protocol = fields.Selection([(MODBUSTCP_PROTOCOL_TYPE, 'ModbusTCP'), (MODBUSRTU_PROTOCOL_TYPE, 'ModbusRTU'),
+                                 (HTTP_PROTOCOL_TYPE, "HTTP"),(RAWTCP_PROTOCOL_TYPE, 'TCP'), (RAWUDP_PROTOCOL_TYPE, 'UDP')], string='Protocol')
 
     def button_check_healthz(self):
         for connection in self:
             if connection.protocol != 'http':
                 continue
             try:
-                url = u'http://{0}:{1}/{2}'.format(connection.ip, connection.port, HEALTHZ_URL)
+                url = f'http://{connection.ip}:{connection.port}/{HEALTHZ_URL}'
                 ret = Requests.get(url, headers={'Content-Type': 'application/json'}, timeout=DEFAULT_TIMEOUT)
-                if ret.status_code == 204:
+                if ret.status_code == Requests.codes.no_content:
                     raise UserError(_("Connection Test Succeeded! Everything seems properly set up!"))
                 else:
                     raise UserError(_("Connection Test Failed! Here is what we got instead: %d!") % ret.status_code)
@@ -108,15 +109,15 @@ class EquipmentConnection(models.Model):
 
     def name_get(self):
         def get_names(cat):
-            if cat.protocol == MODBUSTCP_TYPE:
+            if cat.protocol == MODBUSTCP_PROTOCOL_TYPE:
                 return u"modbustcp://{0}:{1}/{2}".format(cat.ip, cat.port, cat.unitid)
-            if cat.protocol == MODBUSRTU_TYPE:
+            if cat.protocol == MODBUSRTU_PROTOCOL_TYPE:
                 return u"modbusrtu://{0}/{1}".format(cat.tty, cat.unitid)
-            if cat.protocol == RAWTCP_TYPE:
+            if cat.protocol == RAWTCP_PROTOCOL_TYPE:
                 return u"tcp://{0}:{1}".format(cat.ip, cat.port)
-            if cat.protocol == RAWUDP_TYPE:
+            if cat.protocol == RAWUDP_PROTOCOL_TYPE:
                 return u"udp://{0}:{1}".format(cat.ip, cat.port)
-            if cat.protocol == HTTP_TYPE:
+            if cat.protocol == HTTP_PROTOCOL_TYPE:
                 return u"http://{0}:{1}".format(cat.ip, cat.port)
 
         return [(cat.id, get_names(cat)) for cat in self]

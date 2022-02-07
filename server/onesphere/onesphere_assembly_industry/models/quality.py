@@ -9,7 +9,7 @@ class OneshareQuality(models.Model):
 
     tightening_opr_point_ids = fields.One2many('onesphere.tightening.opr.point', 'parent_quality_point_id')
 
-    step_version = fields.Integer(default=1)
+    step_version = fields.Integer(default=1, string='Step Version')
 
     def get_tightening_operation_points(self, *args, **kwargs):
         ret = []
@@ -24,6 +24,6 @@ class OneshareQuality(models.Model):
         ver = self.step_version
         vals.update({"step_version": ver + 1})
         # 修改使用了该工步的作业的版本号
-        for data in self.onesphere_operation_ids:
-            data.operation_id.oper_version += 1
+        for operation_step_rel in self.onesphere_operation_ids:
+            operation_step_rel.operation_id.oper_version += 1
         return super(OneshareQuality, self).write(vals)

@@ -40,4 +40,6 @@
     'demo': [
         'data/mrp_demo.xml',
     ],
+
+    'post_init_hook': 'create_related_work_station_area_hook',
 }

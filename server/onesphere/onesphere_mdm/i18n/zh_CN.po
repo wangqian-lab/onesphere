@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 06:25+0000\n"
-"PO-Revision-Date: 2022-01-19 06:25+0000\n"
+"POT-Creation-Date: 2022-02-18 01:29+0000\n"
+"PO-Revision-Date: 2022-02-18 01:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -157,18 +157,6 @@ msgid "Count Of Work Production Line"
 msgstr "产线总数"
 
 #. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__create_uid
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__create_uid
-msgid "Created by"
-msgstr ""
-
-#. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__create_date
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__create_date
-msgid "Created on"
-msgstr ""
-
-#. module: onesphere_mdm
 #: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
 msgid "Define the schedule of resource"
 msgstr "定义资源调度"
@@ -180,7 +168,6 @@ msgstr "定义资源调度"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__display_name
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__display_name
@@ -206,11 +193,6 @@ msgstr "设备类别"
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.sa_equipment_connection_tree_view
 msgid "Equipment Connection"
 msgstr "设备连接"
-
-#. module: onesphere_mdm
-#: model:ir.model.constraint,message:onesphere_mdm.constraint_mrp_workcenter_group_tool_each_uniq
-msgid "Every Record Is Unique"
-msgstr ""
 
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__expected_mtbf
@@ -258,7 +240,6 @@ msgstr "人机交互界面"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__id
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__id
@@ -299,25 +280,12 @@ msgstr "如果该有效字段设置为否，可以不用删除就隐藏此记录
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group____last_update
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
-
-#. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__write_uid
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__write_date
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__write_date
-msgid "Last Updated on"
-msgstr ""
 
 #. module: onesphere_mdm
 #: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_production_line
@@ -627,11 +595,6 @@ msgid ""
 msgstr ""
 
 #. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__tool_id
-msgid "Tightening Tool(Tightening Gun/Wrench)"
-msgstr ""
-
-#. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__time_efficiency
 msgid "Time Efficiency"
 msgstr "时间功率"
@@ -686,6 +649,7 @@ msgstr "工位"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_routing_workcenter__workcenter_id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_productivity__workcenter_id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__workcenter_id
+#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
 msgid "Work Center"
 msgstr "工作中心"
@@ -702,8 +666,8 @@ msgid "Work Center Group"
 msgstr "工作中心组"
 
 #. module: onesphere_mdm
-#: model:ir.model,name:onesphere_mdm.model_mrp_workcenter_group_tool
-msgid "Work Center Group Tool"
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__group_ids
+msgid "Work Center Groups"
 msgstr ""
 
 #. module: onesphere_mdm
@@ -715,16 +679,6 @@ msgstr "工作中心使用情况"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group__onesphere_workcenter_ids
 msgid "Work Centers"
 msgstr "工作中心"
-
-#. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__workcenter_id
-msgid "Work Centre"
-msgstr "工作中心"
-
-#. module: onesphere_mdm
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter_group_tool__workgroup_id
-msgid "Work Group"
-msgstr "工作组"
 
 #. module: onesphere_mdm
 #: model:ir.model,name:onesphere_mdm.model_mrp_workorder
@@ -748,11 +702,10 @@ msgstr "工段名称"
 
 #. module: onesphere_mdm
 #: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_work_station
-#: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_station
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
 msgid "Work Station"
-msgstr "工作中心"
+msgstr "工位"
 
 #. module: onesphere_mdm
 #. openerp-web
@@ -790,12 +743,6 @@ msgstr "工作中心生产力日志"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
 msgid "Working Hours"
 msgstr "工作时间"
-
-#. module: onesphere_mdm
-#: code:addons/onesphere_mdm/models/mrp_workcenter_group.py:0
-#, python-format
-msgid "[%s]@%s@%s"
-msgstr ""
 
 #. module: onesphere_mdm
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit

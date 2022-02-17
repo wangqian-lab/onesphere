@@ -98,7 +98,7 @@
 
         <menuitem
                 id="oneshare_mom_menu_manufacturing_work_station"
-                name="Work Station"
+                name="Work Center"
                 parent="oneshare_mom_menu_manufacturing_work_area"
                 action="mrp.mrp_workcenter_action"
                 sequence="40"/>

@@ -20,7 +20,7 @@ class MrpWorkcenter(models.Model):
             need_download_operation_ids = operation_obj.search([('workcenter_id', '=', work_center.id)])
             if not need_download_operation_ids:
                 continue
-            # 执行下载工艺
+            # todo 执行下载工艺
 
 
 
@@ -38,8 +38,9 @@ class MrpWorkcenter(models.Model):
         return vals
 
 
-    def get_workcenter_masterpc_http_connect(self):
+    def get_workcenter_masterpc(self):
         workcenter_id = self
         master_pcs = self.env['maintenance.equipment'].search(
             [('workcenter_id', '=', workcenter_id.id), ('category_name', '=', 'mpc')])
+        # todo 增加链接的返回
         return master_pcs

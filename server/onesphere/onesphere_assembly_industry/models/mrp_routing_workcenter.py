@@ -76,7 +76,7 @@ class MrpRoutingWorkcenter(models.Model):
                     _logger.error(info)
                     continue
                 for connect in connections:
-                    url = 'http://{0}:{1}{2}'.format(connect.ip, connect.port, MASTER_ROUTING_API)
+                    url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
                     self._push_mrp_routing_workcenter(url)
                     self._create_update_val_record(master_pc, success_flag=True)
             except Exception as e:
@@ -183,7 +183,7 @@ class MrpRoutingWorkcenter(models.Model):
             return
         for workcenter_id in operation.workcenter_ids:
             try:
-                master_pcs = workcenter_id.get_workcenter_masterpc_http_connect()
+                master_pcs = workcenter_id.get_workcenter_masterpc()
                 if not master_pcs:
                     info = 'Can Not Found MasterPC For Work Center:{0}!'.format(workcenter_id.name)
                     self.env.user.notify_info(info)

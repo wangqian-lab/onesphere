@@ -17,7 +17,7 @@ class MrpRoutingWorkcenter(models.Model):
 
     work_step_count = fields.Integer('Working Steps', compute=_compute_work_step_count)
 
-    def button_mrp_workorder_step(self):
+    def button_open_mrp_workorder_step_action(self):
         self.ensure_one()
         step_ids = self.work_step_ids.mapped('work_step_id').ids
         action = self.env.ref('onesphere_core.onesphere_action_open_work_step').read()[0]

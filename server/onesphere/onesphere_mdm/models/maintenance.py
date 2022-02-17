@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 import requests as Requests
+from http import HTTPStatus
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
 from validators import ip_address, ValidationFailure
@@ -9,6 +10,8 @@ from odoo.tools import ustr
 from odoo.addons.oneshare_utils.constants import DEFAULT_TIMEOUT
 from odoo.addons.onesphere_mdm.constants import HEALTHZ_URL, \
     MODBUSTCP_PROTOCOL_TYPE, MODBUSRTU_PROTOCOL_TYPE, RAWTCP_PROTOCOL_TYPE, RAWUDP_PROTOCOL_TYPE, HTTP_PROTOCOL_TYPE
+
+from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME
 
 
 class MaintenanceEquipment(models.Model):
@@ -39,6 +42,39 @@ class MaintenanceEquipment(models.Model):
                 'default_company_id': self.company_id.id
             }
         }
+
+    def create_group_tool(self):
+        for worckcenter_group in self.workcenter_id.group_ids:
+            val = {
+                "workgroup_id": worckcenter_group.id,
+                "workcenter_id": self.workcenter_id.id,
+                "tightening_tool_id": self.id,
+            }
+            self.env['mrp.workcenter.group.tightening.tool'].sudo().create(val)
+
+    def write(self, vals):
+        ret = super(MaintenanceEquipment, self).write(vals)
+        if 'workcenter_id' not in vals:
+            return ret
+        for tool_id in self:
+            if tool_id.category_id.technical_name not in ASSEMBLY_TOOLS_TECH_NAME:
+                continue
+            need_unlink_recs = self.env['mrp.workcenter.group.tightening.tool'].search(
+                [('tightening_tool_id', '=', tool_id.id)])
+            need_unlink_recs.sudo().unlink()
+            tool_id.create_group_tool()
+        return ret
+
+    @api.model
+    def create(self, vals):
+        ret = super(MaintenanceEquipment, self).create(vals)
+        if 'workcenter_id' not in vals:
+            return ret
+        for tool_id in ret:
+            if tool_id.category_id.technical_name not in ASSEMBLY_TOOLS_TECH_NAME:
+                continue
+            tool_id.create_group_tool()
+        return ret
 
 
 class MaintenanceEquipmentCategory(models.Model):
@@ -80,7 +116,8 @@ class EquipmentConnection(models.Model):
     port = fields.Integer(string='port', default=0)
     unitid = fields.Integer(string='Unit ID', help='Modbus need this ID for identification', default=0)
     protocol = fields.Selection([(MODBUSTCP_PROTOCOL_TYPE, 'ModbusTCP'), (MODBUSRTU_PROTOCOL_TYPE, 'ModbusRTU'),
-                                 (HTTP_PROTOCOL_TYPE, "HTTP"),(RAWTCP_PROTOCOL_TYPE, 'TCP'), (RAWUDP_PROTOCOL_TYPE, 'UDP')], string='Protocol')
+                                 (HTTP_PROTOCOL_TYPE, "HTTP"), (RAWTCP_PROTOCOL_TYPE, 'TCP'),
+                                 (RAWUDP_PROTOCOL_TYPE, 'UDP')], string='Protocol')
 
     def button_check_healthz(self):
         for connection in self:
@@ -88,11 +125,11 @@ class EquipmentConnection(models.Model):
                 continue
             try:
                 url = f'http://{connection.ip}:{connection.port}/{HEALTHZ_URL}'
-                ret = Requests.get(url, headers={'Content-Type': 'application/json'}, timeout=DEFAULT_TIMEOUT)
-                if ret.status_code == Requests.codes.no_content:
+                resp = Requests.get(url, headers={'Content-Type': 'application/json'}, timeout=DEFAULT_TIMEOUT)
+                if resp.status_code == HTTPStatus.NO_CONTENT:
                     raise UserError(_("Connection Test Succeeded! Everything seems properly set up!"))
                 else:
-                    raise UserError(_("Connection Test Failed! Here is what we got instead: %d!") % ret.status_code)
+                    raise UserError(_("Connection Test Failed! Here is what we got instead: %d!") % resp.status_code)
             except Exception as e:
                 raise UserError(_("Connection Test Failed! Here is what we got instead:\n %s") % ustr(e))
 
@@ -113,11 +150,9 @@ class EquipmentConnection(models.Model):
                 return u"modbustcp://{0}:{1}/{2}".format(cat.ip, cat.port, cat.unitid)
             if cat.protocol == MODBUSRTU_PROTOCOL_TYPE:
                 return u"modbusrtu://{0}/{1}".format(cat.tty, cat.unitid)
-            if cat.protocol == RAWTCP_PROTOCOL_TYPE:
-                return u"tcp://{0}:{1}".format(cat.ip, cat.port)
-            if cat.protocol == RAWUDP_PROTOCOL_TYPE:
-                return u"udp://{0}:{1}".format(cat.ip, cat.port)
-            if cat.protocol == HTTP_PROTOCOL_TYPE:
-                return u"http://{0}:{1}".format(cat.ip, cat.port)
+            if cat.protocol in [HTTP_PROTOCOL_TYPE, RAWTCP_PROTOCOL_TYPE, RAWUDP_PROTOCOL_TYPE]:
+                return f"{cat.protocol}://{cat.ip}:{cat.port}"
+            else:
+                raise ValueError(f'协议不支持: {cat.protocol}')
 
         return [(cat.id, get_names(cat)) for cat in self]

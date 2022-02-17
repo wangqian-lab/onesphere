@@ -118,6 +118,6 @@ class TighteningOprPoint(models.Model):
                                            'tightening_tool_id',
                                            string='Tightening Tools', copy=False)
 
-    tightening_tool_id = fields.Many2one('maintenance.equipment', string='Prefer Tightening Tool',
-                                         domain=[('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)],
-                                         copy=False)
+    # tightening_tool_id = fields.Many2one('maintenance.equipment', string='Prefer Tightening Tool',
+    #                                      domain=[('technical_name', 'in', ASSEMBLY_TOOLS_TECH_NAME)],
+    #                                      copy=False)

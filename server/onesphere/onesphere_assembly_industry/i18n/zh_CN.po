@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 07:13+0000\n"
-"PO-Revision-Date: 2022-02-08 07:13+0000\n"
+"POT-Creation-Date: 2022-02-17 08:48+0000\n"
+"PO-Revision-Date: 2022-02-17 08:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -211,6 +211,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_bom__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_oneshare_modal__display_name
@@ -334,6 +335,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_bom__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_oneshare_modal__id
@@ -409,6 +411,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_bom____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_oneshare_modal____last_update
@@ -674,11 +677,6 @@ msgid "Parameter Set"
 msgstr ""
 
 #. module: onesphere_assembly_industry
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__tightening_tool_id
-msgid "Prefer Tightening Tool"
-msgstr "拧紧工具"
-
-#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_assy_industry_spc__cpk
 msgid "Process Capability Index(CPK)"
 msgstr "工序能力指数(CPK)"
@@ -826,6 +824,16 @@ msgstr ""
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__product_template__onesphere_product_type__screw
 msgid "Screw"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.assembly_industry_equipment_group_view_tree
+msgid "Select Confirm"
+msgstr "确认"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_assembly_industry_quality_point_view_form_inherit
+msgid "Select Tightening Tools"
+msgstr "批量选择拧紧工具"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
@@ -1216,6 +1224,7 @@ msgid "Weibull Distribution"
 msgstr "韦伯分布"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model,name:onesphere_assembly_industry.model_mrp_workcenter
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__workcenter_id
 msgid "Work Center"
 msgstr "工作中心"
@@ -1248,7 +1257,7 @@ msgstr "工作中心"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool__workgroup_id
 msgid "Work Group"
-msgstr ""
+msgstr "工位组"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__workcenter_group_id
@@ -1285,6 +1294,11 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_result__measurement_step_results
 msgid "分段拧紧结果"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.real_oper_version_view_search
+msgid "待更新"
 msgstr ""
 
 #. module: onesphere_assembly_industry

@@ -6,6 +6,12 @@
             <field name="model">oneshare.quality.point</field>
             <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <header>
+                        <button name="select_tightening_tools" string="Select Tightening Tools" type="object" class="btn-primary"
+                        attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}"/>
+                    </header>
+                </xpath>
                 <xpath expr="//field[@name='test_type_id']" position="before">
                         <field name="step_version" readonly="1"/>
                 </xpath>
@@ -27,8 +33,8 @@
                                 <field name="x_offset" required="1"/>
                                 <field name="y_offset" required="1"/>
                                 <field name="max_attempt_times"/>
-                                <field name="tightening_tool_id" required="1"/>
-                                <field name="tightening_tool_ids" optional="hide" widget="many2many_tags"/>
+<!--                                <field name="tightening_tool_id" required="1"/>-->
+                                <field name="tightening_tool_ids" widget="many2many_tags"/>
                                 <field name="parent_quality_point_id" optional="hide"/>
                                 <field name="group_id" optional="hide"/>
                                 <field name="group_sequence" optional="hide"/>

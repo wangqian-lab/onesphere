@@ -40,6 +40,7 @@
         'views/real_oper_version_views.xml',
         'views/mrp_bom.xml',
         'views/assembly_industry_menuitem.xml',
+        'views/group_tightening_tool.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

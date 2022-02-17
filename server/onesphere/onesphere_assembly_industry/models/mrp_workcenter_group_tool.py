@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 
-from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME
-
+from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME, TIGHTENING_TEST_TYPE
+from odoo.exceptions import ValidationError
 
 class MrpWorkcenterGroup(models.Model):
     _inherit = 'mrp.workcenter.group'
@@ -54,8 +54,8 @@ class MrpWorkcenterGroup(models.Model):
         need_unlink_recs = self.env['mrp.workcenter.group.tightening.tool']
         for wg in self:
             recs = self.env['mrp.workcenter.group.tightening.tool'].search([('workgroup_id', '=', wg.id),
-                                                                 ('workcenter_id', 'not in',
-                                                                  wg.onesphere_workcenter_ids.ids)])
+                                                                            ('workcenter_id', 'not in',
+                                                                             wg.onesphere_workcenter_ids.ids)])
             need_unlink_recs |= recs
         need_unlink_recs.sudo().unlink()
 
@@ -102,3 +102,14 @@ class MrpWorkcenterGroupTool(models.Model):
             workgroup_name = tool_group_id.workgroup_id.name if tool_group_id.workgroup_id else 'None'
             res.append((tool_group_id.id, f'[{serial_no}]@{workcenter_name}@{workgroup_name}'))
         return res
+
+    def select_confirm(self):
+        if not self.env.context.get('step_id'):
+            return
+        step = self.env['oneshare.quality.point'].search(
+            [('id', '=', self.env.context.get('step_id'))])
+        if step.test_type_id.technical_name == TIGHTENING_TEST_TYPE and len(self) > 1:
+            raise ValidationError('拧紧工步类型，每个拧紧点不能选择多个工具')
+        points = step.tightening_opr_point_ids
+        for point in points:
+            point.tightening_tool_ids = [(6, 0, self.ids)]

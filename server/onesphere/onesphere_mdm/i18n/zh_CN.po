@@ -28,7 +28,7 @@ msgstr "工作中心"
 #. module: onesphere_mdm
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_workcenter_view
 msgid "<span class=\"o_stat_text\">Work Station Area</span>"
-msgstr "工作区工位"
+msgstr "工位"
 
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__active
@@ -678,7 +678,7 @@ msgstr "工作区名称"
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_area_station
 msgid "Work Area Station"
-msgstr "工作区工位"
+msgstr "工位"
 
 #. module: onesphere_mdm
 #: model:ir.model,name:onesphere_mdm.model_mrp_workcenter

@@ -89,28 +89,42 @@ class OneshareMrpWorkArea(models.Model):
 
     @staticmethod
     def action_open_children_work_area_update_context(context):
-        key = ''
-        if context.get('search_default_is_shop_floor'):
-            context.update({
-                'search_default_is_production_line': 1
-            })
-            key = 'search_default_is_shop_floor'
-        elif context.get('search_default_is_production_line'):
-            context.update({
-                'search_default_is_work_segment': 1
-            })
-            key = 'search_default_is_production_line'
-        elif context.get('search_default_is_work_segment'):
-            context.update({
-                'search_default_is_work_station': 1
-            })
-            key = 'search_default_is_work_segment'
-        elif context.get('search_default_is_work_station'):
-            context.update({
-                'search_default_is_workstation_unit': 1
-            })
-            key = 'search_default_is_work_station'
-        context.pop(key)
+        # FIXME: 重构
+        default_type_dict = {
+            'shop_floor': 'production_line',
+            'production_line': 'work_segment',
+            'work_segment': 'work_station',
+            'work_station': 'workstation_unit',
+        }
+        for key, val in default_type_dict.items():
+            real_key = 'search_default_is_' + key
+            real_val = 'search_default_is_' + val
+            if context.get(real_key):
+                context.update({real_val: 1})
+                context.pop(real_key)
+                break
+        # key = ''
+        # if context.get('search_default_is_shop_floor'):
+        #     context.update({
+        #         'search_default_is_production_line': 1
+        #     })
+        #     key = 'search_default_is_shop_floor'
+        # elif context.get('search_default_is_production_line'):
+        #     context.update({
+        #         'search_default_is_work_segment': 1
+        #     })
+        #     key = 'search_default_is_production_line'
+        # elif context.get('search_default_is_work_segment'):
+        #     context.update({
+        #         'search_default_is_work_station': 1
+        #     })
+        #     key = 'search_default_is_work_segment'
+        # elif context.get('search_default_is_work_station'):
+        #     context.update({
+        #         'search_default_is_workstation_unit': 1
+        #     })
+        #     key = 'search_default_is_work_station'
+        # context.pop(key)
 
     def action_open_related_work_center_form_view(self):
         self.ensure_one()
@@ -182,27 +196,39 @@ class OneshareMrpWorkArea(models.Model):
                 })
             except Exception as e:
                 _logger.error(ustr(e))
-        if context.get('search_default_is_shop_floor'):
-            ret.update({
-                'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id
-            })
-        elif context.get('search_default_is_production_line'):
-            ret.update({
-                'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id
-            })
-        elif context.get('search_default_is_work_segment'):
-            ret.update({
-                'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id
-            })
-        elif context.get('search_default_is_work_station'):
-            ret.update({
-                'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id
-            })
-        elif context.get('search_default_is_workstation_unit'):
-            ret.update({
-                'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_5').id
-            })
+        area_category_num_dict = {
+            'shop_floor': '1',
+            'production_line': '2',
+            'work_segment': '3',
+            'work_station': '4',
+            'workstation_unit': '5',
+        }
+        for key, val in area_category_num_dict.items():
+            real_key = 'search_default_is_' + key
+            area_category_str = 'onesphere_mdm.oneshare_work_area_category_' + val
+            if context.get(real_key):
+                ret.update({'category_id': self.env.ref(area_category_str).id})
         return ret
+        # if context.get('search_default_is_shop_floor'):
+        #     ret.update({
+        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id
+        #     })
+        # elif context.get('search_default_is_production_line'):
+        #     ret.update({
+        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id
+        #     })
+        # elif context.get('search_default_is_work_segment'):
+        #     ret.update({
+        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id
+        #     })
+        # elif context.get('search_default_is_work_station'):
+        #     ret.update({
+        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id
+        #     })
+        # elif context.get('search_default_is_workstation_unit'):
+        #     ret.update({
+        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_5').id
+        #     })
 
 
 class OneshareWorkAreaCategory(models.Model):

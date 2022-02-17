@@ -4,7 +4,7 @@ from odoo import api, exceptions, fields, models, _
 
 class OneshareMeasurementCalcItem(models.Model):
     _name = 'oneshare.measurement.calc.item'
-    _description = '测量计算类型'
+    _description = '测量计算类型项'
     _log_access = False
 
     def _get_measurement_item_domain(self):

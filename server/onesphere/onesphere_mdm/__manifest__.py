@@ -36,6 +36,7 @@
         'views/work_area_views.xml',
         'views/mrp_workcenter_group_views.xml',
         'views/mdm_menu_views.xml',
+        'views/res_config_settings_views.xml',
     ],
     'demo': [
         'data/mrp_demo.xml',

@@ -1242,7 +1242,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__workcenter_ids
 msgid "Work Center Set"
-msgstr ""
+msgstr "工作中心集合"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_mrp_routing_workcenter
@@ -1262,7 +1262,7 @@ msgstr "工位组"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__workcenter_group_id
 msgid "Workcenter Group"
-msgstr ""
+msgstr "工作中心组"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc

@@ -94,7 +94,7 @@ class MrpRoutingWorkcenter(models.Model):
                 'offset_x': point.x_offset,
                 'offset_y': point.y_offset,
                 'max_redo_times': point.max_attempt_times,
-                'tool_sn': '',  # 默认模式下这里传送的枪的序列号是空字符串
+                'tool_sn': point.tightening_tool_ids.tightening_tool_id.mapped('serial_no') or [],  # 默认模式下这里传送的枪的序列号是空字符串
                 'controller_sn': '',
                 'pset': point.tightening_pet,
                 'consu_product_id': point.product_id.id if point.product_id.id else 0,
@@ -115,53 +115,52 @@ class MrpRoutingWorkcenter(models.Model):
             "name": u"[{0}]@{1}".format(operation_id.name, operation_id.workcenter_id.name),
             # operation_id.routing_id.name),
             "img": "",
-            "product_id": bom_id.product_id.id if bom_id else 0,
-            "product_type": bom_id.product_id.default_code if bom_id else "",
+            "product_id": bom_id.product_tmpl_id.id if bom_id else 0,
+            "product_type": bom_id.product_tmpl_id.default_code if bom_id else "",
             "workcenter_code": operation_id.workcenter_id.code if operation_id.workcenter_id else "",
             'product_type_image': u'data:{0};base64,{1}'.format('image/png',
-                                                                bom_id.product_id.image_1920) if bom_id.product_id.image_1920 else "",
+                                                                bom_id.product_tmpl_id.image_1920) if bom_id.product_tmpl_id.image_1920 else "",
             "points": [],
             "steps": [],
         }
 
         return val
 
-    def _pack_measure_step_val(self, measurement_step_ids):
+    def _pack_measure_step_val(self, step_id):
         # 测量工步生成step数据
-        payloads = []
-        for idx, measurement_step_id in enumerate(measurement_step_ids):
+        # payloads = []
+        # for idx, measurement_step_id in enumerate(measurement_step_ids):
             # if not ENV_MEAS_STEP_DOWNLOAD_ENABLE or not measurement_step_id.can_download:
             #     continue
-            ts = {
-                "title": measurement_step_id.name,  # 这里只会是QCP代码
-                "code": measurement_step_id.code,  # 通过下发的ref去进行定位查找，这里可能出现上层业务系统的k值，报工需要传递的是这个代码
-                "desc": measurement_step_id.note or '',  # 工步指令字段
-                # "failure_msg": measurement_step_id.failure_message or '',
-                "failure_msg": '',
-                "sequence": idx + 1,
-                "skippable": measurement_step_id.can_do_skip,
-                # "skippable": True,
-                "undoable": measurement_step_id.can_do_rework,
-                "test_type": measurement_step_id.test_type_id.technical_name,
-                "consume_product": measurement_step_id.component_id.default_code or measurement_step_id.component_id.barcode or '',
-                "text": measurement_step_id.reason or '',  # 备注字段
-                "tolerance_min": measurement_step_id.tolerance_min,
-                "tolerance_max": measurement_step_id.tolerance_max,
-                "target": measurement_step_id.norm,
-                "uom": measurement_step_id.norm_unit,  # 测量工步的标准值
-            }
-            if measurement_step_id.test_type in [MEASURE_TYPE, MULTI_MEASURE_TYPE]:
-                p = package_multi_measurement_items(measurement_step_id.multi_measurement_ids)
-                ts.update({'measurement_items': p})  # 将测量项
-                ts.update({'measurement_total': len(measurement_step_id.multi_measurement_ids)})
-            if measurement_step_id.test_type == PASS_FAIL_TYPE:
-                v = package_multi_measure_4_measure_step(measurement_step_id)
-                p = package_multi_measurement_items([v])
-                ts.update({'measurement_items': p})  # 将测量项
-                ts.update({'measurement_total': 1})
-            payloads.append(ts)
+        ts = {
+            "title": step_id.name or '',  # 这里只会是QCP代码
+            "code": step_id.code or '',  # 通过下发的ref去进行定位查找，这里可能出现上层业务系统的k值，报工需要传递的是这个代码
+            "desc": step_id.note or '',  # 工步指令字段
+            # "failure_msg": step_id.failure_message or '',
+            # "sequence": idx + 1,
+            "skippable": step_id.can_do_skip,
+            # "skippable": True,
+            "undoable": step_id.can_do_rework,
+            "test_type": step_id.test_type_id.technical_name or '',
+            "consume_product": step_id.component_id.default_code or step_id.component_id.barcode or '',
+            "text": step_id.reason or '',  # 备注字段
+            "tolerance_min": step_id.tolerance_min,
+            "tolerance_max": step_id.tolerance_max,
+            "target": step_id.norm,
+            "uom": step_id.norm_unit or '',  # 测量工步的标准值
+        }
+        if step_id.test_type in [MEASURE_TYPE, MULTI_MEASURE_TYPE]:
+            p = package_multi_measurement_items(step_id.multi_measurement_ids)
+            ts.update({'measurement_items': p})  # 将测量项
+            ts.update({'measurement_total': len(step_id.multi_measurement_ids)})
+            # if measurement_step_id.test_type == PASS_FAIL_TYPE:
+            #     v = package_multi_measure_4_measure_step(measurement_step_id)
+            #     p = package_multi_measurement_items([v])
+            #     ts.update({'measurement_items': p})  # 将测量项
+            #     ts.update({'measurement_total': 1})
+            # payloads.append(ts)
 
-        return payloads
+        return ts
 
     def _send_operation_val(self, val, url):
         # 发送包好的数据
@@ -195,8 +194,9 @@ class MrpRoutingWorkcenter(models.Model):
 
     def _push_mrp_routing_workcenter(self, url):
         self.ensure_one()
+        config = self.env['ir.config_parameter']
+        all_step_flag = config.get_param('oneshare.send.all.steps')
         operation_id = self
-        bom_ids = self.env['mrp.bom']
         bom_id = self.env.context.get('bom_id')
         if bom_id:
             bom_ids = bom_id
@@ -207,37 +207,26 @@ class MrpRoutingWorkcenter(models.Model):
             msg = "Can Not Found MRP BOM Within The Operation:{0}".format(operation_id.name)
             _logger.error(msg)
             raise ValidationError(msg)
-        tightening_step_ids = operation_id.work_step_ids.mapped('work_step_id').filtered(
-            lambda step: step and (step.test_type in ALL_TIGHTENING_TEST_TYPE_LIST))
-        measurement_step_ids = operation_id.work_step_ids.mapped('work_step_id').filtered(
-            lambda step: step and (step.test_type in MULTI_MEASURE_TYPE))
 
-        if not tightening_step_ids or not measurement_step_ids:
-            for bom_id in bom_ids:
-                val = self._pack_operation_val(bom_id, operation_id)
-
-                self._send_operation_val(val, url)
-
-        # 测量工步
         for bom_id in bom_ids:
-            val = self._pack_operation_val(bom_id, operation_id)
-            payloads = self._pack_measure_step_val(measurement_step_ids)
-            val.update({'steps': payloads})
-
-            self._send_operation_val(val, url)
-
-        # 拧紧工步
-        for tightening_step_id in tightening_step_ids:
-            _points = self._pack_points_val(tightening_step_id)
-
-            for bom_id in bom_ids:
+            # step_id = step_rel.
+            for step_id in operation_id.work_step_ids.mapped('work_step_id'):
                 val = self._pack_operation_val(bom_id, operation_id)
-                val.update({
-                    'tightening_step_ref': tightening_step_id.code,
-                    'tightening_step_name': tightening_step_id.name,
-                    'img': u'data:{0};base64,{1}'.format('image/png', tightening_step_id.worksheet_img)
-                    if tightening_step_id.worksheet_img else "",
-                    "points": _points,
-                })
+                if step_id.test_type in ALL_TIGHTENING_TEST_TYPE_LIST:
+                    _points = []
+                    _points = self._pack_points_val(step_id)
+                    val.update({
+                        'tightening_step_ref': step_id.code,
+                        'tightening_step_name': step_id.name,
+                        "points": _points,
+                        "img": u'data:{0};base64,{1}'.format('image/png',
+                                                             step_id.worksheet_img) if step_id.worksheet_img else "",
+                    })
+
+                elif all_step_flag:
+                    payloads = self._pack_measure_step_val(step_id)
+                    val.update({'steps': payloads})
+                else:
+                    pass
 
                 self._send_operation_val(val, url)

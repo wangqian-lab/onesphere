@@ -2,6 +2,7 @@
 from odoo import models, fields, api
 from odoo.tools import pycompat, ustr
 import logging
+from typing import Dict, Tuple
 
 _logger = logging.getLogger(__name__)
 
@@ -14,6 +15,28 @@ class OneshareMrpWorkArea(models.Model):
     _order = "sequence, id"
     _inherit = ['resource.mixin']
     _check_company_auto = True
+
+    DEFAULT_TYPE_DICT = {
+        'search_default_is_shop_floor': 'search_default_is_production_line',
+        'search_default_is_production_line': 'search_default_is_work_segment',
+        'search_default_is_work_segment': 'search_default_is_work_station',
+        'search_default_is_work_station': 'search_default_is_workstation_unit',
+    }
+
+    AREA_CATEGORY_NUM_DICT = {
+        'search_default_is_shop_floor': 'onesphere_mdm.oneshare_work_area_category_1',
+        'search_default_is_production_line': 'onesphere_mdm.oneshare_work_area_category_2',
+        'search_default_is_work_segment': 'onesphere_mdm.oneshare_work_area_category_3',
+        'search_default_is_work_station': 'onesphere_mdm.oneshare_work_area_category_4',
+        'search_default_is_workstation_unit': 'onesphere_mdm.oneshare_work_area_category_5',
+    }
+
+    WORK_AREA_CATEGORY_DICT = {
+        'search_default_is_production_line': 'onesphere_mdm.oneshare_work_area_category_1',
+        'search_default_is_work_segment': 'onesphere_mdm.oneshare_work_area_category_2',
+        'search_default_is_work_station': 'onesphere_mdm.oneshare_work_area_category_3',
+        'search_default_is_workstation_unit': 'onesphere_mdm.oneshare_work_area_category_4',
+    }
 
     @api.depends('name', 'code', 'parent_id.complete_name')
     def _compute_complete_name(self):
@@ -88,43 +111,24 @@ class OneshareMrpWorkArea(models.Model):
             children_ids.toggle_active()
 
     @staticmethod
-    def action_open_children_work_area_update_context(context):
+    def dry_try_update_context(dict_name, context):
+        ret = []
+        for key, val in dict_name.items():
+            if context.get(key):
+                ret.append((key, val))
+        if len(ret) > 1:
+            raise ValueError(f'dry_try_update_context error: 需要更新的超过一个: {ret}')
+        return ret
+
+    def action_open_children_work_area_update_context(self, context):
         # FIXME: 重构
-        default_type_dict = {
-            'shop_floor': 'production_line',
-            'production_line': 'work_segment',
-            'work_segment': 'work_station',
-            'work_station': 'workstation_unit',
-        }
-        for key, val in default_type_dict.items():
-            real_key = 'search_default_is_' + key
-            real_val = 'search_default_is_' + val
-            if context.get(real_key):
-                context.update({real_val: 1})
-                context.pop(real_key)
-                break
-        # key = ''
-        # if context.get('search_default_is_shop_floor'):
-        #     context.update({
-        #         'search_default_is_production_line': 1
-        #     })
-        #     key = 'search_default_is_shop_floor'
-        # elif context.get('search_default_is_production_line'):
-        #     context.update({
-        #         'search_default_is_work_segment': 1
-        #     })
-        #     key = 'search_default_is_production_line'
-        # elif context.get('search_default_is_work_segment'):
-        #     context.update({
-        #         'search_default_is_work_station': 1
-        #     })
-        #     key = 'search_default_is_work_segment'
-        # elif context.get('search_default_is_work_station'):
-        #     context.update({
-        #         'search_default_is_workstation_unit': 1
-        #     })
-        #     key = 'search_default_is_work_station'
-        # context.pop(key)
+        need_update_items = self.dry_try_update_context(self.DEFAULT_TYPE_DICT, context)
+        if len(need_update_items) == 0:
+            return
+        vv: Tuple = need_update_items[0]
+        key, val = vv
+        context.update({val: 1})
+        context.pop(key)
 
     def action_open_related_work_center_form_view(self):
         self.ensure_one()
@@ -161,6 +165,7 @@ class OneshareMrpWorkArea(models.Model):
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        # TODO 重构代码
         res = super(OneshareMrpWorkArea, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar,
                                                                submenu=submenu)
         if view_type != 'form':
@@ -172,14 +177,20 @@ class OneshareMrpWorkArea(models.Model):
         # 增加关于父节点的动态domain
         if fields.get('parent_id'):
             domain = ['|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)]
-            if context.get('search_default_is_production_line'):
-                domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id)]
-            if context.get('search_default_is_work_segment'):
-                domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id)]
-            if context.get('search_default_is_work_station'):
-                domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id)]
-            if context.get('search_default_is_workstation_unit'):
-                domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id)]
+            need_update_items = self.dry_try_update_context(self.WORK_AREA_CATEGORY_DICT, context)
+            if len(need_update_items) == 0:
+                return res
+            vv: Tuple = need_update_items[0]
+            key, val = vv
+            domain += [('category_id', '=', self.env.ref(val, raise_if_not_found=True).id)]
+            # if context.get('search_default_is_production_line'):
+            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id)]
+            # if context.get('search_default_is_work_segment'):
+            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id)]
+            # if context.get('search_default_is_work_station'):
+            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id)]
+            # if context.get('search_default_is_workstation_unit'):
+            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id)]
             ss = pycompat.to_text(domain)
             res['fields']['parent_id']['domain'] = ss
         return res
@@ -196,39 +207,14 @@ class OneshareMrpWorkArea(models.Model):
                 })
             except Exception as e:
                 _logger.error(ustr(e))
-        area_category_num_dict = {
-            'shop_floor': '1',
-            'production_line': '2',
-            'work_segment': '3',
-            'work_station': '4',
-            'workstation_unit': '5',
-        }
-        for key, val in area_category_num_dict.items():
-            real_key = 'search_default_is_' + key
-            area_category_str = 'onesphere_mdm.oneshare_work_area_category_' + val
-            if context.get(real_key):
-                ret.update({'category_id': self.env.ref(area_category_str).id})
-        return ret
-        # if context.get('search_default_is_shop_floor'):
-        #     ret.update({
-        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id
-        #     })
-        # elif context.get('search_default_is_production_line'):
-        #     ret.update({
-        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id
-        #     })
-        # elif context.get('search_default_is_work_segment'):
-        #     ret.update({
-        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id
-        #     })
-        # elif context.get('search_default_is_work_station'):
-        #     ret.update({
-        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id
-        #     })
-        # elif context.get('search_default_is_workstation_unit'):
-        #     ret.update({
-        #         'category_id': self.env.ref('onesphere_mdm.oneshare_work_area_category_5').id
-        #     })
+
+        need_update_items = self.dry_try_update_context(self.AREA_CATEGORY_NUM_DICT,
+                                                        context)
+        if len(need_update_items) == 0:
+            return
+        vv: Tuple = need_update_items[0]
+        key, val = vv
+        ret.update({'category_id': self.env.ref(val).id})
 
 
 class OneshareWorkAreaCategory(models.Model):

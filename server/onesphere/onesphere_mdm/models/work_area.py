@@ -215,6 +215,7 @@ class OneshareMrpWorkArea(models.Model):
         vv: Tuple = need_update_items[0]
         key, val = vv
         ret.update({'category_id': self.env.ref(val).id})
+        return ret
 
 
 class OneshareWorkAreaCategory(models.Model):

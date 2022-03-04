@@ -370,8 +370,8 @@ msgstr "产品工作区"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_mdm_root
-msgid "Master Data Management(MOM)"
-msgstr "主数据管理(MOM)"
+msgid "Master Data Management(MDM)"
+msgstr "主数据管理(MDM)"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_material

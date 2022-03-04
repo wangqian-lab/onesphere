@@ -5,7 +5,7 @@
                 name="Statistical Process Control(SPC)"
                 parent="onesphere_spc.onesphere_spc_root"
                 groups="mrp.group_mrp_manager"
-                sequence="10"/>
+                sequence="20"/>
 
         <record id="onesphere_tightening_result_spc" model="ir.ui.view">
             <field name="name">onesphere_tightening_result_spc</field>

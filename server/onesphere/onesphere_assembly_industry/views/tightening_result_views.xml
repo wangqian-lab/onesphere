@@ -5,7 +5,7 @@
                 name="Tightening Results"
                 parent="onesphere_spc.onesphere_spc_root"
                 groups="mrp.group_mrp_manager"
-                sequence="20"/>
+                sequence="10"/>
 
         <record id="onesphere_tightening_result_view_form" model="ir.ui.view">
             <field name="name">onesphere_tightening_result_view_form</field>

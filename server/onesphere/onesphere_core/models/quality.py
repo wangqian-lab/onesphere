@@ -105,7 +105,7 @@ class OneshareQuality(models.Model):
 
     component_id = fields.Many2one('product.product', 'Product To Register', check_company=True)
 
-    _sql_constraints = [('code_uniq', 'unique(code)', 'Only one code per working step is allowed')]
+    # _sql_constraints = [('code_uniq', 'unique(code)', 'Only one code per working step is allowed')]
 
     def name_get(self):
         res = []

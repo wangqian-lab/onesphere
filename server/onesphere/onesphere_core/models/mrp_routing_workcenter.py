@@ -28,3 +28,9 @@ class MrpRoutingWorkcenter(models.Model):
         action['name'] = _("Working Steps")
 
         return action
+
+    # 重写删除，会将该作业与工步的关联也删掉
+    def unlink(self):
+        self.env['onesphere.mrp.operation.step.rel'].search([('operation_id', 'in', self.ids)]).unlink()
+        result = super(MrpRoutingWorkcenter, self).unlink()
+        return result

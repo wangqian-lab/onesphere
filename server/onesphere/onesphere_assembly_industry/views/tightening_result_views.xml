@@ -15,25 +15,38 @@
                     <header>
                     </header>
                     <sheet>
-                        <group string="Base Info">
+                        <group>
+                            <p style="font-size: 25px; font-weight:bold; color: #5D8DA8">Base Info</p>
+                            <br/>
                             <group string="Product">
                                 <field name="track_no"/>
+                            </group>
+                            <group>
                             </group>
                             <group string="Manufacturing Info">
                                 <field name="attribute_equipment_no"/>
                                 <field name="control_time" string="Tightening Date Time"/>
+                                <field name="user_id"/>
+                                <field name="workcenter_code"/>
                             </group>
                             <group string="Tightening Params">
                                 <field name="tightening_process_no"/>
                                 <field name="tightening_strategy"/>
+                                <field name="tightening_unit_code"/>
+                                <field name="tightening_point_name"/>
+                                <field name="batch"/>
                             </group>
                         </group>
-                        <group string="Result">
+                        <group>
+                            <p style="font-size: 25px; font-weight:bold; color: #5D8DA8">Result</p>
+                            <br/>
                             <group string="Tightening Final Result">
                                 <field name="tightening_result"/>
                                 <field name="measurement_final_torque"/>
                                 <field name="measurement_final_angle"/>
                                 <field name="tightening_id"/>
+                                <field name="curve_file"/>
+
                             </group>
                             <group string="Tightening Step Result">
                                 <field name="measurement_step_results"/>
@@ -103,6 +116,8 @@
                                 context="{'group_by': 'attribute_equipment_no'}"/>
                         <filter string="Occur Time" name="group_by_daily_time" domain="[]"
                                 context="{'group_by': 'control_time:day'}"/>
+                        <filter string="Result" name="group_by_result" domain="[]"
+                                context="{'group_by': 'tightening_result'}"/>
                     </group>
                 </search>
             </field>

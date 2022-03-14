@@ -62,6 +62,13 @@ class OperationResult(HModel):
 
     # FIXME: 拧紧曲线数据保存在数据库中, TSV格式
     curve_data = fields.Binary('Tightening Curve Data', help=u'Tightening Curve Content Data', attachment=False)
+    # 目前仍将曲线保存在minio
+    curve_file = fields.Char(string='Curve Files')
+    tightening_unit_code = fields.Char(string='Tightening Unit Code')
+    tightening_point_name = fields.Char(string='Tightening Point Name')
+    user_id = fields.Many2one('res.users', string='User Name')
+    workcenter_code = fields.Char(string='Work Center Code')
+    batch = fields.Char(string='Batch')
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
@@ -89,3 +96,84 @@ class OperationResult(HModel):
         if field not in ['torque', 'angle']:
             raise ValidationError(_('Query Field Must Is torque or angle, but now is %s!!!') % field)
         return {field: result.get(field, [])}
+
+    # FIXME: 无工单模式存储过程
+    def init(self):
+        self.env.cr.execute("""
+        CREATE OR REPLACE FUNCTION create_operation_tightening_result (
+                control_date TIMESTAMP WITHOUT TIME ZONE,
+                user_id BIGINT,
+                pset_strategy VARCHAR,
+                cur_objects VARCHAR,
+                measure_result varchar,
+                measure_degree NUMERIC,
+                measure_torque NUMERIC,
+                exception_reason VARCHAR,
+                batch VARCHAR,
+                r_tightening_id VARCHAR,
+                gun_sn VARCHAR, 
+                vin_code VARCHAR,
+                r_pset VARCHAR,
+                measurement_step_results VARCHAR,
+                tightening_unit_code VARCHAR,
+                tightening_point_name VARCHAR,
+                workcenter_code VARCHAR
+            ) RETURNS BIGINT AS 
+            $$ 
+            DECLARE
+            r_measure_result VARCHAR;
+            result_id BIGINT;
+            BEGIN
+            
+                case pset_strategy
+                    when 'LN'
+                        then r_measure_result = 'lsn';
+                    ELSE r_measure_result = measure_result;
+                    end case;
+                    
+                INSERT INTO PUBLIC.onesphere_tightening_result (
+                track_no,
+                attribute_equipment_no,
+                tightening_process_no,
+                tightening_strategy,
+                tightening_result,
+                measurement_final_torque,
+                measurement_final_angle,
+                measurement_step_results,
+                tightening_id,
+                error_code,
+                curve_file,
+                control_time,
+                tightening_unit_code,
+                tightening_point_name,
+                user_id,
+                workcenter_code,
+                batch,
+                time
+                )
+            VALUES(   
+                    vin_code,
+                    gun_sn,
+                    r_pset,
+                    pset_strategy,
+                    r_measure_result,
+                    measure_torque,
+                    measure_degree,
+                    measurement_step_results,
+                    r_tightening_id,
+                    exception_reason,
+                    cur_objects,
+                    control_date,
+                    tightening_unit_code,
+                    tightening_point_name,
+                    user_id,
+                    workcenter_code,
+                    batch,
+                    now()
+                );
+            result_id = lastval( );
+            RETURN result_id;
+            
+        END;
+        $$ LANGUAGE plpgsql;
+        """)

@@ -12,6 +12,7 @@
                             class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
+                        <field name="code" required="1"/>
                         <field name="workcenter_group_id"/>
                         <field name="workcenter_ids" readonly="1" widget="many2many_tags"/>
                 </xpath>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-04 10:25+0000\n"
-"PO-Revision-Date: 2022-03-04 10:25+0000\n"
+"POT-Creation-Date: 2022-03-11 03:21+0000\n"
+"PO-Revision-Date: 2022-03-11 03:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,11 @@ msgid "Base Info"
 msgstr "基础信息"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__batch
+msgid "Batch"
+msgstr "批号"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_mrp_bom
 msgid "Bill of Material"
 msgstr "物料清单"
@@ -123,6 +128,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
 msgid "Cancel"
 msgstr "取消"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__code
+msgid "Code"
+msgstr "编号"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.constraint,message:onesphere_assembly_industry.constraint_mrp_routing_workcenter_operation_code_unique
+msgid "Code must be unique!"
+msgstr "编号必须唯一！"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__color
@@ -150,6 +165,11 @@ msgid "Control Mode For Tightening"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_tool_id
+msgid "Controller"
+msgstr "控制器"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__cost
 msgid "Cost"
 msgstr ""
@@ -174,6 +194,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__maintenance_open_count
 msgid "Current Maintenance"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__curve_file
+msgid "Curve Files"
+msgstr "曲线文件"
 
 #. module: onesphere_assembly_industry
 #. openerp-web
@@ -346,6 +371,11 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_sequence
 msgid "Group Sequence for Multi Spindle"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
+msgid "Hyper Model"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -833,6 +863,7 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Result"
 msgstr "结果"
@@ -954,6 +985,11 @@ msgid "This Week"
 msgstr "本周"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__serial_no
+msgid "Tightening Controller Serial Number"
+msgstr "拧紧控制器序列号"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_result__curve_data
 msgid "Tightening Curve Content Data"
 msgstr ""
@@ -1048,6 +1084,11 @@ msgid "Tightening Point Group"
 msgstr "拧紧点组"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tightening_point_name
+msgid "Tightening Point Name"
+msgstr "拧紧点名称"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__name
 msgid "Tightening Point Name(Bolt Number)"
 msgstr "拧紧点名称"
@@ -1064,7 +1105,6 @@ msgid "Tightening Process(Pset/Job)"
 msgstr "拧紧程序(Pset/Job)"
 
 #. module: onesphere_assembly_industry
-#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_tree
@@ -1112,14 +1152,8 @@ msgstr "拧紧策略"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_workcenter_group_tightening_tool__tightening_tool_id
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_tool_id
 msgid "Tightening Tool"
 msgstr "拧紧工具"
-
-#. module: onesphere_assembly_industry
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__serial_no
-msgid "Tightening Tool Serial Number"
-msgstr "拧紧工具序列号"
 
 #. module: onesphere_assembly_industry
 #: model:maintenance.equipment.category,name:onesphere_assembly_industry.equipment_nut_runner
@@ -1151,6 +1185,11 @@ msgid "Tightening Unit"
 msgstr "拧紧单元"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tightening_unit_code
+msgid "Tightening Unit Code"
+msgstr "拧紧单元编号"
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Tightening Unit Name"
 msgstr "拧紧单元名称"
@@ -1158,6 +1197,11 @@ msgstr "拧紧单元名称"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__ref
 msgid "Tightening Unit Ref"
+msgstr "拧紧单元"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__tightening_units
+msgid "Tightening Units"
 msgstr "拧紧单元"
 
 #. module: onesphere_assembly_industry
@@ -1261,6 +1305,11 @@ msgid "Upload Your File"
 msgstr "上传你的文件"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__user_id
+msgid "User Name"
+msgstr "操作者"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__product_template__onesphere_product_type__vehicle
 msgid "Vehicle"
 msgstr ""
@@ -1304,6 +1353,11 @@ msgstr "韦伯分布"
 #: model:ir.model,name:onesphere_assembly_industry.model_mrp_workcenter
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__workcenter_id
 msgid "Work Center"
+msgstr "工作中心"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__workcenter_code
+msgid "Work Center Code"
 msgstr "工作中心"
 
 #. module: onesphere_assembly_industry

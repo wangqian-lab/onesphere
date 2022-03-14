@@ -13,17 +13,16 @@ class OnesphereTighteningUnit(models.Model):
 
     ref = fields.Char('Tightening Unit Ref', required=True)
     name = fields.Char('Tightening Unit', related='tightening_tool_id.name', required=True, readonly=False)
-    tightening_tool_id = fields.Many2one('maintenance.equipment', 'Tightening Tool', ondelete='cascade',
+    tightening_tool_id = fields.Many2one('maintenance.equipment', 'Controller', ondelete='cascade',
                                          check_company=True,
                                          required=True,
                                          domain=[('technical_name', 'in',
-                                                  ['tightening_controller', 'tightening_nut_runner',
-                                                   'tightening_wrench'])])
+                                                  ['tightening_controller'])])
     category_id = fields.Many2one('maintenance.equipment.category', related='tightening_tool_id.category_id',
                                   readonly=False, domain=[('technical_name', 'in',
-                                                           ['tightening_controller', 'tightening_nut_runner',
+                                                           ['tightening_spindle', 'tightening_nut_runner',
                                                             'tightening_wrench'])])
-    serial_no = fields.Char('Tightening Tool Serial Number', related='tightening_tool_id.serial_no',
+    serial_no = fields.Char('Tightening Controller Serial Number', related='tightening_tool_id.serial_no',
                             readonly=False)
 
     company_id = fields.Many2one('res.company', string='Company', related='tightening_tool_id.company_id',
@@ -48,5 +47,5 @@ class OnesphereTighteningUnit(models.Model):
     def name_get(self):
         res = []
         for unit in self:
-            res.append((unit.id, '#%s@%s' % (unit.ref, unit.workcenter_id.display_name)))
+            res.append((unit.id, f'#{unit.ref}@{unit.serial_no}@{unit.workcenter_id.display_name}'))
         return res

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="menu_mdm_import"
+                name="Import"
+                parent="onesphere_mdm.oneshare_mom_menu_mdm_root"
+                sequence="60"/>
+
+        <menuitem
+                id="menu_operation_import"
+                name="Operation Import"
+                action="import_operations_wizard_action"
+                parent="menu_mdm_import"
+                sequence="10"/>
+
+    </data>
+</odoo>

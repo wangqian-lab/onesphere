@@ -29,6 +29,7 @@
         'data/quality_data.xml',
         'data/tightening_data.xml',
         'data/tightening_vendor_data.xml',
+        'data/product_category_data.xml',
         'wizards/oneshare_modal.xml',
         'wizards/assembly_industry_spc_views.xml',
         'views/tightening_result_views.xml',

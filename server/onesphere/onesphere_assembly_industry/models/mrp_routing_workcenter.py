@@ -25,6 +25,7 @@ _logger = logging.getLogger(__name__)
 class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
+    code = fields.Char('Code')
     oper_version = fields.Integer('Oper Version', default=1)
     workcenter_group_id = fields.Many2one('mrp.workcenter.group', string='Workcenter Group')
     workcenter_ids = fields.Many2many(
@@ -34,9 +35,11 @@ class MrpRoutingWorkcenter(models.Model):
     max_op_time = fields.Integer('Max Operation time(second)',
                                  default=60)
 
-    onesphere_bom_ids = fields.Many2many('mrp.routing.workcenter', 'bom_operation_rel', 'onesphere_operation_id',
+    onesphere_bom_ids = fields.Many2many('mrp.bom', 'bom_operation_rel', 'onesphere_operation_id',
                                          'onesphere_bom_id',
                                          string='MRP Bom Operation Relationship')
+
+    _sql_constraints = [('operation_code_unique', 'unique(code)', 'Code must be unique!')]
 
     def write(self, vals):
         ver = self.oper_version
@@ -94,21 +97,25 @@ class MrpRoutingWorkcenter(models.Model):
         for point in operation_point_ids:
             _points.append({
                 'sequence': point.sequence,
+                'is_key': point.is_key,
+                'key_num': point.group_id.key_num if point.group_id else 1,
                 'group_sequence': point.group_sequence,
-                'offset_x': point.x_offset,
-                'offset_y': point.y_offset,
+                'x': point.x_offset,
+                'y': point.y_offset,
                 'max_redo_times': point.max_attempt_times,
-                'tool_sn': point.tightening_tool_ids.tightening_tool_id.mapped('serial_no') or [],
+                'controller_sn': point.tightening_units.mapped('serial_no') if point.tightening_units else [],
+                'tightening_unit': point.tightening_units.mapped('ref') if point.tightening_units else [],
+                # 'tool_sn': point.tightening_tool_ids.tightening_tool_id.mapped('serial_no') or [],
                 'pset': point.tightening_pet,
-                'consu_product_id': point.product_id.id if point.product_id.id else 0,
-                'nut_no': point.name,  # 螺栓编号为拧紧点上的名称
+                'nut_no': point.product_id.name if point.product_id else '',  # 螺栓编号为拧紧点上的名称
+                'tightening_point_name': point.name,
             })
 
         return _points
 
     def _pack_step_val(self, step_id):
         step_val = {
-            "title": step_id.name or '',  # 这里只会是QCP代码
+            "title": step_id.name or '',  # 名称或者QCP
             "code": step_id.code or '',  # 通过下发的ref去进行定位查找，这里可能出现上层业务系统的k值，报工需要传递的是这个代码
             "desc": step_id.note or '',  # 工步指令字段
             "skippable": step_id.can_do_skip,
@@ -124,7 +131,11 @@ class MrpRoutingWorkcenter(models.Model):
             step_val.update({'measurement_total': len(step_id.multi_measurement_ids)})
         elif step_id.test_type in ALL_TIGHTENING_TEST_TYPE_LIST:
             points_data = self._pack_points_val(step_id)
-            step_val.update({'points': points_data})
+            step_val.update({
+                'points': points_data,
+                "img": u'data:{0};base64,{1}'.format('image/png',
+                                                     step_id.worksheet_img.decode()) if step_id.worksheet_img else ""
+                             })
         else:
             pass
 
@@ -140,7 +151,7 @@ class MrpRoutingWorkcenter(models.Model):
             "product_type": bom_id.product_tmpl_id.default_code if bom_id else "",
             "workcenter_code": operation_id.workcenter_id.code if operation_id.workcenter_id else "",
             'product_type_image': u'data:{0};base64,{1}'.format('image/png',
-                                                                bom_id.product_tmpl_id.image_1920) if bom_id.product_tmpl_id.image_1920 else "",
+                                                                bom_id.product_tmpl_id.image_1920.decode()) if bom_id.product_tmpl_id.image_1920 else "",
             "steps": [],
         }
 

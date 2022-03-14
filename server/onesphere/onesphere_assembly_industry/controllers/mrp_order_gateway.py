@@ -35,8 +35,8 @@ def package_multi_measurement_items(measu_items):
             "tolerance_max": item.tolerance_max,
             "uom": item.norm_unit,
             "target": item.norm,
-            # "sn": item.equipment_id.serial_no if item.equipment_id else ""
-            "sn": ""
+            "sn": item.test_equipment_id.serial_no if item.test_equipment_id else ""
+            # "sn": ""
         }
         ret.append(val)
     return ret

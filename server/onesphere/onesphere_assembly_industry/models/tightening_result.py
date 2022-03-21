@@ -88,6 +88,8 @@ class OperationResult(HModel):
             query += f'''limit {limit} '''
         cr.execute(query, (date_from, date_to,))
         result = cr.fetchall()
+        if not result:
+            raise ValidationError('查询获取结果为空,请重新定义查询参数或等待新结果数据')
         torque, angle = zip(*result)
         result = {'torque': list(torque), 'angle': list(angle)}
         _logger.debug(f"get_result_filter_datetime: {pformat(result)}")

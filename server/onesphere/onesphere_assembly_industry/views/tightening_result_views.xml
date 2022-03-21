@@ -90,6 +90,8 @@
                 <search string="Tightening Result">
                     <field name="track_no" string="Track Number/Equipment"
                            filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
+                    <field name="user_id" string="User"
+                           filter_domain="[('user_id','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
                             domain="[('tightening_result', '=', 'ok')]"/>

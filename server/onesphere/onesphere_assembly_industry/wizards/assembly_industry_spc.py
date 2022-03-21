@@ -3,8 +3,6 @@ from odoo import api, exceptions, fields, models, _
 import logging
 from odoo.exceptions import ValidationError
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
-from pandas import DataFrame
-import pprint
 import numpy as np
 from odoo.addons.lexen_spc.plot import normal, histogram
 from odoo.addons.lexen_spc.chart import cmk, cpk, xbar_rbar, rbar, covert2dArray

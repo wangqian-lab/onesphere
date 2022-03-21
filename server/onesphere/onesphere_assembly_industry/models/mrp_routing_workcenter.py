@@ -26,7 +26,7 @@ class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
     code = fields.Char('Code')
-    oper_version = fields.Integer('Oper Version', default=1)
+    oper_version = fields.Integer('Operation Version', default=1)
     workcenter_group_id = fields.Many2one('mrp.workcenter.group', string='Workcenter Group')
     workcenter_ids = fields.Many2many(
         'mrp.workcenter',
@@ -194,8 +194,7 @@ class MrpRoutingWorkcenter(models.Model):
         else:
             bom_ids = self.env['mrp.bom'].search([('onesphere_bom_operation_ids', '=', operation_id.id)])
         if not bom_ids:
-            _logger.debug("_push_mrp_routing_workcenter, BOM:{0}".format(pprint.pformat(bom_ids.ids, indent=4)))
-            msg = "Can Not Found MRP BOM Within The Operation:{0}".format(operation_id.name)
+            msg = f"Can Not Found MRP BOM Within The Operation:{operation_id.name}"
             _logger.error(msg)
             raise ValidationError(msg)
 

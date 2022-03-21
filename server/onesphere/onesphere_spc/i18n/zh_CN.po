@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 02:14+0000\n"
-"PO-Revision-Date: 2022-03-21 02:14+0000\n"
+"POT-Creation-Date: 2022-03-21 04:52+0000\n"
+"PO-Revision-Date: 2022-03-21 04:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,17 +33,17 @@ msgstr ""
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "显示名称"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__model_object_field
 msgid "Field"
-msgstr ""
+msgstr "字段"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__id
 msgid "ID"
-msgstr ""
+msgstr "唯一识别码"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin____last_update

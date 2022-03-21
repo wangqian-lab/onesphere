@@ -3,3 +3,4 @@ urllib3==1.26.6
 validators==0.18.2
 boltons==21.0.0
 pyexcel==0.7.0
+numpy==1.19.5

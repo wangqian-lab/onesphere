@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="real_oper_version_view_form" model="ir.ui.view">
+            <field name="name">real_oper_version_view_form</field>
+            <field name="model">real.oper.version</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <group>
+                        <field name="equipment_id"/>
+                        <field name="operation_id"/>
+                        <field name="version"/>
+                        <field name="state"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="real_oper_version_view_tree" model="ir.ui.view">
+            <field name="name">real_oper_version_view_tree</field>
+            <field name="model">real.oper.version</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="equipment_id"/>
+                    <field name="operation_id"/>
+                    <field name="version"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="real_oper_version_action" model="ir.actions.act_window">
+            <field name="name">Real Oper Version</field>
+            <field name="res_model">real.oper.version</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="real_oper_version"
+                name="Real Oper Version"
+                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_resource"
+                sequence="600"
+                action="real_oper_version_action"/>
+
+    </data>
+</odoo>

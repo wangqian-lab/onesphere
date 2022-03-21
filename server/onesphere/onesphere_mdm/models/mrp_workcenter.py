@@ -25,6 +25,9 @@ class MrpWorkcenter(models.Model):
                                                self: "[('company_id', '=', company_id), ('category_id', '=', {})]".format(
                                                self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id))
 
+    group_ids = fields.Many2many('mrp.workcenter.group', 'mrp_workcenter_group_rel', 'workcenter_id',
+                                 'group_id', string="Work Center Groups")
+
     def name_get(self):
         res = []
         for workcenter in self:

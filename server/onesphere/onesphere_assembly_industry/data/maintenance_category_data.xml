@@ -2,6 +2,11 @@
 <odoo>
     <data noupdate="1">
 
+        <record id="equipment_tightening_mpc" model="maintenance.equipment.category">
+            <field name="name">Tightening Master PC</field>
+            <field name="technical_name">mpc</field><!-- Master PC -->
+        </record>
+
         <!-- Equipment Tightening Tool -->
         <record id="equipment_electric_controller" model="maintenance.equipment.category">
             <field name="name">Tightening Electric Controller</field>

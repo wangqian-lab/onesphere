@@ -28,6 +28,7 @@
         'data/work_area_category_data.xml',
         'data/maintenance_category_data.xml',
         'views/assets.xml',
+        'views/equipment_connection_views.xml',
         'views/maintenance_views.xml',
         'views/product_views.xml',
         'views/mrp_workcenter_views.xml',
@@ -35,8 +36,11 @@
         'views/work_area_views.xml',
         'views/mrp_workcenter_group_views.xml',
         'views/mdm_menu_views.xml',
+        'views/res_config_settings_views.xml',
     ],
     'demo': [
         'data/mrp_demo.xml',
     ],
+
+    'post_init_hook': 'create_related_work_station_area_hook',
 }

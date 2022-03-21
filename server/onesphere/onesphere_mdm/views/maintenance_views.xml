@@ -38,6 +38,13 @@
                             icon="fa-cogs" string="Work Center" attrs="{'invisible': [('workcenter_id', '=', False)]}"
                             groups="mrp.group_mrp_routings">
                     </button>
+                    <button name="%(sa_equipment_connection_action)d"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            type="action" context="{'search_default_equipment_id': active_id}"
+                            string="Connection">
+<!--                        <field string="Connections" name="connections_count" widget="statinfo"/>-->
+                    </button>
                 </xpath>
                 <xpath expr="//field[@name='location']" position="after">
                     <field name="workcenter_id" context="{'default_company_id':company_id}"

@@ -12,9 +12,9 @@ class OneshareOperationStepRel(models.Model):
 
     sequence = fields.Integer('Sequence', default=0)
 
-    operation_id = fields.Many2one('mrp.routing.workcenter', required=True)
+    operation_id = fields.Many2one('mrp.routing.workcenter', string='Operation')
 
-    work_step_id = fields.Many2one('oneshare.quality.point', required=True, domain=[('is_workorder_step', '=', True)])
+    work_step_id = fields.Many2one('oneshare.quality.point', string='Work step', required=True, domain=[('is_workorder_step', '=', True)])
 
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
 
@@ -87,6 +87,7 @@ class OneshareQuality(models.Model):
     norm = fields.Float('Norm', digits='Quality Tests')
     tolerance_min = fields.Float('Min Tolerance', digits='Quality Tests')
     tolerance_max = fields.Float('Max Tolerance', digits='Quality Tests')
+    norm_unit = fields.Char('Unit of Measure', default=lambda self: 'mm')
 
     # 工步相关
     is_workorder_step = fields.Boolean('Is MRP Working Step?')
@@ -104,7 +105,7 @@ class OneshareQuality(models.Model):
 
     component_id = fields.Many2one('product.product', 'Product To Register', check_company=True)
 
-    _sql_constraints = [('code_uniq', 'unique(code)', 'Only one code per working step is allowed')]
+    # _sql_constraints = [('code_uniq', 'unique(code)', 'Only one code per working step is allowed')]
 
     def name_get(self):
         res = []

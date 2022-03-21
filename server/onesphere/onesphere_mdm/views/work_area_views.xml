@@ -19,7 +19,7 @@
                             <button name="action_open_related_work_center_form_view" class="oe_stat_button"
                                     type="object"
                                     icon="fa-bookmark"
-                                    attrs="{'invisible': [('related_workcenter_ids', '=', False)]}">
+                                    attrs="{'invisible': [('technical_name', '!=', '工位')]}">
                                 <div class="o_stat_info">
                                     <span class="o_stat_text">Work Center</span>
                                 </div>

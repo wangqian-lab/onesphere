@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="mrp.mrp_product_product_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='consumable']" position="after">
-                    <filter string="Consumable" name="supplies" domain="[('type', '=', ['consu'])]"/>
+                    <filter string="Consumable" name="supplies" domain="[('type', 'in', ['consu'])]"/>
                 </xpath>
                 <xpath expr="//filter[@name='consumable']" position="attributes">
                     <attribute name="domain">[('type', '=', 'product')]</attribute>

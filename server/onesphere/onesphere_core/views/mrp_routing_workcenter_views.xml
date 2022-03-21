@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[1]" position="before">
                 <div class="oe_button_box" name="button_box">
-                    <button name="button_mrp_workorder_step" type="object" class="oe_stat_button"
+                    <button name="button_open_mrp_workorder_step_action" type="object" class="oe_stat_button"
                             icon="fa-cogs" attrs="{'invisible': [('work_step_count', '=', 0)]}"
                             groups="mrp.group_mrp_routings">
                         <div class="o_stat_info">
@@ -20,12 +20,10 @@
             </xpath>
             <xpath expr="//page[last()]" position="after">
                 <page string="Working Steps" name="mrp_workorder_step">
-                    <field name="work_step_ids" nolabel="1" widget="many2many" string="Working Steps"
-                           context="{'default_operation_id': active_id}">
-                        <tree name="mrp_workorder_step_tree" string="Working Steps" editable="bottom"
-                              context="{'default_operation_id': active_id}">
+                    <field name="work_step_ids" string="Working Steps">
+                        <tree name="mrp_workorder_step_tree" string="Working Steps" editable="bottom">
                             <field name="sequence" widget="handle"/>
-                            <field name="operation_id" required="1" readonly="1"/>
+                            <field name="operation_id" readonly="1"/>
                             <field name="work_step_id" required="1"/>
                         </tree>
                         <form name="mrp_workorder_step_form" string="Working Steps">

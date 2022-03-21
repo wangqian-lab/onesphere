@@ -132,12 +132,14 @@
         <field name="model">oneshare.quality.point</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box"/>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                             attrs="{'invisible': [('active', '=', True)]}"/>
                     <h2>
-                        <field name="name" readonly="1"/>
+                        <field name="name"/>
                     </h2>
                     <group>
                         <group>
@@ -172,6 +174,7 @@
                                     <field name="parent_quality_point_id" optional="hide"/>
                                     <field name="name" string="Reference" required="1"/>
                                     <field name="note"/>
+                                    <field name="test_equipment_id"/>
                                     <field name="test_type"/>
                                     <field name="norm" string="Normal"/>
                                     <field name="tolerance_min" string="Tolerance(min)"/>

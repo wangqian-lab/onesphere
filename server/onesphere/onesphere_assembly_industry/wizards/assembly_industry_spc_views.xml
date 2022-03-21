@@ -5,7 +5,7 @@
                 name="Statistical Process Control(SPC)"
                 parent="onesphere_spc.onesphere_spc_root"
                 groups="mrp.group_mrp_manager"
-                sequence="10"/>
+                sequence="20"/>
 
         <record id="onesphere_tightening_result_spc" model="ir.ui.view">
             <field name="name">onesphere_tightening_result_spc</field>
@@ -44,13 +44,18 @@
                         </group>
                     </sheet>
                     <notebook>
-                        <page string="Normal Distribution" class="o_spc_norm_dist">
+                        <page string="Normal Distribution">
+                            <div class="o_spc_norm_dist"/>
                         </page>
-                        <page string="Weibull Distribution" class="o_spc_weibull_dist">
+<!--                        <page string="Weibull Distribution">-->
+<!--                            <div class="o_spc_weibull_dist"/>-->
+<!--                        </page>-->
+<!--                        <page string="Scatter">-->
+<!--                            <div class="o_spc_scatter"/>-->
+<!--                        </page>-->
+                        <page string="X-R(X-R Control Chart)">
+                            <div class="o_spc_xr_chart"/>
                         </page>
-                        <page string="Scatter" class="o_spc_scatter">
-                        </page>
-                        <page string="X-R(X-R Control Chart)" class="o_spc_xr_chart"/>
                     </notebook>
                 </form>
             </field>

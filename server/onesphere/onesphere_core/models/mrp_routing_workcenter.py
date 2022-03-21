@@ -17,7 +17,7 @@ class MrpRoutingWorkcenter(models.Model):
 
     work_step_count = fields.Integer('Working Steps', compute=_compute_work_step_count)
 
-    def button_mrp_workorder_step(self):
+    def button_open_mrp_workorder_step_action(self):
         self.ensure_one()
         step_ids = self.work_step_ids.mapped('work_step_id').ids
         action = self.env.ref('onesphere_core.onesphere_action_open_work_step').read()[0]
@@ -28,3 +28,9 @@ class MrpRoutingWorkcenter(models.Model):
         action['name'] = _("Working Steps")
 
         return action
+
+    # 重写删除，会将该作业与工步的关联也删掉
+    def unlink(self):
+        self.env['onesphere.mrp.operation.step.rel'].search([('operation_id', 'in', self.ids)]).unlink()
+        result = super(MrpRoutingWorkcenter, self).unlink()
+        return result

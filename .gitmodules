@@ -7,3 +7,6 @@
 [submodule "server/onesphere/onesphere_spc/utils"]
 	path = server/onesphere/onesphere_spc/utils
 	url = https://github.com/masami10/spc.git
+[submodule "server/spc"]
+	path = server/spc
+	url = git@github.com:masami10/spc.git

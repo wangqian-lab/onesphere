@@ -8,7 +8,7 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">
-ret1, ret2 = records.show_waveform()
+ret1, ret2 = records.show_curves()
 if ret1 and ret2:
     action = {
         'name': 'Curve Scope',

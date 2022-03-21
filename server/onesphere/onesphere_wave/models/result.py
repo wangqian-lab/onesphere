@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo.tools import ustr
 import json, itertools
 from boltons.cacheutils import LRU
+import logging
 
 _wave_cache = LRU(max_size=128)
+
+logger = logging.getLogger(__name__)
+
 
 def _create_wave_result_dict(x, data):
     _data = json.loads(data)
@@ -12,6 +16,7 @@ def _create_wave_result_dict(x, data):
     _wave_cache[x] = _data  # 将其加入缓存
 
     return _data
+
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -22,7 +27,7 @@ except ImportError:
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
-    def _get_data(self, data):
+    def _get_curve_data(self, data):
         bucket_name = self.env['ir.config_parameter'].get_param('oss.bucket')
         client = self.env['onesphere.oss.interface'].ensure_oss_client()
         if not client or not bucket_name:
@@ -48,24 +53,24 @@ class OperationResult(HModel):
                 map(lambda x: _create_wave_result_dict(x, client.get_object(bucket_name, x).data.decode('utf-8')),
                     need_fetch_objects))  # 合并结果
         except Exception as e:
+            logger.error(f'Error: {ustr(e)}')
             return [], None, []
         return _datas
 
-    def show_waveform(self):
+    def show_curves(self):
         if not len(self):
             self.env.user.notify_warning(u'查询获取结果:0,请重新定义查询参数或等待新结果数据')
             return None, None
         wave_form = self.env.ref('onesphere_wave.spc_compose_wave_wizard_form')
         if not wave_form:
             return None, None
-        datas = self._get_data(self)
+        datas = self._get_curve_data(self)
         if not len(datas):
             self.env.user.notify_warning(u'查询获取结果:0,请重新定义查询参数或等待新结果数据')
             return None, None
-        wave = json.dumps(datas)
-        wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': wave})
+        curves = json.dumps(datas)
+        wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': curves})
         if not wave_wizard_id:
             return None, None
 
         return wave_form.id, wave_wizard_id.id
-

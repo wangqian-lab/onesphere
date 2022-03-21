@@ -123,3 +123,6 @@ class TighteningOprPoint(models.Model):
     # 拧紧单元
     tightening_units = fields.Many2many('onesphere.tightening.unit', 'tightening_point_unit_rel', 'point_id',
                                         'tightening_unit_id', string='Tightening Units')
+
+    _sql_constraints = [
+        ('name_uniq', 'unique(name)', 'Tightening Operation Point Name MUST BE Unique!')]

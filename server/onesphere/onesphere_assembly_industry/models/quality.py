@@ -32,14 +32,14 @@ class OneshareQuality(models.Model):
             operation_step_rel.operation_id.oper_version += 1
         return super(OneshareQuality, self).write(vals)
 
-    def select_tightening_tools(self):
+    def select_tightening_units(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': '选择工具',
-            'res_model': 'mrp.workcenter.group.tightening.tool',
+            'name': '选择拧紧单元',
+            'res_model': 'onesphere.tightening.unit',
             'target': 'new',
-            'view_id': self.env.ref('onesphere_assembly_industry.assembly_industry_equipment_group_view_tree').id,
+            'view_id': self.env.ref('onesphere_assembly_industry.onesphere_tightening_unit_view_tree').id,
             'view_mode': 'tree',
             'context': {
                 'step_id': self.id
@@ -53,3 +53,9 @@ class OneshareQuality(models.Model):
         for point in self.tightening_opr_point_ids:
             if len(point.tightening_tool_ids) > 1:
                 raise ValidationError('拧紧工步类型，每个拧紧点不能选择多个工具')
+
+    def change_points_sequence(self):
+        sequence = 1
+        for point in self.tightening_opr_point_ids:
+            point.group_sequence = sequence
+            sequence += 1

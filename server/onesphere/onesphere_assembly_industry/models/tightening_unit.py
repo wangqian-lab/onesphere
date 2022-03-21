@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
-
+from odoo.addons.onesphere_assembly_industry.constants import TIGHTENING_TEST_TYPE
+from odoo.exceptions import ValidationError
 
 class OnesphereTighteningUnit(models.Model):
     _name = 'onesphere.tightening.unit'
@@ -49,3 +49,14 @@ class OnesphereTighteningUnit(models.Model):
         for unit in self:
             res.append((unit.id, f'#{unit.ref}@{unit.serial_no}@{unit.workcenter_id.display_name}'))
         return res
+
+    def select_tightening_unit_confirm(self):
+        if not self.env.context.get('step_id'):
+            return
+        step = self.env['oneshare.quality.point'].search(
+            [('id', '=', self.env.context.get('step_id'))])
+        if step.test_type_id.technical_name == TIGHTENING_TEST_TYPE and len(self) > 1:
+            raise ValidationError('拧紧工步类型，每个拧紧点不能选择多个工具')
+        points = step.tightening_opr_point_ids
+        for point in points:
+            point.tightening_units = [(6, 0, self.ids)]

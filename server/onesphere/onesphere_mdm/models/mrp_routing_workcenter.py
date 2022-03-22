@@ -8,4 +8,5 @@ class MrpRoutingWorkcenter(models.Model):
 
     active = fields.Boolean('Active', default=True)
 
-    workcenter_id = fields.Many2one('mrp.workcenter', string='Work Center', required=False, check_company=True, ondelete='set null')
+    workcenter_id = fields.Many2one('mrp.workcenter', string='Work Center', required=False, check_company=True,
+                                    ondelete='set null')

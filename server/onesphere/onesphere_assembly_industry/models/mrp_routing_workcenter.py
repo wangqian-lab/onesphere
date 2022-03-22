@@ -50,17 +50,10 @@ class MrpRoutingWorkcenter(models.Model):
         self.ensure_one()
         ver_model = self.env['real.oper.version'].sudo()
         ver_record = ver_model.search([('equipment_id', '=', equipment.id), ('operation_id', '=', self.id)])
-        if ver_record and success_flag:
-            ver_record.update({
-                'version': self.oper_version,
-                'state': 'finish'
-            })
-        elif ver_record and not success_flag:
-            if ver_record.version != self.oper_version:
-                ver_record.update({
-                    'state': 'todo'
-                })
-        elif not ver_record and success_flag:
+        if not ver_record:
+            # 未找到记录，需要新建
+            if not success_flag:
+                return
             val = {
                 'equipment_id': equipment.id,
                 'operation_id': self.id,
@@ -68,8 +61,17 @@ class MrpRoutingWorkcenter(models.Model):
                 'state': 'finish'
             }
             ver_model.create(val)
-        else:
-            pass
+            return
+        if success_flag:
+            ver_record.update({
+                'version': self.oper_version,
+                'state': 'finish'
+            })
+        if not success_flag:
+            if ver_record.version != self.oper_version:
+                ver_record.update({
+                    'state': 'todo'
+                })
 
     def _push_operation_to_mpcs(self, master_pcs):
         for master_pc in master_pcs:
@@ -135,7 +137,7 @@ class MrpRoutingWorkcenter(models.Model):
                 'points': points_data,
                 "img": u'data:{0};base64,{1}'.format('image/png',
                                                      step_id.worksheet_img.decode()) if step_id.worksheet_img else ""
-                             })
+            })
         else:
             pass
 
@@ -207,6 +209,7 @@ class MrpRoutingWorkcenter(models.Model):
         if not operation.workcenter_ids:
             self.env.user.notify_info('Can Not Found Workcenter!')
             return
+        # TODO: 使用并发库进行优化性能。
         for workcenter_id in operation.workcenter_ids:
             try:
                 master_pcs = workcenter_id.get_workcenter_masterpc()

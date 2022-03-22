@@ -4,6 +4,7 @@ from odoo import api, fields, models
 from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME, TIGHTENING_TEST_TYPE
 from odoo.exceptions import ValidationError
 
+
 class MrpWorkcenterGroup(models.Model):
     _inherit = 'mrp.workcenter.group'
 

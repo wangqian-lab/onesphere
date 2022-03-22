@@ -22,8 +22,6 @@ class MrpWorkcenter(models.Model):
                 continue
             # todo 执行下载工艺
 
-
-
     @api.model
     def default_get(self, fields):
         vals = super(MrpWorkcenter, self).default_get(fields)
@@ -36,7 +34,6 @@ class MrpWorkcenter(models.Model):
             except Exception as e:
                 _logger.error(ustr(e))
         return vals
-
 
     def get_workcenter_masterpc(self):
         workcenter_id = self

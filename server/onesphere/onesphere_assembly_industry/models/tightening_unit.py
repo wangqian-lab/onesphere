@@ -4,6 +4,7 @@ from odoo import models, fields, api
 from odoo.addons.onesphere_assembly_industry.constants import TIGHTENING_TEST_TYPE
 from odoo.exceptions import ValidationError
 
+
 class OnesphereTighteningUnit(models.Model):
     _name = 'onesphere.tightening.unit'
     _inherits = {'maintenance.equipment': 'tightening_tool_id'}

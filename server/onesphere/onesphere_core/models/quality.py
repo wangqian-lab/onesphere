@@ -114,7 +114,7 @@ class OneshareQuality(models.Model):
             if not step.code:
                 res.append((step.id, step.name))
             else:
-                res.append((step.id, '[%s] %s' % (step.code, step.name)))
+                res.append((step.id, f'[{step.code}] {step.name}'))
         return res
 
     @api.model

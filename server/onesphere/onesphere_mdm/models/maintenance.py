@@ -112,9 +112,9 @@ class EquipmentConnection(models.Model):
     def name_get(self):
         def get_names(cat):
             if cat.protocol == MODBUSTCP_PROTOCOL_TYPE:
-                return u"modbustcp://{0}:{1}/{2}".format(cat.ip, cat.port, cat.unitid)
+                return f"modbustcp://{cat.ip}:{cat.port}/{cat.unitid}"
             if cat.protocol == MODBUSRTU_PROTOCOL_TYPE:
-                return u"modbusrtu://{0}/{1}".format(cat.tty, cat.unitid)
+                return f"modbusrtu://{cat.tty}/{cat.unitid}"
             if cat.protocol in [HTTP_PROTOCOL_TYPE, RAWTCP_PROTOCOL_TYPE, RAWUDP_PROTOCOL_TYPE]:
                 return f"{cat.protocol}://{cat.ip}:{cat.port}"
             else:

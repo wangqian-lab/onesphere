@@ -71,8 +71,8 @@ class MrpWorkcenter(models.Model):
             return ret
         for rec in ret:
             if not rec.related_work_area_id:
-                r = rec.create_related_work_station_area()
-                rec.write({'related_work_area_id': r.id})
+                work_station_area = rec.create_related_work_station_area()
+                rec.write({'related_work_area_id': work_station_area.id})
         return ret
 
     def write(self, vals):

@@ -26,5 +26,5 @@ class MrpWorkcenterGroup(models.Model):
     def name_get(self):
         res = []
         for center_group in self:
-            res.append((center_group.id, '[%s] %s' % (center_group.code, center_group.name)))
+            res.append((center_group.id, f'[{center_group.code}] {center_group.name}'))
         return res

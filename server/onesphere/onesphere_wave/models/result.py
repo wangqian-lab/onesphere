@@ -42,12 +42,12 @@ class OperationResult(HModel):
 
         need_fetch_objects = []
         _datas = []
-        for _t in objects:
+        for _cur_file in objects:
             try:
                 # try to get the cache
-                _datas.append(_wave_cache[_t])
+                _datas.append(_wave_cache[_cur_file])
             except KeyError as e:
-                need_fetch_objects.append(_t)
+                need_fetch_objects.append(_cur_file)
         try:
             _datas.extend(
                 map(lambda x: _create_wave_result_dict(x, client.get_object(bucket_name, x).data.decode('utf-8')),
@@ -64,11 +64,11 @@ class OperationResult(HModel):
         wave_form = self.env.ref('onesphere_wave.spc_compose_wave_wizard_form')
         if not wave_form:
             return None, None
-        datas = self._get_curve_data(self)
-        if not len(datas):
+        curve_datas = self._get_curve_data(self)
+        if not len(curve_datas):
             self.env.user.notify_warning(u'查询获取结果:0,请重新定义查询参数或等待新结果数据')
             return None, None
-        curves = json.dumps(datas)
+        curves = json.dumps(curve_datas)
         wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': curves})
         if not wave_wizard_id:
             return None, None

@@ -10,8 +10,7 @@ from requests import ConnectionError, RequestException
 from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
     MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
 from distutils.util import strtobool
-from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items, \
-    package_multi_measure_4_measure_step
+from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
 
 _logger = logging.getLogger(__name__)
 
@@ -76,6 +75,7 @@ class MrpRoutingWorkcenter(models.Model):
     def _push_operation_to_mpcs(self, master_pcs):
         for master_pc in master_pcs:
             try:
+                # 查找MPC的地址
                 connections = master_pc.connection_ids.filtered(
                     lambda r: r.protocol == 'http') if master_pc.connection_ids else None
                 if not connections:
@@ -126,10 +126,10 @@ class MrpRoutingWorkcenter(models.Model):
             "consume_product": step_id.component_id.default_code or step_id.component_id.barcode or '',
             "text": step_id.reason or '',  # 备注字段
         }
-
+        # 测量工步增加测量项内容，拧紧工步增加拧紧点内容
         if step_id.test_type in [MEASURE_TYPE, MULTI_MEASURE_TYPE]:
-            p = package_multi_measurement_items(step_id.multi_measurement_ids)
-            step_val.update({'measurement_items': p})  # 将测量项
+            measure_items_data = package_multi_measurement_items(step_id.multi_measurement_ids)
+            step_val.update({'measurement_items': measure_items_data})  # 将测量项
             step_val.update({'measurement_total': len(step_id.multi_measurement_ids)})
         elif step_id.test_type in ALL_TIGHTENING_TEST_TYPE_LIST:
             points_data = self._pack_points_val(step_id)
@@ -156,7 +156,7 @@ class MrpRoutingWorkcenter(models.Model):
                                                                 bom_id.product_tmpl_id.image_1920.decode()) if bom_id.product_tmpl_id.image_1920 else "",
             "steps": [],
         }
-
+        # 查看配置中是否下发所有工步数据，是则遍历所有工步，否则只遍历拧紧工步
         config = self.env['ir.config_parameter']
         all_step_flag = config.get_param('oneshare.send.all.steps')
         all_need_steps = operation_id.work_step_ids.mapped('work_step_id')
@@ -188,6 +188,7 @@ class MrpRoutingWorkcenter(models.Model):
             self.env.user.notify_warning('Push Operation Failure, Error Message:{0}'.format(e))
 
     def _push_mrp_routing_workcenter(self, url):
+        # 推送作业数据
         self.ensure_one()
         operation_id = self
         bom_id = self.env.context.get('bom_id')

@@ -39,5 +39,4 @@ class MrpWorkcenter(models.Model):
         workcenter_id = self
         master_pcs = self.env['maintenance.equipment'].search(
             [('workcenter_id', '=', workcenter_id.id), ('category_name', '=', 'mpc')])
-        # todo 增加链接的返回
         return master_pcs

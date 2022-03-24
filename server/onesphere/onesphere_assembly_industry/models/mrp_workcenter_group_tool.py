@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class MrpWorkcenterGroup(models.Model):
     _inherit = 'mrp.workcenter.group'
 
+    # 创建工作中心组时更新拧紧工具组数据
     @api.model
     def create(self, vals):
         ret = super(MrpWorkcenterGroup, self).create(vals)
@@ -32,10 +33,10 @@ class MrpWorkcenterGroup(models.Model):
 
     def _update_create_workcenter_group_tool(self):
         workgroup_tool_obj = self.env['mrp.workcenter.group.tightening.tool'].sudo()
-        for wg in self:
+        for workcenter_group in self:
             already_workcenter_ids = self.env['mrp.workcenter.group.tightening.tool'].search(
-                [('workgroup_id', '=', wg.id)]).mapped('workcenter_id')
-            workcenter_ids = wg.onesphere_workcenter_ids - already_workcenter_ids
+                [('workgroup_id', '=', workcenter_group.id)]).mapped('workcenter_id')
+            workcenter_ids = workcenter_group.onesphere_workcenter_ids - already_workcenter_ids
             if not workcenter_ids:
                 continue
             tool_ids = self.env['maintenance.equipment'].search(
@@ -44,7 +45,7 @@ class MrpWorkcenterGroup(models.Model):
             vals = []
             for tool in tool_ids:
                 val = {
-                    "workgroup_id": wg.id,
+                    "workgroup_id": workcenter_group.id,
                     "workcenter_id": tool.workcenter_id.id,
                     "tightening_tool_id": tool.id,
                 }
@@ -53,13 +54,14 @@ class MrpWorkcenterGroup(models.Model):
 
     def _update_unlink_workcenter_group_tool(self):
         need_unlink_recs = self.env['mrp.workcenter.group.tightening.tool']
-        for wg in self:
-            recs = self.env['mrp.workcenter.group.tightening.tool'].search([('workgroup_id', '=', wg.id),
+        for workcenter_group in self:
+            recs = self.env['mrp.workcenter.group.tightening.tool'].search([('workgroup_id', '=', workcenter_group.id),
                                                                             ('workcenter_id', 'not in',
-                                                                             wg.onesphere_workcenter_ids.ids)])
+                                                                             workcenter_group.onesphere_workcenter_ids.ids)])
             need_unlink_recs |= recs
         need_unlink_recs.sudo().unlink()
 
+    # 编辑工作中心组时修改关联的拧紧工具组数据
     def write(self, vals):
         ret = super(MrpWorkcenterGroup, self).write(vals)
         if 'onesphere_workcenter_ids' not in vals:
@@ -104,13 +106,3 @@ class MrpWorkcenterGroupTool(models.Model):
             res.append((tool_group_id.id, f'[{serial_no}]@{workcenter_name}@{workgroup_name}'))
         return res
 
-    def select_confirm(self):
-        if not self.env.context.get('step_id'):
-            return
-        step = self.env['oneshare.quality.point'].search(
-            [('id', '=', self.env.context.get('step_id'))])
-        if step.test_type_id.technical_name == TIGHTENING_TEST_TYPE and len(self) > 1:
-            raise ValidationError('拧紧工步类型，每个拧紧点不能选择多个工具')
-        points = step.tightening_opr_point_ids
-        for point in points:
-            point.tightening_tool_ids = [(6, 0, self.ids)]

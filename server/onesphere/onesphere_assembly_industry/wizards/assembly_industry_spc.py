@@ -86,6 +86,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
 
+        # 正太分布数据
         x1, y1, y2, eff_length = self._compute_dist_js(data_list, usl, lsl, spc_step)
         dict1 = {
             'x1': x1,
@@ -98,6 +99,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                 eff_length, len(data_list), np.mean(data_list) or 0, np.min(data_list) or 0, np.max(data_list) or 0)
         else:
             description = '拧紧点总数:0'
+
         dict2 = self._compute_dist_XR_js(data_list)
         ret = {
             'pages': {'o_spc_norm_dist': self.get_norm_dist_echarts_options(dict1, query_type, description),
@@ -269,23 +271,22 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             'series': seriesOptions
         }
 
-    def _compute_dist_js(self, data_list: List[float], usl, lsl, spc_step):
+    def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
         x1, y1, y2 = [], [], []
-        for i, val in enumerate(histogram_data[X_LINE]):
-            if i + 1 < len(histogram_data[0]):
-                x1.append(f'{val:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
-        y1 = [round(x*100, 2) for x in histogram_data[ARRAY_Y]]
-        y2 = [round(x*100, 2) for x in normal_data[ARRAY_Y]]
-        # for i, val in enumerate(his[ARRAY_Y]):
-        #     if np.isnan(val):
-        #         val = 0
-        #     y1.append(round(val * 100, 2))
-        # for i, val in enumerate(nor[ARRAY_Y]):
-        #     if np.isnan(val):
-        #         val = 0
-        #     y2.append(round(val * 100, 2))
+        xx1, yy1, yy2 = [], [], []
+        i = 0
+        while i+1 < len(histogram_data[X_LINE]):
+            x1.append(f'{histogram_data[X_LINE][i]:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
+            y1.append(round(histogram_data[ARRAY_Y][i]*100, 2))
+            y2.append(round(normal_data[ARRAY_Y][i]*100, 2))
+            i += 1
+        # for i, val in enumerate(histogram_data[X_LINE]):
+        #     if i + 1 < len(histogram_data[0]):
+        #         xx1.append(f'{val:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
+        # yy1 = [round(x*100, 2) for x in histogram_data[ARRAY_Y]]
+        # yy2 = [round(x*100, 2) for x in normal_data[ARRAY_Y]]
         return x1, y1, y2, histogram_data[EFF_LENGTH]
 
     def _compute_dist_XR_js(self, data_list: List[float]):

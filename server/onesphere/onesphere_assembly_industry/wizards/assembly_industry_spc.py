@@ -274,20 +274,14 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
     def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
-        x1, y1, y2 = [], [], []
-        xx1, yy1, yy2 = [], [], []
-        i = 0
-        while i+1 < len(histogram_data[X_LINE]):
-            x1.append(f'{histogram_data[X_LINE][i]:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
-            y1.append(round(histogram_data[ARRAY_Y][i]*100, 2))
-            y2.append(round(normal_data[ARRAY_Y][i]*100, 2))
-            i += 1
-        # for i, val in enumerate(histogram_data[X_LINE]):
-        #     if i + 1 < len(histogram_data[0]):
-        #         xx1.append(f'{val:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
-        # yy1 = [round(x*100, 2) for x in histogram_data[ARRAY_Y]]
-        # yy2 = [round(x*100, 2) for x in normal_data[ARRAY_Y]]
-        return x1, y1, y2, histogram_data[EFF_LENGTH]
+        x_axis_data, y_histogram_data, y_normal_data = [], [], []
+        x_line_len = len(histogram_data[X_LINE])
+        for i in range(x_line_len - 1):
+            # 取x轴数据生成区间，并生成对应区间的直方图数据和正太分布数据，故循环长度为x轴数据长度减1
+            x_axis_data.append(f'{histogram_data[X_LINE][i]:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
+            y_histogram_data.append(round(histogram_data[ARRAY_Y][i] * 100, 2))
+            y_normal_data.append(round(normal_data[ARRAY_Y][i] * 100, 2))
+        return x_axis_data, y_histogram_data, y_normal_data, histogram_data[EFF_LENGTH]
 
     def _compute_dist_XR_js(self, data_list: List[float]):
         # x_bar = np.arange(int(min), int(max), 1)

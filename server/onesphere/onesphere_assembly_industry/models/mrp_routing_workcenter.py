@@ -8,17 +8,13 @@ from odoo.exceptions import UserError, ValidationError
 import requests as Requests
 from requests import ConnectionError, RequestException
 from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
-    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
+    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API, ENV_MAX_WORKERS
 from distutils.util import strtobool
 from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
+from concurrent import futures
+from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
-
-
-# ENV_MEAS_STEP_DOWNLOAD_ENABLE = strtobool(os.getenv('ENV_MEAS_STEP_DOWNLOAD_ENABLE', 'false'))
-# ENV_PROJECT_CODE = os.getenv('ENV_PROJECT_CODE', '')
-# if ENV_PROJECT_CODE == 'ts031':
-#     ENV_MEAS_STEP_DOWNLOAD_ENABLE = True
 
 
 class MrpRoutingWorkcenter(models.Model):
@@ -72,24 +68,27 @@ class MrpRoutingWorkcenter(models.Model):
                     'state': 'todo'
                 })
 
+    def _push_operation_to_urls(self, connect):
+        if not connect:
+            return
+        url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
+        self._push_mrp_routing_workcenter(url)
+        # self._create_update_val_record(master_pc, success_flag=True)
+
     def _push_operation_to_mpcs(self, master_pcs):
+        connect_list = []
         for master_pc in master_pcs:
-            try:
-                # 查找MPC的地址
-                connections = master_pc.connection_ids.filtered(
-                    lambda r: r.protocol == 'http') if master_pc.connection_ids else None
-                if not connections:
-                    info = f"Can Not Found Connect Info For MasterPC:{master_pc.name}"
-                    self.env.user.notify_info(info)
-                    _logger.error(info)
-                    continue
-                for connect in connections:
-                    url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
-                    self._push_mrp_routing_workcenter(url)
-                    self._create_update_val_record(master_pc, success_flag=True)
-            except Exception as e:
-                self._create_update_val_record(master_pc, success_flag=False)
-                raise ValidationError(e)
+            connections = master_pc.connection_ids.filtered(
+                lambda r: r.protocol == 'http') if master_pc.connection_ids else None
+            if not connections:
+                info = f"Can Not Found Connect Info For MasterPC:{master_pc.name}"
+                self.env.user.notify_info(info)
+                _logger.error(info)
+                continue
+            else:
+                connect_list += connections
+        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+            executor.map(self._push_operation_to_urls, connect_list)
 
     @staticmethod
     def _pack_points_val(tightening_step_id):
@@ -221,4 +220,4 @@ class MrpRoutingWorkcenter(models.Model):
                     continue
                 self._push_operation_to_mpcs(master_pcs)
             except Exception as e:
-                self.env.user.notify_warning(f'Sync Operation Failure:{str(e)}')
+                self.env.user.notify_warning(f'Sync Operation Failure:{ustr(e)}')

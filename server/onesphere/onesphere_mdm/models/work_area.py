@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.tools import pycompat, ustr
 import logging
 from typing import Dict, Tuple
@@ -117,7 +117,7 @@ class OneshareMrpWorkArea(models.Model):
             if context.get(key):
                 ret.append((key, val))
         if len(ret) > 1:
-            raise ValueError(f'dry_try_update_context error: 需要更新的超过一个: {ret}')
+            raise ValueError(_(f'dry_try_update_context error: Need Update Records More Than One: {ret}'))
         return ret
 
     def action_open_children_work_area_update_context(self, context):

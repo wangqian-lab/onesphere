@@ -79,7 +79,7 @@ class OneshareQuality(models.Model):
     # check_count = fields.Integer(compute=_compute_check_count)
     # quality_check_ids = fields.One2many('oneshare.quality.check', 'quality_point_id')
     test_type_id = fields.Many2one('oneshare.quality.point.test_type', 'Test Type',
-                                   help="Defines the type of the quality control point.",
+                                   help=_("Defines the type of the quality control point."),
                                    required=True, default=_get_default_test_type_id)
     test_type = fields.Char(related='test_type_id.technical_name', readonly=True)
     note = fields.Html('Note')
@@ -93,8 +93,8 @@ class OneshareQuality(models.Model):
     # 工步相关
     is_workorder_step = fields.Boolean('Is MRP Working Step?')
 
-    can_do_skip = fields.Boolean(string='Allow Do Skip', default=False, help='Whether This Step Can Be Skipped')
-    can_do_rework = fields.Boolean(string='Allow Do Redo', default=True, help='Whether This Step Can Be Rework')
+    can_do_skip = fields.Boolean(string='Allow Do Skip', default=False, help=_('Whether This Step Can Be Skipped'))
+    can_do_rework = fields.Boolean(string='Allow Do Redo', default=True, help=_('Whether This Step Can Be Rework'))
     onesphere_operation_ids = fields.One2many('onesphere.mrp.operation.step.rel', 'work_step_id',
                                               string='Operations', check_company=True)
 

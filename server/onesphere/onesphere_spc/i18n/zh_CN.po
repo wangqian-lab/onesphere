@@ -64,7 +64,7 @@ msgstr ""
 #: code:addons/onesphere_spc/models/spc_mixin.py:0
 #, python-format
 msgid "Please Implement Via Every SPC Modules, No Mixin Class"
-msgstr ""
+msgstr "请通过SPC模块继承来执行该方法，而非通过混合类"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__cpk
@@ -74,22 +74,22 @@ msgstr ""
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__query_date_from
 msgid "Query Date From"
-msgstr ""
+msgstr "查询开始日期"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__query_date_to
 msgid "Query Date to"
-msgstr ""
+msgstr "查询截止日期"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__spc_step
 msgid "SPC Analysis Step"
-msgstr ""
+msgstr "SPC分析工步"
 
 #. module: onesphere_spc
 #: model:ir.model.fields,field_description:onesphere_spc.field_onesphere_spc_mixin__limit
 msgid "SPC Query Record Count Limit"
-msgstr ""
+msgstr "SPC查询记录数量限制"
 
 #. module: onesphere_spc
 #: model:ir.ui.menu,name:onesphere_spc.onesphere_spc_root

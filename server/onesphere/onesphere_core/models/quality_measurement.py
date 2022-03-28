@@ -40,7 +40,7 @@ class OneshareMeasurementCalculateType(models.Model):
     active = fields.Boolean(string='Active', default=True)
 
     _sql_constraints = [
-        ('code_unique', 'UNIQUE(code)', "Field code must be unique per measurement calculate type."),
+        ('code_unique', 'UNIQUE(code)', _("Field code must be unique per measurement calculate type.")),
     ]
 
     def name_get(self):

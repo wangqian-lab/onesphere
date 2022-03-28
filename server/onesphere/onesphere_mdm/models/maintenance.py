@@ -94,9 +94,9 @@ class EquipmentConnection(models.Model):
                 if resp.status_code == HTTPStatus.NO_CONTENT:
                     raise UserError(_("Connection Test Succeeded! Everything seems properly set up!"))
                 else:
-                    raise UserError(_("Connection Test Failed! Here is what we got instead: %d!") % resp.status_code)
+                    raise UserError(_(f"Connection Test Failed! Here is what we got instead: {resp.status_code}!"))
             except Exception as e:
-                raise UserError(_("Connection Test Failed! Here is what we got instead:\n %s") % ustr(e))
+                raise UserError(_(f"Connection Test Failed! Here is what we got instead:\n {ustr(e)}"))
 
     @api.constrains('ip', 'port')
     def _constraint_ip(self):
@@ -118,6 +118,6 @@ class EquipmentConnection(models.Model):
             if cat.protocol in [HTTP_PROTOCOL_TYPE, RAWTCP_PROTOCOL_TYPE, RAWUDP_PROTOCOL_TYPE]:
                 return f"{cat.protocol}://{cat.ip}:{cat.port}"
             else:
-                raise ValueError(f'协议不支持: {cat.protocol}')
+                raise ValueError(f'Protocol Not Support: {cat.protocol}')
 
         return [(cat.id, get_names(cat)) for cat in self]

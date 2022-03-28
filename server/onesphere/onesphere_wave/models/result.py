@@ -66,7 +66,7 @@ class OperationResult(HModel):
             return None, None
         curve_datas = self._get_curve_data(self)
         if not len(curve_datas):
-            self.env.user.notify_warning(u'查询获取结果:0,请重新定义查询参数或等待新结果数据')
+            self.env.user.notify_warning(_('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
             return None, None
         curves = json.dumps(curve_datas)
         wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': curves})

@@ -79,7 +79,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             raise ValidationError(f'query_type: {query_type} is not valid. query_type_field is required')
         data = model_object.get_tightening_result_filter_datetime(query_date_from, query_date_to, query_type_field,
                                                                   limit=limit)
-        _logger.debug(f"获取到的SPC查询原始结果数据: {data}")
+        _logger.debug(_(f"Spc Data of Query Result: {data}"))
 
         data_list = data[query_type]
 
@@ -95,10 +95,10 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = '拧紧点总数:%d/%d,均值:%.2f,取值范围:[%.2f,%.2f]' % (
-                eff_length, len(data_list), np.mean(data_list) or 0, np.min(data_list) or 0, np.max(data_list) or 0)
+            description = _(f'Tighetening Points number:{eff_length}/{len(data_list)},Mean:{np.mean(data_list) or 0, np.min(data_list):.2f},'
+                            f'Range:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]')
         else:
-            description = '拧紧点总数:0'
+            description = _('Tighetening Points number:0')
 
         dict2 = self._compute_dist_XR_js(data_list)
         ret = {

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models, tools, _
 import logging, json
 import http, os
 import pprint
@@ -68,11 +68,11 @@ class MrpRoutingWorkcenter(models.Model):
                     'state': 'todo'
                 })
 
-    def _push_operation_to_urls(self, connect):
-        if not connect:
-            return
-        url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
-        self._push_mrp_routing_workcenter(url)
+    # def _push_operation_to_urls(self, connect):
+    #     if not connect:
+    #         return
+    #     url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
+    #     self._push_mrp_routing_workcenter(url)
         # self._create_update_val_record(master_pc, success_flag=True)
 
     def _push_operation_to_mpcs(self, master_pcs):
@@ -81,14 +81,14 @@ class MrpRoutingWorkcenter(models.Model):
             connections = master_pc.connection_ids.filtered(
                 lambda r: r.protocol == 'http') if master_pc.connection_ids else None
             if not connections:
-                info = f"Can Not Found Connect Info For MasterPC:{master_pc.name}"
+                info = _(f"Can Not Found Connect Info For MasterPC:{master_pc.name}")
                 self.env.user.notify_info(info)
                 _logger.error(info)
                 continue
             else:
                 connect_list += connections
-        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
-            executor.map(self._push_operation_to_urls, connect_list)
+        url_list = [f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}' for connect in connect_list]
+        self._push_mrp_routing_workcenter(url_list)
 
     @staticmethod
     def _pack_points_val(tightening_step_id):
@@ -180,13 +180,13 @@ class MrpRoutingWorkcenter(models.Model):
             ret = Requests.put(url, data=json.dumps(val), headers={'Content-Type': 'application/json'},
                                timeout=60)
             if ret.status_code == http.HTTPStatus.OK:
-                self.env.user.notify_info('Push Operation Successfully!')
+                self.env.user.notify_info(_('Push Operation Successfully!'))
         except ConnectionError as e:
-            self.env.user.notify_warning('Push Operation Failure, Error Message:{0}'.format(e))
+            self.env.user.notify_warning(_('Push Operation Failure, Error Message:{0}'.format(e)))
         except RequestException as e:
-            self.env.user.notify_warning('Push Operation Failure, Error Message:{0}'.format(e))
+            self.env.user.notify_warning(_('Push Operation Failure, Error Message:{0}'.format(e)))
 
-    def _push_mrp_routing_workcenter(self, url):
+    def _push_mrp_routing_workcenter(self, url_list):
         # 推送作业数据
         self.ensure_one()
         operation_id = self
@@ -196,28 +196,32 @@ class MrpRoutingWorkcenter(models.Model):
         else:
             bom_ids = self.env['mrp.bom'].search([('onesphere_bom_operation_ids', '=', operation_id.id)])
         if not bom_ids:
-            msg = f"Can Not Found MRP BOM Within The Operation:{operation_id.name}"
+            msg = _(f"Can Not Found MRP BOM Within The Operation:{operation_id.name}")
             _logger.error(msg)
             raise ValidationError(msg)
 
+        operation_val_list = []
         for bom_id in bom_ids:
             operation_val = self._pack_operation_val(bom_id, operation_id)
-            self._send_operation_val(operation_val, url)
+            operation_val_list.append(operation_val)
+
+        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+            executor.map(self._send_operation_val, operation_val_list, url_list)
 
     def button_send_mrp_routing_workcenter(self):
         operation = self
         if not operation.workcenter_ids:
-            self.env.user.notify_info('Can Not Found Workcenter!')
+            self.env.user.notify_info(_('Can Not Found Workcenter!'))
             return
         # TODO: 使用并发库进行优化性能。
         for workcenter_id in operation.workcenter_ids:
             try:
                 master_pcs = workcenter_id.get_workcenter_masterpc()
                 if not master_pcs:
-                    info = f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!'
+                    info = _(f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!')
                     self.env.user.notify_info(info)
                     _logger.error(info)
                     continue
                 self._push_operation_to_mpcs(master_pcs)
             except Exception as e:
-                self.env.user.notify_warning(f'Sync Operation Failure:{ustr(e)}')
+                self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))

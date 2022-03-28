@@ -68,13 +68,6 @@ class MrpRoutingWorkcenter(models.Model):
                     'state': 'todo'
                 })
 
-    # def _push_operation_to_urls(self, connect):
-    #     if not connect:
-    #         return
-    #     url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
-    #     self._push_mrp_routing_workcenter(url)
-        # self._create_update_val_record(master_pc, success_flag=True)
-
     def _push_operation_to_mpcs(self, master_pcs):
         connect_list = []
         for master_pc in master_pcs:
@@ -173,18 +166,27 @@ class MrpRoutingWorkcenter(models.Model):
         })
         return operation_val
 
-    def _send_operation_val(self, val, url):
-        # 发送包好的数据
-        try:
-            _logger.debug("Push Operation： {}".format(pprint.pformat(val, indent=4)))
-            ret = Requests.put(url, data=json.dumps(val), headers={'Content-Type': 'application/json'},
-                               timeout=60)
+    def _send_operation_val(self, operation_val_list, url_list):
+        # 发送数据
+        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+            task_list = [executor.submit(self._send_val_by_thread, *args) for args in zip(operation_val_list, url_list)]
+        for task in task_list:
+            task_exception = task.exception()
+            if task_exception:
+                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{task_exception}'))
+                continue
+            ret = task.result()
             if ret.status_code == http.HTTPStatus.OK:
                 self.env.user.notify_info(_('Push Operation Successfully!'))
-        except ConnectionError as e:
-            self.env.user.notify_warning(_('Push Operation Failure, Error Message:{0}'.format(e)))
-        except RequestException as e:
-            self.env.user.notify_warning(_('Push Operation Failure, Error Message:{0}'.format(e)))
+            else:
+                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{ret.text}'))
+
+    def _send_val_by_thread(self, val, url):
+        # 异步发送包好的数据
+        _logger.debug("Push Operation： {}".format(pprint.pformat(val, indent=4)))
+        ret = Requests.put(url, data=json.dumps(val), headers={'Content-Type': 'application/json'},
+                           timeout=60)
+        return ret
 
     def _push_mrp_routing_workcenter(self, url_list):
         # 推送作业数据
@@ -204,9 +206,7 @@ class MrpRoutingWorkcenter(models.Model):
         for bom_id in bom_ids:
             operation_val = self._pack_operation_val(bom_id, operation_id)
             operation_val_list.append(operation_val)
-
-        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
-            executor.map(self._send_operation_val, operation_val_list, url_list)
+        self._send_operation_val(operation_val_list, url_list)
 
     def button_send_mrp_routing_workcenter(self):
         operation = self

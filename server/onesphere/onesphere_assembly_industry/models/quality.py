@@ -51,8 +51,8 @@ class OneshareQuality(models.Model):
         if self.test_type_id.technical_name != TIGHTENING_TEST_TYPE:
             return
         for point in self.tightening_opr_point_ids:
-            if len(point.tightening_tool_ids) > 1:
-                raise ValidationError('拧紧工步类型，每个拧紧点不能选择多个工具')
+            if len(point.tightening_units) > 1:
+                raise ValidationError(_('The Points Of Tightening Step Can Only Have One Tightening Unit'))
 
     def change_points_sequence(self):
         sequence = 1

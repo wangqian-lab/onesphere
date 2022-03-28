@@ -79,13 +79,14 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             raise ValidationError(f'query_type: {query_type} is not valid. query_type_field is required')
         data = model_object.get_tightening_result_filter_datetime(query_date_from, query_date_to, query_type_field,
                                                                   limit=limit)
-        _logger.debug(f"获取到的SPC查询原始结果数据: {data}")
+        _logger.debug(_(f"Spc Data of Query Result: {data}"))
 
         data_list = data[query_type]
 
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
 
+        # 正太分布数据
         x1, y1, y2, eff_length = self._compute_dist_js(data_list, usl, lsl, spc_step)
         dict1 = {
             'x1': x1,
@@ -94,10 +95,11 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = '拧紧点总数:%d/%d,均值:%.2f,取值范围:[%.2f,%.2f]' % (
-                eff_length, len(data_list), np.mean(data_list) or 0, np.min(data_list) or 0, np.max(data_list) or 0)
+            description = _(f'Tighetening Points number:{eff_length}/{len(data_list)},Mean:{np.mean(data_list) or 0, np.min(data_list):.2f},'
+                            f'Range:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]')
         else:
-            description = '拧紧点总数:0'
+            description = _('Tighetening Points number:0')
+
         dict2 = self._compute_dist_XR_js(data_list)
         ret = {
             'pages': {'o_spc_norm_dist': self.get_norm_dist_echarts_options(dict1, query_type, description),
@@ -269,24 +271,17 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             'series': seriesOptions
         }
 
-    def _compute_dist_js(self, data_list: List[float], usl, lsl, spc_step):
+    def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
-        x1, y1, y2 = [], [], []
-        for i, val in enumerate(histogram_data[X_LINE]):
-            if i + 1 < len(histogram_data[0]):
-                x1.append(f'{val:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
-        y1 = [round(x*100, 2) for x in histogram_data[ARRAY_Y]]
-        y2 = [round(x*100, 2) for x in normal_data[ARRAY_Y]]
-        # for i, val in enumerate(his[ARRAY_Y]):
-        #     if np.isnan(val):
-        #         val = 0
-        #     y1.append(round(val * 100, 2))
-        # for i, val in enumerate(nor[ARRAY_Y]):
-        #     if np.isnan(val):
-        #         val = 0
-        #     y2.append(round(val * 100, 2))
-        return x1, y1, y2, histogram_data[EFF_LENGTH]
+        x_axis_data, y_histogram_data, y_normal_data = [], [], []
+        x_line_len = len(histogram_data[X_LINE])
+        for i in range(x_line_len - 1):
+            # 取x轴数据生成区间，并生成对应区间的直方图数据和正太分布数据，故循环长度为x轴数据长度减1
+            x_axis_data.append(f'{histogram_data[X_LINE][i]:.1f},{histogram_data[X_LINE][i + 1]:.1f}')
+            y_histogram_data.append(round(histogram_data[ARRAY_Y][i] * 100, 2))
+            y_normal_data.append(round(normal_data[ARRAY_Y][i] * 100, 2))
+        return x_axis_data, y_histogram_data, y_normal_data, histogram_data[EFF_LENGTH]
 
     def _compute_dist_XR_js(self, data_list: List[float]):
         # x_bar = np.arange(int(min), int(max), 1)

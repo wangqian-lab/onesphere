@@ -6,9 +6,6 @@
             <field name="model">mrp.workcenter.group.tightening.tool</field>
             <field name="arch" type="xml">
                 <tree create="false">
-                    <header>
-                        <button name="select_confirm" string="Select Confirm" type="object" class="oe_highlight"/>
-                    </header>
                     <field name="tightening_tool_id"/>
                     <field name="workcenter_id"/>
                     <field name="workgroup_id"/>

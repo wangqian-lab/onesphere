@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+
+import os
+
 # 拧紧类型
 TIGHTENING_TEST_TYPE = "tightening"
 PROM_TIGHTENING_TEST_TYPE = "promiscuous_tightening"
@@ -16,3 +20,6 @@ ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tight
 
 # endpoint
 MASTER_ROUTING_API = "/rush/v1/mrp.routing.workcenter"
+
+
+ENV_MAX_WORKERS = os.getenv('ENV_MAX_WORKERS', 8)

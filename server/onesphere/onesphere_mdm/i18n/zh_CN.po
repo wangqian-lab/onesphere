@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 01:29+0000\n"
-"PO-Revision-Date: 2022-02-18 01:29+0000\n"
+"POT-Creation-Date: 2022-03-28 05:23+0000\n"
+"PO-Revision-Date: 2022-03-28 05:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -102,6 +102,11 @@ msgid "Complete Name"
 msgstr "完整名称"
 
 #. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: onesphere_mdm
 #: model:ir.actions.act_window,name:onesphere_mdm.sa_equipment_connection_action
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__name
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit
@@ -119,20 +124,6 @@ msgstr "连接信息"
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.sa_equipment_connection_form_view
 msgid "Connection Name"
 msgstr "连接名称"
-
-#. module: onesphere_mdm
-#: code:addons/onesphere_mdm/models/maintenance.py:0
-#, python-format
-msgid ""
-"Connection Test Failed! Here is what we got instead:\n"
-" %s"
-msgstr ""
-
-#. module: onesphere_mdm
-#: code:addons/onesphere_mdm/models/maintenance.py:0
-#, python-format
-msgid "Connection Test Failed! Here is what we got instead: %d!"
-msgstr ""
 
 #. module: onesphere_mdm
 #: code:addons/onesphere_mdm/models/maintenance.py:0
@@ -172,6 +163,7 @@ msgstr "定义资源调度"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -244,6 +236,7 @@ msgstr "人机交互界面"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings__id
 msgid "ID"
 msgstr "唯一识别码"
 
@@ -284,6 +277,7 @@ msgstr "如果该有效字段设置为否，可以不用删除就隐藏此记录
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
@@ -371,7 +365,7 @@ msgstr "产品工作区"
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_mdm_root
 msgid "Master Data Management(MDM)"
-msgstr "主数据管理(MDM)"
+msgstr "主数据管理(MOM)"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_material
@@ -423,7 +417,7 @@ msgstr "名称"
 #. module: onesphere_mdm
 #: model:ir.model.constraint,message:onesphere_mdm.constraint_mrp_workcenter_group_code_uniq
 msgid "Only one code per Work Center Group is allowed"
-msgstr ""
+msgstr "工作中心组的编号必须唯一"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing_routing_workcenter
@@ -440,12 +434,6 @@ msgstr "上级"
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
 msgid "Parent Work Area"
 msgstr "上级工作区"
-
-#. module: onesphere_mdm
-#: code:addons/onesphere_mdm/models/maintenance.py:0
-#, python-format
-msgid "Port must be greater than ZERO!"
-msgstr ""
 
 #. module: onesphere_mdm
 #: model:ir.actions.act_window,name:onesphere_mdm.oneshare_mrp_product_variant_action
@@ -524,6 +512,13 @@ msgstr "资源"
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
 msgid "Routing"
 msgstr "工艺路线"
+
+#. module: onesphere_mdm
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.onesphere_mdm_res_config_settings_view_form_inherit
+msgid ""
+"Send all steps in operations when you push operations to workcenter,not only"
+" tightening type."
+msgstr "下发工艺所有工步，使工位可以扫码生成工单"
 
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__sequence
@@ -750,12 +745,6 @@ msgid "days"
 msgstr "天"
 
 #. module: onesphere_mdm
-#: code:addons/onesphere_mdm/models/maintenance.py:0
-#, python-format
-msgid "is NOT valid IP Address!"
-msgstr ""
-
-#. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__port
 msgid "port"
 msgstr ""
@@ -765,3 +754,13 @@ msgstr ""
 #, python-format
 msgid "work centers"
 msgstr "工作中心"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings__send_operation_all_step
+msgid "下发工艺所有工步"
+msgstr ""
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,help:onesphere_mdm.field_res_config_settings__send_operation_all_step
+msgid "下发工艺所有工步，使工位可以扫码生成工单"
+msgstr ""

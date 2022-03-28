@@ -16,6 +16,7 @@ class MaintenanceEquipment(models.Model):
             }
             self.env['mrp.workcenter.group.tightening.tool'].sudo().create(val)
 
+    # 修改拧紧工具类设备时，如果所属工作中心有变化，将更新拧紧工具组表
     def write(self, vals):
         ret = super(MaintenanceEquipment, self).write(vals)
         if 'workcenter_id' not in vals:
@@ -29,6 +30,7 @@ class MaintenanceEquipment(models.Model):
             tool_id.create_group_tool()
         return ret
 
+    # 创建拧紧工具时，生成对应拧紧工具组数据
     @api.model
     def create(self, vals):
         ret = super(MaintenanceEquipment, self).create(vals)

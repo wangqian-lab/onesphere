@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.tools import pycompat, ustr
 import logging
 from typing import Dict, Tuple
@@ -117,7 +117,7 @@ class OneshareMrpWorkArea(models.Model):
             if context.get(key):
                 ret.append((key, val))
         if len(ret) > 1:
-            raise ValueError(f'dry_try_update_context error: 需要更新的超过一个: {ret}')
+            raise ValueError(_(f'dry_try_update_context error: Need Update Records More Than One: {ret}'))
         return ret
 
     def action_open_children_work_area_update_context(self, context):
@@ -165,7 +165,6 @@ class OneshareMrpWorkArea(models.Model):
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
-        # TODO 重构代码
         res = super(OneshareMrpWorkArea, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar,
                                                                submenu=submenu)
         if view_type != 'form':
@@ -183,14 +182,6 @@ class OneshareMrpWorkArea(models.Model):
             vv: Tuple = need_update_items[0]
             key, val = vv
             domain += [('category_id', '=', self.env.ref(val, raise_if_not_found=True).id)]
-            # if context.get('search_default_is_production_line'):
-            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_1').id)]
-            # if context.get('search_default_is_work_segment'):
-            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_2').id)]
-            # if context.get('search_default_is_work_station'):
-            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id)]
-            # if context.get('search_default_is_workstation_unit'):
-            #     domain += [('category_id', '=', self.env.ref('onesphere_mdm.oneshare_work_area_category_4').id)]
             ss = pycompat.to_text(domain)
             res['fields']['parent_id']['domain'] = ss
         return res

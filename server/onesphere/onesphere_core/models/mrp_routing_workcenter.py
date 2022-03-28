@@ -7,10 +7,10 @@ class MrpRoutingWorkcenter(models.Model):
 
     @api.depends('work_step_ids')
     def _compute_work_step_count(self):
-        for r in self:
-            if not r.work_step_ids:
-                r.work_step_count = 0
-            r.work_step_count = len(r.work_step_ids)
+        for record in self:
+            if not record.work_step_ids:
+                record.work_step_count = 0
+            record.work_step_count = len(record.work_step_ids)
 
     work_step_ids = fields.One2many('onesphere.mrp.operation.step.rel', 'operation_id', string='Work Step',
                                     check_company=True)

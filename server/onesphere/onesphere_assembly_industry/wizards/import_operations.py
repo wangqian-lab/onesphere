@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 import xlrd, base64
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import ustr
@@ -39,10 +39,10 @@ class ImportOperation(models.TransientModel):
         workcenter_code = data.cell_value(FIRST_DATA_ROW, COLUMN_WORKCENTER_CODE)
         workcenter = self.env['mrp.workcenter'].search([('code', '=', workcenter_code)])
         if not workcenter:
-            raise ValidationError(f'Can Not Found Workcenter,Code{workcenter_code}')
+            raise ValidationError(_(f'Can Not Found Workcenter,Code{workcenter_code}'))
         exist_operation = self.env['mrp.routing.workcenter'].search([('code', '=', operation_code)])
         if exist_operation:
-            raise ValidationError(f'Already Exist Operation,Code:{operation_code}')
+            raise ValidationError(_(f'Already Exist Operation,Code:{operation_code}'))
         operation_data = {
             'name': operation_name,
             'code': operation_code,
@@ -62,12 +62,12 @@ class ImportOperation(models.TransientModel):
         else:
             product = self.env['product.product'].search([('default_code', '=', product_code)])
             if not product:
-                raise ValidationError(f'Invalid Product Code:{product_code}!')
+                raise ValidationError(_(f'Invalid Product Code:{product_code}!'))
             product_id = product.id
         test_type_id = self.env['oneshare.quality.point.test_type'].search(
             [('technical_name', '=', step_type)]).id
         if not test_type_id:
-            raise ValidationError(f'Invalid Step Type:{step_type}!')
+            raise ValidationError(_(f'Invalid Step Type:{step_type}!'))
         step_dic = {
             'code': step_code,
             'test_type_id': test_type_id,
@@ -97,7 +97,7 @@ class ImportOperation(models.TransientModel):
 
     def _create_tightening_point(self, step_data, step, tightening_points_seq):
         if not step:
-            raise ValidationError('No step to add tightening points!')
+            raise ValidationError(_('No step to add tightening points!'))
         tightening_unit_ids = []
         tightening_unit_str = ustr(step_data[COLUMN_TIGHTENING_UNIT_STR])
         screw_code = step_data[COLUMN_SCREW_CODE]
@@ -108,7 +108,7 @@ class ImportOperation(models.TransientModel):
             controller_sn, unit_code = tightening_unit.split('-')[0], tightening_unit.split('-')[1]
             controller = self.env['maintenance.equipment'].search([('serial_no', '=', controller_sn)])
             if not controller:
-                raise ValidationError(f'Can not found tool,serial_no:{controller_sn}')
+                raise ValidationError(_(f'Can not found tool,serial_no:{controller_sn}'))
             # tool_group_id = self.env['mrp.workcenter.group.tightening.tool'].search(
             #     [('tightening_tool_id', '=', tool.id)]).id
             # tool_group_ids.append(tool_group_id)
@@ -166,7 +166,7 @@ class ImportOperation(models.TransientModel):
 
     def button_import_operations(self):
         if not self.file_type:
-            raise ValidationError('Please Select A File Type!')
+            raise ValidationError(_('Please Select A File Type!'))
         file_content = binascii.a2b_base64(self.file)
         book = pyexcel.get_book(file_type=self.file_type, file_content=file_content)
         for sheet in book:
@@ -175,7 +175,7 @@ class ImportOperation(models.TransientModel):
             operation_code = sheet.cell_value(FIRST_DATA_ROW, COLUMN_OPERATION_CODE)
             try:
                 self._import_operation(sheet)
-                self.env.user.notify_success(f'Create Operation Success,Operation Code:{operation_code}')
+                self.env.user.notify_success(_(f'Create Operation Success,Operation Code:{operation_code}'))
             except Exception as e:
-                _logger.error(f'Create Operation Failed,Reason:{ustr(e)}')
-                self.env.user.notify_warning(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}')
+                _logger.error(_(f'Create Operation Failed,Reason:{ustr(e)}'))
+                self.env.user.notify_warning(_(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))

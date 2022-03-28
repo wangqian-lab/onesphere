@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 05:38+0000\n"
-"PO-Revision-Date: 2022-01-05 05:38+0000\n"
+"POT-Creation-Date: 2022-03-28 06:01+0000\n"
+"PO-Revision-Date: 2022-03-28 06:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,14 +69,19 @@ msgid "Cause"
 msgstr ""
 
 #. module: onesphere_core
+#: model:ir.model.fields,help:onesphere_core.field_res_config_settings__workorder_operation_merge
+msgid "Chose it If Need Merge Different Operations Of One Workorder"
+msgstr "一个工位上的同一工单不同工序如果需要合并成一个工单的话，进行勾选"
+
+#. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__code
 msgid "Code"
-msgstr ""
+msgstr "编号"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__color
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__company_id
@@ -477,11 +482,6 @@ msgid "Number of unread messages"
 msgstr "未读消息数量"
 
 #. module: onesphere_core
-#: model:ir.model.constraint,message:onesphere_core.constraint_oneshare_quality_point_code_uniq
-msgid "Only one code per working step is allowed"
-msgstr ""
-
-#. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__operation_id
 msgid "Operation"
 msgstr "作业"
@@ -674,6 +674,7 @@ msgstr "唯一ID"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__norm_unit
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__norm_unit
 msgid "Unit of Measure"
 msgstr "测量单位"
 
@@ -690,7 +691,7 @@ msgstr "未读消息数量"
 #. module: onesphere_core
 #: model:ir.model.fields,help:onesphere_core.field_oneshare_operation_type__sequence
 msgid "Used to order the 'All Operations' kanban view"
-msgstr ""
+msgstr "用于排序作业的看板视图"
 
 #. module: onesphere_core
 #: model:res.groups,name:onesphere_core.group_quality_user
@@ -715,12 +716,12 @@ msgstr "网站沟通历史"
 #. module: onesphere_core
 #: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__can_do_rework
 msgid "Whether This Step Can Be Rework"
-msgstr ""
+msgstr "工步是否可以重做"
 
 #. module: onesphere_core
 #: model:ir.model.fields,help:onesphere_core.field_oneshare_quality_point__can_do_skip
 msgid "Whether This Step Can Be Skipped"
-msgstr ""
+msgstr "工步是否可以跳过"
 
 #. module: onesphere_core
 #: model:ir.model,name:onesphere_core.model_mrp_workcenter
@@ -740,9 +741,13 @@ msgstr "工单作业"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__work_step_ids
-#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__work_step_id
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_search
 msgid "Work Step"
+msgstr "工步"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__work_step_id
+msgid "Work step"
 msgstr "工步"
 
 #. module: onesphere_core
@@ -791,9 +796,13 @@ msgid "数据生成时间"
 msgstr ""
 
 #. module: onesphere_core
-#: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_item
 #: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_type
 msgid "测量计算类型"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_item
+msgid "测量计算类型项"
 msgstr ""
 
 #. module: onesphere_core

@@ -28,17 +28,66 @@
             </field>
         </record>
 
+        <record id="real_oper_version_view_search" model="ir.ui.view">
+            <field name="name">real_oper_version_view_search</field>
+            <field name="model">real.oper.version</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="equipment_id"/>
+                    <field name="operation_id"/>
+                    <separator/>
+                    <filter string="待更新" name="todo" domain="[('state','=','todo')]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="real_oper_version_action" model="ir.actions.act_window">
             <field name="name">Real Oper Version</field>
             <field name="res_model">real.oper.version</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="search_view_id" ref="real_oper_version_view_search"/>
+            <field name="context">{"search_default_todo":1}</field>
+        </record>
+
+        <record id="real_oper_version_view_kanban" model="ir.ui.view">
+            <field name="model">real.oper.version</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state">
+                    <templates>
+                        <t t-name="kanban-box">
+<!--                            <div t-attf-class="o_kanban_card_header">-->
+                                    <div>
+                                        <a type="object" name="operation_id">
+                                            <field name="operation_id"/>
+                                        </a>
+                                    </div>
+
+<!--                            </div>-->
+                            <div class="oe_kanban_content">
+                            <div>
+                                <field name="equipment_id"/>
+                                <li>
+                                    <field name="operation_id"/>
+                                </li>
+                                <li>
+                                    <field name="version"/>
+                                </li>
+                                <li>
+                                    <field name="state"/>
+                                </li>
+                            </div>
+                          </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
         </record>
 
         <menuitem id="real_oper_version"
-                name="Real Oper Version"
-                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_resource"
-                sequence="600"
-                action="real_oper_version_action"/>
+                  name="Real Oper Version"
+                  parent="onesphere_mdm.oneshare_mom_menu_manufacturing_resource"
+                  sequence="600"
+                  action="real_oper_version_action"/>
 
     </data>
 </odoo>

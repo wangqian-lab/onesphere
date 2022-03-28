@@ -2,24 +2,24 @@
 from collections import namedtuple
 
 
-def package_multi_measure_4_measure_step(step):
-    item = step
-    val = {
-        "name": item.name,
-        "code": item.code,
-        # "note": item.title or '',
-        "note": '',
-        "sequence": 1,
-        "test_type": item.test_type,  # passfail or measure
-        "tolerance_min": item.tolerance_min,
-        "tolerance_max": item.tolerance_max,
-        "norm_unit": item.norm_unit,
-        "norm": item.norm,
-        # "equipment_id": item.test_equipment_id
-        "equipment_id": ""
-    }
-    v = namedtuple('Struct', val.keys())(*val.values())
-    return v
+# def package_multi_measure_4_measure_step(step):
+#     item = step
+#     val = {
+#         "name": item.name,
+#         "code": item.code,
+#         # "note": item.title or '',
+#         "note": '',
+#         "sequence": 1,
+#         "test_type": item.test_type,  # passfail or measure
+#         "tolerance_min": item.tolerance_min,
+#         "tolerance_max": item.tolerance_max,
+#         "norm_unit": item.norm_unit,
+#         "norm": item.norm,
+#         # "equipment_id": item.test_equipment_id
+#         "equipment_id": ""
+#     }
+#     v = namedtuple('Struct', val.keys())(*val.values())
+#     return v
 
 
 def package_multi_measurement_items(measu_items):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models, tools, _
 import logging, json
 import http, os
 import pprint
@@ -8,18 +8,13 @@ from odoo.exceptions import UserError, ValidationError
 import requests as Requests
 from requests import ConnectionError, RequestException
 from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
-    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
+    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API, ENV_MAX_WORKERS
 from distutils.util import strtobool
-from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items, \
-    package_multi_measure_4_measure_step
+from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
+from concurrent import futures
+from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
-
-
-# ENV_MEAS_STEP_DOWNLOAD_ENABLE = strtobool(os.getenv('ENV_MEAS_STEP_DOWNLOAD_ENABLE', 'false'))
-# ENV_PROJECT_CODE = os.getenv('ENV_PROJECT_CODE', '')
-# if ENV_PROJECT_CODE == 'ts031':
-#     ENV_MEAS_STEP_DOWNLOAD_ENABLE = True
 
 
 class MrpRoutingWorkcenter(models.Model):
@@ -74,22 +69,19 @@ class MrpRoutingWorkcenter(models.Model):
                 })
 
     def _push_operation_to_mpcs(self, master_pcs):
+        connect_list = []
         for master_pc in master_pcs:
-            try:
-                connections = master_pc.connection_ids.filtered(
-                    lambda r: r.protocol == 'http') if master_pc.connection_ids else None
-                if not connections:
-                    info = f"Can Not Found Connect Info For MasterPC:{master_pc.name}"
-                    self.env.user.notify_info(info)
-                    _logger.error(info)
-                    continue
-                for connect in connections:
-                    url = f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}'
-                    self._push_mrp_routing_workcenter(url)
-                    self._create_update_val_record(master_pc, success_flag=True)
-            except Exception as e:
-                self._create_update_val_record(master_pc, success_flag=False)
-                raise ValidationError(e)
+            connections = master_pc.connection_ids.filtered(
+                lambda r: r.protocol == 'http') if master_pc.connection_ids else None
+            if not connections:
+                info = _(f"Can Not Found Connect Info For MasterPC:{master_pc.name}")
+                self.env.user.notify_info(info)
+                _logger.error(info)
+                continue
+            else:
+                connect_list += connections
+        url_list = [f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}' for connect in connect_list]
+        self._push_mrp_routing_workcenter(url_list)
 
     @staticmethod
     def _pack_points_val(tightening_step_id):
@@ -126,10 +118,10 @@ class MrpRoutingWorkcenter(models.Model):
             "consume_product": step_id.component_id.default_code or step_id.component_id.barcode or '',
             "text": step_id.reason or '',  # 备注字段
         }
-
+        # 测量工步增加测量项内容，拧紧工步增加拧紧点内容
         if step_id.test_type in [MEASURE_TYPE, MULTI_MEASURE_TYPE]:
-            p = package_multi_measurement_items(step_id.multi_measurement_ids)
-            step_val.update({'measurement_items': p})  # 将测量项
+            measure_items_data = package_multi_measurement_items(step_id.multi_measurement_ids)
+            step_val.update({'measurement_items': measure_items_data})  # 将测量项
             step_val.update({'measurement_total': len(step_id.multi_measurement_ids)})
         elif step_id.test_type in ALL_TIGHTENING_TEST_TYPE_LIST:
             points_data = self._pack_points_val(step_id)
@@ -156,7 +148,7 @@ class MrpRoutingWorkcenter(models.Model):
                                                                 bom_id.product_tmpl_id.image_1920.decode()) if bom_id.product_tmpl_id.image_1920 else "",
             "steps": [],
         }
-
+        # 查看配置中是否下发所有工步数据，是则遍历所有工步，否则只遍历拧紧工步
         config = self.env['ir.config_parameter']
         all_step_flag = config.get_param('oneshare.send.all.steps')
         all_need_steps = operation_id.work_step_ids.mapped('work_step_id')
@@ -174,20 +166,30 @@ class MrpRoutingWorkcenter(models.Model):
         })
         return operation_val
 
-    def _send_operation_val(self, val, url):
-        # 发送包好的数据
-        try:
-            _logger.debug("Push Operation： {}".format(pprint.pformat(val, indent=4)))
-            ret = Requests.put(url, data=json.dumps(val), headers={'Content-Type': 'application/json'},
-                               timeout=60)
+    def _send_operation_val(self, operation_val_list, url_list):
+        # 发送数据
+        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+            task_list = [executor.submit(self._send_val_by_thread, *args) for args in zip(operation_val_list, url_list)]
+        for task in task_list:
+            task_exception = task.exception()
+            if task_exception:
+                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{task_exception}'))
+                continue
+            ret = task.result()
             if ret.status_code == http.HTTPStatus.OK:
-                self.env.user.notify_info('Push Operation Successfully!')
-        except ConnectionError as e:
-            self.env.user.notify_warning('Push Operation Failure, Error Message:{0}'.format(e))
-        except RequestException as e:
-            self.env.user.notify_warning('Push Operation Failure, Error Message:{0}'.format(e))
+                self.env.user.notify_info(_('Push Operation Successfully!'))
+            else:
+                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{ret.text}'))
 
-    def _push_mrp_routing_workcenter(self, url):
+    def _send_val_by_thread(self, val, url):
+        # 异步发送包好的数据
+        _logger.debug("Push Operation： {}".format(pprint.pformat(val, indent=4)))
+        ret = Requests.put(url, data=json.dumps(val), headers={'Content-Type': 'application/json'},
+                           timeout=60)
+        return ret
+
+    def _push_mrp_routing_workcenter(self, url_list):
+        # 推送作业数据
         self.ensure_one()
         operation_id = self
         bom_id = self.env.context.get('bom_id')
@@ -196,28 +198,30 @@ class MrpRoutingWorkcenter(models.Model):
         else:
             bom_ids = self.env['mrp.bom'].search([('onesphere_bom_operation_ids', '=', operation_id.id)])
         if not bom_ids:
-            msg = f"Can Not Found MRP BOM Within The Operation:{operation_id.name}"
+            msg = _(f"Can Not Found MRP BOM Within The Operation:{operation_id.name}")
             _logger.error(msg)
             raise ValidationError(msg)
 
+        operation_val_list = []
         for bom_id in bom_ids:
             operation_val = self._pack_operation_val(bom_id, operation_id)
-            self._send_operation_val(operation_val, url)
+            operation_val_list.append(operation_val)
+        self._send_operation_val(operation_val_list, url_list)
 
     def button_send_mrp_routing_workcenter(self):
         operation = self
         if not operation.workcenter_ids:
-            self.env.user.notify_info('Can Not Found Workcenter!')
+            self.env.user.notify_info(_('Can Not Found Workcenter!'))
             return
         # TODO: 使用并发库进行优化性能。
         for workcenter_id in operation.workcenter_ids:
             try:
                 master_pcs = workcenter_id.get_workcenter_masterpc()
                 if not master_pcs:
-                    info = f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!'
+                    info = _(f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!')
                     self.env.user.notify_info(info)
                     _logger.error(info)
                     continue
                 self._push_operation_to_mpcs(master_pcs)
             except Exception as e:
-                self.env.user.notify_warning(f'Sync Operation Failure:{str(e)}')
+                self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))

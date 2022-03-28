@@ -125,4 +125,4 @@ class TighteningOprPoint(models.Model):
                                         'tightening_unit_id', string='Tightening Units')
 
     _sql_constraints = [
-        ('name_uniq', 'unique(name)', _('Tightening Operation Point Name MUST BE Unique!'))]
+        ('name_uniq', 'unique(name)', 'Tightening Operation Point Name MUST BE Unique!')]

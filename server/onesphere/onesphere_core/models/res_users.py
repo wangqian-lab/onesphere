@@ -21,5 +21,5 @@ class ResUsers(models.Model):
         'HMI角色')
 
     _sql_constraints = [
-        ('unique_uuid', 'unique(uuid)', _('Every User unique UUID')),
+        ('unique_uuid', 'unique(uuid)', 'Every User unique UUID'),
     ]

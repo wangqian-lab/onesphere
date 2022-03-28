@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 03:08+0000\n"
-"PO-Revision-Date: 2022-03-28 03:08+0000\n"
+"POT-Creation-Date: 2022-03-28 06:01+0000\n"
+"PO-Revision-Date: 2022-03-28 06:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1084,9 +1084,7 @@ msgid "Tightening Operation Point Group Name MUST BE Unique!"
 msgstr "拧紧点组名称必须唯一"
 
 #. module: onesphere_assembly_industry
-#: code:addons/onesphere_assembly_industry/models/tightening_opr_point.py:0
 #: model:ir.model.constraint,message:onesphere_assembly_industry.constraint_onesphere_tightening_opr_point_name_uniq
-#, python-format
 msgid "Tightening Operation Point Name MUST BE Unique!"
 msgstr "拧紧点名称必须唯一"
 

@@ -22,4 +22,4 @@ ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tight
 MASTER_ROUTING_API = "/rush/v1/mrp.routing.workcenter"
 
 
-ENV_MAX_WORKERS = os.getenv('ENV_MAX_WORKERS', 8)
+ENV_MAX_WORKERS = int(os.getenv('ENV_MAX_WORKERS', '8'))

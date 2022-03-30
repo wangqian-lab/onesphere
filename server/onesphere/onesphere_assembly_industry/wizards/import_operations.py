@@ -76,7 +76,7 @@ class ImportOperation(models.TransientModel):
             'is_workorder_step': True,
         }
         if step_type in ALL_TIGHTENING_TEST_TYPE_LIST and tightening_img:
-            img_url = self.img_url + '\\' + tightening_img
+            img_url = os.path.join(self.img_url, tightening_img)
             with open(img_url, "rb") as f:
                 img_bin = base64.b64encode(f.read())
             step_dic.update({'worksheet_img': img_bin})
@@ -178,4 +178,5 @@ class ImportOperation(models.TransientModel):
                 self.env.user.notify_success(_(f'Create Operation Success,Operation Code:{operation_code}'))
             except Exception as e:
                 _logger.error(_(f'Create Operation Failed,Reason:{ustr(e)}'))
-                self.env.user.notify_warning(_(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))
+                self.env.user.notify_warning(
+                    _(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))

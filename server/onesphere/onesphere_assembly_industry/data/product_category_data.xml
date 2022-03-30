@@ -2,7 +2,7 @@
     <data noupdate="1">
 
         <record id="product_category_7" model="product.category">
-            <field name="parent_id" ref="product.product_category_consumable"/>
+            <field name="parent_id" ref="product.product_category_all"/>
             <field name="name">Bolt</field>
         </record>
 

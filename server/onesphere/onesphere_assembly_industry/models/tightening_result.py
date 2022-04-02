@@ -69,6 +69,9 @@ class OperationResult(HModel):
     user_id = fields.Many2one('res.users', string='User Name')
     workcenter_code = fields.Char(string='Work Center Code')
     batch = fields.Char(string='Batch')
+    barcode = fields.Char(string='Barcode')
+    track_img_url = fields.Char(string='Track Image URL')
+    measure_rule_result = fields.Char(string='Measure Rule Result')
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
@@ -119,7 +122,10 @@ class OperationResult(HModel):
                 measurement_step_results VARCHAR,
                 tightening_unit_code VARCHAR,
                 tightening_point_name VARCHAR,
-                workcenter_code VARCHAR
+                workcenter_code VARCHAR,
+                barcode varchar, 
+                track_img_url varchar, 
+                measure_rule_result varchar
             ) RETURNS BIGINT AS 
             $$ 
             DECLARE
@@ -151,7 +157,10 @@ class OperationResult(HModel):
                 user_id,
                 workcenter_code,
                 batch,
-                time
+                time,
+                barcode,
+                track_img_url,
+                measure_rule_result
                 )
             VALUES(   
                     vin_code,
@@ -171,7 +180,10 @@ class OperationResult(HModel):
                     user_id,
                     workcenter_code,
                     batch,
-                    now()
+                    now(),
+                    barcode,
+                    track_img_url,
+                    measure_rule_result
                 );
             result_id = lastval( );
             RETURN result_id;

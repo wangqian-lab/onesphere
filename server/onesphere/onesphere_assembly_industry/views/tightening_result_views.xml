@@ -48,8 +48,11 @@
                                 <field name="curve_file"/>
 
                             </group>
-                            <group string="Tightening Step Result">
+                            <group string="Step Result">
                                 <field name="measurement_step_results"/>
+                                <field name="barcode"/>
+                                <field name="track_img_url"/>
+                                <field name="measure_rule_result"/>
                             </group>
                         </group>
                         <group>

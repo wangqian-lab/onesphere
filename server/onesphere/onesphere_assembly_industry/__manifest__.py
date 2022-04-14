@@ -30,6 +30,7 @@
         'data/tightening_data.xml',
         'data/tightening_vendor_data.xml',
         'data/product_category_data.xml',
+        'data/template_download_data.xml',
         'wizards/oneshare_modal.xml',
         'wizards/assembly_industry_spc_views.xml',
         'views/tightening_result_views.xml',
@@ -44,6 +45,7 @@
         'views/group_tightening_tool.xml',
         'wizards/import_view.xml',
         'views/import_menu_views.xml',
+        'views/template_download_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

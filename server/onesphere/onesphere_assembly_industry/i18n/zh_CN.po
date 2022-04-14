@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-02 02:33+0000\n"
-"PO-Revision-Date: 2022-04-02 02:33+0000\n"
+"POT-Creation-Date: 2022-04-14 09:02+0000\n"
+"PO-Revision-Date: 2022-04-14 09:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -177,7 +177,7 @@ msgstr "控制拧紧点"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_tool_id
 msgid "Controller"
-msgstr "控制器"
+msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__cost
@@ -189,6 +189,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__create_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__create_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__create_uid
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -197,6 +198,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__create_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__create_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__create_date
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__create_date
 msgid "Created on"
 msgstr "创建日期"
 
@@ -242,6 +244,7 @@ msgid "Days between each preventive maintenance"
 msgstr "维护间隔"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__description
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Description"
 msgstr "描述"
@@ -270,6 +273,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_product__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__display_name
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -408,6 +412,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_product__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__id
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__id
 msgid "ID"
 msgstr "唯一识别码"
 
@@ -515,6 +520,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_product____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version____last_update
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
@@ -523,6 +529,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__write_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__write_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__write_uid
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -531,6 +538,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__write_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__write_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__write_date
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__write_date
 msgid "Last Updated on"
 msgstr "最后更新日期"
 
@@ -677,9 +685,10 @@ msgid "NOK"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__name
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Name"
-msgstr ""
+msgstr "模板名称"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__activity_date_deadline
@@ -702,6 +711,18 @@ msgstr ""
 #, python-format
 msgid "No measure"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/controllers/download_xlsx.py:0
+#, python-format
+msgid "No template file!"
+msgstr "没有模板文件！"
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/controllers/download_xlsx.py:0
+#, python-format
+msgid "No template record!"
+msgstr "没有选中记录！"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
@@ -837,6 +858,11 @@ msgstr "混杂拧紧工步"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point_group__proposal_key_num
 msgid "Proposal Key Num"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.model,name:onesphere_assembly_industry.model_template_download
+msgid "Provide Template to Download"
+msgstr "提供模板下载"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_oneshare_quality_point
@@ -1005,6 +1031,22 @@ msgstr "技术名称"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__technician_user_id
 msgid "Technician"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model:ir.actions.server,name:onesphere_assembly_industry.template_download_action_server
+#: model:ir.ui.menu,name:onesphere_assembly_industry.menu_template_download
+msgid "Template Download"
+msgstr "模板下载"
+
+#. module: onesphere_assembly_industry
+#: model:ir.actions.act_window,name:onesphere_assembly_industry.template_download_action
+msgid "Template Download Action"
+msgstr "模板下载"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_template_download__template_file
+msgid "Template File"
+msgstr "模板文件"
 
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/quality.py:0

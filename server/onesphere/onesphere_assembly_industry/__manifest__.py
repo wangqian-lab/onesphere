@@ -45,7 +45,6 @@
         'views/group_tightening_tool.xml',
         'wizards/import_view.xml',
         'views/import_menu_views.xml',
-        'views/template_download_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

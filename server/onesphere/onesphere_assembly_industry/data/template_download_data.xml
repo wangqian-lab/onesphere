@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="routing_workcenter_template_default" model="template.download">
+        <record id="routing_workcenter_template_default" model="onesphere.template.download">
             <field name="name">mrp_routing_workcenter_template</field>
             <field name="description">provide mrp routing workcenter template to download</field>
             <field name="template_file">

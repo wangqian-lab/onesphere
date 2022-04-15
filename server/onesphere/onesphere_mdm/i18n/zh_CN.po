@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 05:23+0000\n"
-"PO-Revision-Date: 2022-03-28 05:23+0000\n"
+"POT-Creation-Date: 2022-04-15 09:34+0000\n"
+"PO-Revision-Date: 2022-04-15 09:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,9 +148,24 @@ msgid "Count Of Work Production Line"
 msgstr "产线总数"
 
 #. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: onesphere_mdm
 #: model:ir.model.fields,help:onesphere_mdm.field_oneshare_mrp_work_area__resource_calendar_id
 msgid "Define the schedule of resource"
 msgstr "定义资源调度"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__description
+msgid "Description"
+msgstr "模板描述"
 
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__display_name
@@ -163,6 +178,7 @@ msgstr "定义资源调度"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__display_name
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__display_name
 #: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -221,6 +237,11 @@ msgid "HTTP"
 msgstr ""
 
 #. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__help_info
+msgid "Help Info"
+msgstr "帮助"
+
+#. module: onesphere_mdm
 #: model:maintenance.equipment.category,name:onesphere_mdm.equipment_hmi
 msgid "Human Machine Interface"
 msgstr "人机交互界面"
@@ -236,6 +257,7 @@ msgstr "人机交互界面"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category__id
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__id
 #: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings__id
 msgid "ID"
 msgstr "唯一识别码"
@@ -277,9 +299,20 @@ msgstr "如果该有效字段设置为否，可以不用删除就隐藏此记录
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workorder____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area_category____last_update
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download____last_update
 #: model:ir.model.fields,field_description:onesphere_mdm.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__write_date
+msgid "Last Updated on"
+msgstr "最后更新日期"
 
 #. module: onesphere_mdm
 #: model_terms:ir.actions.act_window,help:onesphere_mdm.oneshare_action_open_production_line
@@ -410,9 +443,22 @@ msgid "ModbusTCP"
 msgstr ""
 
 #. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__name
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_mrp_routing_workcenter_filter
 msgid "Name"
 msgstr "名称"
+
+#. module: onesphere_mdm
+#: code:addons/onesphere_mdm/controllers/template_download.py:0
+#, python-format
+msgid "No template record!"
+msgstr "没有选中记录！"
+
+#. module: onesphere_mdm
+#: model:ir.actions.act_window,name:onesphere_mdm.onesphere_template_download_action
+#: model:ir.ui.menu,name:onesphere_mdm.menu_onesphere_template_download
+msgid "Onesphere Template Download"
+msgstr "模板下载"
 
 #. module: onesphere_mdm
 #: model:ir.model.constraint,message:onesphere_mdm.constraint_mrp_workcenter_group_code_uniq
@@ -472,6 +518,11 @@ msgstr "可编程逻辑控制器"
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.sa_equipment_connection_form_view
 msgid "Protocol"
 msgstr "通讯协议"
+
+#. module: onesphere_mdm
+#: model:ir.model,name:onesphere_mdm.model_onesphere_template_download
+msgid "Provide Template to Download"
+msgstr "提供模板以下载"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_setting_quality_test_type
@@ -566,6 +617,17 @@ msgstr "标签名"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_category__technical_name
 msgid "Technical name"
 msgstr "技术名称"
+
+#. module: onesphere_mdm
+#: model:ir.actions.server,name:onesphere_mdm.onesphere_template_download_action_server
+#: model_terms:ir.ui.view,arch_db:onesphere_mdm.onesphere_template_download_view_tree
+msgid "Template Download"
+msgstr "模板下载"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__template_file
+msgid "Template File"
+msgstr "模板文件"
 
 #. module: onesphere_mdm
 #: model:ir.model.constraint,message:onesphere_mdm.constraint_maintenance_equipment_category_technical_name_uniq

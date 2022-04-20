@@ -73,6 +73,15 @@ class OperationResult(HModel):
     track_img_url = fields.Char(string='Track Image URL')
     measure_rule_result = fields.Char(string='Measure Rule Result')
 
+    step_type = fields.Selection(
+        [('tightening', 'Tightening'), ('register_byproducts', 'RegisterByProducts'), ('picture', 'Picture'),
+         ('measure', 'Measure'), ('multi_measure', 'MultiMeasure')], string='Step Type')
+
+    work_model = fields.Selection(
+        [('normal', 'Normal'), ('rework', 'Rework'), ('manual', 'Manual'),
+         ('trial', 'Trial')], string='Work Model'
+    )
+
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
         if not date_to:
@@ -125,7 +134,9 @@ class OperationResult(HModel):
                 workcenter_code VARCHAR,
                 barcode varchar, 
                 track_img_url varchar, 
-                measure_rule_result varchar
+                measure_rule_result varchar,
+                step_type varchar,
+                work_model varchar
             ) RETURNS BIGINT AS 
             $$ 
             DECLARE
@@ -160,7 +171,9 @@ class OperationResult(HModel):
                 time,
                 barcode,
                 track_img_url,
-                measure_rule_result
+                measure_rule_result,
+                step_type,
+                work_model
                 )
             VALUES(   
                     vin_code,
@@ -183,7 +196,9 @@ class OperationResult(HModel):
                     now(),
                     barcode,
                     track_img_url,
-                    measure_rule_result
+                    measure_rule_result,
+                    step_type,
+                    work_model
                 );
             result_id = lastval( );
             RETURN result_id;

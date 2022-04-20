@@ -1,9 +1,16 @@
 <odoo>
     <data>
         <menuitem
+                id="onesphere_operation_result"
+                name="Operation Results"
+                parent="onesphere_spc.onesphere_spc_root"
+                groups="mrp.group_mrp_manager"
+                sequence="10"/>
+
+        <menuitem
                 id="onesphere_tightening_result"
                 name="Tightening Results"
-                parent="onesphere_spc.onesphere_spc_root"
+                parent="onesphere_operation_result"
                 groups="mrp.group_mrp_manager"
                 sequence="10"/>
 
@@ -29,7 +36,7 @@
                                 <field name="user_id"/>
                                 <field name="workcenter_code"/>
                             </group>
-                            <group string="Tightening Params">
+                            <group string="Tightening Params" attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
                                 <field name="tightening_process_no"/>
                                 <field name="tightening_strategy"/>
                                 <field name="tightening_unit_code"/>
@@ -40,7 +47,7 @@
                         <group>
                             <p style="font-size: 25px; font-weight:bold; color: #5D8DA8">Result</p>
                             <br/>
-                            <group string="Tightening Final Result">
+                            <group string="Tightening Final Result" attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
                                 <field name="tightening_result"/>
                                 <field name="measurement_final_torque"/>
                                 <field name="measurement_final_angle"/>
@@ -49,10 +56,12 @@
 
                             </group>
                             <group string="Step Result">
-                                <field name="measurement_step_results"/>
-                                <field name="barcode"/>
-                                <field name="track_img_url"/>
-                                <field name="measure_rule_result"/>
+                                <field name="step_type"/>
+                                <field name="work_model"/>
+                                <field name="measurement_step_results" attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
+                                <field name="barcode" attrs="{'invisible': [('step_type', '!=', 'register_byproducts')]}"/>
+                                <field name="track_img_url" attrs="{'invisible': [('step_type', '!=', 'picture')]}"/>
+                                <field name="measure_rule_result" attrs="{'invisible': [('step_type', '!=', 'measure')]}"/>
                             </group>
                         </group>
                         <group>
@@ -77,6 +86,7 @@
                     <field name="track_no"/>
                     <field name="attribute_equipment_no"/>
                     <field name="control_time" string="Tightening Date Time"/>
+                    <field name="step_type"/>
                     <field name="tightening_result"/>
                     <field name="measurement_final_torque"/>
                     <field name="measurement_final_angle"/>
@@ -97,11 +107,17 @@
                            filter_domain="[('user_id','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
-                            domain="[('tightening_result', '=', 'ok')]"/>
+                            domain="[('tightening_result', '=', 'ok'),('step_type', '=', 'tightening')]"/>
                     <filter string="NOK" name="filter_nok"
-                            domain="[('tightening_result', '=', 'nok')]"/>
+                            domain="[('tightening_result', '=', 'nok'),('step_type', '=', 'tightening')]"/>
                     <filter string="Discharged" name="filter_discharged"
                             domain="[('tightening_result', '=', 'ak2')]"/><!-- 放行 -->
+                    <filter string="measure" name="filter_measure"
+                            domain="[('step_type', 'in', ('measure','multi_measure'))]"/>
+                    <filter string="register_byproducts" name="filter_register_byproducts"
+                            domain="[('step_type', '=', 'register_byproducts')]"/>
+                    <filter string="picture" name="filter_picture"
+                            domain="[('step_type', '=', 'picture')]"/>
                     <separator/>
                     <filter string="Today" name="today_filter"
                             domain="[
@@ -156,6 +172,48 @@
             </field>
         </record>
 
+        <record id="action_measure_result" model="ir.actions.act_window">
+            <field name="name">Measure Result</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_measure": 1 }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view Measure result.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_register_byproducts_result" model="ir.actions.act_window">
+            <field name="name">Register Byproducts Result</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_register_byproducts": 1 }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view register byproducts result.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_picture_result" model="ir.actions.act_window">
+            <field name="name">Picture Result</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_picture": 1 }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view picture result.
+                </p>
+            </field>
+        </record>
+
 
         <menuitem id="menu_assembly_nok_tightening_result" name="Tightening Result(NOK)"
                   action="action_nok_tightening_result"
@@ -163,5 +221,14 @@
         <menuitem id="menu_assembly_ak2_tightening_result" name="Tightening Result(AK2)"
                   action="action_ak2_tightening_result"
                   parent="onesphere_tightening_result" sequence="20"/>
+        <menuitem id="menu_action_measure_result" name="Measure Result"
+                  action="action_measure_result"
+                  parent="onesphere_operation_result" sequence="20"/>
+        <menuitem id="menu_register_byproducts_result" name="Register Byproducts Result"
+                  action="action_register_byproducts_result"
+                  parent="onesphere_operation_result" sequence="30"/>
+        <menuitem id="menu_picture_result" name="Picture Result"
+                  action="action_picture_result"
+                  parent="onesphere_operation_result" sequence="40"/>
     </data>
 </odoo>

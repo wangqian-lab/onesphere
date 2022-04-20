@@ -617,7 +617,7 @@ msgstr "技术名称"
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_equipment_id
 msgid "Test Equipment"
-msgstr ""
+msgstr "设备"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_type

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="onesphere_assembly_industry_quality_point_view_search_inherit" model="ir.ui.view">
+            <field name="name">onesphere_assembly_industry_quality_point_view_search_inherit</field>
+            <field name="model">oneshare.quality.point</field>
+            <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='test_type_id']" position="before">
+                    <field name="tag_ids" string="Step Tag" filter_domain="[('tag_ids', 'ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="onesphere_assembly_industry_quality_point_view_form_inherit" model="ir.ui.view">
             <field name="name">onesphere_assembly_industry_quality_point_view_form_inherit</field>
             <field name="model">oneshare.quality.point</field>
@@ -15,6 +26,7 @@
                             attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}"/>
                 </xpath>
                 <xpath expr="//field[@name='test_type_id']" position="before">
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="step_version" readonly="1"/>
                 </xpath>
                 <xpath expr="//notebook/page[1]" position="before">

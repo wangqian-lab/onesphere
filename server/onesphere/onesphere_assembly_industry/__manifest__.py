@@ -37,6 +37,7 @@
         'views/templates.xml',
         'views/tightening_unit_views.xml',
         'views/quality_views.xml',
+        'views/work_step_tag_views.xml',
         'views/mdm_menu_views.xml',
         'views/mrp_routing_workcenter_views.xml',
         # 'views/real_oper_version_views.xml',

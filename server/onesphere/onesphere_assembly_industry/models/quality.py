@@ -13,6 +13,9 @@ class OneshareQuality(models.Model):
 
     step_version = fields.Integer(default=1, string='Step Version')
 
+    tag_ids = fields.Many2many('onesphere.work.step.tag', 'step_tag_rel', 'onesphere_step_id', 'onesphere_tag_id',
+                               string='Step Tag Relationship')
+
     def get_tightening_operation_points(self, *args, **kwargs):
         ret = []
         self.ensure_one()
@@ -57,5 +60,6 @@ class OneshareQuality(models.Model):
     def change_points_sequence(self):
         sequence = 1
         for point in self.tightening_opr_point_ids:
+            point.sequence = sequence
             point.group_sequence = sequence
             sequence += 1

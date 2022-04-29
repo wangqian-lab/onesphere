@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="work_step_tag_view_form" model="ir.ui.view">
+            <field name="name">work_step_tag_view_form</field>
+            <field name="model">onesphere.work.step.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="color" widget="color_picker"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="work_step_tag_view_tree" model="ir.ui.view">
+            <field name="name">work_step_tag_view_tree</field>
+            <field name="model">onesphere.work.step.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="color"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="work_step_tag_action" model="ir.actions.act_window">
+            <field name="name">Work Step Tag</field>
+            <field name="res_model">onesphere.work.step.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="onesphere_work_step_tag_menu"
+                name="Work Step Tag"
+                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_setting"
+                action="work_step_tag_action"
+                sequence="70"/>
+
+    </data>
+</odoo>

@@ -10,7 +10,7 @@ class OnesphereTemplateDownload(models.Model):
     name = fields.Char(string='Name', required=True)
     description = fields.Char(string='Description')
     template_file = fields.Binary(string='Template File', attachment=True, required=True)
-    help_info = fields.Html(stirng='Help Info')
+    help_info = fields.Html(string='Help Info')
 
     def template_download(self):
         return {

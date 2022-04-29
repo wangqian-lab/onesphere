@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="guoxuan_enhanced_quality_point_view_form_inherit" model="ir.ui.view">
+            <field name="name">guoxuan_enhanced_quality_point_view_form_inherit</field>
+            <field name="model">oneshare.quality.point</field>
+            <field name="inherit_id" ref="onesphere_assembly_industry.onesphere_assembly_industry_quality_point_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position='attributes'>
+                    <attribute name="attrs">{'required': [('test_type_id', '=', 2)]}
+                    </attribute>  <!--扫码工步tag必填-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -77,9 +77,9 @@ class OperationResult(HModel):
         [('tightening', 'Tightening'), ('register_byproducts', 'RegisterByProducts'), ('picture', 'Picture'),
          ('measure', 'Measure'), ('multi_measure', 'MultiMeasure')], string='Step Type')
 
-    work_model = fields.Selection(
+    work_mode = fields.Selection(
         [('normal', 'Normal'), ('rework', 'Rework'), ('manual', 'Manual'),
-         ('trial', 'Trial')], string='Work Model'
+         ('trial', 'Trial')], string='Work Mode'
     )
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
@@ -136,7 +136,7 @@ class OperationResult(HModel):
                 track_img_url varchar, 
                 measure_rule_result varchar,
                 step_type varchar,
-                work_model varchar
+                work_mode varchar
             ) RETURNS BIGINT AS 
             $$ 
             DECLARE
@@ -173,7 +173,7 @@ class OperationResult(HModel):
                 track_img_url,
                 measure_rule_result,
                 step_type,
-                work_model
+                work_mode
                 )
             VALUES(   
                     vin_code,
@@ -198,7 +198,7 @@ class OperationResult(HModel):
                     track_img_url,
                     measure_rule_result,
                     step_type,
-                    work_model
+                    work_mode
                 );
             result_id = lastval( );
             RETURN result_id;

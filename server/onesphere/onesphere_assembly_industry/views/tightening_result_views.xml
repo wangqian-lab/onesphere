@@ -57,7 +57,7 @@
                             </group>
                             <group string="Step Result">
                                 <field name="step_type"/>
-                                <field name="work_model"/>
+                                <field name="work_mode"/>
                                 <field name="measurement_step_results" attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
                                 <field name="barcode" attrs="{'invisible': [('step_type', '!=', 'register_byproducts')]}"/>
                                 <field name="track_img_url" attrs="{'invisible': [('step_type', '!=', 'picture')]}"/>

@@ -112,6 +112,7 @@ class MrpRoutingWorkcenter(models.Model):
             "title": step_id.name or '',  # 名称或者QCP
             "code": step_id.code or '',  # 通过下发的ref去进行定位查找，这里可能出现上层业务系统的k值，报工需要传递的是这个代码
             "desc": step_id.note or '',  # 工步指令字段
+            "tag": step_id.tag_ids.mapped('name') if step_id.tag_ids else [],
             "skippable": step_id.can_do_skip,
             "undoable": step_id.can_do_rework,
             "test_type": step_id.test_type_id.technical_name or '',

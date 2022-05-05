@@ -72,6 +72,7 @@ class OnesphereAssemablyIndustry(http.Controller):
                 })
 
                 ret = tightening_opr_point_obj.create(val)
+                tightening_work_step.update_points_group_sequence()
                 if not ret:
                     _logger.error(
                         "Create Tightening Operation Point Fail, Vals: {0}".format(pprint.pformat(val, indent=4)))

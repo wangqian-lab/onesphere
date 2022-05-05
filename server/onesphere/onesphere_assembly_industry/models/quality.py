@@ -16,6 +16,19 @@ class OneshareQuality(models.Model):
     tag_ids = fields.Many2many('onesphere.work.step.tag', 'step_tag_rel', 'onesphere_step_id', 'onesphere_tag_id',
                                string='Step Tag Relationship')
 
+    @api.onchange('tightening_opr_point_ids')
+    def update_points_group_sequence(self):
+        group_sequence_list = self.tightening_opr_point_ids.mapped('group_sequence')
+        if not group_sequence_list or min(group_sequence_list) > 0:
+            return
+        current_group_sequence = 1
+        if max(group_sequence_list) > 0:
+            current_group_sequence = max(group_sequence_list) + 1
+        points = self.tightening_opr_point_ids.filtered(lambda x: x.group_sequence < 1)
+        for point in points:
+            point.group_sequence = current_group_sequence
+            current_group_sequence += 1
+
     def get_tightening_operation_points(self, *args, **kwargs):
         ret = []
         self.ensure_one()
@@ -61,5 +74,4 @@ class OneshareQuality(models.Model):
         sequence = 1
         for point in self.tightening_opr_point_ids:
             point.sequence = sequence
-            point.group_sequence = sequence
             sequence += 1

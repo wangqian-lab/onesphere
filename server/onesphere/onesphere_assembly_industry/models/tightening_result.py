@@ -69,6 +69,19 @@ class OperationResult(HModel):
     user_id = fields.Many2one('res.users', string='User Name')
     workcenter_code = fields.Char(string='Work Center Code')
     batch = fields.Char(string='Batch')
+    barcode = fields.Char(string='Barcode')
+    track_img_url = fields.Char(string='Track Image URL')
+    measure_rule_result = fields.Char(string='Measure Rule Result')
+
+    step_type = fields.Selection(
+        [('tightening', 'Tightening'), ('register_byproducts', 'RegisterByProducts'), ('picture', 'Picture'),
+         ('measure', 'Measure'), ('multi_measure', 'MultiMeasure')], string='Step Type')
+
+    work_mode = fields.Selection(
+        [('normal', 'Normal'), ('rework', 'Rework'), ('manual', 'Manual'),
+         ('trial', 'Trial')], string='Work Mode'
+    )
+    user_list = fields.Char(string='User List')
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
@@ -119,12 +132,19 @@ class OperationResult(HModel):
                 measurement_step_results VARCHAR,
                 tightening_unit_code VARCHAR,
                 tightening_point_name VARCHAR,
-                workcenter_code VARCHAR
+                workcenter_code VARCHAR,
+                barcode varchar, 
+                track_img_url varchar, 
+                measure_rule_result varchar,
+                step_type varchar,
+                work_mode varchar,
+                user_list varchar
             ) RETURNS BIGINT AS 
             $$ 
             DECLARE
             r_measure_result VARCHAR;
             result_id BIGINT;
+            user_name_list VARCHAR;
             BEGIN
             
                 case pset_strategy
@@ -133,6 +153,9 @@ class OperationResult(HModel):
                     ELSE r_measure_result = measure_result;
                     end case;
                     
+                select string_agg(user_name,',') user_name_list from 
+                (select json_array_elements(user_list::json) ->> 'name' user_name)user_info;
+
                 INSERT INTO PUBLIC.onesphere_tightening_result (
                 track_no,
                 attribute_equipment_no,
@@ -151,7 +174,13 @@ class OperationResult(HModel):
                 user_id,
                 workcenter_code,
                 batch,
-                time
+                time,
+                barcode,
+                track_img_url,
+                measure_rule_result,
+                step_type,
+                work_mode,
+                user_list
                 )
             VALUES(   
                     vin_code,
@@ -171,7 +200,13 @@ class OperationResult(HModel):
                     user_id,
                     workcenter_code,
                     batch,
-                    now()
+                    now(),
+                    barcode,
+                    track_img_url,
+                    measure_rule_result,
+                    step_type,
+                    work_mode,
+                    user_name_list
                 );
             result_id = lastval( );
             RETURN result_id;

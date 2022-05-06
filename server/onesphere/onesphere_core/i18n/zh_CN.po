@@ -18,7 +18,7 @@ msgstr ""
 #. module: onesphere_core
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_core_mrp_routing_workcenter_form_view_inherit
 msgid "<span class=\"o_stat_text\">Working Steps</span>"
-msgstr ""
+msgstr "工步"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_needaction
@@ -617,7 +617,7 @@ msgstr "技术名称"
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_equipment_id
 msgid "Test Equipment"
-msgstr ""
+msgstr "检测用设备"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__test_type

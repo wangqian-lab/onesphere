@@ -35,6 +35,7 @@
         'views/mrp_routing_workcenter_views.xml',
         'views/work_area_views.xml',
         'views/mrp_workcenter_group_views.xml',
+        'views/onesphere_template_download_views.xml',
         'views/mdm_menu_views.xml',
         'views/res_config_settings_views.xml',
     ],

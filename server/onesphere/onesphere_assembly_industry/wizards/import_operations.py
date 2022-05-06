@@ -156,6 +156,7 @@ class ImportOperation(models.TransientModel):
                 tightening_points_seq += 1
                 continue
             if step_type in ALL_TIGHTENING_TEST_TYPE_LIST:
+                tightening_points_seq = 1
                 step = self._create_step(operation, step_data, step_seq)
                 need_add_points_step = step
                 self._create_tightening_point(step_data, need_add_points_step, tightening_points_seq)

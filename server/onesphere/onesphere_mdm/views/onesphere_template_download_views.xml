@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="onesphere_template_download_view_form" model="ir.ui.view">
+            <field name="name">onesphere_template_download_view_form</field>
+            <field name="model">onesphere.template.download</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="description"/>
+                        <field name="template_file" required="1"/>
+                        <field name="help_info"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="onesphere_template_download_view_tree" model="ir.ui.view">
+            <field name="name">onesphere_template_download_view_tree</field>
+            <field name="model">onesphere.template.download</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="template_file"/>
+                    <button name="template_download" type="object" class="btn-success fa fa-2x fa-download"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="onesphere_template_download_action_server" model="ir.actions.server">
+            <field name="name">Template Download</field>
+            <field name="model_id" ref="onesphere_mdm.model_onesphere_template_download"/>
+            <field name="binding_model_id" ref="onesphere_mdm.model_onesphere_template_download"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.template_download()
+            </field>
+        </record>
+
+        <record id="onesphere_template_download_action" model="ir.actions.act_window">
+            <field name="name">Onesphere Template Download</field>
+            <field name="res_model">onesphere.template.download</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="step_tag_pack_data" model="onesphere.work.step.tag">
+            <field name="name">pack</field>
+            <field name="color">1</field><!--pack tag-->
+        </record>
+
+        <record id="step_tag_module_data" model="onesphere.work.step.tag">
+            <field name="name">模组</field>
+            <field name="color">2</field><!--模组 tag-->
+        </record>
+
+    </data>
+</odoo>

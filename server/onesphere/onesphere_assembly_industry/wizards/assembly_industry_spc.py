@@ -95,7 +95,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = _(f'Tighetening Points number:{eff_length}/{len(data_list)},Mean:{np.mean(data_list) or 0, np.min(data_list):.2f},'
+            description = _(f'Tighetening Points number:{eff_length}/{len(data_list)},Mean:{np.mean(data_list) or 0:.2f},'
                             f'Range:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]')
         else:
             description = _('Tighetening Points number:0')

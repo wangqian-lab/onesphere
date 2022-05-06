@@ -34,6 +34,7 @@
                                 <field name="attribute_equipment_no"/>
                                 <field name="control_time" string="Tightening Date Time"/>
                                 <field name="user_id"/>
+                                <field name="user_list"/>
                                 <field name="workcenter_code"/>
                             </group>
                             <group string="Tightening Params" attrs="{'invisible': [('step_type', '!=', 'tightening')]}">

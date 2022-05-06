@@ -81,6 +81,7 @@ class OperationResult(HModel):
         [('normal', 'Normal'), ('rework', 'Rework'), ('manual', 'Manual'),
          ('trial', 'Trial')], string='Work Mode'
     )
+    user_list = fields.Char(string='User List')
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
@@ -136,12 +137,14 @@ class OperationResult(HModel):
                 track_img_url varchar, 
                 measure_rule_result varchar,
                 step_type varchar,
-                work_mode varchar
+                work_mode varchar,
+                user_list varchar
             ) RETURNS BIGINT AS 
             $$ 
             DECLARE
             r_measure_result VARCHAR;
             result_id BIGINT;
+            user_name_list VARCHAR;
             BEGIN
             
                 case pset_strategy
@@ -150,6 +153,9 @@ class OperationResult(HModel):
                     ELSE r_measure_result = measure_result;
                     end case;
                     
+                select string_agg(user_name,',') user_name_list from 
+                (select json_array_elements(user_list::json) ->> 'name' user_name)user_info;
+
                 INSERT INTO PUBLIC.onesphere_tightening_result (
                 track_no,
                 attribute_equipment_no,
@@ -173,7 +179,8 @@ class OperationResult(HModel):
                 track_img_url,
                 measure_rule_result,
                 step_type,
-                work_mode
+                work_mode,
+                user_list
                 )
             VALUES(   
                     vin_code,
@@ -198,7 +205,8 @@ class OperationResult(HModel):
                     track_img_url,
                     measure_rule_result,
                     step_type,
-                    work_mode
+                    work_mode,
+                    user_name_list
                 );
             result_id = lastval( );
             RETURN result_id;

@@ -12,3 +12,4 @@ from . import real_oper_version
 from . import mrp_bom
 from . import mrp_workcenter
 from . import onesphere_work_step_tag
+from . import onesphere_tightening_bolt

@@ -48,10 +48,25 @@
             </field>
         </record>
 
+        <record id="onesphere_tightening_bolt_filter" model="ir.ui.view">
+            <field name="name">onesphere_tightening_bolt_filter</field>
+            <field name="model">onesphere.tightening.bolt</field>
+            <field name="arch" type="xml">
+                <search string="Tightening Bolt">
+                    <filter string="Type Missing" name="filter_missing"
+                            domain="[('type', '=', 'missing')]"/>
+                    <filter string="Type Verified" name="filter_verified"
+                            domain="[('type', '=', 'verified')]"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
         <record id="tightening_bolt_action" model="ir.actions.act_window">
             <field name="name">Tightening Bolt</field>
             <field name="res_model">onesphere.tightening.bolt</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_bolt_filter"/>
         </record>
 
         <menuitem

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-13 09:17+0000\n"
-"PO-Revision-Date: 2022-05-13 09:17+0000\n"
+"POT-Creation-Date: 2022-05-13 09:54+0000\n"
+"PO-Revision-Date: 2022-05-13 09:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1152,6 +1152,7 @@ msgstr "拧紧"
 #. module: onesphere_assembly_industry
 #: model:ir.actions.act_window,name:onesphere_assembly_industry.tightening_bolt_action
 #: model:ir.ui.menu,name:onesphere_assembly_industry.tightening_bolt_menu
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_bolt_filter
 msgid "Tightening Bolt"
 msgstr "拧紧螺栓"
 
@@ -1450,6 +1451,16 @@ msgstr "试制模式"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
 msgid "Type"
 msgstr "类型"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_bolt_filter
+msgid "Type Missing"
+msgstr "类型为缺失"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_bolt_filter
+msgid "Type Verified"
+msgstr "类型为已核实"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_unit__activity_exception_decoration

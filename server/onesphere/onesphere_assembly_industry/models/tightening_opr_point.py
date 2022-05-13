@@ -63,9 +63,9 @@ class TighteningOprPoint(models.Model):
 
     sequence = fields.Integer('sequence', default=1)
 
-    name = fields.Char('Tightening Point Name(Bolt Number)',
-                       default=lambda self: str(uuid.uuid4()))  # 如果未定义拧紧点编号，即自动生成uuid号作为唯一标示,螺栓编号
-
+    # name = fields.Char('Tightening Point Name(Bolt Number)',
+    #                    default=lambda self: str(uuid.uuid4()))  # 如果未定义拧紧点编号，即自动生成uuid号作为唯一标示,螺栓编号
+    bolt_id = fields.Many2one('onesphere.tightening.bolt', ondelete='cascade', delegate=True)
     group_id = fields.Many2one('onesphere.tightening.opr.point.group', string='Tightening Point Group',
                                help='拧紧组定义，当多轴或者多人同时作业时使用')
 

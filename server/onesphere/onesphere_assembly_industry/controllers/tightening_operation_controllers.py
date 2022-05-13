@@ -4,6 +4,7 @@ from odoo.http import request
 from odoo.addons.oneshare_utils.http import oneshare_json_success_resp, oneshare_json_fail_response
 import logging
 import pprint
+import uuid
 
 _logger = logging.getLogger(__name__)
 
@@ -66,6 +67,7 @@ class OnesphereAssemablyIndustry(http.Controller):
             if not point_id:
                 # 新增
                 val.update({
+                    'name': str(uuid.uuid4()),
                     'parent_quality_point_id': tightening_work_step_id,
                     'sequence': sequence,
                     'product_id': env.ref('onesphere_assembly_industry.product_product_screw_default').id  # 获取默认螺栓

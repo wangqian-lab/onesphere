@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <record id="tightening_bolt_view_form" model="ir.ui.view">
+            <field name="name">tightening_bolt_view_form</field>
+            <field name="model">onesphere.tightening.bolt</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tightening Result">
+                                <field name="bolt_result_rel" widget="one2many">
+                                    <tree>
+                                        <field name="tightening_id"/>
+                                        <field name="tightening_result"/>
+                                        <field name="tightening_strategy"/>
+                                        <field name="measurement_final_torque"/>
+                                        <field name="measurement_final_angle"/>
+                                        <field name="measurement_step_results"/>
+                                        <field name="user_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tightening_bolt_view_tree" model="ir.ui.view">
+            <field name="name">tightening_bolt_view_tree</field>
+            <field name="model">onesphere.tightening.bolt</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="onesphere_tightening_bolt_filter" model="ir.ui.view">
+            <field name="name">onesphere_tightening_bolt_filter</field>
+            <field name="model">onesphere.tightening.bolt</field>
+            <field name="arch" type="xml">
+                <search string="Tightening Bolt">
+                    <filter string="Type Missing" name="filter_missing"
+                            domain="[('type', '=', 'missing')]"/>
+                    <filter string="Type Verified" name="filter_verified"
+                            domain="[('type', '=', 'verified')]"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="tightening_bolt_action" model="ir.actions.act_window">
+            <field name="name">Tightening Bolt</field>
+            <field name="res_model">onesphere.tightening.bolt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_bolt_filter"/>
+        </record>
+
+        <menuitem
+                id="tightening_bolt_menu"
+                name="Tightening Bolt"
+                parent="onesphere_mdm.oneshare_mom_menu_manufacturing_material"
+                action="tightening_bolt_action"
+                sequence="30"/>
+
+    </data>
+</odoo>

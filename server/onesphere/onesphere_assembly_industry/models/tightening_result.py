@@ -65,7 +65,7 @@ class OperationResult(HModel):
     # 目前仍将曲线保存在minio
     curve_file = fields.Char(string='Curve Files')
     tightening_unit_code = fields.Char(string='Tightening Unit Code')
-    tightening_point_name = fields.Char(string='Tightening Point Name')
+    tightening_point_name = fields.Many2one('onesphere.tightening.bolt', string='Tightening Point Name')
     user_id = fields.Many2one('res.users', string='User Name')
     workcenter_code = fields.Char(string='Work Center Code')
     batch = fields.Char(string='Batch')
@@ -145,6 +145,7 @@ class OperationResult(HModel):
             r_measure_result VARCHAR;
             result_id BIGINT;
             user_name_list VARCHAR;
+            bolt_id BIGINT;
             BEGIN
             
                 case pset_strategy
@@ -153,8 +154,14 @@ class OperationResult(HModel):
                     ELSE r_measure_result = measure_result;
                     end case;
                     
-                select string_agg(user_name,',') user_name_list from 
+                select string_agg(user_name,',') into user_name_list from 
                 (select json_array_elements(user_list::json) ->> 'name' user_name)user_info;
+
+                select id into bolt_id from onesphere_tightening_bolt where name=tightening_point_name;
+                
+                if bolt_id is null then insert into onesphere_tightening_bolt (name,type)
+                values(tightening_point_name,'missing') returning id into bolt_id;
+                end if;
 
                 INSERT INTO PUBLIC.onesphere_tightening_result (
                 track_no,
@@ -196,7 +203,7 @@ class OperationResult(HModel):
                     cur_objects,
                     control_date,
                     tightening_unit_code,
-                    tightening_point_name,
+                    bolt_id,
                     user_id,
                     workcenter_code,
                     batch,

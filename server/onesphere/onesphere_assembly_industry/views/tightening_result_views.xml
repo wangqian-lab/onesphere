@@ -106,6 +106,7 @@
                            filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
                     <field name="user_id" string="User"
                            filter_domain="[('user_id','ilike', self)]"/>
+                    <field name="tightening_point_name" string="Bolt" filter_domain="[('tightening_point_name','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
                             domain="[('tightening_result', '=', 'ok'),('step_type', '=', 'tightening')]"/>

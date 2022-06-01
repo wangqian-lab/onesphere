@@ -153,9 +153,12 @@ class OperationResult(HModel):
                         then r_measure_result = 'lsn';
                     ELSE r_measure_result = measure_result;
                     end case;
-                    
-                select string_agg(user_name,',') into user_name_list from 
+                
+                case when user_list = ''
+                then user_name_list = null;
+                else select string_agg(user_name,',') into user_name_list from 
                 (select json_array_elements(user_list::json) ->> 'name' user_name)user_info;
+                end case;
 
                 select id into bolt_id from onesphere_tightening_bolt where name=tightening_point_name;
                 

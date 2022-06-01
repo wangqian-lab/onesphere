@@ -88,6 +88,7 @@
                     <field name="attribute_equipment_no"/>
                     <field name="control_time" string="Tightening Date Time"/>
                     <field name="step_type"/>
+                    <field name="work_mode"/>
                     <field name="tightening_result"/>
                     <field name="measurement_final_torque"/>
                     <field name="measurement_final_angle"/>

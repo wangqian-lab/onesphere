@@ -1,0 +1,5 @@
+*.md
+.git/
+.github/
+.idea/
+.vscode/

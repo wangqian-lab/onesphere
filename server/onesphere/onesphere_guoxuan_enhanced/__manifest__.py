@@ -3,11 +3,11 @@
     'name': "onesphere_guoxuan_enhanced",
 
     'summary': """
-    国轩模块
+    国轩模块-TS039
         """,
 
     'description': """
-        Long description of module's purpose
+        国轩模块-TS039
     """,
 
     'author': "上海文享信息科技有限公司",

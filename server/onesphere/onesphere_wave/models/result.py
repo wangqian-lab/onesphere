@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api, _
 from odoo.tools import ustr
-import json, itertools
+import json
+import itertools
 from boltons.cacheutils import LRU
 import logging
 

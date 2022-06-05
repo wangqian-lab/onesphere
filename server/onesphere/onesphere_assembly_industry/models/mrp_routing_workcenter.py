@@ -174,7 +174,7 @@ class MrpRoutingWorkcenter(models.Model):
         for task in task_list:
             task_exception = task.exception()
             if task_exception:
-                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{task_exception}'))
+                self.env.user.notify_warning(_(f'Push Operation Failure, Error Message:{ustr(task_exception)}'))
                 continue
             ret = task.result()
             if ret.status_code == http.HTTPStatus.OK:

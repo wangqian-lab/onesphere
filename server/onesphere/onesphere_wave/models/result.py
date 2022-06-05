@@ -28,12 +28,13 @@ except ImportError:
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
-    def _get_curve_data(self, data):
+    def _get_curve_data(self):
         bucket_name = self.env['ir.config_parameter'].get_param('oss.bucket')
-        client = self.env['onesphere.oss.interface'].ensure_oss_client()
+        oss_interface = self.env['onesphere.oss.interface']
+        client = oss_interface.ensure_oss_client()
         if not client or not bucket_name:
             return [], None, []  ### 返回无结果数值
-        cur_objects = data.mapped('curve_file')
+        cur_objects = self.mapped('curve_file')
         _objects = [x for x in cur_objects if x]
         objects = []
         cur_objects = map(json.loads, _objects)
@@ -45,13 +46,13 @@ class OperationResult(HModel):
         _datas = []
         for _cur_file in objects:
             try:
-                # try to get the cache
+                # 尝试从LRU cache中获取数据
                 _datas.append(_wave_cache[_cur_file])
             except KeyError as e:
                 need_fetch_objects.append(_cur_file)
         try:
             _datas.extend(
-                map(lambda x: _create_wave_result_dict(x, client.get_object(bucket_name, x).data.decode('utf-8')),
+                map(lambda x: _create_wave_result_dict(x, oss_interface.get_oss_object(bucket_name, x).decode('utf-8')),
                     need_fetch_objects))  # 合并结果
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')
@@ -64,14 +65,16 @@ class OperationResult(HModel):
             return None, None
         wave_form = self.env.ref('onesphere_wave.spc_compose_wave_wizard_form')
         if not wave_form:
+            self.env.user.notify_warning(u'曲线视图:onesphere_wave.spc_compose_wave_wizard_form 未找到')
             return None, None
-        curve_datas = self._get_curve_data(self)
+        curve_datas = self._get_curve_data()
         if not len(curve_datas):
-            self.env.user.notify_warning(_('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
+            self.env.user.notify_warning(
+                _('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
             return None, None
         curves = json.dumps(curve_datas)
         wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': curves})
         if not wave_wizard_id:
+            self.env.user.notify_warning(u'曲线Wizard视图:wave.compose.wave未找到')
             return None, None
-
         return wave_form.id, wave_wizard_id.id

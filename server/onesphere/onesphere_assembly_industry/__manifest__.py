@@ -19,7 +19,7 @@
     'version': '14.0.10.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['onesphere_mdm', 'onesphere_oss', 'web_image_editor', 'onesphere_spc', 'web_echarts'],
+    'depends': ['onesphere_mdm', 'onesphere_oss', 'web_image_editor', 'web_notify', 'onesphere_spc', 'web_echarts'],
 
     # always loaded
     'data': [

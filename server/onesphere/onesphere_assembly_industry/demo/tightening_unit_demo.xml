@@ -3,7 +3,7 @@
 
         <record id="tightening_tool_1" model="maintenance.equipment">
             <field name="name">测试拧紧单元1</field>
-            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_nut_runner"/>
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_unit_1</field>
             <field name="model">EAD0001</field>
@@ -11,7 +11,7 @@
 
         <record id="tightening_tool_2" model="maintenance.equipment">
             <field name="name">测试拧紧单元2</field>
-            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_nut_runner"/>
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_2</field>
             <field name="model">ETV SB63</field>
@@ -19,7 +19,7 @@
 
         <record id="tightening_tool_3" model="maintenance.equipment">
             <field name="name">测试拧紧单元3</field>
-            <field name="category_id" ref="onesphere_assembly_industry.equipment_electric_controller"/>
+            <field name="category_id" ref="onesphere_assembly_industry.equipment_nut_runner"/>
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_3</field>
             <field name="model">ETV SB63</field>

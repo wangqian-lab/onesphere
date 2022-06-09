@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record id="oneshare_assembly_maintenance_equipment_view_search_inherit" model='ir.ui.view'>
+            <field name="name">oneshare_assembly_maintenance_equipment_view_search_inherit</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="onesphere_mdm.oneshare_mdm_maintenance_equipment_view_search_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[last()]" position="after">
+                    <filter string="Tightening Controller" name="is_tightening_controller"
+                            domain="[('technical_name', '=', 'tightening_controller')]"/>
+                    <filter string="Tightening Nut Runner" name="is_tightening_nut_runner"
+                            domain="[('technical_name', '=', 'tightening_nut_runner')]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

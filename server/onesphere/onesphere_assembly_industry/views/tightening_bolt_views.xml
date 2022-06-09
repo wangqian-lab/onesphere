@@ -53,6 +53,8 @@
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
                 <search string="Tightening Bolt">
+                    <field name="name" string="Tightening Bolt Number" filter_domain="[('name','ilike',self)]"/>
+                    <separator/>
                     <filter string="Type Missing" name="filter_missing"
                             domain="[('type', '=', 'missing')]"/>
                     <filter string="Type Verified" name="filter_verified"

@@ -20,6 +20,3 @@ ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tight
 
 # endpoint
 MASTER_ROUTING_API = "/rush/v1/mrp.routing.workcenter"
-
-
-ENV_MAX_WORKERS = int(os.getenv('ENV_MAX_WORKERS', '8'))

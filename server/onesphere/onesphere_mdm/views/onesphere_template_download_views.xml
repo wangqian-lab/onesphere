@@ -23,7 +23,7 @@
                     <field name="name"/>
                     <field name="description"/>
                     <field name="template_file"/>
-                    <button name="template_download" type="object" class="btn-success fa fa-2x fa-download"/>
+                    <button name="template_download" type="object" class="btn-success fa-2x fa-download"/>
                 </tree>
             </field>
         </record>

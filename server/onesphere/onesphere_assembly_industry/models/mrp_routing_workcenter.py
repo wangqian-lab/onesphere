@@ -7,8 +7,9 @@ import pprint
 from odoo.exceptions import UserError, ValidationError
 import requests as Requests
 from requests import ConnectionError, RequestException
+from odoo.addons.oneshare_utils.constants import ENV_MAX_WORKERS
 from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
-    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API, ENV_MAX_WORKERS
+    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
 from distutils.util import strtobool
 from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
 from concurrent import futures

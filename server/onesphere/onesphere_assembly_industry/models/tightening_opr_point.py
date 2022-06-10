@@ -72,7 +72,7 @@ class TighteningOprPoint(models.Model):
     group_sequence = fields.Integer(string='Group Sequence for Multi Spindle', help='拧紧组定义，当多轴或者多人同时作业时使用,定义其顺序')
 
     product_id = fields.Many2one('product.product', 'Consume Product(Tightening Bolt/Screw)',
-                                 domain="[('categ_id', 'in', [12])]")  # 只显示螺栓类型
+                                 domain="[('categ_id.name', '=', 'Bolt')]")  # 只显示螺栓类型
 
     product_qty = fields.Float('Product Quantity', default=1.0, digits='Product Unit of Measure')
 
@@ -124,5 +124,5 @@ class TighteningOprPoint(models.Model):
     tightening_units = fields.Many2many('onesphere.tightening.unit', 'tightening_point_unit_rel', 'point_id',
                                         'tightening_unit_id', string='Tightening Units')
 
-    _sql_constraints = [
-        ('name_uniq', 'unique(name)', 'Tightening Operation Point Name MUST BE Unique!')]
+    # _sql_constraints = [
+    #     ('name_uniq', 'unique(name)', 'Tightening Operation Point Name MUST BE Unique!')]

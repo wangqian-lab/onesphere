@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 from odoo import fields, models, api, SUPERUSER_ID
+from odoo.addons.onesphere_core.constants import ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -25,7 +26,10 @@ class OperationResult(models.AbstractModel):
 
     control_time = fields.Datetime(string=u'数据生成时间', default=fields.Datetime.now, required=True)
 
-    track_no = fields.Char(default='', string=u'追溯码')
+    if ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL:
+        track_no = fields.Many2one('oneshare.track.code')
+    else:
+        track_no = fields.Char(default='', string=u'追溯码')
 
     # quality_point_id = fields.Many2one('oneshare.quality.point', string=u'相关联质量控制点')
     #

@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import ValidationError
-from dateutil.relativedelta import relativedelta
 import logging
-from pprint import pformat
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
 
 try:
     from odoo.models import OneshareHyperModel as HModel

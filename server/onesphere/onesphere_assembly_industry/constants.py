@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-import os
-
 # 拧紧类型
 TIGHTENING_TEST_TYPE = "tightening"
 PROM_TIGHTENING_TEST_TYPE = "promiscuous_tightening"

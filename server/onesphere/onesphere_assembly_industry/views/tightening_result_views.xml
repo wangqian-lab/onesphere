@@ -37,7 +37,8 @@
                                 <field name="user_list"/>
                                 <field name="workcenter_code"/>
                             </group>
-                            <group string="Tightening Params" attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
+                            <group string="Tightening Params"
+                                   attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
                                 <field name="tightening_process_no"/>
                                 <field name="tightening_strategy"/>
                                 <field name="tightening_unit_code"/>
@@ -48,25 +49,28 @@
                         <group>
                             <p style="font-size: 25px; font-weight:bold; color: #5D8DA8">Result</p>
                             <br/>
-                            <group string="Tightening Final Result" attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
+                            <group string="Tightening Final Result"
+                                   attrs="{'invisible': [('step_type', '!=', 'tightening')]}">
                                 <field name="tightening_result"/>
                                 <field name="measurement_final_torque"/>
                                 <field name="measurement_final_angle"/>
                                 <field name="tightening_id"/>
                                 <field name="curve_file"/>
-
                             </group>
                             <group string="Step Result">
                                 <field name="step_type"/>
                                 <field name="work_mode"/>
-                                <field name="measurement_step_results" attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
-                                <field name="barcode" attrs="{'invisible': [('step_type', '!=', 'register_byproducts')]}"/>
+                                <field name="measurement_step_results"
+                                       attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
+                                <field name="barcode"
+                                       attrs="{'invisible': [('step_type', '!=', 'register_byproducts')]}"/>
                                 <field name="track_img_url" attrs="{'invisible': [('step_type', '!=', 'picture')]}"/>
-                                <field name="measure_rule_result" attrs="{'invisible': [('step_type', '!=', 'measure')]}"/>
+                                <field name="measure_rule_result"
+                                       attrs="{'invisible': [('step_type', '!=', 'measure')]}"/>
                             </group>
                         </group>
                         <group>
-                            <field name="error_code" attrs="{'invisible': [('tightening_result', '!=', 'nok')]}"/>
+                            <field string="Error Code" name="error_code" attrs="{'invisible': [('tightening_result', '!=', 'nok')]}"/>
                         </group>
                     </sheet>
                 </form>
@@ -79,6 +83,7 @@
             <field name="model">onesphere.tightening.result</field>
             <field name="arch" type="xml">
                 <tree string="Tightening Result" edit="0" create="0" delete="0" duplicate="0"
+                      default_order="control_time desc"
                       decoration-danger="tightening_result == 'nok'"
                       decoration-bf="tightening_result == 'ak2'"
                       decoration-success="tightening_result == 'ok'"
@@ -94,6 +99,7 @@
                     <field name="measurement_final_angle"/>
                     <field name="tightening_id" optional="hide"/>
                     <field name="error_code" optional="hide"/>
+                    <field name="user_list" optional="hide"/>
                 </tree>
             </field>
         </record>
@@ -106,8 +112,9 @@
                     <field name="track_no" string="Track Number/Equipment"
                            filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
                     <field name="user_id" string="User"
-                           filter_domain="[('user_id','ilike', self)]"/>
-                    <field name="tightening_point_name" string="Bolt" filter_domain="[('tightening_point_name','ilike', self)]"/>
+                           filter_domain="['|', ('user_id','ilike', self), ('user_list','ilike', self)]"/>
+                    <field name="tightening_point_name" string="Bolt"
+                           filter_domain="[('tightening_point_name','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
                             domain="[('tightening_result', '=', 'ok'),('step_type', '=', 'tightening')]"/>

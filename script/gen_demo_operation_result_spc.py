@@ -24,6 +24,7 @@ RECORD_TMPL = Template('''
             <field name="attribute_equipment_no">{{ attribute_equipment_no }}</field>
             <field name="measurement_final_torque">{{ torque }}</field>
             <field name="measurement_final_angle">{{ degree }}</field>
+            <field name="step_type">tightening</field>
             <field name="tightening_result">{{ result }}</field>
             <field name="tightening_strategy">{{ tightening_strategy }}</field>
             <field name="control_time" eval="(DateTime.today() - relativedelta(days={{ delta_day }})).strftime('%Y-%m-%d %H:%M')"/>

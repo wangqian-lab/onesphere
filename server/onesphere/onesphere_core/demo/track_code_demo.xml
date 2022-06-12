@@ -1,0 +1,41 @@
+
+<odoo>
+    <data noupdate="0">
+        
+            
+        <record id="track_code_0" model="oneshare.track.code">
+            <field name="track_code">0781213</field>
+        </record>
+        
+            
+        <record id="track_code_1" model="oneshare.track.code">
+            <field name="track_code">0781214</field>
+        </record>
+        
+            
+        <record id="track_code_2" model="oneshare.track.code">
+            <field name="track_code">0781215</field>
+        </record>
+        
+            
+        <record id="track_code_3" model="oneshare.track.code">
+            <field name="track_code">0781216</field>
+        </record>
+        
+            
+        <record id="track_code_4" model="oneshare.track.code">
+            <field name="track_code">0781217</field>
+        </record>
+        
+            
+        <record id="track_code_5" model="oneshare.track.code">
+            <field name="track_code">0781218</field>
+        </record>
+        
+            
+        <record id="track_code_6" model="oneshare.track.code">
+            <field name="track_code">0781219</field>
+        </record>
+        
+        </data>
+</odoo>

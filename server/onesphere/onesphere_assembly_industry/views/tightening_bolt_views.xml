@@ -15,16 +15,21 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Tightening Result">
+                            <page string="Tightening Results">
                                 <field name="bolt_result_rel" widget="one2many">
-                                    <tree>
-                                        <field name="tightening_id"/>
+                                    <tree edit="0" create="0" delete="0" limit="20"
+                                          default_order="control_time desc"
+                                          decoration-danger="tightening_result == 'nok'"
+                                          decoration-bf="tightening_result == 'ak2'"
+                                          decoration-success="tightening_result == 'ok'">
+                                        <field name="track_no"/>
+                                        <field name="control_time" string="Tightening Date Time"/>
                                         <field name="tightening_result"/>
-                                        <field name="tightening_strategy"/>
+                                        <field name="tightening_strategy" optional="hide"/>
                                         <field name="measurement_final_torque"/>
                                         <field name="measurement_final_angle"/>
-                                        <field name="measurement_step_results"/>
-                                        <field name="user_id"/>
+                                        <field name="measurement_step_results" optional="hide"/>
+                                        <field name="user_list" optional="hide"/>
                                     </tree>
                                 </field>
                             </page>

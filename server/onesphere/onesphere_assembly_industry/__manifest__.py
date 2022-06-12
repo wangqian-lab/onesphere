@@ -51,6 +51,7 @@
     ],
     # only loaded in demonstration mode
     'demo': [
+        'demo/tightening_bolt_demo.xml',
         'demo/tightening_unit_demo.xml',
         'demo/tightening_result_demo.xml',
     ],

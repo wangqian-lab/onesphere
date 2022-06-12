@@ -25,6 +25,7 @@ RECORD_TMPL = Template('''
             <field name="measurement_final_torque">{{ torque }}</field>
             <field name="measurement_final_angle">{{ degree }}</field>
             <field name="step_type">tightening</field>
+            <field name="tightening_point_name" ref="{{ tightening_bolt_id }}"/>
             <field name="tightening_result">{{ result }}</field>
             <field name="tightening_strategy">{{ tightening_strategy }}</field>
             <field name="control_time" eval="(DateTime.today() - relativedelta(days={{ delta_day }})).strftime('%Y-%m-%d %H:%M')"/>
@@ -49,9 +50,11 @@ if __name__ == '__main__':
         tightening_strategy = random.choice(['AD', 'AW'])
         delta_day = random.choice([1, 2])
         track_no = random.choice(['0781213', '0781214', '0781215'])
+        tightening_bolt_id = random.choice(
+            ['tightening_bolt_0', 'tightening_bolt_1', 'tightening_bolt_2', 'tightening_bolt_3'])
         attribute_equipment_no = random.choice(['tightening_unit_1', 'tightening_unit_2', 'tightening_unit_3'])
         m = gen_record_msg(id=i, attribute_equipment_no=attribute_equipment_no, track_no=track_no, torque=torque,
-                           degree=degree, result=result,
+                           degree=degree, result=result, tightening_bolt_id=tightening_bolt_id,
                            tightening_strategy=tightening_strategy,
                            delta_day=delta_day, tightening_id=i + 1)
         rec_str.append(m)

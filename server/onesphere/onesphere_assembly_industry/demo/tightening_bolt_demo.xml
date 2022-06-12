@@ -1,0 +1,32 @@
+<odoo>
+    <data noupdate="0">
+
+
+        <record id="tightening_bolt_0" model="onesphere.tightening.bolt">
+            <field name="name">test_bolt_1</field>
+            <field name="description">test_bolt_1</field>
+            <field name="type">verified</field>
+        </record>
+
+        <record id="tightening_bolt_1" model="onesphere.tightening.bolt">
+            <field name="name">test_bolt_2</field>
+            <field name="description">test_bolt_2</field>
+            <field name="type">verified</field>
+        </record>
+
+        <record id="tightening_bolt_2" model="onesphere.tightening.bolt">
+            <field name="name">test_bolt_3</field>
+            <field name="description">test_bolt_3</field>
+            <field name="type">verified</field>
+        </record>
+
+
+        <record id="tightening_bolt_3" model="onesphere.tightening.bolt">
+            <field name="name">test_bolt_4</field>
+            <field name="description">test_bolt_4</field>
+            <field name="type">verified</field>
+        </record>
+
+
+    </data>
+</odoo>

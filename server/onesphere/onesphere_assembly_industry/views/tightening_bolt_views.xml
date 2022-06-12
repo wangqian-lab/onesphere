@@ -69,6 +69,7 @@
             <field name="res_model">onesphere.tightening.bolt</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="onesphere_tightening_bolt_filter"/>
+            <field name="context">{"default_type": "verified"}</field>
         </record>
 
         <menuitem

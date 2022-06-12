@@ -12,4 +12,4 @@ class OnesphereTighteningBolt(models.Model):
                             required=True)
     bolt_result_rel = fields.One2many('onesphere.tightening.result', 'tightening_point_name', string='Bolt Result Rel')
 
-    _sql_constraints = [('name_uniq', 'unique (name)', "bolt name already exists !"),]
+    _sql_constraints = [('name_uniq', 'unique (name)', "bolt name already exists !")]

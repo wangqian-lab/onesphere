@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 import logging
 from pprint import pformat
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
-from odoo.addons.onesphere_core.constants import ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL
+from odoo.addons.onesphere_core.constants import oneshare_daq_with_track_code_rel_enable
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -377,7 +377,7 @@ $$ LANGUAGE plpgsql;
         """)
 
     def init(self):
-        if not ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL:
+        if not oneshare_daq_with_track_code_rel_enable():
             self._init_default()
         else:
             self._init_with_track_code_rel()

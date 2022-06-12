@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 from odoo import fields, models, api, SUPERUSER_ID
-from odoo.addons.onesphere_core.constants import ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL
+from odoo.addons.onesphere_core.constants import oneshare_daq_with_track_code_rel_enable
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -26,8 +26,8 @@ class OperationResult(models.AbstractModel):
 
     control_time = fields.Datetime(string=u'数据生成时间', default=fields.Datetime.now, required=True)
 
-    if ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL:
-        track_no = fields.Many2one('oneshare.track.code')
+    if oneshare_daq_with_track_code_rel_enable():
+        track_no = fields.Many2one('oneshare.track.code', string=u'追溯码')
     else:
         track_no = fields.Char(default='', string=u'追溯码')
 

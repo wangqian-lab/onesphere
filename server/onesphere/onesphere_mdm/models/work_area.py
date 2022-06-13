@@ -202,7 +202,7 @@ class OneshareMrpWorkArea(models.Model):
         need_update_items = self.dry_try_update_context(self.AREA_CATEGORY_NUM_DICT,
                                                         context)
         if len(need_update_items) == 0:
-            return
+            return ret
         vv: Tuple = need_update_items[0]
         key, val = vv
         ret.update({'category_id': self.env.ref(val).id})

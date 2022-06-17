@@ -29,6 +29,7 @@
         'data/base_groups.xml',
         'data/operation_type_data.xml',
         'data/quality_data.xml',
+        'data/hmi_user_role_data.xml',
         'views/quality_views.xml',
         'views/res_users_views.xml',
         'views/res_config_settings_views.xml',

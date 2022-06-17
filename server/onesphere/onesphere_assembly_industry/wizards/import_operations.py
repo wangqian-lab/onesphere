@@ -112,7 +112,7 @@ class ImportOperation(models.TransientModel):
             # tool_group_id = self.env['mrp.workcenter.group.tightening.tool'].search(
             #     [('tightening_tool_id', '=', tool.id)]).id
             # tool_group_ids.append(tool_group_id)
-            tightening_unit = self.env['onesphere.tightening.unit'].search([('tightening_tool_id', '=', controller.id),
+            tightening_unit = self.env['onesphere.tightening.unit'].search([('tightening_controller_id', '=', controller.id),
                                                                             ('ref', '=', unit_code)])
             # if not tightening_unit:
             #     raise ValidationError(f'Can not found tightening_unit,serial_no:{controller_sn},unit_code:{unit_code}!')

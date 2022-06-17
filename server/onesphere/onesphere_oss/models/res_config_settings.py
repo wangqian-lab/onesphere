@@ -23,7 +23,7 @@ class ResConfigSettings(models.TransientModel):
                                  string='OSS Secret Key',
                                  config_parameter='oss.secret_key')
 
-    oss_security = fields.Char(default=ENV_OSS_SECURITY_TRANSPORT,
+    oss_security = fields.Boolean(default=ENV_OSS_SECURITY_TRANSPORT,
                                string='OSS Security Transport(SSL)',
                                config_parameter='oss.security')
 

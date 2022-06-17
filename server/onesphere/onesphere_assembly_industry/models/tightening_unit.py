@@ -7,35 +7,29 @@ from odoo.exceptions import ValidationError
 
 class OnesphereTighteningUnit(models.Model):
     _name = 'onesphere.tightening.unit'
-    _inherits = {'maintenance.equipment': 'tightening_tool_id'}
+    # _inherits = {'maintenance.equipment': 'tightening_controller_id'}
     _description = 'Assembly Tightening Unit'
     _log_access = False
     _check_company_auto = True
 
     ref = fields.Char('Tightening Unit Ref', required=True)
-    name = fields.Char('Tightening Unit', related='tightening_tool_id.name', required=True, readonly=False)
-    tightening_tool_id = fields.Many2one('maintenance.equipment', 'Controller', ondelete='cascade',
+    name = fields.Char('Tightening Unit', related='tightening_controller_id.name', required=True, readonly=False)
+    tightening_controller_id = fields.Many2one('maintenance.equipment', 'Controller', ondelete='cascade',
                                          check_company=True,
                                          required=True,
                                          domain=[('technical_name', 'in',
                                                   ['tightening_controller'])])
-    category_id = fields.Many2one('maintenance.equipment.category', related='tightening_tool_id.category_id',
-                                  readonly=False, domain=[('technical_name', 'in',
-                                                           ['tightening_spindle', 'tightening_nut_runner',
-                                                            'tightening_wrench'])])
-    serial_no = fields.Char('Tightening Controller Serial Number', related='tightening_tool_id.serial_no',
-                            readonly=False)
+    category_id = fields.Many2one('maintenance.equipment.category', related='tightening_controller_id.category_id')
+    serial_no = fields.Char('Tightening Controller Serial Number', related='tightening_controller_id.serial_no')
 
-    company_id = fields.Many2one('res.company', string='Company', related='tightening_tool_id.company_id',
-                                 default=lambda self: self.env.company, readonly=False)
-    partner_id = fields.Many2one('res.partner', string='Vendor', related='tightening_tool_id.partner_id',
-                                 check_company=True, readonly=False)
-    model = fields.Char('Model', related='tightening_tool_id.model', readonly=False)
+    company_id = fields.Many2one('res.company', string='Company', related='tightening_controller_id.company_id')
+    partner_id = fields.Many2one('res.partner', string='Vendor', related='tightening_controller_id.partner_id',
+                                 check_company=True)
+    model = fields.Char('Model', related='tightening_controller_id.model')
     workcenter_id = fields.Many2one(
-        'mrp.workcenter', string='Work Center', related='tightening_tool_id.workcenter_id', check_company=True,
-        readonly=False, store=True)
+        'mrp.workcenter', string='Work Center', related='tightening_controller_id.workcenter_id', check_company=True,store=True)
 
-    note = fields.Text('Note', related='tightening_tool_id.note', readonly=False)
+    note = fields.Text('Note', related='tightening_controller_id.note')
 
     _sql_constraints = [
         (

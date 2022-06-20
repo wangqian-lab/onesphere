@@ -4,3 +4,4 @@ validators==0.18.2
 boltons==21.0.0
 pyexcel==0.7.0
 numpy==1.21.5
+typing-extensions==3.10.0.2; python_version < '3.8'

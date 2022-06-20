@@ -184,9 +184,9 @@ msgid "Control Mode For Tightening"
 msgstr "控制拧紧点"
 
 #. module: onesphere_assembly_industry
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_tool_id
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_controller_id
 msgid "Controller"
-msgstr ""
+msgstr "所属控制器"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__cost

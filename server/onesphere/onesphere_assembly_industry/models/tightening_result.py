@@ -285,7 +285,7 @@ DECLARE
         case
             when length(barcode) > 0 then r_step_type = 'register_byproducts';
             when length(track_img_url) > 0 then r_step_type = 'picture';
-            when length(measure_rule_result) then r_step_type = 'multi_measure';
+            when length(measure_rule_result) > 0 then r_step_type = 'multi_measure';
             else r_step_type = 'tightening';
             end case;
     end if;

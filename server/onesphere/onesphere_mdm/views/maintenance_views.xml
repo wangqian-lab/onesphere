@@ -33,6 +33,9 @@
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="technical_name" readonly="1"/>
                 </xpath>
+                <xpath expr="//page[@name='product_information']" position="attributes">
+                    <attribute name="autofocus">autofocus</attribute>
+                </xpath>
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="button_mrp_workcenter" type="object" class="oe_stat_button"
                             icon="fa-cogs" string="Work Center" attrs="{'invisible': [('workcenter_id', '=', False)]}"

@@ -27,11 +27,13 @@ class OperationResult(HModel):
 
     _order = 'control_time DESC'
 
+    _rec_name = 'tightening_result'
+
     _inherit = ["onesphere.daq.item"]
 
-    def _compute_display_name(self):
-        for result in self:
-            result.display_name = result.tightening_result or 'New Tightening Result'
+    # def _compute_display_name(self):
+    #     for result in self:
+    #         result.display_name = result.tightening_result or 'New Tightening Result'
 
     tightening_process_no = fields.Char(string='Tightening Process(Pset/Job)')
 
@@ -66,7 +68,7 @@ class OperationResult(HModel):
     # FIXME: 拧紧曲线数据保存在数据库中, TSV格式
     curve_data = fields.Binary('Tightening Curve Data', help=u'Tightening Curve Content Data', attachment=False)
     # 目前仍将曲线保存在minio
-    curve_file = fields.Char(string='Curve Files')
+    curve_file = fields.Char(string='Curve Files', help='Tightening Curve Blob Storage File')
     tightening_unit_code = fields.Char(string='Tightening Unit Code')
     tightening_point_name = fields.Many2one('onesphere.tightening.bolt', string='Tightening Point Name')
     user_id = fields.Many2one('res.users', string='User Name')
@@ -84,7 +86,7 @@ class OperationResult(HModel):
         [('normal', 'Normal'), ('rework', 'Rework'), ('manual', 'Manual'),
          ('trial', 'Trial')], string='Work Mode'
     )
-    user_list = fields.Char(string='User List')
+    user_list = fields.Char(string='User List', help='Operators')
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):

@@ -70,7 +70,8 @@
                             </group>
                         </group>
                         <group>
-                            <field string="Error Code" name="error_code" attrs="{'invisible': [('tightening_result', '!=', 'nok')]}"/>
+                            <field string="Error Code" name="error_code"
+                                   attrs="{'invisible': [('tightening_result', '!=', 'nok')]}"/>
                         </group>
                     </sheet>
                 </form>
@@ -111,10 +112,15 @@
                 <search string="Tightening Result">
                     <field name="track_no" string="Track Number/Equipment"
                            filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
-                    <field name="user_id" string="User"
+                    <field name="user_id" string="Operator"
                            filter_domain="['|', ('user_id','ilike', self), ('user_list','ilike', self)]"/>
                     <field name="tightening_point_name" string="Bolt"
                            filter_domain="[('tightening_point_name','ilike', self)]"/>
+                    <separator/>
+                    <field name="workcenter_code" string="Work Station"
+                           filter_domain="[('workcenter_code','ilike', self)]"/>
+                    <field name="barcode" string="Barcode"
+                           filter_domain="[('barcode','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
                             domain="[('tightening_result', '=', 'ok'),('step_type', '=', 'tightening')]"/>

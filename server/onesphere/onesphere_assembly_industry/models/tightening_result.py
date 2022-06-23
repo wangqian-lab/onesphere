@@ -154,13 +154,13 @@ class OperationResult(HModel):
         
             if length(step_type) > 0
             then
-                set r_step_type = step_type;
+                r_step_type = step_type;
             else
                 case
-                    when length(barcode) > 0 then set r_step_type = 'register_byproducts';
-                    when length(track_img_url) > 0 then set r_step_type = 'picture';
-                    when length(measure_rule_result) then set r_step_type = 'multi_measure';
-                    else set r_step_type = 'tightening';
+                    when length(barcode) > 0 then r_step_type = 'register_byproducts';
+                    when length(track_img_url) > 0 then r_step_type = 'picture';
+                    when length(measure_rule_result) > 0 then r_step_type = 'multi_measure';
+                    else r_step_type = 'tightening';
                     end case;
             end if;
         
@@ -280,13 +280,13 @@ DECLARE
     
     if length(step_type) > 0
     then
-        set r_step_type = step_type;
+        r_step_type = step_type;
     else
         case
-            when length(barcode) > 0 then set r_step_type = 'register_byproducts';
-            when length(track_img_url) > 0 then set r_step_type = 'picture';
-            when length(measure_rule_result) then set r_step_type = 'multi_measure';
-            else set r_step_type = 'tightening';
+            when length(barcode) > 0 then r_step_type = 'register_byproducts';
+            when length(track_img_url) > 0 then r_step_type = 'picture';
+            when length(measure_rule_result) > 0 then r_step_type = 'multi_measure';
+            else r_step_type = 'tightening';
             end case;
     end if;
 

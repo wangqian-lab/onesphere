@@ -37,7 +37,7 @@ class OperationResult(HModel):
         for result in self:
             result.display_name = result.tightening_result or 'New Tightening Result'
 
-    entity_id = fields.Char(string='Entity_id', default=lambda self: str(uuid.uuid4()))
+    entity_id = fields.Char(string='Entity ID', default=lambda self: str(uuid.uuid4()), required=True)
 
     tightening_process_no = fields.Char(string='Tightening Process(Pset/Job)')
 

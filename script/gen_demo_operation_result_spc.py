@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import uuid
+
 from jinja2 import Template
 import random
 
@@ -24,6 +26,7 @@ G_TMPL = Template('''
 
 RECORD_TMPL = Template('''
         <record id="tightening_result_{{ id }}" model="onesphere.tightening.result">
+            <field name="entity_id">{{ entity_id }}</field>
             <field name="track_no">{{ track_no }}</field>
             <field name="attribute_equipment_no">{{ attribute_equipment_no }}</field>
             <field name="measurement_final_torque">{{ torque }}</field>
@@ -62,7 +65,8 @@ if __name__ == '__main__':
         tightening_bolt_id = random.choice(
             ['tightening_bolt_0', 'tightening_bolt_1', 'tightening_bolt_2', 'tightening_bolt_3'])
         attribute_equipment_no = random.choice(['tightening_unit_1', 'tightening_unit_2', 'tightening_unit_3'])
-        m = gen_record_msg(id=i, attribute_equipment_no=attribute_equipment_no, track_no=track_no, torque=torque,
+        m = gen_record_msg(entity_id=str(uuid.uuid4()), id=i, attribute_equipment_no=attribute_equipment_no,
+                           track_no=track_no, torque=torque,
                            degree=degree, result=result, tightening_bolt_id=tightening_bolt_id,
                            tightening_strategy=tightening_strategy,
                            delta_day=delta_day, tightening_id=i + 1)

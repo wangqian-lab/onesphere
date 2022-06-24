@@ -31,6 +31,7 @@
                             <group>
                             </group>
                             <group string="Manufacturing Info">
+                                <field name="entity_id" groups="base.group_no_one"/>
                                 <field name="attribute_equipment_no"/>
                                 <field name="control_time" string="Tightening Date Time"/>
                                 <field name="user_id"/>

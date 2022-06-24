@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import uuid
+
 from odoo import api, exceptions, fields, models, _
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
@@ -31,9 +33,11 @@ class OperationResult(HModel):
 
     _inherit = ["onesphere.daq.item"]
 
-    # def _compute_display_name(self):
-    #     for result in self:
-    #         result.display_name = result.tightening_result or 'New Tightening Result'
+    def _compute_display_name(self):
+        for result in self:
+            result.display_name = result.tightening_result or 'New Tightening Result'
+
+    entity_id = fields.Char(string='Entity_id', default=lambda self: str(uuid.uuid4()))
 
     tightening_process_no = fields.Char(string='Tightening Process(Pset/Job)')
 
@@ -63,7 +67,7 @@ class OperationResult(HModel):
 
     error_code = fields.Char(string='Error Code', help='Error Code')
 
-    # display_name = fields.Char(string='Display Name', compute=_compute_display_name)
+    display_name = fields.Char(string='Display Name', compute=_compute_display_name)
 
     # FIXME: 拧紧曲线数据保存在数据库中, TSV格式
     curve_data = fields.Binary('Tightening Curve Data', help=u'Tightening Curve Content Data', attachment=False)
@@ -152,6 +156,7 @@ class OperationResult(HModel):
             user_name_list   VARCHAR;
             bolt_id          BIGINT;
             r_step_type      VARCHAR;
+            r_entity_id      VARCHAR = uuid_generate_v4();
         BEGIN
         
             if length(step_type) > 0
@@ -188,7 +193,8 @@ class OperationResult(HModel):
                 returning id into bolt_id;
             end if;
         
-            INSERT INTO PUBLIC.onesphere_tightening_result (track_no,
+            INSERT INTO PUBLIC.onesphere_tightening_result (entity_id,
+                                                            track_no,
                                                             attribute_equipment_no,
                                                             tightening_process_no,
                                                             tightening_strategy,
@@ -212,7 +218,8 @@ class OperationResult(HModel):
                                                             step_type,
                                                             work_mode,
                                                             user_list)
-            VALUES (vin_code,
+            VALUES (r_entity_id,
+                    vin_code,
                     gun_sn,
                     r_pset,
                     pset_strategy,
@@ -278,6 +285,7 @@ DECLARE
     bolt_id          BIGINT;
     track_code_id    BIGINT;
     r_step_type      VARCHAR;
+    r_entity_id      VARCHAR = uuid_generate_v4();
     BEGIN
     
     if length(step_type) > 0
@@ -323,7 +331,8 @@ DECLARE
         returning id into track_code_id;
     end if;
 
-    INSERT INTO PUBLIC.onesphere_tightening_result (track_no,
+    INSERT INTO PUBLIC.onesphere_tightening_result (entity_id,
+                                                    track_no,
                                                     attribute_equipment_no,
                                                     tightening_process_no,
                                                     tightening_strategy,
@@ -347,7 +356,8 @@ DECLARE
                                                     step_type,
                                                     work_mode,
                                                     user_list)
-    VALUES (track_code_id,
+    VALUES (r_entity_id,
+            track_code_id,
             gun_sn,
             r_pset,
             pset_strategy,

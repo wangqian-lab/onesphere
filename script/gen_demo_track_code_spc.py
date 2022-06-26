@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from jinja2 import Template
-import random
+from script.constants import track_codes
 from faker import Faker
 
 fake = Faker()
@@ -37,7 +37,6 @@ if __name__ == '__main__':
     if os.path.exists(DIST_PATH):
         os.remove(DIST_PATH)
     rec_str = []
-    track_codes = ['0781213', '0781214', '0781215', '0781216', '0781217', '0781218', '0781219']
     for i, track_no in enumerate(track_codes):
         m = gen_record_msg(id=i, track_no=track_no)
         rec_str.append(m)

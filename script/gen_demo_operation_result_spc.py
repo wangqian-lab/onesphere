@@ -4,6 +4,7 @@ import uuid
 
 from jinja2 import Template
 import random
+from script.constants import track_codes, tightening_bolts, attribute_equipments
 
 from faker import Faker
 
@@ -61,10 +62,9 @@ if __name__ == '__main__':
         result = random.choice(['ok', 'nok', 'ak2'])
         tightening_strategy = random.choice(['AD', 'AW'])
         delta_day = random.choice([1, 2])
-        track_no = random.choice(['0781213', '0781214', '0781215', '0781216', '0781217', '0781218', '0781219'])
-        tightening_bolt_id = random.choice(
-            ['tightening_bolt_0', 'tightening_bolt_1', 'tightening_bolt_2', 'tightening_bolt_3'])
-        attribute_equipment_no = random.choice(['tightening_unit_1', 'tightening_unit_2', 'tightening_unit_3'])
+        track_no = random.choice(track_codes)
+        attribute_equipment_no = random.choice(attribute_equipments)
+        tightening_bolt_id = random.choice(tightening_bolts)
         m = gen_record_msg(entity_id=str(uuid.uuid4()), id=i, attribute_equipment_no=attribute_equipment_no,
                            track_no=track_no, torque=torque,
                            degree=degree, result=result, tightening_bolt_id=tightening_bolt_id,

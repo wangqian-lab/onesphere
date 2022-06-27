@@ -71,7 +71,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
             this._rpc({
                 model: 'onesphere.assy.industry.spc',
                 method: 'query_spc',
-                args: [query_date_from, query_date_to, query_type, usl, lsl, limit, others],
+                args: [query_date_from.format('YYYY-MM-DD HH:mm:ss'), query_date_to.format('YYYY-MM-DD HH:mm:ss'), query_type, usl, lsl, limit, others],
             }).then(function (result) {
                 if (!!result.cmk) {
                     self.setData(self.handle, 'cmk', result.cmk);

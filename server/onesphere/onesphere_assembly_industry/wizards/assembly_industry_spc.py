@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, exceptions, fields, models, _
+from odoo.fields import DATETIME_LENGTH
 import logging
 from odoo.exceptions import ValidationError
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
@@ -67,8 +68,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                   limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT, others={}, *args,
                   **kwargs):
         _logger.debug(f"query spc, params: {args}, {kwargs}")
-        query_date_from = fields.Datetime.from_string(query_from)  # UTC 时间
-        query_date_to = fields.Datetime.from_string(query_to)
+        query_date_from = fields.Datetime.from_string(query_from[:DATETIME_LENGTH])  # UTC 时间
+        query_date_to = fields.Datetime.from_string(query_to[:DATETIME_LENGTH])
         model_object_param = others.get('model_object', None)
         spc_step = float(others.get('spc_step', None))
         if not model_object_param:
@@ -95,10 +96,9 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = _(f'Tighetening Points number:{eff_length}/{len(data_list)},Mean:{np.mean(data_list) or 0:.2f},'
-                            f'Range:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]')
+            description = f'拧紧点数量:{eff_length}/{len(data_list)},标准差:{np.std(data_list) or 0:.2f},均值:{np.mean(data_list) or 0:.2f}, 范围:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]'
         else:
-            description = _('Tighetening Points number:0')
+            description = '拧紧点数量: 0'
 
         dict2 = self._compute_dist_XR_js(data_list)
         ret = {

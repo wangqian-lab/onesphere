@@ -7,6 +7,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_unit_1</field>
             <field name="model">EAD0001</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
         </record>
 
         <record id="tightening_tool_2" model="maintenance.equipment">
@@ -15,6 +16,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_2</field>
             <field name="model">ETV SB63</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
         </record>
 
         <record id="tightening_tool_3" model="maintenance.equipment">
@@ -23,6 +25,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_unit_3</field>
             <field name="model">ETV SB63</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_2"/>
         </record>
 
         <record id="tightening_controller_0" model="maintenance.equipment">
@@ -31,6 +34,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_0</field>
             <field name="model">CVI3</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_2"/>
         </record>
         <record id="tightening_controller_1" model="maintenance.equipment">
             <field name="name">测试拧紧控制器2</field>
@@ -38,6 +42,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_1</field>
             <field name="model">CVI3</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_4"/>
         </record>
         <record id="tightening_controller_2" model="maintenance.equipment">
             <field name="name">测试拧紧控制器3</field>
@@ -45,6 +50,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_2</field>
             <field name="model">CVI3</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
         <record id="tightening_controller_3" model="maintenance.equipment">
             <field name="name">测试拧紧控制器4</field>
@@ -52,6 +58,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_3</field>
             <field name="model">CVI2-R</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_4"/>
         </record>
         <record id="tightening_controller_4" model="maintenance.equipment">
             <field name="name">测试拧紧控制器5</field>
@@ -59,6 +66,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_4</field>
             <field name="model">CVI2-L</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
         <record id="tightening_controller_5" model="maintenance.equipment">
@@ -67,6 +75,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_5</field>
             <field name="model">TWIN-CVI3</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
         <record id="tightening_controller_6" model="maintenance.equipment">
@@ -75,6 +84,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_controller_6</field>
             <field name="model">PF4000</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
 
@@ -84,6 +94,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_controller_7</field>
             <field name="model">PF6000</field>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_4"/>
         </record>
 
 

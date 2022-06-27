@@ -9,8 +9,8 @@
                 <xpath expr="//filter[last()]" position="after">
                     <filter string="Tightening Controller" name="is_tightening_controller"
                             domain="[('technical_name', '=', 'tightening_controller')]"/>
-                    <filter string="Tightening Nut Runner" name="is_tightening_nut_runner"
-                            domain="[('technical_name', '=', 'tightening_nut_runner')]"/>
+                    <filter string="Tightening Tool" name="is_tightening_tool"
+                            domain="[('technical_name', 'in', ('tightening_nut_runner','tightening_wrench','tightening_spindle'))]"/>
                 </xpath>
             </field>
         </record>

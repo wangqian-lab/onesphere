@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 06:01+0000\n"
-"PO-Revision-Date: 2022-03-28 06:01+0000\n"
+"POT-Creation-Date: 2022-06-28 08:40+0000\n"
+"PO-Revision-Date: 2022-06-28 08:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -157,12 +157,18 @@ msgstr "描述"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_res_users__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: onesphere_core
+#: model:ir.actions.server,name:onesphere_core.download_work_process_action_server
+msgid "Download Work Process"
+msgstr "下发工艺"
 
 #. module: onesphere_core
 #: model:ir.model.constraint,message:onesphere_core.constraint_res_users_unique_uuid
@@ -229,6 +235,7 @@ msgstr "帮你管理质量警告和质量检查"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type__id
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__id
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__id
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code__id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__id
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__id
@@ -278,6 +285,7 @@ msgstr "是否为MRP工步"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_operation_type____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings____last_update
@@ -652,6 +660,16 @@ msgid "Tolerance(min)"
 msgstr "下限值"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code__track_code
+msgid "Track Code"
+msgstr "追踪码"
+
+#. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_oneshare_track_code_track_code_uniq
+msgid "Track Code MUST BE Unique!"
+msgstr "追踪码必须唯一"
+
+#. module: onesphere_core
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_view_tree
 msgid "Type"
@@ -813,4 +831,9 @@ msgstr ""
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__track_no
 msgid "追溯码"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_oneshare_track_code
+msgid "追踪码"
 msgstr ""

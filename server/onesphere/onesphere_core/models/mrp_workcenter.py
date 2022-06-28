@@ -11,6 +11,16 @@ _logger = logging.getLogger(__name__)
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
+    def _do_download_operations(self, operations):
+        self.ensure_one()
+        master_pcs = self.get_workcenter_masterpc()
+        if not master_pcs:
+            info = _(f'Can Not Found MasterPC For Work Center:{self.name}!')
+            self.env.user.notify_info(info)
+            _logger.error(info)
+        for operation in operations:
+            operation._push_operation_to_mpcs(master_pcs)
+
     def download_work_process(self):
         """
             下发生产工艺工序
@@ -20,7 +30,10 @@ class MrpWorkcenter(models.Model):
             need_download_operation_ids = operation_obj.search([('workcenter_id', '=', work_center.id)])
             if not need_download_operation_ids:
                 continue
-            # todo 执行下载工艺
+            try:
+                work_center._do_download_operations(need_download_operation_ids)
+            except Exception as e:
+                self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))
 
     @api.model
     def default_get(self, fields):

@@ -1180,6 +1180,7 @@ msgstr "拧紧曲线数据"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_tree
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
 msgid "Tightening Date Time"
 msgstr "拧紧时间"
 

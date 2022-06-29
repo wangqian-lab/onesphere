@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import models
+from . import controllers
 from odoo.models import SUPERUSER_ID, api
 
 vals_key = ['group_mrp_routings', 'group_product_variant']

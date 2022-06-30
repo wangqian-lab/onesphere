@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from odoo.tools import ustr
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class OnesphereTemplateDownload(models.Model):
@@ -13,8 +17,13 @@ class OnesphereTemplateDownload(models.Model):
     help_info = fields.Html(string='Help Info')
 
     def template_download(self):
+        try:
+            record_ids = ','.join([str(id) for id in self.ids])
+        except Exception as e:
+            _logger.error(ustr(e))
+            raise e
         return {
             'type': 'ir.actions.act_url',
-            'url': f"/oneshare/template_download/{self.ids}",
+            'url': f"/oneshare/template_download?ids={record_ids}",
             'target': 'self',
         }

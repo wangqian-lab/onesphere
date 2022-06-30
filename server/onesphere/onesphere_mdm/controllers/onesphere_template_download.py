@@ -43,15 +43,16 @@ class OneshareTemplateDownloadController(Controller):
         res = send_file(temp_file, mimetype=mimetype, filename=file_name, as_attachment=True)
         return res
 
-    @http.route('/oneshare/template_download/<string:record_ids>', type='http', auth='user', cors='*',
+    @http.route('/oneshare/template_download', type='http', auth='user', cors='*',
                 csrf=False,
                 save_session=False)
-    def template_download(self, record_ids):
+    def template_download(self):
         """
         Downloads the template excel
         """
-        record_ids_list = record_ids[1:-1].split(',')
-        template_records = request.env['onesphere.template.download'].search([('id', 'in', record_ids_list)])
+        record_ids_list = request.params.get('ids', '').split(',')
+        record_ids = [int(id) for id in record_ids_list]
+        template_records = request.env['onesphere.template.download'].search([('id', 'in', record_ids)])
         if not template_records:
             raise ValidationError(_('No template record!'))
         temp_file = tempfile.TemporaryFile()

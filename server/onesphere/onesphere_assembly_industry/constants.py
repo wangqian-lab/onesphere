@@ -18,3 +18,7 @@ ASSEMBLY_TOOLS_TECH_NAME = ['tightening_nut_runner', 'tightening_wrench', 'tight
 
 # endpoint
 MASTER_ROUTING_API = "/rush/v1/mrp.routing.workcenter"
+
+# 导入文件类型
+EXCEL_TYPE = ['xlsx', 'xls']
+IMG_TYPE = ['jpg', 'png', 'jpeg']

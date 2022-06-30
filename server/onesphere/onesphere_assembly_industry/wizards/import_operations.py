@@ -4,11 +4,13 @@ from odoo import models, fields, api, _
 import xlrd, base64
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import ustr
-from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST
+from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE
 import os
 import logging
 import binascii
 import pyexcel
+import tempfile
+import zipfile
 
 _logger = logging.getLogger(__name__)
 
@@ -51,7 +53,17 @@ class ImportOperation(models.TransientModel):
         operation = self.env['mrp.routing.workcenter'].create(operation_data)
         return operation
 
-    def _create_step(self, operation, step_data, step_seq):
+    @staticmethod
+    def get_img_bin(img_name, img_list):
+        img_bin = False
+        for img in img_list:
+            for k, v in img.items():
+                if k == img_name:
+                    img_bin = base64.b64encode(v)
+            if img_bin:
+                return img_bin
+
+    def _create_step(self, operation, step_data, step_seq, img_list):
         step_code = step_data[COLUMN_STEP_CODE]
         step_type = step_data[COLUMN_STEP_TYPE]
         product_code = step_data[COLUMN_PRODUCT_CODE]
@@ -76,11 +88,9 @@ class ImportOperation(models.TransientModel):
             'is_workorder_step': True,
         }
         if step_type in ALL_TIGHTENING_TEST_TYPE_LIST and tightening_img:
-            img_url = os.path.join(self.img_url, tightening_img)
-            with open(img_url, "rb") as f:
-                img_bin = base64.b64encode(f.read())
-            step_dic.update({'worksheet_img': img_bin})
-
+            img_bin = self.get_img_bin(tightening_img, img_list)
+            if img_bin:
+                step_dic.update({'worksheet_img': img_bin})
         operation_type = self.env['oneshare.operation.type'].search([('code', '=', 'mrp_operation')])
         if operation_type:
             step_dic.update({'operation_type_ids': [(4, operation_type.id)]})
@@ -137,10 +147,11 @@ class ImportOperation(models.TransientModel):
             'tightening_pet': tightening_pset,
             'parent_quality_point_id': step.id,
             'sequence': tightening_points_seq,
+            'group_sequence': tightening_points_seq,
         }
         self.env['onesphere.tightening.opr.point'].create(point_dic)
 
-    def _import_operation(self, operation_data):
+    def _import_operation(self, operation_data, img_list):
         operation = self._create_operation(operation_data)
         step_seq = 0
         need_add_points_step = False
@@ -157,25 +168,43 @@ class ImportOperation(models.TransientModel):
                 continue
             if step_type in ALL_TIGHTENING_TEST_TYPE_LIST:
                 tightening_points_seq = 1
-                step = self._create_step(operation, step_data, step_seq)
+                step = self._create_step(operation, step_data, step_seq, img_list)
                 need_add_points_step = step
                 self._create_tightening_point(step_data, need_add_points_step, tightening_points_seq)
                 tightening_points_seq += 1
             else:
-                self._create_step(operation, step_data, step_seq)
+                self._create_step(operation, step_data, step_seq, img_list)
             step_seq += 1
+
+    def read_zipfile(self):
+        file_content = binascii.a2b_base64(self.file)
+        temp_file = tempfile.TemporaryFile()
+        temp_file.write(file_content)
+        with zipfile.ZipFile(temp_file, 'r') as zfp:
+            img_list = []
+            for filename in zfp.namelist():
+                if filename.split('.')[-1] in EXCEL_TYPE:
+                    excel_file = zfp.read(filename)
+                elif filename.split('.')[-1] in IMG_TYPE:
+                    img_file = zfp.read(filename)
+                    img_list.append(
+                        {filename.encode('cp437').decode(): img_file}
+                    )
+        if not excel_file:
+            raise ValidationError(_('No excel file in zip!'))
+        return excel_file, img_list
 
     def button_import_operations(self):
         if not self.file_type:
             raise ValidationError(_('Please Select A File Type!'))
-        file_content = binascii.a2b_base64(self.file)
-        book = pyexcel.get_book(file_type=self.file_type, file_content=file_content)
+        excel_file, img_list = self.read_zipfile()
+        book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
         for sheet in book:
             if len(sheet) <= FIRST_DATA_ROW:
                 continue
             operation_code = sheet.cell_value(FIRST_DATA_ROW, COLUMN_OPERATION_CODE)
             try:
-                self._import_operation(sheet)
+                self._import_operation(sheet, img_list)
                 self.env.user.notify_success(_(f'Create Operation Success,Operation Code:{operation_code}'))
             except Exception as e:
                 _logger.error(_(f'Create Operation Failed,Reason:{ustr(e)}'))

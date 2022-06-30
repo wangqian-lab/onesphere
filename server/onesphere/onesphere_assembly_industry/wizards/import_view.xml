@@ -14,7 +14,6 @@
                         </group>
                         <group>
                             <field name="file" placeholder="Upload Your File" required="1"/>
-                            <field name="img_url" placeholder="Set The Image Url" required="1"/>
                         </group>
                     </group>
                     <footer>

@@ -74,6 +74,11 @@ class OneshareMrpWorkArea(models.Model):
 
     children_count = fields.Integer('Count Of Work Production Line', compute='_compute_children_count')
 
+    _sql_constraints = [
+        ('category_code_uniq', 'unique (code, category_id)',
+         'The code must be unique per category !'),
+    ]
+
     def name_get(self):
         res = []
         for area in self:

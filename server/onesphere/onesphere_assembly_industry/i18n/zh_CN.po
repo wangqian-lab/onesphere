@@ -1494,8 +1494,8 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_mixin__file
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__file
-msgid "Upload File"
-msgstr "上传文件"
+msgid "Upload Zip File"
+msgstr "上传Zip文件"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view

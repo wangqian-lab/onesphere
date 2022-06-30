@@ -46,7 +46,7 @@
             <field name="name">tightening_bolt_view_tree</field>
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="false">
                     <field name="name"/>
                     <field name="type"/>
                 </tree>

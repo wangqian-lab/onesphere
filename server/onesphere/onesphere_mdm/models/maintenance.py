@@ -27,6 +27,8 @@ class MaintenanceEquipment(models.Model):
     connection_ids = fields.One2many('maintenance.equipment.connection', 'equipment_id',
                                      string='Connection Information')
 
+    serial_no = fields.Char('Serial Number', copy=False, required=True)
+
     def button_mrp_workcenter(self):
         self.ensure_one()
         return {

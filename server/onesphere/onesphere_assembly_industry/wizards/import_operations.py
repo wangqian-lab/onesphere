@@ -206,7 +206,9 @@ class ImportOperation(models.TransientModel):
             try:
                 self._import_operation(sheet, img_list)
                 self.env.user.notify_success(_(f'Create Operation Success,Operation Code:{operation_code}'))
+                self.env.cr.commit()
             except Exception as e:
+                self.env.cr.rollback()
                 _logger.error(_(f'Create Operation Failed,Reason:{ustr(e)}'))
                 self.env.user.notify_warning(
                     _(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))

@@ -62,7 +62,7 @@ class OneshareQuality(models.Model):
         required=True)
     sequence = fields.Integer('Sequence')
 
-    code = fields.Char('Code', help='Reference(External)')
+    code = fields.Char('Code', help='Reference(External)', required=True)
 
     # product_ids = fields.Many2many(
     #     'product.product', string='Products',

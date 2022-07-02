@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+        <record id="download_tightening_result_action_server" model="ir.actions.server">
+            <field name="name">Download Tightening Results</field>
+            <field name="model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+            <field name="binding_model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.download_tightening_results()
+            </field>
+        </record>
+
     <record id="operation_result_show_waveform" model="ir.actions.server">
         <field name="name">Show Curve</field>
         <field name="model_id" ref="onesphere_assembly_industry.model_onesphere_tightening_result"/>

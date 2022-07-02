@@ -28,6 +28,14 @@ except ImportError:
 class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
+    def download_tightening_results(self):
+        _ids = ','.join([str(_id) for _id in self.ids])
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/oneshare/assembly/tightening/download?ids={_ids}',
+            'target': 'self',
+        }
+
     def _get_curve_data(self):
         bucket_name = self.env['ir.config_parameter'].get_param('oss.bucket')
         oss_interface = self.env['onesphere.oss.interface']

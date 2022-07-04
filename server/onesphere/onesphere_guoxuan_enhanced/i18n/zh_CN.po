@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* onesphere_guoxuan_enhanced
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-04 09:22+0000\n"
+"PO-Revision-Date: 2022-07-04 09:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model,name:onesphere_guoxuan_enhanced.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_res_company__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_res_company__id
+msgid "ID"
+msgstr "唯一识别码"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_res_company____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model.fields,field_description:onesphere_guoxuan_enhanced.field_res_company__tenantid
+msgid "TenantId"
+msgstr "租户ID"
+
+#. module: onesphere_guoxuan_enhanced
+#: model:ir.model,name:onesphere_guoxuan_enhanced.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "工作中心使用情况"

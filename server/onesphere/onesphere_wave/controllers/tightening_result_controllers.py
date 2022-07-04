@@ -4,7 +4,7 @@ import uuid
 from odoo import http, api, SUPERUSER_ID, _
 from odoo.http import request, send_file
 import pandas as pd
-import csv
+# import csv
 from odoo.exceptions import ValidationError
 import logging
 import zipfile

@@ -23,7 +23,7 @@ DIST_PATH = '{}/{}'.format(DIST_DIR_PATH, DIST_FILE)
 
 G_TMPL = Template('''
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
         {% for item in items %}
             {{ item }}
         {% endfor %}

@@ -26,6 +26,7 @@
     'data': [
         'data/work_step_tag_data.xml',
         'views/quality_views.xml',
+        'views/res_company_views.xml',
     ],
     'demo': [
     ],

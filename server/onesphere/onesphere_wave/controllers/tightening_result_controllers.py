@@ -4,7 +4,7 @@ import uuid
 from odoo import http, api, SUPERUSER_ID, _
 from odoo.http import request, send_file
 import pandas as pd
-import csv
+# import csv
 from odoo.exceptions import ValidationError
 import logging
 import zipfile
@@ -36,19 +36,22 @@ class OnesphereTighteningResultController(http.Controller):
                    '拧紧人员': result.user_list}
             result_list.append(ret)
         df = pd.DataFrame.from_records(result_list)
-        with tempfile.TemporaryFile() as temp_file:
-            with zipfile.ZipFile(temp_file, 'w', compression=zipfile.ZIP_DEFLATED) as zfp:
-                with zfp.open('tightening_results.xlsx', mode="w") as xlsx_f:
-                    df.to_excel(xlsx_f, sheet_name=u'拧紧结果')
-                curve_datas = result_ids._get_curve_data()
-                for curve_dict in curve_datas:
-                    fn = curve_dict.pop('name', '')
-                    if not fn:
-                        fn = uuid.uuid4().hex
-                        _logger.error(f'获取曲线名称失败, 重命名为{fn}.csv')
-                    with zfp.open(f'{fn}.csv', mode="w") as f:
-                        df = pd.DataFrame.from_dict(curve_dict)
-                        df.to_csv(f, index=False, header=True)
-            res = send_file(temp_file, mimetype="application/zip", filename='tightening_results.zip',
-                            as_attachment=True)
+        temp_file = tempfile.TemporaryFile()
+        with zipfile.ZipFile(temp_file, 'w', compression=zipfile.ZIP_DEFLATED) as zfp:
+            with zfp.open('tightening_results.xlsx', mode="w") as xlsx_f:
+                df.to_excel(xlsx_f, sheet_name=u'拧紧结果')
+            curve_datas = result_ids._get_curve_data()
+            for curve_dict in curve_datas:
+                fn = curve_dict.pop('name') or ''
+                if not fn:
+                    fn = uuid.uuid4().hex
+                    _logger.error(f'获取曲线名称失败, 重命名为{fn}.csv')
+                with zfp.open(f'{fn}.csv', mode="w") as f:
+                    df = pd.DataFrame.from_dict(curve_dict)
+                    ret = df.to_csv(path_or_buf=None, index=False, header=True)
+                    f.write(ret.encode('utf-8'))
+        temp_file.seek(0)
+        res = send_file(temp_file, mimetype="application/zip", filename='tightening_results.zip',
+                        as_attachment=True)
+        res.headers['Cache-Control'] = 'no-cache'
         return res

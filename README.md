@@ -26,9 +26,11 @@ ENV_OSS_SECURITY_TRANSPORT: false # 对象存储是否通过SSL连接
 
 ```
 
-# 安装
+# 开发环境安装
 
 ```shell
 git submodule update --init --recursive
-
+sudo apt-get install -y libxml2-dev libxslt1-dev libsasl2-dev libldap2-dev libpq-dev build-essential libssl-dev
+sudo apt-get install -y npm nodejs
+sudo npm install -g rtlcss
 ```

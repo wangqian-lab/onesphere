@@ -19,7 +19,8 @@ class MrpWorkcenter(models.Model):
             self.env.user.notify_info(info)
             _logger.error(info)
         for operation in operations:
-            operation._push_operation_to_mpcs(master_pcs)
+            masterpc_url = operation._get_masterpc_url(master_pcs)
+            operation._push_mrp_routing_workcenter(masterpc_url)
 
     def download_work_process(self):
         """

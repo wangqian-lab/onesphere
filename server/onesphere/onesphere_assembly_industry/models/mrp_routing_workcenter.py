@@ -69,7 +69,7 @@ class MrpRoutingWorkcenter(models.Model):
                     'state': 'todo'
                 })
 
-    def _push_operation_to_mpcs(self, master_pcs):
+    def _get_masterpc_url(self, master_pcs):
         connect_list = []
         for master_pc in master_pcs:
             connections = master_pc.connection_ids.filtered(
@@ -81,8 +81,8 @@ class MrpRoutingWorkcenter(models.Model):
                 continue
             else:
                 connect_list += connections
-        url_list = [f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}' for connect in connect_list]
-        self._push_mrp_routing_workcenter(url_list)
+        masterpc_url = [f'http://{connect.ip}:{connect.port}{MASTER_ROUTING_API}' for connect in connect_list]
+        return masterpc_url
 
     @staticmethod
     def _pack_points_val(tightening_step_id):
@@ -204,26 +204,33 @@ class MrpRoutingWorkcenter(models.Model):
             _logger.error(msg)
             raise ValidationError(msg)
 
-        operation_val_list = []
+        rel_operation_val_list = []
+        rel_url_list = []
         for bom_id in bom_ids:
+            operation_val_list = []
             operation_val = self._pack_operation_val(bom_id, operation_id)
             operation_val_list.append(operation_val)
-        self._send_operation_val(operation_val_list, url_list)
+            rel_operation_val_list += operation_val_list*len(url_list)  # 有几个url就发几次
+            rel_url_list += url_list
+
+        self._send_operation_val(rel_operation_val_list, rel_url_list)
 
     def button_send_mrp_routing_workcenter(self):
         operation = self
         if not operation.workcenter_ids:
             self.env.user.notify_info(_('Can Not Found Workcenter!'))
             return
-        # TODO: 使用并发库进行优化性能。
-        for workcenter_id in operation.workcenter_ids:
-            try:
+        try:
+            url_list = []
+            for workcenter_id in operation.workcenter_ids:
                 master_pcs = workcenter_id.get_workcenter_masterpc()
                 if not master_pcs:
                     info = _(f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!')
                     self.env.user.notify_info(info)
                     _logger.error(info)
                     continue
-                self._push_operation_to_mpcs(master_pcs)
-            except Exception as e:
-                self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))
+                masterpc_url = self._get_masterpc_url(master_pcs)
+                url_list += masterpc_url
+            self._push_mrp_routing_workcenter(url_list)
+        except Exception as e:
+            self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))

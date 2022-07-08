@@ -24,9 +24,8 @@ class ResConfigSettings(models.TransientModel):
                                  config_parameter='oss.secret_key')
 
     oss_security = fields.Boolean(default=ENV_OSS_SECURITY_TRANSPORT,
-                               string='OSS Security Transport(SSL)',
-                               config_parameter='oss.security')
-
+                                  string='OSS Security Transport(SSL)',
+                                  config_parameter='oss.security')
 
     def set_values(self):
         super(ResConfigSettings, self).set_values()

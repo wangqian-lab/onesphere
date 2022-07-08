@@ -13,6 +13,7 @@ OneSphere Open Source MOM(Manufacturing Operation Management) Solution
 ### 环境变量
 
 ```shell
+ENV_TIMESCALE_ENABLE: false # 是否打开timescaledb支持
 ENV_RUNTIME_ENV: dev # 运行时环境
 ENV_ENABLE_SSO: false # 是否启用SSO功能
 ENV_ONESHARE_EXPERIMENTAL_ENABLE: false # 是否开启实验性功能

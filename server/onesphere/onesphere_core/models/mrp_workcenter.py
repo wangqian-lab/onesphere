@@ -11,6 +11,8 @@ _logger = logging.getLogger(__name__)
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
+    _sql_constraints = [('code_uniq', 'unique(code)', "WorkCenter Code Must Be Unique!")]
+
     def _do_download_operations(self, operations):
         self.ensure_one()
         master_pcs = self.get_workcenter_masterpc()

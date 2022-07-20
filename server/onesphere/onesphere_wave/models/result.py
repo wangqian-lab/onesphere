@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from odoo import fields, models, api, _
 from odoo.tools import ustr
 import json
@@ -9,6 +11,8 @@ import logging
 _wave_cache = LRU(max_size=128)
 
 logger = logging.getLogger(__name__)
+
+ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(os.getenv('ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT', '1000'))
 
 
 def _create_wave_result_dict(x, data):
@@ -29,7 +33,15 @@ class OperationResult(HModel):
     _inherit = "onesphere.tightening.result"
 
     def download_tightening_results(self):
-        _ids = ','.join([str(_id) for _id in self.ids])
+        records = self
+        ICP = self.env['ir.config_parameter'].sudo()
+        download_tightening_results_limit = int(ICP.get_param("onesphere_wave.download_tightening_results_limit",
+                                                              default=ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT))
+        if len(self) > download_tightening_results_limit:
+            self.env.user.notify_warning(
+                f'曲线导出功能限制前{download_tightening_results_limit}条数据，将自动截取.或通过设置放大onesphere_wave.download_tightening_results_limit参数')
+            records = self[:download_tightening_results_limit]
+        _ids = ','.join([str(_id) for _id in records.ids])
         return {
             'type': 'ir.actions.act_url',
             'url': f'/oneshare/assembly/tightening/download?ids={_ids}',

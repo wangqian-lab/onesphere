@@ -217,12 +217,12 @@ class MrpRoutingWorkcenter(models.Model):
 
     def button_send_mrp_routing_workcenter(self):
         operation = self
-        if not operation.workcenter_ids:
+        if not operation.workcenter_id:
             self.env.user.notify_info(_('Can Not Found Workcenter!'))
             return
         try:
             url_list = []
-            for workcenter_id in operation.workcenter_ids:
+            for workcenter_id in operation.workcenter_ids or operation.workcenter_id:
                 master_pcs = workcenter_id.get_workcenter_masterpc()
                 if not master_pcs:
                     info = _(f'Can Not Found MasterPC For Work Center:{workcenter_id.name}!')

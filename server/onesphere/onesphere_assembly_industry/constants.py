@@ -22,3 +22,10 @@ MASTER_ROUTING_API = "/rush/v1/mrp.routing.workcenter"
 # 导入文件类型
 EXCEL_TYPE = ['xlsx', 'xls']
 IMG_TYPE = ['jpg', 'png', 'jpeg']
+
+ASSEMBLY_CONTROLLERS = [('ModelDesoutterCvi3', 'CVI3'),
+                        ('ModelDesoutterCvi2R', 'CVI2-R'),
+                        ('ModelDesoutterCvi2L', 'CVI2-L'),
+                        ('ModelDesoutterCvi3Twin', 'TWIN-CVI3'),
+                        ('ModelDesoutterConnector', 'CVI-CONNECTOR')
+                        ]

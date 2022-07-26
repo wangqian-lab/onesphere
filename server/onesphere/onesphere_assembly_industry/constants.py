@@ -27,5 +27,7 @@ ASSEMBLY_CONTROLLERS = [('ModelDesoutterCvi3', 'CVI3'),
                         ('ModelDesoutterCvi2R', 'CVI2-R'),
                         ('ModelDesoutterCvi2L', 'CVI2-L'),
                         ('ModelDesoutterCvi3Twin', 'TWIN-CVI3'),
-                        ('ModelDesoutterConnector', 'CVI-CONNECTOR')
+                        ('ModelDesoutterConnector', 'CVI-CONNECTOR'),
+                        ('ModelAtlasPF4000', 'PF4000'),
+                        ('ModelAtlasPF6000', 'PF6000'),
                         ]

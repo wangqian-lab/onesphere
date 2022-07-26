@@ -34,6 +34,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_0</field>
             <field name="model">CVI3</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi3</field>
             <field name="workcenter_id" ref="mrp.mrp_workcenter_2"/>
         </record>
         <record id="tightening_controller_1" model="maintenance.equipment">
@@ -42,6 +43,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_1</field>
             <field name="model">CVI3</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi3</field>
             <field name="workcenter_id" ref="onesphere_mdm.mrp_workcenter_4"/>
         </record>
         <record id="tightening_controller_2" model="maintenance.equipment">
@@ -50,6 +52,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_2</field>
             <field name="model">CVI3</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi3</field>
             <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
         <record id="tightening_controller_3" model="maintenance.equipment">
@@ -58,6 +61,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_3</field>
             <field name="model">CVI2-R</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi2R</field>
             <field name="workcenter_id" ref="onesphere_mdm.mrp_workcenter_4"/>
         </record>
         <record id="tightening_controller_4" model="maintenance.equipment">
@@ -66,6 +70,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_4</field>
             <field name="model">CVI2-L</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi2L</field>
             <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
@@ -75,6 +80,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_desoutter"/>
             <field name="serial_no">tightening_controller_5</field>
             <field name="model">TWIN-CVI3</field>
+            <field name="tightening_controller_model">ModelDesoutterCvi3Twin</field>
             <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
@@ -84,6 +90,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_controller_6</field>
             <field name="model">PF4000</field>
+            <field name="tightening_controller_model">ModelAtlasPF4000</field>
             <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
@@ -94,6 +101,7 @@
             <field name="partner_id" ref="onesphere_assembly_industry.tightening_vendor_atlas"/>
             <field name="serial_no">tightening_controller_7</field>
             <field name="model">PF6000</field>
+            <field name="tightening_controller_model">ModelAtlasPF6000</field>
             <field name="workcenter_id" ref="onesphere_mdm.mrp_workcenter_4"/>
         </record>
 

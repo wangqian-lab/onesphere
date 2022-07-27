@@ -29,6 +29,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/operation_result_views.xml',
+        'views/res_config_settings_views.xml',
         'wizard/wave_wizard_views.xml'
     ],
     'installable': True,

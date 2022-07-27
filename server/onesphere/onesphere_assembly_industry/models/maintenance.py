@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME
+from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME, ASSEMBLY_CONTROLLERS
+
+ASSEMBLY_CONTROLLERS_DICT = {c[0]: c[1] for c in ASSEMBLY_CONTROLLERS}
 
 
 class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
+
+    tightening_controller_model = fields.Selection(selection=ASSEMBLY_CONTROLLERS, string='Tightening Controller Model')
+
+    @api.onchange('tightening_controller_model')
+    def _onchange_tightening_controller_model(self):
+        for controller in self:
+            if controller.technical_name != 'tightening_controller' or not controller.tightening_controller_model:
+                continue
+            controller.model = ASSEMBLY_CONTROLLERS_DICT.get(controller.tightening_controller_model, '')
 
     def create_group_tool(self):
         for worckcenter_group in self.workcenter_id.group_ids:

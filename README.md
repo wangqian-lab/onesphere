@@ -24,7 +24,7 @@ ENV_OSS_ACCESS_KEY: minio
 ENV_OSS_SECRET_KEY: minio123
 ENV_MAX_WORKERS: 8 # 并发获取外部数据时线程池的最大线性数量
 ENV_OSS_SECURITY_TRANSPORT: false # 对象存储是否通过SSL连接
-
+ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT: 1000 #下载拧紧曲线的限制数量
 ```
 
 # 开发环境安装

@@ -84,12 +84,12 @@
             <field name="name">onesphere_tightening_result_view_tree</field>
             <field name="model">onesphere.tightening.result</field>
             <field name="arch" type="xml">
-                <tree string="Tightening Results" create="0"
+                <tree string="Tightening Results" create="false" export_xlsx="false" import="false" delete="false"
                       default_order="control_time desc"
                       decoration-danger="tightening_result == 'nok'"
                       decoration-bf="tightening_result == 'ak2'"
                       decoration-success="tightening_result == 'ok'"
-                      groups_limit="200"
+                      groups_limit="200" js_class="onesphere_disable_export"
                 >
                     <field name="track_no"/>
                     <field name="attribute_equipment_no"/>

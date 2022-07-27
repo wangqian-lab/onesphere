@@ -15,5 +15,19 @@
             </field>
         </record>
 
+        <record id="oneshare_assembly_maintenance_equipment_view_form_inherit" model="ir.ui.view">
+            <field name="name">oneshare_assembly_maintenance_equipment_view_form_inherit</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="onesphere_mdm.oneshare_mdm_maintenance_equipment_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='model']" position="replace">
+                    <field name="model" attrs="{'readonly':[('technical_name','==','tightening_controller')]}"
+                           force_save="1"/>
+                    <field name="tightening_controller_model"
+                           attrs="{'required':[('technical_name','==','tightening_controller')], 'invisible': [('technical_name', '!=', 'tightening_controller')]}"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>

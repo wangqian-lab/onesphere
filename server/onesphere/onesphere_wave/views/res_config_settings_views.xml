@@ -13,6 +13,8 @@
                             <div class="content-group mt16">
                                 <label for="download_tightening_results_limit" class="o_light_label"/>
                                 <field name="download_tightening_results_limit"/>
+                                <label for="download_tightening_results_encode" class="o_light_label"/>
+                                <field name="download_tightening_results_encode"/>
                             </div>
                         </div>
                     </div>

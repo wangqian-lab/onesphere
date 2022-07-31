@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
+import logging
+import os
+import tempfile
 import uuid
+import zipfile
 
-from odoo import http, api, SUPERUSER_ID, _
-from odoo.http import request, send_file
 import pandas as pd
+
+from odoo import http, _
 # import csv
 from odoo.exceptions import ValidationError
-import logging
-import zipfile
-import tempfile
+from odoo.http import request, send_file
 
 _logger = logging.getLogger(__name__)
+ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv('ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE', 'utf-8')
 
 
 class OnesphereTighteningResultController(http.Controller):
@@ -37,9 +40,12 @@ class OnesphereTighteningResultController(http.Controller):
             result_list.append(ret)
         df = pd.DataFrame.from_records(result_list)
         temp_file = tempfile.TemporaryFile()
+        ICP = request.env['ir.config_parameter'].sudo()
+        download_tightening_results_encode = ICP.get_param("onesphere_wave.download_tightening_results_encode",
+                                                           default=ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE)
         with zipfile.ZipFile(temp_file, 'w', compression=zipfile.ZIP_DEFLATED) as zfp:
             with zfp.open('tightening_results.xlsx', mode="w") as xlsx_f:
-                df.to_excel(xlsx_f, sheet_name=u'拧紧结果')
+                df.to_excel(xlsx_f, sheet_name=u'拧紧结果', encoding=download_tightening_results_encode)
             curve_datas = result_ids._get_curve_data()
             for curve_dict in curve_datas:
                 fn = curve_dict.pop('name') or ''
@@ -49,7 +55,7 @@ class OnesphereTighteningResultController(http.Controller):
                 with zfp.open(f'{fn}.csv', mode="w") as f:
                     df = pd.DataFrame.from_dict(curve_dict)
                     ret = df.to_csv(path_or_buf=None, index=False, header=True)
-                    f.write(ret.encode('utf-8'))
+                    f.write(ret.encode(download_tightening_results_encode))
         temp_file.seek(0)
         res = send_file(temp_file, mimetype="application/zip", filename='tightening_results.zip',
                         as_attachment=True)

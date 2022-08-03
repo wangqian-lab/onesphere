@@ -8,8 +8,7 @@ COPY ./requirements.txt /
 RUN pip3 install --upgrade pip \
     && pip3 install -r /requirements.txt \
     && curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/bin/mc \
-    && chmod +x /usr/bin/mc \
-    && mc alias set onesphere http://172.17.0.1:9000 minio minio123
+    && chmod +x /usr/bin/mc
 
 COPY ./onesphere /mnt/extra-addons/
 COPY ./oneshare_base /mnt/extra-addons/

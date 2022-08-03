@@ -5,10 +5,18 @@ OneSphere Open Source MOM(Manufacturing Operation Management) Solution
 ### 注意
 
 1. MAC系统下开发，将启动参数中增加
-    ```bash
-    --limit-memory-hard=0
-    
-    ```
+
+```bash
+  --limit-memory-hard=0
+  ```
+
+2. minio客户端设置
+
+```bash
+mc alias set onesphere http://172.17.0.1:9000 minio minio123 
+```
+
+--------------------
 
 ### 环境变量
 

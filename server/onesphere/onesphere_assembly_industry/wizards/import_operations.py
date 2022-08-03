@@ -137,6 +137,7 @@ class ImportOperation(models.TransientModel):
                 'name': screw_code,
                 'default_code': screw_code,
                 'type': 'consu',
+                'categ_id': self.env.ref('onesphere_assembly_industry.product_category_7').id,
             }
             screw = screw_model.create(screw_dic)
 

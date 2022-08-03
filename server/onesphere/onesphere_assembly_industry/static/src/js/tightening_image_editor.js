@@ -66,14 +66,14 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
 
         inline_add_new_mask: function (top, left) {
             var self = this;
-            var imgWidth = parseInt(this.$el.find('#img').css('width'));
-            var imgHeight = parseInt(this.$el.find('#img').css('height'));
+            var imgWidth = parseFloat(this.$el.find('#img').css('width'));
+            var imgHeight = parseFloat(this.$el.find('#img').css('height'));
             var leftOffset = left || 0;
             var topOffset = top || 0;
             var t = _.str.sprintf('<div class="oe_mark_circle">%s</div>', _.str.escapeHTML(this.markPoints.length + 1));
             var e = $(t).css({
-                'left': "calc(" + leftOffset + "% - 25px)",
-                'top': "calc(" + topOffset + "% - 25px)",
+                'left': leftOffset ? "calc(" + leftOffset + "% - 10px)" : "calc(" + leftOffset + "%)",
+                'top':  topOffset ? "calc(" + topOffset + "% - 10px)" : "calc(" + topOffset + "%)" ,
                 'z-index': "" + (this.markPoints.length + 1)
             }).appendTo(self.$el.find('#img_container'));
 
@@ -140,10 +140,10 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
             event.stopPropagation();
             var self = this;
             var idx = parseInt(event.target.textContent) - 1;
-            var imgWidth = parseInt(this.$el.find('#img').css('width'));
-            var imgHeight = parseInt(this.$el.find('#img').css('height'));
-            var circleWidth = 50;
-            var circleHeight = 50;
+            var imgWidth = parseFloat(this.$el.find('#img').css('width'));
+            var imgHeight = parseFloat(this.$el.find('#img').css('height'));
+            var circleWidth = 20;
+            var circleHeight = 20;
 
             var target = event.target,
                 // keep the dragged position in the data-x/data-y attributes

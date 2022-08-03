@@ -68,8 +68,6 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
             var self = this;
             var imgWidth = parseFloat(this.$el.find('#img').css('width'));
             var imgHeight = parseFloat(this.$el.find('#img').css('height'));
-            console.log('left',this.$el.find('#img').css('width'));
-            console.log('top',top);
             var leftOffset = left || 0;
             var topOffset = top || 0;
             var t = _.str.sprintf('<div class="oe_mark_circle">%s</div>', _.str.escapeHTML(this.markPoints.length + 1));

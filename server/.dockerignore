@@ -6,4 +6,5 @@
 *.pyc
 *.pdf
 *.rst
+docker-compose.yml
 

@@ -58,11 +58,10 @@ class OneshareQuality(models.Model):
         return self.env['oneshare.quality.point.test_type'].search(domain, limit=1).id
 
     name = fields.Char(
-        'Reference', copy=False, default=lambda self: _('New'),
-        required=True)
+        'Reference', required=True)
     sequence = fields.Integer('Sequence')
 
-    code = fields.Char('Code', help='Reference(External)', required=True)
+    code = fields.Char('Code', help='Reference(External)', required=True, default=lambda self: _('New'), copy=False)
 
     # product_ids = fields.Many2many(
     #     'product.product', string='Products',
@@ -135,6 +134,6 @@ class OneshareQuality(models.Model):
 
     @api.model
     def create(self, vals):
-        if 'name' not in vals or vals['name'] == _('New'):
-            vals['name'] = self.env['ir.sequence'].next_by_code('oneshare.quality.point') or _('New')
+        if 'code' not in vals or vals['code'] == _('New'):
+            vals['code'] = self.env['ir.sequence'].next_by_code('oneshare.quality.point') or _('New')
         return super(OneshareQuality, self).create(vals)

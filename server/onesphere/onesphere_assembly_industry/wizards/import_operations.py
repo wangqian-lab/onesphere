@@ -20,6 +20,7 @@ COLUMN_STEP_TYPE = 5
 COLUMN_OPERATION_NAME = 0
 COLUMN_OPERATION_CODE = 1
 COLUMN_WORKCENTER_CODE = 2
+COLUMN_STEP_NAME = 3
 COLUMN_STEP_CODE = 4
 COLUMN_PRODUCT_CODE = 6
 COLUMN_STEP_NOTE = 7
@@ -64,6 +65,7 @@ class ImportOperation(models.TransientModel):
                 return img_bin
 
     def _create_step(self, operation, step_data, step_seq, img_list):
+        step_name = step_data[COLUMN_STEP_NAME]
         step_code = step_data[COLUMN_STEP_CODE]
         step_type = step_data[COLUMN_STEP_TYPE]
         product_code = step_data[COLUMN_PRODUCT_CODE]
@@ -81,6 +83,7 @@ class ImportOperation(models.TransientModel):
         if not test_type_id:
             raise ValidationError(_(f'Invalid Step Type:{step_type}!'))
         step_dic = {
+            'name': step_name,
             'code': step_code,
             'test_type_id': test_type_id,
             'component_id': product_id,

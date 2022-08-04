@@ -40,6 +40,7 @@ services:
       - ENV_TIMESCALE_ENABLE=true #使能timescaledb功能
       - ENV_REDIS_ENABLE=false
       - ENV_RUNTIME_ENV=prod
+      - ENV_DOCKER_URL=unix://var/run/docker.sock
 networks:
   traefik:
     external: true

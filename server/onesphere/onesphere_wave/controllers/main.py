@@ -4,7 +4,7 @@ import logging
 import os
 import tempfile
 from distutils.util import strtobool
-
+from odoo.tools import ustr
 import docker
 import werkzeug
 from odoo.addons.oneshare_utils.zip import zip_dir
@@ -12,13 +12,16 @@ from odoo.addons.web.controllers.main import Database as webDatabaseController
 
 from odoo import http
 
+_logger = logging.getLogger(__name__)
+
 ENV_DOCKER_URL = os.getenv('ENV_DOCKER_URL', 'unix://var/run/docker.sock')
 
 ENV_BACKUP_WITH_MINIO = strtobool(os.getenv('ENV_BACKUP_WITH_MINIO', 'False'))
-
-client = docker.DockerClient(base_url=ENV_DOCKER_URL)
-
-_logger = logging.getLogger(__name__)
+try:
+    client = docker.DockerClient(base_url=ENV_DOCKER_URL)
+except Exception as e:
+    client = None
+    _logger.error(f'初始化docker客户端错误: {ustr(e)}')
 
 
 class Database(webDatabaseController):
@@ -34,6 +37,9 @@ class Database(webDatabaseController):
             return resp
         stream = resp.response
         minio_container = None
+        if not client:
+            _logger.error(f'请先初始化docker客户端')
+            return resp
         containers = client.containers.list(filters={'status': 'running'})
         for container in containers:
             image_name = container.image.tags[0]

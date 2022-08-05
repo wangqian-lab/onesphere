@@ -5,7 +5,6 @@ import os
 import tempfile
 import zipfile
 from distutils.util import strtobool
-
 import docker
 import werkzeug
 import werkzeug.exceptions
@@ -25,15 +24,16 @@ from odoo.service import db
 from odoo.tools import ustr
 from odoo.tools.misc import str2bool
 
+_logger = logging.getLogger(__name__)
+
 ENV_DOCKER_URL = os.getenv('ENV_DOCKER_URL', 'unix://var/run/docker.sock')
 
 ENV_BACKUP_WITH_MINIO = strtobool(os.getenv('ENV_BACKUP_WITH_MINIO', 'False'))
-_logger = logging.getLogger(__name__)
 
 try:
     client = docker.DockerClient(base_url=ENV_DOCKER_URL)
 except Exception as e:
-    _logger.error(ustr(e))
+    _logger.error(f'初始化docker客户端错误: {ustr(e)}')
     client = None
 
 CONTAINER_STOP_TIMEOUT = 20
@@ -79,6 +79,7 @@ class Database(webDatabaseController):
         stream = resp.response
         minio_container = None
         if not client:
+            _logger.error(f'请先初始化docker客户端')
             return resp
         containers = client.containers.list(filters={'status': 'running'})
         for container in containers:
@@ -100,7 +101,7 @@ class Database(webDatabaseController):
                 c.remove()
                 minio_container.start()
             except Exception as e:
-                pass
+                _logger.error(f'{ustr(e)}')
             zip_dir(tmp_dir, stream, mode='a', include_dir=False,
                     fnct_sort=lambda file_name: file_name != 'dump.sql')
             stream.seek(0)

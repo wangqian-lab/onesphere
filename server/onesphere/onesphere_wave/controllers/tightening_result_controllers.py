@@ -42,14 +42,15 @@ class OnesphereTighteningResultController(http.Controller):
         df = pd.DataFrame.from_records(result_list)
         temp_file = tempfile.TemporaryFile()
         ICP = request.env['ir.config_parameter'].sudo()
-        csv_download_tightening_results_encode = download_tightening_results_encode = ICP.get_param(
+        download_tightening_results_encode = ICP.get_param(
             "onesphere_wave.download_tightening_results_encode",
             default=ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE)
         if platform.upper() == 'WINDOWS' and download_tightening_results_encode == 'utf-8':
             download_tightening_results_encode = 'utf-8-sig'  # UTF-8 with BOM
         with zipfile.ZipFile(temp_file, 'w', compression=zipfile.ZIP_DEFLATED) as zfp:
             with zfp.open('tightening_results.xlsx', mode="w") as xlsx_f:
-                df.to_excel(xlsx_f, sheet_name=u'拧紧结果', encoding=download_tightening_results_encode)
+                df.to_excel(xlsx_f, sheet_name=u'拧紧结果', freeze_panes=(1, 0),
+                            encoding=download_tightening_results_encode)
             curve_datas = result_ids._get_curve_data()
             for curve_dict in curve_datas:
                 fn = curve_dict.pop('name') or ''

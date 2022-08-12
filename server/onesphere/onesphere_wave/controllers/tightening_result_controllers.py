@@ -59,7 +59,8 @@ class OnesphereTighteningResultController(http.Controller):
                     _logger.error(f'获取曲线名称失败, 重命名为{fn}.csv')
                 with zfp.open(f'{fn}.csv', mode="w") as f:
                     df = pd.DataFrame.from_dict(curve_dict)
-                    ret = df.to_csv(path_or_buf=None, index=False, header=True)
+                    ret = df.to_csv(path_or_buf=None, index=False, columns=['cur_m', 'cur_w', 'cur_t'],
+                                    header=['扭矩', '角度', '时间'])
                     f.write(ret.encode(download_tightening_results_encode))
         temp_file.seek(0)
         res = send_file(temp_file, mimetype="application/zip", filename='tightening_results.zip',

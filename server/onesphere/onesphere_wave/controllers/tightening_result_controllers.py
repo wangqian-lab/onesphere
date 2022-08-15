@@ -45,8 +45,8 @@ class OnesphereTighteningResultController(http.Controller):
         download_tightening_results_encode = ICP.get_param(
             "onesphere_wave.download_tightening_results_encode",
             default=ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE)
-        if platform.upper() == 'WINDOWS' and download_tightening_results_encode == 'utf-8':
-            download_tightening_results_encode = 'utf-8-sig'  # UTF-8 with BOM
+        if platform.upper() == 'WINDOWS':
+            download_tightening_results_encode = 'gbk'  # GBK
         with zipfile.ZipFile(temp_file, 'w', compression=zipfile.ZIP_DEFLATED) as zfp:
             with zfp.open('tightening_results.xlsx', mode="w") as xlsx_f:
                 df.to_excel(xlsx_f, sheet_name=u'拧紧结果', freeze_panes=(1, 0),

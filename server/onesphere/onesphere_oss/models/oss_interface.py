@@ -85,16 +85,16 @@ class OSSInterface(models.AbstractModel):
         global glb_minio_client
         glb_minio_client = None
 
-    def get_oss_objects(self, bucket_names: str, object_names: List[str]):
+    def get_oss_objects(self, bucket_name: str, object_names: List[str]):
         # 获取minio数据
         data = []
+        client = self.ensure_oss_client()
         if len(object_names) <= ENV_MAX_WORKERS:
-            ret = list(map(lambda object_name: self.get_oss_object(bucket_names[0], object_name), object_names))
+            ret = list(map(lambda object_name: self.get_oss_object(bucket_name, object_name, client), object_names))
             return ret
         with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
-            # task_list = [executor.submit(self.get_oss_object, (bucket_names[0], object_name)) for object_name in object_names]
-            task_list = [executor.submit(self.get_oss_object, *args) for args in
-                         zip(bucket_names, object_names)]
+            task_list = [executor.submit(self.get_oss_object, bucket_name, object_name, client) for object_name in
+                         object_names]
         for task in task_list:
             task_exception = task.exception()
             if task_exception:
@@ -104,10 +104,11 @@ class OSSInterface(models.AbstractModel):
         return data
 
     @oss_wrapper(raw_resp=False)
-    def get_oss_object(self, bucket_name: str, object_name: str):
+    def get_oss_object(self, bucket_name: str, object_name: str, client: Union[Minio] = None):
         # 获取minio数据
-        c = self.ensure_oss_client()
-        ret = c.get_object(bucket_name, object_name)
+        if not client:
+            client = self.ensure_oss_client()
+        ret = client.get_object(bucket_name, object_name)
         return ret
 
     @oss_wrapper(raw_resp=False)

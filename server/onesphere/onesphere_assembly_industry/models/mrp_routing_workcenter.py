@@ -14,6 +14,8 @@ from distutils.util import strtobool
 from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
 from concurrent import futures
 from odoo.tools import ustr
+from lxml.html.soupparser import fromstring
+from xml.etree import ElementTree
 
 _logger = logging.getLogger(__name__)
 
@@ -108,6 +110,27 @@ class MrpRoutingWorkcenter(models.Model):
 
         return _points
 
+    def replace_text_img(self, val):
+        text = val.get('text')
+        if not text:
+            return
+        tree = fromstring(text)
+        ts = tree.xpath('//img')
+        for t in ts:
+            src = t.get('src')
+            if not src or src == 'undefined':
+                continue
+            src_content = src.split('/')
+            xml_id = src_content[-2].split('-')[0]
+            fn = src_content[-1].split('?')[0]
+            status, headers, content = self.env["ir.http"].binary_content(id=int(xml_id), filename=fn,
+                                                                          default_mimetype='image/png')
+            if not content:
+                continue
+            t.set('src', u'data:{0};base64,{1}'.format('image/png', content.decode()))
+        tt = ElementTree.tostring(tree, encoding='utf-8').decode()
+        val.update({'text': tt})
+
     def _pack_step_val(self, step_id):
         step_val = {
             "title": step_id.name or '',  # 名称或者QCP
@@ -119,8 +142,11 @@ class MrpRoutingWorkcenter(models.Model):
             "test_type": step_id.test_type_id.technical_name or '',
             "consume_product": step_id.component_id.default_code or step_id.component_id.barcode or '',
             "text": step_id.reason or '',  # 备注字段
+            "time_limit": step_id.time_limit * 1000,
+            "barcode_rule": step_id.barcode_rule or '',
         }
         # 测量工步增加测量项内容，拧紧工步增加拧紧点内容
+        self.replace_text_img(step_val)
         if step_id.test_type in [MEASURE_TYPE, MULTI_MEASURE_TYPE]:
             measure_items_data = package_multi_measurement_items(step_id.multi_measurement_ids)
             step_val.update({'measurement_items': measure_items_data})  # 将测量项
@@ -210,7 +236,7 @@ class MrpRoutingWorkcenter(models.Model):
             operation_val_list = []
             operation_val = self._pack_operation_val(bom_id, operation_id)
             operation_val_list.append(operation_val)
-            rel_operation_val_list += operation_val_list*len(url_list)  # 有几个url就发几次
+            rel_operation_val_list += operation_val_list * len(url_list)  # 有几个url就发几次
             rel_url_list += url_list
 
         self._send_operation_val(rel_operation_val_list, rel_url_list)

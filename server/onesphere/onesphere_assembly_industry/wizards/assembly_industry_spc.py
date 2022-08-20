@@ -84,6 +84,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
         data_list = data[query_type]
 
+        data_list = list(filter(lambda d: d, data_list))
+
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
 

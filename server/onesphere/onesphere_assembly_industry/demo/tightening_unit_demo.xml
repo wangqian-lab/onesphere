@@ -3,20 +3,20 @@
 
         <record id="tightening_unit_1" model="onesphere.tightening.unit">
             <field name="ref">51</field>
-            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_tool_1"/>
-            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
+            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_controller_0"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_2"/>
         </record>
 
         <record id="tightening_unit_2" model="onesphere.tightening.unit">
             <field name="ref">52</field>
-            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_tool_2"/>
-            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
+            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_controller_1"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_4"/>
         </record>
 
         <record id="tightening_unit_3" model="onesphere.tightening.unit">
             <field name="ref">53</field>
-            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_tool_3"/>
-            <field name="workcenter_id" ref="mrp.mrp_workcenter_1"/>
+            <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_controller_2"/>
+            <field name="workcenter_id" ref="mrp.mrp_workcenter_3"/>
         </record>
 
 

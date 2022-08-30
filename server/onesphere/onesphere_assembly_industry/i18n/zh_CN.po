@@ -104,6 +104,16 @@ msgid "Barcode"
 msgstr "条码结果"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_oneshare_quality_point__barcode_rule
+msgid "Barcode Rule"
+msgstr "条码规则"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_oneshare_quality_point__time_limit
+msgid "Time Limit(s)"
+msgstr "时限"
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 msgid "Base Info"
 msgstr "基础信息"

@@ -16,6 +16,16 @@ class OneshareQuality(models.Model):
     tag_ids = fields.Many2many('onesphere.work.step.tag', 'step_tag_rel', 'onesphere_step_id', 'onesphere_tag_id',
                                string='Step Tag Relationship')
 
+    barcode_rule = fields.Char(string='Barcode Rule')
+    time_limit = fields.Integer(string='Time Limit(s)', default=-1)
+
+    @api.onchange('test_type_id')
+    def onchange_test_type_id(self):
+        if self.test_type_id.technical_name != 'text':
+            self.time_limit = -1
+        else:
+            self.time_limit = 5
+
     @api.onchange('tightening_opr_point_ids')
     def update_points_group_sequence(self):
         group_sequence_list = self.tightening_opr_point_ids.mapped('group_sequence')

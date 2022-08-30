@@ -11,6 +11,8 @@ from odoo import http, _
 # import csv
 from odoo.exceptions import ValidationError
 from odoo.http import request, send_file
+from datetime import timedelta
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
 ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv('ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE', 'utf-8')
@@ -28,7 +30,9 @@ class OnesphereTighteningResultController(http.Controller):
             raise ValidationError(_('No Tightening Result Found!'))
         result_list = []
         for result in result_ids:
-            ret = {'拧紧时间': result.control_time,
+            control_time = (result.control_time + (timedelta(hours=8))).strftime(
+                DEFAULT_SERVER_DATETIME_FORMAT) if result.control_time else ''
+            ret = {'拧紧时间': control_time,
                    '追溯码': result.track_no,
                    '工具序列号': result.attribute_equipment_no,
                    '拧紧策略': result.tightening_strategy,

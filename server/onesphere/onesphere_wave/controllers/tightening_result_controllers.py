@@ -32,15 +32,15 @@ class OnesphereTighteningResultController(http.Controller):
         for result in result_ids:
             control_time = (result.control_time + (timedelta(hours=8))).strftime(
                 DEFAULT_SERVER_DATETIME_FORMAT) if result.control_time else ''
-            ret = {'拧紧时间': control_time,
-                   '追溯码': result.track_no,
+            ret = {'追溯码': result.track_no,
+                   '工位': result.workcenter_code,
                    '工具序列号': result.attribute_equipment_no,
+                   '螺栓名称': result.tightening_point_name.name if result.tightening_point_name else '',
                    '拧紧策略': result.tightening_strategy,
                    '拧紧结果': result.tightening_result,
                    '拧紧最终扭矩': result.measurement_final_torque,
                    '拧紧最终角度': result.measurement_final_angle,
-                   '拧紧分段结果': result.measurement_step_results,
-                   '拧紧ID': result.tightening_id,
+                   '拧紧时间': control_time,
                    '拧紧人员': result.user_list}
             result_list.append(ret)
         df = pd.DataFrame.from_records(result_list)

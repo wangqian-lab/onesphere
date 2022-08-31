@@ -35,7 +35,7 @@ class OnesphereTighteningResultController(http.Controller):
             ret = {'追溯码': result.track_no,
                    '工位': result.workcenter_code,
                    '工具序列号': result.attribute_equipment_no,
-                   '螺栓名称': result.tightening_point_name.name,
+                   '螺栓名称': result.tightening_point_name.name if result.tightening_point_name else '',
                    '拧紧策略': result.tightening_strategy,
                    '拧紧结果': result.tightening_result,
                    '拧紧最终扭矩': result.measurement_final_torque,

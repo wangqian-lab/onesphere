@@ -76,7 +76,7 @@ class OperationResult(HModel):
                     need_fetch_objects))  # 合并结果
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')
-            return [], None, []
+            return []
         return _datas
 
     def show_curves(self):

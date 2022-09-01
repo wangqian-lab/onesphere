@@ -13,6 +13,7 @@ from odoo.exceptions import ValidationError
 from odoo.http import request, send_file
 from datetime import timedelta
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.addons.onesphere_assembly_industry.constants import WORK_MODE_DIC
 
 _logger = logging.getLogger(__name__)
 ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE = os.getenv('ENV_DOWNLOAD_TIGHTENING_RESULT_ENCODE', 'utf-8')
@@ -32,16 +33,18 @@ class OnesphereTighteningResultController(http.Controller):
         for result in result_ids:
             control_time = (result.control_time + (timedelta(hours=8))).strftime(
                 DEFAULT_SERVER_DATETIME_FORMAT) if result.control_time else ''
-            ret = {'追溯码': result.track_no,
-                   '工位': result.workcenter_code,
-                   '工具序列号': result.attribute_equipment_no,
+            work_mode = WORK_MODE_DIC.get(result.work_mode, '')
+            ret = {'追溯码': result.track_no or '',
+                   '工位': result.workcenter_code or '',
+                   '工作模式': work_mode,
+                   '工具序列号': result.attribute_equipment_no or '',
                    '螺栓名称': result.tightening_point_name.name if result.tightening_point_name else '',
-                   '拧紧策略': result.tightening_strategy,
-                   '拧紧结果': result.tightening_result,
-                   '拧紧最终扭矩': result.measurement_final_torque,
-                   '拧紧最终角度': result.measurement_final_angle,
+                   '拧紧策略': result.tightening_strategy or '',
+                   '拧紧结果': result.tightening_result or '',
+                   '拧紧最终扭矩': result.measurement_final_torque or '',
+                   '拧紧最终角度': result.measurement_final_angle or '',
                    '拧紧时间': control_time,
-                   '拧紧人员': result.user_list}
+                   '拧紧人员': result.user_list or ''}
             result_list.append(ret)
         df = pd.DataFrame.from_records(result_list)
         temp_file = tempfile.TemporaryFile()

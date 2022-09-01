@@ -31,3 +31,10 @@ ASSEMBLY_CONTROLLERS = [('ModelDesoutterCvi3', 'CVI3'),
                         ('ModelAtlasPF4000', 'PF4000'),
                         ('ModelAtlasPF6000', 'PF6000'),
                         ]
+# 工作模式字典
+WORK_MODE_DIC = {
+    'normal': '工作模式',
+    'rework': '返工模式',
+    'manual': '手动模式',
+    'trial': '试制模式'
+}

@@ -14,6 +14,7 @@ from odoo.addons.oneshare_utils.constants import ENV_OSS_BUCKET, ENV_OSS_ENDPOIN
     ENV_OSS_SECRET_KEY, ENV_MAX_WORKERS, ENV_OSS_SECURITY_TRANSPORT
 
 from typing import Optional, Union
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 _logger = logging.getLogger(__name__)
 
@@ -85,22 +86,23 @@ class OSSInterface(models.AbstractModel):
         global glb_minio_client
         glb_minio_client = None
 
-    def get_oss_objects(self, bucket_name: str, object_names: List[str]):
+    def get_oss_objects(self, bucket_name: str, object_names: List[str], curve_ids: List[str]):
         # 获取minio数据
-        data = []
+        data = {}
         client = self.ensure_oss_client()
         if len(object_names) <= ENV_MAX_WORKERS:
-            ret = list(map(lambda object_name: self.get_oss_object(bucket_name, object_name, client), object_names))
-            return ret
-        with futures.ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
-            task_list = [executor.submit(self.get_oss_object, bucket_name, object_name, client) for object_name in
-                         object_names]
-        for task in task_list:
-            task_exception = task.exception()
-            if task_exception:
-                _logger.error(f'get_oss_objects 任务执行失败: {ustr(task_exception)}')
-                continue
-            data.append(task.result())
+            data.update({curve_id: self.get_oss_object(bucket_name, object_name, client) for
+                         object_name, curve_id in zip(object_names, curve_ids)})
+            return data
+        with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+            task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for
+                         object_name, curve_id in zip(object_names, curve_ids)}
+            for task in as_completed(task_list):
+                task_exception = task.exception()
+                if task_exception:
+                    _logger.error(f'get_oss_objects 任务执行失败: {ustr(task_exception)}')
+                    continue
+                data.update({task_list[task]: task.result()})
         return data
 
     @oss_wrapper(raw_resp=False)

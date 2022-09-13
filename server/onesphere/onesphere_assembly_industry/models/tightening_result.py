@@ -92,6 +92,11 @@ class OperationResult(HModel):
     )
     user_list = fields.Char(string='User List', help='Operators')
 
+    _sql_constraints = [
+        ('tid_track_no_gun_uniq', 'unique(attribute_equipment_no, tightening_id, track_no, control_time)',
+         'Per Screw Gun tightening ID Tracking Number must different'),
+        ('entity_id_uniq', 'unique(entity_id)', 'entity_id must be unique')]
+
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
         if not date_to:

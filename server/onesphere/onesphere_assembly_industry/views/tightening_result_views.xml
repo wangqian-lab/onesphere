@@ -92,6 +92,7 @@
                       groups_limit="200" js_class="onesphere_disable_export"
                 >
                     <field name="track_no"/>
+                    <field name="id" groups="base.group_no_one"/>
                     <field name="attribute_equipment_no"/>
                     <field name="control_time" string="Tightening Date Time"/>
                     <field name="step_type" optional="hide"/>

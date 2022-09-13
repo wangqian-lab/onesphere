@@ -46,6 +46,7 @@
         'views/mrp_bom.xml',
         'views/assembly_industry_menuitem.xml',
         'views/group_tightening_tool.xml',
+        'views/res_config_settings_views.xml',
         'wizards/import_view.xml',
         'views/import_menu_views.xml',
     ],

@@ -38,3 +38,6 @@ WORK_MODE_DIC = {
     'manual': '手动模式',
     'trial': '试制模式'
 }
+
+# 默认螺栓编号拼接规则
+DEFAULT_BOLT_NAME_RULES = '{controller_name}_{job}_{batch_count}_{pset}'

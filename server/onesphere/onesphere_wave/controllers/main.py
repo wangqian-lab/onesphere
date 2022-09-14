@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-
+import io
 import logging
 import os
 import tempfile
 import zipfile
 from distutils.util import strtobool
+
 import docker
 import werkzeug
 import werkzeug.exceptions
@@ -67,8 +68,56 @@ def restore_minio_data(zip_fn):
                 minio_container.start()
 
 
-class Database(webDatabaseController):
+def backup_minio_data(stream):
+    minio_container = None
+    if not client:
+        _logger.error(f'请先初始化docker客户端')
+        return
+    containers = client.containers.list(filters={'status': 'running'})
+    for container in containers:
+        image_name = container.image.tags[0]
+        if 'minio' in image_name:
+            minio_container = container
+            break
+        _logger.info(f'{image_name}')
+    if not minio_container:
+        return
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        try:
+            minio_container.stop(timeout=CONTAINER_STOP_TIMEOUT)  # 先关闭容器
+            c = client.containers.run('ubuntu', volumes_from=[minio_container.name], detach=True,
+                                      volumes=[f'{tmp_dir}:/backup'],
+                                      command='tar cvf /backup/backup.tar /data')
+            exit_status = c.wait()['StatusCode']
+            _logger.info(f'容器返回值: {exit_status}')
+            c.remove()
+            minio_container.start()
+        except Exception as e:
+            _logger.error(f'{ustr(e)}')
+            return
+        zip_dir(tmp_dir, stream, mode='a', include_dir=False,
+                fnct_sort=lambda file_name: file_name != 'dump.sql')
+        stream.seek(0)
 
+
+def offline_backup_database(db_name='', backup_path=os.path.join(odoo.tools.config['data_dir'], 'backup.zip')):
+    """
+    离线备份数据库至data_dir下
+    @param db_name: 数据库名称
+    @param backup_path: 备份文件
+    """
+    if not db_name:
+        db_name = odoo.tools.config['db_name']
+    dump_stream = odoo.service.db.dump_db(db_name, None, 'zip')
+    if ENV_BACKUP_WITH_MINIO:
+        backup_minio_data(dump_stream)
+    if os.path.exists(backup_path):
+        os.remove(backup_path)  # 删除掉已有备份
+    with io.FileIO(backup_path, 'w') as f:
+        f.write(dump_stream.read())
+
+
+class Database(webDatabaseController):
     @http.route()
     def backup(self, master_pwd, name, backup_format='zip'):
         resp = super(Database, self).backup(master_pwd, name, backup_format)
@@ -77,34 +126,8 @@ class Database(webDatabaseController):
         if not ENV_BACKUP_WITH_MINIO:
             return resp
         stream = resp.response
-        minio_container = None
-        if not client:
-            _logger.error(f'请先初始化docker客户端')
-            return resp
-        containers = client.containers.list(filters={'status': 'running'})
-        for container in containers:
-            image_name = container.image.tags[0]
-            if 'minio' in image_name:
-                minio_container = container
-                break
-            _logger.info(f'{image_name}')
-        if not minio_container:
-            return resp
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            try:
-                minio_container.stop(timeout=CONTAINER_STOP_TIMEOUT)  # 先关闭容器
-                c = client.containers.run('ubuntu', volumes_from=[minio_container.name], detach=True,
-                                          volumes=[f'{tmp_dir}:/backup'],
-                                          command='tar cvf /backup/backup.tar /data')
-                exit_status = c.wait()['StatusCode']
-                _logger.info(f'容器返回值: {exit_status}')
-                c.remove()
-                minio_container.start()
-            except Exception as e:
-                _logger.error(f'{ustr(e)}')
-            zip_dir(tmp_dir, stream, mode='a', include_dir=False,
-                    fnct_sort=lambda file_name: file_name != 'dump.sql')
-            stream.seek(0)
+        if ENV_BACKUP_WITH_MINIO:
+            backup_minio_data(stream)
         response = werkzeug.wrappers.Response(stream, headers=resp.headers, direct_passthrough=True)
         return response
 

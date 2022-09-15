@@ -10,7 +10,7 @@
         <record id="tightening_unit_2" model="onesphere.tightening.unit">
             <field name="ref">52</field>
             <field name="tightening_controller_id" ref="onesphere_assembly_industry.tightening_controller_1"/>
-            <field name="workcenter_id" ref="mrp.mrp_workcenter_4"/>
+            <field name="workcenter_id" ref="onesphere_mdm.mrp_workcenter_4"/>
         </record>
 
         <record id="tightening_unit_3" model="onesphere.tightening.unit">

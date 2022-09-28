@@ -153,8 +153,10 @@
                     <group expand="0" string="Group By">
                         <filter string="Equipment" name="group_by_equipment" domain="[]"
                                 context="{'group_by': 'attribute_equipment_no'}"/>
-                        <filter string="Occur Time" name="group_by_daily_time" domain="[]"
-                                context="{'group_by': 'control_time:day'}"/>
+                        <filter string="Occur Time" name="group_by_time" domain="[]"
+                                context="{'group_by': 'control_time'}"/>
+                        <filter string="Occur Weekly" name="group_by_week_time" domain="[]"
+                                context="{'group_by': 'control_time:week'}"/>
                         <filter string="Result" name="group_by_result" domain="[]"
                                 context="{'group_by': 'tightening_result'}"/>
                     </group>

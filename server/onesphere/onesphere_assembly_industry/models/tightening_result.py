@@ -403,7 +403,11 @@ $$ LANGUAGE plpgsql;
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         context = self.env.context
-        custom_limit = context.get('custom_limit', None)
-        return super(OperationResult, self).read_group(domain, fields, groupby, offset=offset,
-                                                       limit=limit or custom_limit,
-                                                       orderby=orderby, lazy=lazy)
+        if groupby[0] == 'attribute_equipment_no' and len(groupby) == 1:
+            custom_limit = context.get('custom_limit', None)
+        else:
+            custom_limit = None
+        ret = super(OperationResult, self).read_group(domain, fields, groupby, offset=offset,
+                                                      limit=limit or custom_limit,
+                                                      orderby=orderby, lazy=lazy)
+        return ret

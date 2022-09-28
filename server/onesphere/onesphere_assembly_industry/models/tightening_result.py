@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-import uuid
-
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import ValidationError
-from dateutil.relativedelta import relativedelta
 import logging
+import uuid
 from pprint import pformat
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
+
+from dateutil.relativedelta import relativedelta
+from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
 from odoo.addons.onesphere_core.constants import oneshare_daq_with_track_code_rel_enable
+
+from odoo import api, fields, _
+from odoo.exceptions import ValidationError
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -398,3 +399,11 @@ $$ LANGUAGE plpgsql;
             self._init_default()
         else:
             self._init_with_track_code_rel()
+
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        context = self.env.context
+        custom_limit = context.get('custom_limit', None)
+        return super(OperationResult, self).read_group(domain, fields, groupby, offset=offset,
+                                                       limit=limit or custom_limit,
+                                                       orderby=orderby, lazy=lazy)

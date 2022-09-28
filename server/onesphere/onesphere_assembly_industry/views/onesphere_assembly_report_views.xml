@@ -24,10 +24,21 @@
             </field>
         </record>
 
+        <record id="onesphere_tightening_result_nok_top5_graph" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_nok_top5_graph</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <graph string="NOK TOP5" type="bar" sample="1" order="desc">
+                    <field name="control_time" type="row" interval="day"/>
+                </graph>
+            </field>
+        </record>
+
         <record id="action_nok_trend" model="ir.actions.act_window">
             <field name="name">NOK Trend</field>
             <field name="res_model">onesphere.tightening.result</field>
             <field name="view_mode">graph</field>
+            <field name="view_id" ref="onesphere_tightening_result_nok_trend_graph"/>
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
             <field name="context">{"search_default_filter_nok": 1 }</field>
         </record>
@@ -36,6 +47,21 @@
                   action="action_nok_trend"
                   groups="mrp.group_mrp_manager"
                   parent="onesphere_operation_result_report" sequence="20"/>
+
+        <record id="action_nok_top5" model="ir.actions.act_window">
+            <field name="name">NOK TOP5</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="onesphere_tightening_result_nok_top5_graph"/>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_nok": 1, "search_default_group_by_equipment": 2, "custom_limit": 5 }</field>
+        </record>
+
+        <menuitem id="menu_action_measure_result_nok_top5" name="NOK TOP5"
+                  action="action_nok_top5"
+                  groups="mrp.group_mrp_manager"
+                  parent="onesphere_operation_result_report" sequence="30"/>
+
 
     </data>
 </odoo>

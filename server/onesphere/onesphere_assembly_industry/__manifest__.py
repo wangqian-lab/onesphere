@@ -35,6 +35,7 @@
         'wizards/assembly_industry_spc_views.xml',
         'views/maintenance_views.xml',
         'views/tightening_result_views.xml',
+        'views/onesphere_assembly_report_views.xml',
         'views/templates.xml',
         'views/tightening_unit_views.xml',
         'views/quality_views.xml',

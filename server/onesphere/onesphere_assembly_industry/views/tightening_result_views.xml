@@ -4,14 +4,14 @@
                 id="onesphere_operation_result"
                 name="Operation Results"
                 parent="onesphere_spc.onesphere_spc_root"
-                groups="mrp.group_mrp_manager"
+                groups="mrp.group_mrp_user"
                 sequence="10"/>
 
         <menuitem
                 id="onesphere_tightening_result"
                 name="Tightening Results"
                 parent="onesphere_operation_result"
-                groups="mrp.group_mrp_manager"
+                groups="mrp.group_mrp_user"
                 sequence="10"/>
 
         <record id="onesphere_tightening_result_view_form" model="ir.ui.view">
@@ -113,7 +113,7 @@
             <field name="arch" type="xml">
                 <search string="Tightening Result">
                     <field name="track_no" string="Track Number/Equipment"
-                           filter_domain="['|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self)]"/>
+                           filter_domain="['|', '|', ('track_no', 'ilike', self), ('attribute_equipment_no', 'ilike', self), ('tightening_unit_code', 'ilike', self)]"/>
                     <field name="user_id" string="Operator"
                            filter_domain="['|', ('user_id','ilike', self), ('user_list','ilike', self)]"/>
                     <field name="tightening_point_name" string="Bolt"

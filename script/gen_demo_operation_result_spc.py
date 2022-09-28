@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import random
 import uuid
 
-from jinja2 import Template
-import random
-from script.constants import track_codes, tightening_bolts, attribute_equipments
-
 from faker import Faker
+from jinja2 import Template
+
+from script.constants import track_codes, tightening_bolts, attribute_equipments
 
 fake = Faker()
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         degree = round(random.uniform(165.5, 187.5), 2)
         result = random.choice(['ok', 'nok', 'ak2'])
         tightening_strategy = random.choice(['AD', 'AW'])
-        delta_day = random.choice([1, 2])
+        delta_day = random.randint(1, 20)
         track_no = random.choice(track_codes)
         attribute_equipment_no = random.choice(attribute_equipments)
         tightening_bolt_id = random.choice(tightening_bolts)

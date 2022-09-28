@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 
 from odoo import models, fields, api, _
 from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME, ASSEMBLY_CONTROLLERS
@@ -52,3 +53,18 @@ class MaintenanceEquipment(models.Model):
                 continue
             tool_id.create_group_tool()
         return ret
+
+    def button_open_nok_trend_analysis(self):
+        self.ensure_one()
+        context = self.env.context.copy()
+        context.update({
+            'search_default_track_no': self.serial_no
+        })
+        action = self.env["ir.actions.actions"]._for_xml_id("onesphere_assembly_industry.action_nok_trend")
+        action_context = json.loads(action['context'])
+        action_context.update(context)
+        action['context'] = action_context
+        name = _('NOK Trend Analysis For Tightening Tool %s') % self.serial_no
+        action['name'] = name
+        action['display_name'] = name
+        return action

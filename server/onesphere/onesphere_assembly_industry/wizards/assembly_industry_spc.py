@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
-from odoo.fields import DATETIME_LENGTH
 import logging
-from odoo.exceptions import ValidationError
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
-import numpy as np
-from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
-from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, rbar, covert2dArray
 from typing import List
+
+import numpy as np
+from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
+from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray
+from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.fields import DATETIME_LENGTH
 
 _logger = logging.getLogger(__name__)
 
@@ -78,13 +80,14 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         query_type_field = query_type
         if not query_type_field:
             raise ValidationError(f'query_type: {query_type} is not valid. query_type_field is required')
-        data = model_object.get_tightening_result_filter_datetime(query_date_from, query_date_to, query_type_field,
+        data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
+                                                                  field=query_type_field,
                                                                   limit=limit)
         _logger.debug(_(f"Spc Data of Query Result: {data}"))
 
         data_list = data[query_type]
 
-        data_list = list(filter(lambda d: d, data_list))
+        # data_list = list(filter(lambda d: d, data_list))
 
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)

@@ -99,6 +99,7 @@ class OperationResult(HModel):
         ('entity_id_uniq', 'unique(entity_id, time)', 'entity_id must be unique')]
 
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
+                                              bolt_id=None,
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
         if not date_to:
             date_to = fields.Datetime.now()
@@ -112,6 +113,8 @@ class OperationResult(HModel):
                 '''
         if filter_result:
             query += f'''AND tightening_result='{filter_result}' '''
+        if bolt_id:
+            query += f'''AND tightening_point_name={bolt_id} '''
         if limit:
             query += f'''limit {limit} '''
         cr.execute(query, (date_from, date_to,))

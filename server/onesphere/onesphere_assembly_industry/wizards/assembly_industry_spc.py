@@ -4,6 +4,7 @@ from typing import List
 
 import numpy as np
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
+from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_norm_dist_echarts_options
 from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray
 from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
 
@@ -17,16 +18,6 @@ measurement_type_field_map = {
     'torque': 'measurement_final_torque',
     'angle': 'measurement_final_angle'
 }
-
-
-def get_general_grid_option():
-    return {
-        'left': '10%',
-        'right': 130,
-        'top': '20%',
-        'bottom': 30,
-    }
-
 
 X_LINE = 0
 ARRAY_Y = 1
@@ -107,7 +98,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
         dict2 = self._compute_dist_XR_js(data_list)
         ret = {
-            'pages': {'o_spc_norm_dist': self.get_norm_dist_echarts_options(dict1, query_type, description),
+            'pages': {'o_spc_norm_dist': get_norm_dist_echarts_options(dict1, query_type, description),
                       # 'o_spc_weibull_dist': self.get_weill_dist_echarts_options(),
                       # 'o_spc_scatter': self.get_scatter_echarts_options(),
                       'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict2, query_type, description),
@@ -212,69 +203,6 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             'series': seriesOptions
         }
 
-    @staticmethod
-    def get_norm_dist_echarts_options(data={}, query_type='torque', description=''):
-        """生成正态分布需要的序列
-        Args:
-            data ([type]): [description]
-        Returns:
-            [Dict]: [echarts series Option]
-        """
-        x1 = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        y1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7]
-        y2 = [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
-        titleOptions = {
-            'text': '正态分布(%s)' % description,
-            'textAlign': 'auto',
-        }
-        gridOptions = get_general_grid_option()
-
-        xAxisOptions = [{
-            'name': _('Torque(NM)') if query_type == 'torque' else _('Angle(Deg)'),
-            'nameLocation': 'end',
-            'nameTextStyle': {
-                'fontStyle': 'bolder',
-                'fontSize': 16
-            },
-            'data': data.get('x1', x1),
-
-        }]
-        yAxisOptions = [
-            {
-                'type': 'value',
-                'name': '概率(Probability)',
-                'min': 0,
-                'max': 'dataMax',
-                'interval': 5,
-                'axisLabel': {
-                    'formatter': '{value} %'
-                }
-            },
-        ]
-
-        seriesOptions = [
-            {
-                'name': '直方图',
-                'type': 'bar',
-                'label': {'show': True},
-                'data': data.get('y1', y1)
-            },
-            {
-                'name': '曲线图',
-                'type': 'line',
-                'yAxisIndex': 0,
-                'label': {'show': True},
-                'data': data.get('y2', y2),
-                'smooth': True
-            }
-        ]
-        return {
-            'title': titleOptions,
-            'grid': gridOptions,
-            'xAxis': xAxisOptions,
-            'yAxis': yAxisOptions,
-            'series': seriesOptions
-        }
 
     def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)

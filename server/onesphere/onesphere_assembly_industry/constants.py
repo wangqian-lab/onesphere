@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 # 拧紧类型
+import os
+
 TIGHTENING_TEST_TYPE = "tightening"
 PROM_TIGHTENING_TEST_TYPE = "promiscuous_tightening"
 
@@ -41,3 +43,7 @@ WORK_MODE_DIC = {
 
 # 默认螺栓编号拼接规则
 DEFAULT_BOLT_NAME_RULES = '{controller_name}_{job}_{batch_count}_{pset}'
+
+ENV_PROCESS_PROPOSAL_DURATION = int(os.getenv('ENV_PROCESS_PROPOSAL_DURATION', '30'))  # 默认拿过去三十天的数据进行工艺建议
+ENV_PROCESS_PROPOSAL_ANGLE_MARGIN = int(os.getenv('ENV_PROCESS_PROPOSAL_ANGLE_MARGIN', '3'))  # 默认拿过去三十天的数据进行工艺建议
+

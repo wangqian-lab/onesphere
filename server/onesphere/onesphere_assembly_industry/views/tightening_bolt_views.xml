@@ -4,9 +4,15 @@
             <field name="name">tightening_bolt_view_form</field>
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="Tightening Bolt" js_class="tightening_bolt_form">
                     <sheet>
-                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button string="Tightening Process Proposal"
+                                    attrs="{'invisible': [('bolt_result_rel', '=', False)]}"
+                                    class="o_button_process_proposal" icon="fa-thumbs-up"
+                                    groups="mrp.group_mrp_user">
+                            </button>
+                        </div>
                         <group>
                             <group>
                                 <field name="name"/>
@@ -36,6 +42,9 @@
                             </page>
                             <page string="Description">
                                 <field name="description"/>
+                            </page>
+                            <page string="拧紧角度建议">
+                                <div class="o_angle_hist"/>
                             </page>
                         </notebook>
                     </sheet>

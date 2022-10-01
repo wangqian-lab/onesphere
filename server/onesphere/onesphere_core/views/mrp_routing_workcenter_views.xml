@@ -6,6 +6,10 @@
         <field name="model">mrp.routing.workcenter</field>
         <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="onesphere_bom_ids" widget="many2many_tags" readonly="1"/>
+                <field name="revision" readonly="1"/>
+            </xpath>
             <xpath expr="//group[1]" position="before">
                 <div class="oe_button_box" name="button_box">
                     <button name="button_open_mrp_workorder_step_action" type="object" class="oe_stat_button"

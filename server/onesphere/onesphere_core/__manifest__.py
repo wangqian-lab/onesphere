@@ -36,6 +36,7 @@
         'views/res_config_settings_views.xml',
         'views/mrp_routing_workcenter_views.xml',
         'views/mrp_workcenter_views.xml',
+        'views/assets.xml',
     ],
     'demo': [
         # 'demo/track_code_demo.xml',

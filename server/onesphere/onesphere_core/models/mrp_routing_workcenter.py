@@ -15,11 +15,17 @@ class MrpRoutingWorkcenter(models.Model):
     work_step_ids = fields.One2many('onesphere.mrp.operation.step.rel', 'operation_id', string='Work Step',
                                     check_company=True)
 
-    onesphere_bom_ids = fields.Many2many('mrp.bom', 'bom_operation_rel', 'onesphere_operation_id',
-                                         'onesphere_bom_id',
+    onesphere_bom_ids = fields.One2many('onesphere.mrp.bom.operation.rel', 'onesphere_operation_id',
                                          string='MRP Bom Operation Relationship')
 
+    revision = fields.Integer('Revision', default=1)
+
     work_step_count = fields.Integer('Working Steps', compute=_compute_work_step_count)
+
+    def write(self, vals):
+        ver = self.revision or 1
+        vals.update({"revision": ver + 1})
+        return super(MrpRoutingWorkcenter, self).write(vals)
 
     def button_open_mrp_workorder_step_action(self):
         self.ensure_one()

@@ -11,7 +11,7 @@ class OneshareQuality(models.Model):
 
     tightening_opr_point_ids = fields.One2many('onesphere.tightening.opr.point', 'parent_quality_point_id')
 
-    step_version = fields.Integer(default=1, string='Step Version')
+    revision = fields.Integer(default=1, string='Step Revision')
 
     tag_ids = fields.Many2many('onesphere.work.step.tag', 'step_tag_rel', 'onesphere_step_id', 'onesphere_tag_id',
                                string='Step Tag Relationship')
@@ -49,13 +49,13 @@ class OneshareQuality(models.Model):
         return ret
 
     def write(self, vals):
-        ver = self.step_version
-        vals.update({"step_version": ver + 1})
+        ver = self.revision
+        vals.update({"revision": ver + 1})
         # 修改使用了该工步的作业的版本号
         for operation_step_rel in self.onesphere_operation_ids:
             if not operation_step_rel.operation_id:
                 continue
-            operation_step_rel.operation_id.oper_version += 1
+            operation_step_rel.operation_id.revision += 1
         return super(OneshareQuality, self).write(vals)
 
     def select_tightening_units(self):

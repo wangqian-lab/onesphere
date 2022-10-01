@@ -5,6 +5,7 @@ from . import quality_measurement
 from . import operation_type
 from . import quality
 from . import track_code
+from . import mrp_bom
 from . import daq
 from . import mrp_workcenter
 from . import res_config_settings

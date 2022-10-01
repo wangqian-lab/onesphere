@@ -15,6 +15,10 @@ class MrpRoutingWorkcenter(models.Model):
     work_step_ids = fields.One2many('onesphere.mrp.operation.step.rel', 'operation_id', string='Work Step',
                                     check_company=True)
 
+    onesphere_bom_ids = fields.Many2many('mrp.bom', 'bom_operation_rel', 'onesphere_operation_id',
+                                         'onesphere_bom_id',
+                                         string='MRP Bom Operation Relationship')
+
     work_step_count = fields.Integer('Working Steps', compute=_compute_work_step_count)
 
     def button_open_mrp_workorder_step_action(self):

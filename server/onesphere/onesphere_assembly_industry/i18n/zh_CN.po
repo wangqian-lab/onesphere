@@ -1329,7 +1329,7 @@ msgstr "拧紧结果"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__measurement_step_results
 msgid "Tightening Step Results"
-msgstr "拧紧工步结果"
+msgstr "分段拧紧结果"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__tightening_strategy

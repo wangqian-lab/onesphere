@@ -59,7 +59,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
             };
 
             this._rpc({
-                model: 'onesphere.assy.industry.spc',
+                model: this.modelName,
                 method: 'query_spc',
                 args: [query_date_from.format('YYYY-MM-DD HH:mm:ss'), query_date_to.format('YYYY-MM-DD HH:mm:ss'), query_type, usl, lsl, limit, others],
             }).then(function (result) {
@@ -78,8 +78,15 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                     self.renderer.render_pages(result.pages);
                     self.displayNotification({
                         type: 'success',
-                        title: 'SPC分析成功',
-                        message: '',
+                        title: result.title || 'SPC分析成功',
+                        message: result.message ||'',
+                        sticky: false,
+                    });
+                }else {
+                    self.displayNotification({
+                        type: 'warning',
+                        title: result.title || 'SPC分析成功',
+                        message: result.message ||'',
                         sticky: false,
                     });
                 }

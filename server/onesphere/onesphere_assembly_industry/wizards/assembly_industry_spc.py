@@ -35,6 +35,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                                         default='torque',
                                         string='Assembly Industry SPC Measurement Type')
 
+    display_name = fields.Char(default='Statistical Process Control(SPC)', store=False)
+
     @api.model
     def default_get(self, fields_list):
         res = super(OnesphereAssyIndustrySPC, self).default_get(fields_list)
@@ -232,13 +234,15 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
     def _compute_weill_dist_js(self, nok_data_list: List[float]):
         # floc, fscale = exponweib.fit_loc_scale(nok_data_list)
+        data_len = len(nok_data_list)
         a, c, loc, scale = exponweib.fit(nok_data_list)
-        hist, bin_edges = np.histogram(nok_data_list, bins=10, density=True)
+        bins = np.linspace(np.min(nok_data_list), np.max(nok_data_list) + 0.5, num=10)
+        hist, bin_edges = np.histogram(nok_data_list, bins=bins)
         x_axis_data, y_histogram_data, y_normal_data = [], [], []
         y_pdf = exponweib(a, c, loc, scale).pdf(bin_edges).tolist()
         for i in range(len(bin_edges) - 1):
             x_axis_data.append(f'{bin_edges[i]:.1f},{bin_edges[i + 1]:.1f}')
-            y_histogram_data.append(round(hist[i] * 100, 2))
+            y_histogram_data.append(round(hist[i] / data_len * 100, 2))
             y_normal_data.append(round(y_pdf[i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data
 

@@ -98,6 +98,34 @@ class OperationResult(HModel):
          'Per Screw Gun tightening ID Tracking Number must different'),
         ('entity_id_uniq', 'unique(entity_id, time)', 'entity_id must be unique')]
 
+    def get_nok_tightening_result_time_bucket_count(self, date_from=None, date_to=None, bolt_id=None, step='week',
+                                                    limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
+        if not date_to:
+            date_to = fields.Datetime.now()
+        if not date_from:
+            date_from = fields.Datetime.today() - relativedelta(years=10)
+        cr = self.env.cr
+        bucket = f'1 {step}'
+        sub_query = f'''SELECT
+                      time_bucket_gapfill('{bucket}', control_time) as tt,
+                      locf(count(*)) as count
+                    FROM public.onesphere_tightening_result
+                    WHERE control_time between %s AND %s
+                    GROUP BY tt 
+                    ORDER BY tt
+                        '''
+        if bolt_id:
+            sub_query += f'''AND tightening_point_name={bolt_id} '''
+        if limit:
+            sub_query += f'''LIMIT {limit} '''
+
+        query = f'''SELECT s.* FROM({sub_query}) AS s WHERE s.count IS NOT NULL;'''
+        cr.execute(query, (date_from, date_to,))
+        result = cr.fetchall()
+        if not result:
+            raise ValidationError('查询获取结果为空,请重新定义查询参数或等待新结果数据')
+        return result
+
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
                                               bolt_id=None,
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):

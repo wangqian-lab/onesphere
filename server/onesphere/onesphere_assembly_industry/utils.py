@@ -11,7 +11,7 @@ def get_general_grid_option():
     }
 
 
-def get_norm_dist_echarts_options(data={}, query_type='torque', description=''):
+def get_dist_echarts_options(data={}, query_type='torque', description='', type='norm'):
     """生成正态分布需要的序列
     Args:
         data ([type]): [description]
@@ -19,9 +19,16 @@ def get_norm_dist_echarts_options(data={}, query_type='torque', description=''):
         [Dict]: [echarts series Option]
     """
     titleOptions = {
-        'text': f'正态分布\n{description}',
         'textAlign': 'auto',
     }
+    if type == 'norm':
+        titleOptions.update({
+            'text': f'正态分布\n{description}'
+        })
+    if type == 'weill':
+        titleOptions.update({
+            'text': f'失效韦伯分布\n{description}'
+        })
     gridOptions = get_general_grid_option()
 
     xAxisOptions = [{

@@ -3,7 +3,7 @@ import numpy as np
 from dateutil.relativedelta import relativedelta
 from odoo.addons.onesphere_assembly_industry.constants import ENV_PROCESS_PROPOSAL_DURATION, \
     ENV_PROCESS_PROPOSAL_ANGLE_MARGIN
-from odoo.addons.onesphere_assembly_industry.utils import get_norm_dist_echarts_options
+from odoo.addons.onesphere_assembly_industry.utils import get_dist_echarts_options
 
 from odoo import fields, models
 
@@ -42,8 +42,8 @@ class OnesphereTighteningBolt(models.Model):
             description = '拧紧点数量: 0'
 
         angle_hist_y, angle_x_bin_edges = np.histogram(angles, bins=10)
-        o_angle_hist = get_norm_dist_echarts_options(data={'x1': angle_x_bin_edges.tolist(), 'y1': angle_hist_y.tolist()},
-                                                     query_type=query_type,
-                                                     description=description)
+        o_angle_hist = get_dist_echarts_options(data={'x1': angle_x_bin_edges.tolist(), 'y1': angle_hist_y.tolist()},
+                                                query_type=query_type,
+                                                description=description)
         ret = {'pages': {'o_angle_hist': o_angle_hist}}
         return ret

@@ -4,9 +4,10 @@ from typing import List
 
 import numpy as np
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
-from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_norm_dist_echarts_options
+from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_dist_echarts_options
 from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray
 from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
+from scipy.stats import exponweib
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
@@ -83,9 +84,9 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
 
-        # 正太分布数据
+        # 正态分布数据
         x1, y1, y2, eff_length = self._compute_dist_js(data_list, usl, lsl, spc_step)
-        dict1 = {
+        dict_norm = {
             'x1': x1,
             'y1': y1,
             'y2': y2
@@ -96,12 +97,26 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         else:
             description = '拧紧点数量: 0'
 
-        dict2 = self._compute_dist_XR_js(data_list)
+        dict_xr_chart = self._compute_dist_XR_js(data_list)
+
+        nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
+                                                                      filter_result='nok',
+                                                                      field=query_type_field,
+                                                                      limit=limit)
+        nok_data_list = nok_data[query_type]
+        x1, y1, y2 = self._compute_weill_dist_js(nok_data_list)
+        dict_weill_dict = {
+            'x1': x1,
+            'y1': y1,
+            'y2': y2
+        }
+
         ret = {
-            'pages': {'o_spc_norm_dist': get_norm_dist_echarts_options(dict1, query_type, description),
-                      # 'o_spc_weibull_dist': self.get_weill_dist_echarts_options(),
+            'pages': {'o_spc_norm_dist': get_dist_echarts_options(dict_norm, query_type, description),
+                      # 'o_spc_weibull_dist': get_dist_echarts_options(dict_weill_dict, query_type, description,
+                      #                                                type='weill'),
                       # 'o_spc_scatter': self.get_scatter_echarts_options(),
-                      'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict2, query_type, description),
+                      'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict_xr_chart, query_type, description),
                       },
             'cmk': CMK if CMK else 0.0,
             'cpk': CPK if CPK else 0.0,
@@ -203,7 +218,6 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             'series': seriesOptions
         }
 
-
     def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
@@ -216,9 +230,21 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             y_normal_data.append(round(normal_data[ARRAY_Y][i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data, histogram_data[EFF_LENGTH]
 
-    def _compute_dist_XR_js(self, data_list: List[float]):
+    def _compute_weill_dist_js(self, nok_data_list: List[float]):
+        # floc, fscale = exponweib.fit_loc_scale(nok_data_list)
+        a, c, loc, scale = exponweib.fit(nok_data_list)
+        hist, bin_edges = np.histogram(nok_data_list, bins=10, density=True)
+        x_axis_data, y_histogram_data, y_normal_data = [], [], []
+        y_pdf = exponweib(a, c, loc, scale).pdf(bin_edges).tolist()
+        for i in range(len(bin_edges) - 1):
+            x_axis_data.append(f'{bin_edges[i]:.1f},{bin_edges[i + 1]:.1f}')
+            y_histogram_data.append(round(hist[i] * 100, 2))
+            y_normal_data.append(round(y_pdf[i] * 100, 2))
+        return x_axis_data, y_histogram_data, y_normal_data
+
+    def _compute_dist_XR_js(self, data_list: List[float], step=10):
         # x_bar = np.arange(int(min), int(max), 1)
-        array_2d_data = covert2dArray(data_list, 10)
-        XR_data = xbar_rbar(array_2d_data, 10)
+        array_2d_data = covert2dArray(data_list, step)
+        XR_data = xbar_rbar(array_2d_data, step)
         # C = rbar(A, 10)
         return XR_data

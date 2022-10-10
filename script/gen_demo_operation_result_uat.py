@@ -76,7 +76,7 @@ if __name__ == '__main__':
     rec_str = []
     data = pd.read_csv(RESULT_DATA_PATH).to_dict()
     for index in range(len(data.get('pk'))):
-        entity_id = data['entity_id'][index]
+        entity_id = data['entity_id'][index].replace('/', '-')
         track_no = data['vin'][index][:8]
         tightening_process_no = data['pset'][index]
         measurement_final_torque = data['measure_torque'][index]

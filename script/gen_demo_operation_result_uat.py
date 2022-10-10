@@ -34,6 +34,7 @@ RECORD_TMPL = Template('''
             <field name="attribute_equipment_no">{{ attribute_equipment_no }}</field>
             <field name="measurement_final_torque">{{ measurement_final_torque }}</field>
             <field name="measurement_final_angle">{{ measurement_final_angle }}</field>
+            <field name="tightening_point_name" ref="{{ tightening_point_name }}"/>
             <field name="step_type">tightening</field>
             <field name="tightening_result">{{ tightening_result }}</field>
             <field name="tightening_strategy">{{ tightening_strategy }}</field>

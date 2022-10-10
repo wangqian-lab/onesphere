@@ -10,9 +10,12 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
 
     var _t = core._t;
     var FormRenderingEngine = require('web.FormRenderer');
-    let renderChart = null;
-    let chartsData = null;
     var TighteningSPCFormController = SPCViewerController.extend({
+
+        init: function (parent, model, renderer, params) {
+            this._super.apply(this, arguments);
+        },
+
         _onButtonQuerySPC: function (ev) {
             var self = this;
             var query_date_from = self.renderer.state.data['query_date_from'];
@@ -47,7 +50,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                     return;
                 }
             } catch (error) {
-
+                console.error(error);
             }
             var others = {
                 'model_object': self.renderer.state.data['model_object'],
@@ -55,21 +58,8 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                 'spc_step': self.renderer.state.data['spc_step'] || 0.1,
             };
 
-            self.render_pages =function(pages){
-            _.map(pages, function (opts, selection) {
-                var sel = 'div.' + selection;
-                var ele = self.$el.find(sel).get(0);
-                if (!!ele) {
-                    // 找到这个echarts DOM元素
-                    const charts = echarts.getInstanceByDom(ele);
-                    charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
-                    charts.resize();
-                    }
-                });
-            },
-            renderChart = self.render_pages;
             this._rpc({
-                model: 'onesphere.assy.industry.spc',
+                model: this.modelName,
                 method: 'query_spc',
                 args: [query_date_from.format('YYYY-MM-DD HH:mm:ss'), query_date_to.format('YYYY-MM-DD HH:mm:ss'), query_type, usl, lsl, limit, others],
             }).then(function (result) {
@@ -84,8 +74,21 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                     self.setData(self.handle, 'cpk', 0.0);
                 }
                 if (!!result.pages) {
-                chartsData = result.pages;
-                    self.render_pages(result.pages);
+                    self.renderer.chartsData = result.pages;
+                    self.renderer.render_pages(result.pages);
+                    self.displayNotification({
+                        type: 'success',
+                        title: result.title || 'SPC分析成功',
+                        message: result.message ||'',
+                        sticky: false,
+                    });
+                }else {
+                    self.displayNotification({
+                        type: 'warning',
+                        title: result.title || 'SPC分析成功',
+                        message: result.message ||'',
+                        sticky: false,
+                    });
                 }
             });
 
@@ -93,36 +96,48 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
     });
 
     var SPCViewerRenderer = FormRenderingEngine.extend({
+        init: function (parent, model, renderer, params) {
+            this._super.apply(this, arguments);
+            this.chartsData = null;
+        },
+
         _renderTabPage: function (page, page_id) {
-            var self = this;
-            var $result = this._super.apply(this, arguments);
-            $result.css({width: '100%'});
-            var $container = $result.get(0).firstChild;
+            var $ret = this._super.apply(this, arguments);
+            $ret.css({width: '100%'});
+            var $container = $ret.get(0).firstChild;
             var chart = echarts.init($container, null, {height: 600});
             $(window).resize(function () {
                 chart.resize();
             });
-            $result.one('shown.bs.tab', function () {
-                var activeTab = $(this);
-                // var tab = activeTab.get(0);
-                var href = activeTab.attr('href'); //為id
-                var ele = $new_notebook.find(href).get(0);
-                var chart = echarts.getInstanceByDom(ele);
-                chart.resize();
-            });
-            return $result;
+            return $ret;
         },
 
-         _onNotebookTabChanged: function (evt) {
-            if(renderChart){renderChart(chartsData);}
+        render_pages: function (pages) {
+            var self = this;
+            _.map(pages, function (opts, selection) {
+                var sel = 'div.' + selection;
+                var ele = self.$el.find(sel).get(0);
+                if (!!ele) {
+                    // 找到这个echarts DOM元素
+                    const charts = echarts.getInstanceByDom(ele);
+                    charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
+                    charts.resize();
+                }
+            });
+        },
+
+        _onNotebookTabChanged: function (evt) {
+            if (!!this.chartsData) {
+                this.render_pages(this.chartsData);
+            }
 //             var activeTab = evt;
 //             // var tab = activeTab.get(0);
 //             var href = activeTab.attr('href'); //為id
 //             var ele =  $new_notebook.find(href).get(0);
 //             var chart = echarts.getInstanceByDom(ele);
 //             chart.resize();
-//             this._super.apply(this, arguments);
-         },
+            this._super.apply(this, arguments);
+        },
 
     });
     var TighteningSPCFormView = SPCFormView.extend({
@@ -133,6 +148,8 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
     });
 
     viewRegistry.add('tightening_spc_form', TighteningSPCFormView);
+
+    return TighteningSPCFormView;
 
 });
 

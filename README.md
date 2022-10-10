@@ -34,6 +34,8 @@ ENV_MAX_WORKERS: 8 # 并发获取外部数据时线程池的最大线性数量
 ENV_OSS_SECURITY_TRANSPORT: false # 对象存储是否通过SSL连接
 ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT: 1000 #下载拧紧曲线的限制数量
 ENV_BACKUP_WITH_MINIO: false #备份还原是否包含minio数据
+ENV_PROCESS_PROPOSAL_ANGLE_MARGIN: 3 #给出建议角度范围sigma的margin数值
+ENV_PROCESS_PROPOSAL_DURATION: 30 #给出建议角度范围所取的拧紧结果的间隔天数,默认从当天倒退30天范围
 ```
 
 # 开发环境安装

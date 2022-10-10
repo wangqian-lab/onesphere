@@ -4,8 +4,9 @@
                 id="onesphere_tightening_result_spc_analysis"
                 name="Statistical Process Control(SPC)"
                 parent="onesphere_spc.onesphere_spc_root"
-                groups="mrp.group_mrp_manager"
+                groups="mrp.group_mrp_user"
                 sequence="20"/>
+
 
         <record id="onesphere_tightening_result_spc" model="ir.ui.view">
             <field name="name">onesphere_tightening_result_spc</field>
@@ -15,6 +16,7 @@
                     <div class="o_calendar_buttons">
                     </div>
                     <sheet>
+                        <field name="display_name" invisible="1"/>
                         <group string="Query Parameters">
                             <group string="Type">
                                 <field name="measurement_type" widget="radio"/>
@@ -47,12 +49,12 @@
                         <page string="Normal Distribution">
                             <div class="o_spc_norm_dist"/>
                         </page>
-<!--                        <page string="Weibull Distribution">-->
-<!--                            <div class="o_spc_weibull_dist"/>-->
-<!--                        </page>-->
-<!--                        <page string="Scatter">-->
-<!--                            <div class="o_spc_scatter"/>-->
-<!--                        </page>-->
+                        <!--                        <page string="Weibull Distribution">-->
+                        <!--                            <div class="o_spc_weibull_dist"/>-->
+                        <!--                        </page>-->
+                        <!--                        <page string="Scatter">-->
+                        <!--                            <div class="o_spc_scatter"/>-->
+                        <!--                        </page>-->
                         <page string="X-R(X-R Control Chart)">
                             <div class="o_spc_xr_chart"/>
                         </page>
@@ -67,11 +69,71 @@
             <field name="view_mode">form</field>
             <field name="target">current</field>
             <field name="binding_model_id" ref="model_onesphere_assy_industry_spc"/>
+            <field name="view_id" ref="onesphere_tightening_result_spc"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+
+        <record id="onesphere_tightening_result_failure_analysis" model="ir.ui.view">
+            <field name="name">onesphere_tightening_result_failure_analysis</field>
+            <field name="model">onesphere.assy.failure.analysis</field>
+            <field name="arch" type="xml">
+                <form string="Tightening Result Statistical Analysis Of Failure" js_class="tightening_spc_form">
+                    <div class="o_calendar_buttons">
+                    </div>
+                    <sheet>
+                        <field name="display_name" invisible="1"/>
+                        <group string="Query Parameters">
+                            <group string="Type">
+                                <field name="measurement_type" widget="radio"/>
+                            </group>
+                            <group string="Time">
+                                <field name="query_date_from" required="1"/>
+                                <field name="query_date_to"/>
+                            </group>
+                            <group string="Product">
+                            </group>
+                            <group string="SPC Parameter">
+                                <field name="limit" required="1"/>
+                            </group>
+                            <group string="Model Info">
+                                <field name="model_object" required="1" readonly="1"/>
+                                <field name="model_object_field" required="1" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <notebook>
+                        <page string="Weibull Distribution">
+                            <div class="o_spc_weibull_dist"/>
+                        </page>
+                        <!--                        <page string="Scatter">-->
+                        <!--                            <div class="o_spc_scatter"/>-->
+                        <!--                        </page>-->
+
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_tightening_result_failure_analysis_form" model="ir.actions.act_window">
+            <field name="name">Tightening Result Failure Analysis</field>
+            <field name="res_model">onesphere.assy.failure.analysis</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="onesphere_tightening_result_failure_analysis"/>
+            <field name="binding_model_id" ref="model_onesphere_assy_failure_analysis"/>
             <field name="binding_view_types">form</field>
         </record>
 
         <menuitem id="menu_assembly_tightening_result_spc" name="Tightening Result SPC"
                   action="action_tightening_result_spc_form"
                   parent="onesphere_tightening_result_spc_analysis" sequence="10"/>
+
+        <menuitem id="menu_assembly_tightening_failure_analysis" name="Statistical Analysis Of Failure"
+                  action="action_tightening_result_failure_analysis_form"
+                  parent="onesphere_tightening_result_spc_analysis" sequence="20"/>
+
+
     </data>
 </odoo>

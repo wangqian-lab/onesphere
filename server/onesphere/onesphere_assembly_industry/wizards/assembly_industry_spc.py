@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
-from odoo.fields import DATETIME_LENGTH
 import logging
-from odoo.exceptions import ValidationError
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
-import numpy as np
-from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
-from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, rbar, covert2dArray
 from typing import List
+
+import numpy as np
+from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
+from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_dist_echarts_options
+from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray
+from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
+from scipy.stats import exponweib
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.fields import DATETIME_LENGTH
 
 _logger = logging.getLogger(__name__)
 
@@ -15,16 +19,6 @@ measurement_type_field_map = {
     'torque': 'measurement_final_torque',
     'angle': 'measurement_final_angle'
 }
-
-
-def get_general_grid_option():
-    return {
-        'left': '10%',
-        'right': 130,
-        'top': '20%',
-        'bottom': 30,
-    }
-
 
 X_LINE = 0
 ARRAY_Y = 1
@@ -40,6 +34,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                                          ('angle', 'Angle')],
                                         default='torque',
                                         string='Assembly Industry SPC Measurement Type')
+
+    display_name = fields.Char(default='Statistical Process Control(SPC)', store=False)
 
     @api.model
     def default_get(self, fields_list):
@@ -78,20 +74,21 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         query_type_field = query_type
         if not query_type_field:
             raise ValidationError(f'query_type: {query_type} is not valid. query_type_field is required')
-        data = model_object.get_tightening_result_filter_datetime(query_date_from, query_date_to, query_type_field,
+        data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
+                                                                  field=query_type_field,
                                                                   limit=limit)
         _logger.debug(_(f"Spc Data of Query Result: {data}"))
 
         data_list = data[query_type]
 
-        data_list = list(filter(lambda d: d, data_list))
+        # data_list = list(filter(lambda d: d, data_list))
 
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
 
-        # 正太分布数据
+        # 正态分布数据
         x1, y1, y2, eff_length = self._compute_dist_js(data_list, usl, lsl, spc_step)
-        dict1 = {
+        dict_norm = {
             'x1': x1,
             'y1': y1,
             'y2': y2
@@ -102,12 +99,26 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         else:
             description = '拧紧点数量: 0'
 
-        dict2 = self._compute_dist_XR_js(data_list)
+        dict_xr_chart = self._compute_dist_XR_js(data_list)
+
+        nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
+                                                                      filter_result='nok',
+                                                                      field=query_type_field,
+                                                                      limit=limit)
+        nok_data_list = nok_data[query_type]
+        x1, y1, y2 = self._compute_weill_dist_js(nok_data_list)
+        dict_weill_dict = {
+            'x1': x1,
+            'y1': y1,
+            'y2': y2
+        }
+
         ret = {
-            'pages': {'o_spc_norm_dist': self.get_norm_dist_echarts_options(dict1, query_type, description),
-                      # 'o_spc_weibull_dist': self.get_weill_dist_echarts_options(),
+            'pages': {'o_spc_norm_dist': get_dist_echarts_options(dict_norm, query_type, description),
+                      # 'o_spc_weibull_dist': get_dist_echarts_options(dict_weill_dict, query_type, description,
+                      #                                                type='weill'),
                       # 'o_spc_scatter': self.get_scatter_echarts_options(),
-                      'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict2, query_type, description),
+                      'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict_xr_chart, query_type, description),
                       },
             'cmk': CMK if CMK else 0.0,
             'cpk': CPK if CPK else 0.0,
@@ -209,70 +220,6 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             'series': seriesOptions
         }
 
-    @staticmethod
-    def get_norm_dist_echarts_options(data={}, query_type='torque', description=''):
-        """生成正态分布需要的序列
-        Args:
-            data ([type]): [description]
-        Returns:
-            [Dict]: [echarts series Option]
-        """
-        x1 = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        y1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7]
-        y2 = [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
-        titleOptions = {
-            'text': '正态分布(%s)' % description,
-            'textAlign': 'auto',
-        }
-        gridOptions = get_general_grid_option()
-
-        xAxisOptions = [{
-            'name': _('Torque(NM)') if query_type == 'torque' else _('Angle(Deg)'),
-            'nameLocation': 'end',
-            'nameTextStyle': {
-                'fontStyle': 'bolder',
-                'fontSize': 16
-            },
-            'data': data.get('x1', x1),
-
-        }]
-        yAxisOptions = [
-            {
-                'type': 'value',
-                'name': '概率(Probability)',
-                'min': 0,
-                'max': 'dataMax',
-                'interval': 5,
-                'axisLabel': {
-                    'formatter': '{value} %'
-                }
-            },
-        ]
-
-        seriesOptions = [
-            {
-                'name': '直方图',
-                'type': 'bar',
-                'label': {'show': True},
-                'data': data.get('y1', y1)
-            },
-            {
-                'name': '曲线图',
-                'type': 'line',
-                'yAxisIndex': 0,
-                'label': {'show': True},
-                'data': data.get('y2', y2),
-                'smooth': True
-            }
-        ]
-        return {
-            'title': titleOptions,
-            'grid': gridOptions,
-            'xAxis': xAxisOptions,
-            'yAxis': yAxisOptions,
-            'series': seriesOptions
-        }
-
     def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
         normal_data = normal(data_list, usl, lsl, spc_step)
@@ -285,9 +232,23 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             y_normal_data.append(round(normal_data[ARRAY_Y][i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data, histogram_data[EFF_LENGTH]
 
-    def _compute_dist_XR_js(self, data_list: List[float]):
+    def _compute_weill_dist_js(self, nok_data_list: List[float]):
+        # floc, fscale = exponweib.fit_loc_scale(nok_data_list)
+        data_len = len(nok_data_list)
+        a, c, loc, scale = exponweib.fit(nok_data_list)
+        bins = np.linspace(np.min(nok_data_list), np.max(nok_data_list) + 0.5, num=10)
+        hist, bin_edges = np.histogram(nok_data_list, bins=bins)
+        x_axis_data, y_histogram_data, y_normal_data = [], [], []
+        y_pdf = exponweib(a, c, loc, scale).pdf(bin_edges).tolist()
+        for i in range(len(bin_edges) - 1):
+            x_axis_data.append(f'{bin_edges[i]:.1f},{bin_edges[i + 1]:.1f}')
+            y_histogram_data.append(round(hist[i] / data_len * 100, 2))
+            y_normal_data.append(round(y_pdf[i] * 100, 2))
+        return x_axis_data, y_histogram_data, y_normal_data
+
+    def _compute_dist_XR_js(self, data_list: List[float], step=10):
         # x_bar = np.arange(int(min), int(max), 1)
-        array_2d_data = covert2dArray(data_list, 10)
-        XR_data = xbar_rbar(array_2d_data, 10)
+        array_2d_data = covert2dArray(data_list, step)
+        XR_data = xbar_rbar(array_2d_data, step)
         # C = rbar(A, 10)
         return XR_data

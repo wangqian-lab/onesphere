@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-import uuid
-
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import ValidationError
-from dateutil.relativedelta import relativedelta
 import logging
+import uuid
 from pprint import pformat
-from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MIN_LIMIT, ONESHARE_DEFAULT_SPC_MAX_LIMIT
+
+from dateutil.relativedelta import relativedelta
+from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
 from odoo.addons.onesphere_core.constants import oneshare_daq_with_track_code_rel_enable
+
+from odoo import api, fields, _
+from odoo.exceptions import ValidationError
 
 try:
     from odoo.models import OneshareHyperModel as HModel
@@ -97,7 +98,36 @@ class OperationResult(HModel):
          'Per Screw Gun tightening ID Tracking Number must different'),
         ('entity_id_uniq', 'unique(entity_id, time)', 'entity_id must be unique')]
 
+    def get_nok_tightening_result_time_bucket_count(self, date_from=None, date_to=None, bolt_id=None, step='week',
+                                                    limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
+        if not date_to:
+            date_to = fields.Datetime.now()
+        if not date_from:
+            date_from = fields.Datetime.today() - relativedelta(years=10)
+        cr = self.env.cr
+        bucket = f'1 {step}'
+        sub_query = f'''SELECT
+                      time_bucket_gapfill('{bucket}', control_time) as tt,
+                      locf(count(*)) as count
+                    FROM public.onesphere_tightening_result
+                    WHERE control_time between %s AND %s
+                    GROUP BY tt 
+                    ORDER BY tt
+                        '''
+        if bolt_id:
+            sub_query += f'''AND tightening_point_name={bolt_id} '''
+        if limit:
+            sub_query += f'''LIMIT {limit} '''
+
+        query = f'''SELECT s.* FROM({sub_query}) AS s WHERE s.count IS NOT NULL;'''
+        cr.execute(query, (date_from, date_to,))
+        result = cr.fetchall()
+        if not result:
+            raise ValidationError('查询获取结果为空,请重新定义查询参数或等待新结果数据')
+        return result
+
     def get_tightening_result_filter_datetime(self, date_from=None, date_to=None, field=None, filter_result='ok',
+                                              bolt_id=None,
                                               limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
         if not date_to:
             date_to = fields.Datetime.now()
@@ -111,6 +141,8 @@ class OperationResult(HModel):
                 '''
         if filter_result:
             query += f'''AND tightening_result='{filter_result}' '''
+        if bolt_id:
+            query += f'''AND tightening_point_name={bolt_id} '''
         if limit:
             query += f'''limit {limit} '''
         cr.execute(query, (date_from, date_to,))
@@ -398,3 +430,15 @@ $$ LANGUAGE plpgsql;
             self._init_default()
         else:
             self._init_with_track_code_rel()
+
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        context = self.env.context
+        if groupby[0] == 'attribute_equipment_no' and len(groupby) == 1:
+            custom_limit = context.get('custom_limit', None)
+        else:
+            custom_limit = None
+        ret = super(OperationResult, self).read_group(domain, fields, groupby, offset=offset,
+                                                      limit=limit or custom_limit,
+                                                      orderby=orderby, lazy=lazy)
+        return ret

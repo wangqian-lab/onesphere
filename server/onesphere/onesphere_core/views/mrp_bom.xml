@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="oneshare_mrp_bom_form_inherit" model="ir.ui.view">
+            <field name="name">oneshare_mrp_bom_form_inherit</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='operations']" position="replace">
+                    <page string="Operations"
+                          name="operations"
+                          attrs="{'invisible': [('type', 'not in',('normal','phantom'))]}"
+                          groups="mrp.group_mrp_routings">
+                        <field name="onesphere_bom_operation_ids"
+                               attrs="{'invisible': [('type','not in',('normal','phantom'))]}"
+                               groups="mrp.group_mrp_routings">
+                            <tree string="Operations" editable="bottom">
+                                <field name="company_id" invisible="1"/>
+                                <field name="onesphere_operation_id" groups="mrp.group_mrp_routings"
+                                       options="{'no_create':True,'no_create_edit':True}"/>
+                                <field name="onesphere_operation_revision" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

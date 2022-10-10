@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, tools, _
-import logging, json
-import http, os
+import http
+import json
+import logging
 import pprint
-from odoo.exceptions import UserError, ValidationError
-import requests as Requests
-from requests import ConnectionError, RequestException
-from odoo.addons.oneshare_utils.constants import ENV_MAX_WORKERS
-from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MULTI_MEASURE_TYPE, \
-    MEASURE_TYPE, MULTI_MEASURE_TYPE, PASS_FAIL_TYPE, MASTER_ROUTING_API
-from distutils.util import strtobool
-from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
 from concurrent import futures
-from odoo.tools import ustr
-from lxml.html.soupparser import fromstring
 from xml.etree import ElementTree
+
+import requests as Requests
+from lxml.html.soupparser import fromstring
+from odoo.addons.oneshare_utils.constants import ENV_MAX_WORKERS
+from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, MEASURE_TYPE, \
+    MULTI_MEASURE_TYPE, MASTER_ROUTING_API
+from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
+
+from odoo import fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
 
@@ -24,52 +25,42 @@ class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
     code = fields.Char('Code')
-    oper_version = fields.Integer('Operation Version', default=1)
     workcenter_group_id = fields.Many2one('mrp.workcenter.group', string='Workcenter Group')
     workcenter_ids = fields.Many2many(
         'mrp.workcenter',
         related='workcenter_group_id.onesphere_workcenter_ids',
         string='Work Center Set')
-    max_op_time = fields.Integer('Max Operation time(second)',
-                                 default=60)
-
-    onesphere_bom_ids = fields.Many2many('mrp.bom', 'bom_operation_rel', 'onesphere_operation_id',
-                                         'onesphere_bom_id',
-                                         string='MRP Bom Operation Relationship')
+    # max_op_time = fields.Integer('Max Operation time(second)', default=60)
+    time_cycle_manual = fields.Float(default=1)  # 修改默认最长时间为1分钟=60秒
 
     _sql_constraints = [('operation_code_unique', 'unique(code)', 'Code must be unique!')]
 
-    def write(self, vals):
-        ver = self.oper_version
-        vals.update({"oper_version": ver + 1})
-        return super(MrpRoutingWorkcenter, self).write(vals)
-
-    def _create_update_val_record(self, equipment, success_flag):
-        self.ensure_one()
-        ver_model = self.env['real.oper.version'].sudo()
-        ver_record = ver_model.search([('equipment_id', '=', equipment.id), ('operation_id', '=', self.id)])
-        if not ver_record:
-            # 未找到记录，需要新建
-            if not success_flag:
-                return
-            val = {
-                'equipment_id': equipment.id,
-                'operation_id': self.id,
-                'version': self.oper_version,
-                'state': 'finish'
-            }
-            ver_model.create(val)
-            return
-        if success_flag:
-            ver_record.update({
-                'version': self.oper_version,
-                'state': 'finish'
-            })
-        if not success_flag:
-            if ver_record.version != self.oper_version:
-                ver_record.update({
-                    'state': 'todo'
-                })
+    # def _create_update_val_record(self, equipment, success_flag):
+    #     self.ensure_one()
+    #     ver_model = self.env['real.oper.version'].sudo()
+    #     ver_record = ver_model.search([('equipment_id', '=', equipment.id), ('operation_id', '=', self.id)])
+    #     if not ver_record:
+    #         # 未找到记录，需要新建
+    #         if not success_flag:
+    #             return
+    #         val = {
+    #             'equipment_id': equipment.id,
+    #             'operation_id': self.id,
+    #             'version': self.oper_version,
+    #             'state': 'finish'
+    #         }
+    #         ver_model.create(val)
+    #         return
+    #     if success_flag:
+    #         ver_record.update({
+    #             'version': self.oper_version,
+    #             'state': 'finish'
+    #         })
+    #     if not success_flag:
+    #         if ver_record.version != self.oper_version:
+    #             ver_record.update({
+    #                 'state': 'todo'
+    #             })
 
     def _get_masterpc_url(self, master_pcs):
         connect_list = []
@@ -167,7 +158,7 @@ class MrpRoutingWorkcenter(models.Model):
         # 生成作业对应数据
         operation_val = {
             "workcenter_id": operation_id.workcenter_id.id,
-            "max_op_time": operation_id.max_op_time,
+            "max_op_time": int(operation_id.time_cycle_manual * 60),
             "name": f"[{operation_id.name}]@{operation_id.workcenter_id.name}",
             "product_id": bom_id.product_tmpl_id.id if bom_id else 0,
             "product_type": bom_id.product_tmpl_id.default_code if bom_id else "",
@@ -224,7 +215,8 @@ class MrpRoutingWorkcenter(models.Model):
         if bom_id:
             bom_ids = bom_id
         else:
-            bom_ids = self.env['mrp.bom'].search([('onesphere_bom_operation_ids', '=', operation_id.id)])
+            bom_ids = self.env['onesphere.mrp.bom.operation.rel'].search(
+                [('onesphere_operation_id', '=', operation_id.id)]).mapped('onesphere_bom_id')
         if not bom_ids:
             msg = _(f"Can Not Found MRP BOM Within The Operation:{operation_id.name}")
             _logger.error(msg)

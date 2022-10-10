@@ -94,7 +94,7 @@ class OSSInterface(models.AbstractModel):
             data.update({curve_id: self.get_oss_object(bucket_name, object_name, client) for
                          object_name, curve_id in zip(object_names, curve_ids)})
             return data
-        with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS) as executor:
+        with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS*4) as executor:
             task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for
                          object_name, curve_id in zip(object_names, curve_ids)}
             for task in as_completed(task_list):

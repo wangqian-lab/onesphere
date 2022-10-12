@@ -3,6 +3,7 @@ import io
 import os
 from typing import List
 from concurrent import futures
+from odoo.tools.profiler import profile
 from odoo import models, _
 from odoo.tools import ustr
 import logging
@@ -72,6 +73,7 @@ class OSSInterface(models.AbstractModel):
         security = ICP.get_param('oss.security', ENV_OSS_SECURITY_TRANSPORT)
         c = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=security,
                   http_client=urllib3.PoolManager(timeout=float(os.environ.get("ODOO_HTTP_SOCKET_TIMEOUT", '20')),
+                                                  maxsize=ENV_MAX_WORKERS * 8,
                                                   retries=urllib3.Retry(
                                                       total=5,
                                                       backoff_factor=0.2,
@@ -86,6 +88,7 @@ class OSSInterface(models.AbstractModel):
         global glb_minio_client
         glb_minio_client = None
 
+    @profile
     def get_oss_objects(self, bucket_name: str, object_names: List[str], curve_ids: List[str]):
         # 获取minio数据
         data = {}
@@ -94,9 +97,8 @@ class OSSInterface(models.AbstractModel):
             data.update({curve_id: self.get_oss_object(bucket_name, object_name, client) for
                          object_name, curve_id in zip(object_names, curve_ids)})
             return data
-        with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS*4) as executor:
-            task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for
-                         object_name, curve_id in zip(object_names, curve_ids)}
+        with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS * 8) as executor:
+            task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for object_name, curve_id in zip(object_names, curve_ids)}
             for task in as_completed(task_list):
                 task_exception = task.exception()
                 if task_exception:

@@ -73,6 +73,16 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                 } else {
                     self.setData(self.handle, 'cpk', 0.0);
                 }
+                if (!!result.cp) {
+                    self.setData(self.handle, 'cp', result.cp);
+                } else {
+                    self.setData(self.handle, 'cp', 0.0);
+                }
+                if (!!result.cr) {
+                    self.setData(self.handle, 'cr', result.cr);
+                } else {
+                    self.setData(self.handle, 'cr', 0.0);
+                }
                 if (!!result.pages) {
                     self.renderer.chartsData = result.pages;
                     self.renderer.render_pages(result.pages);

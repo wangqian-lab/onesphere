@@ -41,7 +41,9 @@
                             </group>
                             <group string="Quality SPC">
                                 <field name="cmk" readonly="1"/>
+                                <field name="cp" readonly="1"/>
                                 <field name="cpk" readonly="1"/>
+                                <field name="cr" readonly="1"/>
                             </group>
                         </group>
                     </sheet>

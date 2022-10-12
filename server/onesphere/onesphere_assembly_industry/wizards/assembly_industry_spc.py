@@ -5,7 +5,7 @@ from typing import List
 import numpy as np
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
 from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_dist_echarts_options
-from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray
+from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray, cr, cp
 from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
 from scipy.stats import exponweib
 
@@ -85,6 +85,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
         CMK = cmk(data_list, usl, lsl)
         CPK = cpk(data_list, usl, lsl)
+        CP = cp(data_list, usl, lsl)
+        CR = cr(data_list, usl, lsl)
 
         # 正态分布数据
         x1, y1, y2, eff_length = self._compute_dist_js(data_list, usl, lsl, spc_step)
@@ -122,6 +124,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                       },
             'cmk': CMK if CMK else 0.0,
             'cpk': CPK if CPK else 0.0,
+            'cp': CP if CP else 0.0,
+            'cr': CR if CR else 0.0,
         }
 
         return ret

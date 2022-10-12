@@ -27,7 +27,11 @@ class OnesphereSPCMixin(models.AbstractModel):
 
     cmk = fields.Float(string='Machine Capability Index(CMK)', default=0.0, store=False)
 
+    cp = fields.Float(string='Process Capability(CP)', default=0.0, store=False)
+
     cpk = fields.Float(string='Process Capability Index(CPK)', default=0.0, store=False)
+
+    cr = fields.Float(string='Capability Ratio(CR)', default=0.0, store=False)
 
     limit = fields.Integer(string='SPC Query Record Count Limit', default=ONESHARE_DEFAULT_SPC_MAX_LIMIT)
 

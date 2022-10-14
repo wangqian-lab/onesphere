@@ -13,6 +13,9 @@ RUN pip3 install --upgrade pip \
 COPY ./onesphere /mnt/extra-addons/
 COPY ./oneshare_base /mnt/extra-addons/
 
+RUN mkdir /dask-worker-space \
+    && chown odoo:odoo /dask-worker-space
+
 # oneshare base requirements
 RUN pip3 install -r /mnt/extra-addons/requirements.txt \
     && rm -f /requirements.txt \

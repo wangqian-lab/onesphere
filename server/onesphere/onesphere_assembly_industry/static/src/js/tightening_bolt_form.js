@@ -23,7 +23,7 @@ odoo.define('onesphere.tightening.bolt.view', function (require) {
             this._rpc({
                 model: ev.data.record.model,
                 method: 'button_open_tightening_process_proposal_analysis',
-                args: ev.data.record.res_ids,
+                args: [[ev.data.record.res_id]],
             }).then(function (result) {
                 if (!!result.pages) {
                     self.renderer.chartsData = result.pages;

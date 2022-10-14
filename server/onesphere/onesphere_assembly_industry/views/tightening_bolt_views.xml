@@ -43,7 +43,7 @@
                             <page string="Description">
                                 <field name="description"/>
                             </page>
-                            <page string="拧紧角度建议">
+                            <page string="拧紧角度建议" class="tightening_angle_proposal">
                                 <div class="o_angle_hist"/>
                             </page>
                         </notebook>

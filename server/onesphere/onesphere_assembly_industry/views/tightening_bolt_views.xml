@@ -23,7 +23,7 @@
                         </group>
                         <notebook>
                             <page string="Tightening Results">
-                                <field name="bolt_result_rel" widget="one2many">
+                                <field name="bolt_result_rel" widget="one2many_search" style="width:100%">
                                     <tree edit="0" create="0" delete="0" limit="20"
                                           default_order="control_time desc"
                                           decoration-danger="tightening_result == 'nok'"

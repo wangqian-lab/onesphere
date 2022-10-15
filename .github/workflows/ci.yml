@@ -19,7 +19,7 @@ jobs:
           echo Actor: ${{ github.actor }}
           echo Committed By: ${{ github.event.commits[0].author.name }}
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: main
           submodules: 'true'

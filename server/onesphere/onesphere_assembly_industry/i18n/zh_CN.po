@@ -745,6 +745,12 @@ msgid "Proposal Key Num"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_bolt_name_rules_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
+msgid "Tightening Process Proposal"
+msgstr "拧紧工艺建议"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_oneshare_quality_point
 msgid "Quality Control Point"
 msgstr "质量控制点"

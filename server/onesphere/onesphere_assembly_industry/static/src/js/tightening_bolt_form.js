@@ -23,11 +23,12 @@ odoo.define('onesphere.tightening.bolt.view', function (require) {
             this._rpc({
                 model: ev.data.record.model,
                 method: 'button_open_tightening_process_proposal_analysis',
-                args: ev.data.record.res_ids,
+                args: [[ev.data.record.res_id]],
             }).then(function (result) {
                 if (!!result.pages) {
                     self.renderer.chartsData = result.pages;
                     self.renderer.render_pages(result.pages);
+                    self.renderer._clickTab('li.tightening_angle_proposal > a');
                     self.displayNotification({
                         type: 'success',
                         title: '拧紧工艺优化分析成功!!!',
@@ -40,6 +41,17 @@ odoo.define('onesphere.tightening.bolt.view', function (require) {
     });
 
     var OnsephereBoltFormRenderer = SPCView.prototype.config.Renderer.extend({
+
+        _clickTab: function (selection) {
+            var self = this;
+            if (!!!selection) {
+                return;
+            }
+            var ele = self.$el.find(selection);
+            if (ele) {
+                ele.click();
+            }
+        },
 
         _onNotebookTabChanged: function (evt) {
             // if (render_pages) {

@@ -7,15 +7,23 @@
         <field name="arch" type="xml">
             <div id='about' position="before">
                 <h2>Bolt Name Rules</h2>
-                <div class="row mt16 o_settings_container" name="oss_setting_container">
-                    <div class="col-12 col-lg-6 o_setting_box" id="module_onesphere_oss">
+                <div class="row mt16 o_settings_container" name="bolt_name_rules">
+                    <div class="col-12 col-lg-6 o_setting_box" id="bolt_name_rules">
                         <div class="o_setting_right_pane">
                             <div class="content-group mt16">
                                 <label for="bolt_name_rules" class="o_light_label"/>
                                 <field name="bolt_name_rules"/>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Tightening Process Proposal</h2>
+                <div class="row mt16 o_settings_container" name="tightening_process_proposal_duration">
+                    <div class="col-12 col-lg-6 o_setting_box" id="tightening_process_proposal_duration">
+                        <div class="o_setting_right_pane">
                             <div class="content-group mt16">
-                                <label for="tightening_process_proposal_duration"/>
+                                <label for="tightening_process_proposal_duration" class="o_light_label"/>
                                 <field name="tightening_process_proposal_duration"/>
                             </div>
                         </div>

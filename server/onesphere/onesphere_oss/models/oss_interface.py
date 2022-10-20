@@ -3,6 +3,9 @@ import io
 import os
 from typing import List
 from concurrent import futures
+
+from minio.deleteobjects import DeleteObject
+
 from odoo.tools.profiler import profile
 from odoo import models, _
 from odoo.tools import ustr
@@ -114,6 +117,46 @@ class OSSInterface(models.AbstractModel):
             client = self.ensure_oss_client()
         ret = client.get_object(bucket_name, object_name)
         return ret
+
+    @oss_wrapper(raw_resp=False)
+    def remove_oss_objects(self, bucket_name: str, object_names: List[str], client: Union[Minio] = None):
+        # 获取minio数据
+        if not client:
+            client = self.ensure_oss_client()
+        objects = [DeleteObject(name) for name in object_names]
+        errors = client.remove_objects(bucket_name, objects)
+        for error in errors:
+            _logger.error(ustr(error))
+        return ''
+
+    @oss_wrapper(raw_resp=False)
+    def remove_bucket(self, bucket_name: str, client: Union[Minio] = None):
+        if not client:
+            client = self.ensure_oss_client()
+        ret = client.remove_bucket(bucket_name)
+        return ret
+
+    @oss_wrapper(raw_resp=True)
+    def bucket_exists(self, bucket_name: str, client: Union[Minio] = None):
+        if not client:
+            client = self.ensure_oss_client()
+        return client.bucket_exists(bucket_name)
+
+    @oss_wrapper(raw_resp=True)
+    def create_bucket(self, bucket_name: str, client: Union[Minio] = None):
+        if not client:
+            client = self.ensure_oss_client()
+        ret = client.bucket_exists(bucket_name)
+        if ret:
+            return ret
+        try:
+            client.make_bucket(bucket_name)
+        except Exception as e:
+            msg = f'对象存储: {bucket_name}创建失败: {ustr(e)}'
+            _logger.error(msg)
+            self.env.user.notify_danger(msg)
+            return False
+        return True
 
     @oss_wrapper(raw_resp=False)
     def put_oss_object(self, bucket_name: str, object_name: str, data: Union[bytes, str]):

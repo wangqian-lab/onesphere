@@ -6,11 +6,22 @@
             <field name="arch" type="xml">
                 <form string="Tightening Bolt" js_class="tightening_bolt_form">
                     <sheet>
+                        <field name="tightening_results_count" invisible="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button string="Tightening Process Proposal"
-                                    attrs="{'invisible': [('bolt_result_rel', '=', False)]}"
+                                    attrs="{'invisible': [('tightening_results_count', '=', 0)]}"
                                     class="o_button_process_proposal" icon="fa-thumbs-up"
                                     groups="mrp.group_mrp_user">
+                            </button>
+                            <button type="object" class="oe_stat_button" name="button_open_tightening_results"
+                                    icon="fa-exclamation-circle"
+                                    attrs="{'invisible': [('tightening_results_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="tightening_results_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Tightening Results</span>
+                                </div>
                             </button>
                         </div>
                         <group>
@@ -22,24 +33,24 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Tightening Results">
-                                <field name="bolt_result_rel" widget="one2many_search" style="width:100%">
-                                    <tree edit="0" create="0" delete="0" limit="20"
-                                          default_order="control_time desc"
-                                          decoration-danger="tightening_result == 'nok'"
-                                          decoration-bf="tightening_result == 'ak2'"
-                                          decoration-success="tightening_result == 'ok'">
-                                        <field name="track_no"/>
-                                        <field name="control_time" string="Tightening Date Time"/>
-                                        <field name="tightening_result"/>
-                                        <field name="tightening_strategy" optional="hide"/>
-                                        <field name="measurement_final_torque"/>
-                                        <field name="measurement_final_angle"/>
-                                        <field name="measurement_step_results" optional="hide"/>
-                                        <field name="user_list" optional="hide"/>
-                                    </tree>
-                                </field>
-                            </page>
+                            <!--                            <page string="Tightening Results">-->
+                            <!--                                <field name="bolt_result_rel" widget="one2many_search" style="width:100%">-->
+                            <!--                                    <tree edit="0" create="0" delete="0" limit="20"-->
+                            <!--                                          default_order="control_time desc"-->
+                            <!--                                          decoration-danger="tightening_result == 'nok'"-->
+                            <!--                                          decoration-bf="tightening_result == 'ak2'"-->
+                            <!--                                          decoration-success="tightening_result == 'ok'">-->
+                            <!--                                        <field name="track_no"/>-->
+                            <!--                                        <field name="control_time" string="Tightening Date Time"/>-->
+                            <!--                                        <field name="tightening_result"/>-->
+                            <!--                                        <field name="tightening_strategy" optional="hide"/>-->
+                            <!--                                        <field name="measurement_final_torque"/>-->
+                            <!--                                        <field name="measurement_final_angle"/>-->
+                            <!--                                        <field name="measurement_step_results" optional="hide"/>-->
+                            <!--                                        <field name="user_list" optional="hide"/>-->
+                            <!--                                    </tree>-->
+                            <!--                                </field>-->
+                            <!--                            </page>-->
                             <page string="Description">
                                 <field name="description"/>
                             </page>
@@ -57,8 +68,12 @@
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
                 <tree create="false">
+                    <field name="tightening_results_count" invisible="1"/>
                     <field name="name"/>
                     <field name="type"/>
+                    <button name="button_open_tightening_results" string="Curve Details" type="object" icon="fa-exclamation-circle"
+                            class="btn btn-warning"
+                            attrs="{'invisible': [('tightening_results_count', '=', 0)]}"/>
                 </tree>
             </field>
         </record>

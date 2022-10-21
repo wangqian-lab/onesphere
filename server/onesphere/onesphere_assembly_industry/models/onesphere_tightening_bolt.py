@@ -5,12 +5,18 @@ from odoo.addons.onesphere_assembly_industry.constants import ENV_PROCESS_PROPOS
     ENV_PROCESS_PROPOSAL_ANGLE_MARGIN
 from odoo.addons.onesphere_assembly_industry.utils import get_dist_echarts_options
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 class OnesphereTighteningBolt(models.Model):
     _name = "onesphere.tightening.bolt"
     _description = 'Tightening Bolt Model'
+
+    def _compute_tightening_result_count(self):
+        for bolt in self:
+            bolt.tightening_results_count = 0
+            if bolt.bolt_result_rel:
+                bolt.tightening_results_count = len(bolt.bolt_result_rel)
 
     name = fields.Char(string='Name', required=True, copy=False)
     description = fields.Html(string='Description', copy=True)
@@ -18,7 +24,23 @@ class OnesphereTighteningBolt(models.Model):
                             required=True)
     bolt_result_rel = fields.One2many('onesphere.tightening.result', 'tightening_point_name', string='Bolt Result Rel')
 
+    tightening_results_count = fields.Integer(string='Tightening Result Count',
+                                              compute=_compute_tightening_result_count, default=0)
+
     _sql_constraints = [('name_uniq', 'unique (name)', "bolt name already exists !")]
+
+    def button_open_tightening_results(self):
+        self.ensure_one()
+        context = self.env.context.copy()
+        context.update({
+            'search_default_tightening_point_name': self.id
+        })
+        action = self.env["ir.actions.actions"]._for_xml_id("onesphere_assembly_industry.action_ok_tightening_result")
+        action['context'] = context
+        name = _('Tightening Results For Bolt %s') % self.name
+        action['name'] = name
+        action['display_name'] = name
+        return action
 
     def button_open_tightening_process_proposal_analysis(self):
         self.ensure_one()

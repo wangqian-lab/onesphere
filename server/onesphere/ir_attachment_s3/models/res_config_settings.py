@@ -17,10 +17,10 @@ class S3Settings(models.TransientModel):
     _inherit = "res.config.settings"
 
     s3_bucket = fields.Char(string="S3 bucket name", help="i.e. 'attachmentbucket'", config_parameter="s3.bucket",
-                            default='oneshare_attachments')
+                            default='oneshare-attachments')
     s3_condition = fields.Char(
         string="S3 condition",
-        config_paramter="s3.condition",
+        config_parameter="s3.condition",
         help="""Specify valid odoo search domain here,
                                e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.
                                Empty condition means all models""",
@@ -36,8 +36,8 @@ class S3Settings(models.TransientModel):
     def get_s3_obj_url(self, bucket, file_id):
         config_obj = self.env["ir.config_parameter"].sudo()
         s3_endpoint_url = config_obj.get_param("oss.endpoint", ENV_OSS_ENDPOINT)
-        s3_bucket = config_obj.get_param("s3.bucket", 'oneshare_attachments')
-        base_url = f'http://{s3_endpoint_url}/{s3_bucket}'
+        s3_bucket = config_obj.get_param("s3.bucket", 'oneshare-attachments')
+        base_url = f'http://{s3_endpoint_url}/{s3_bucket}/'
         if base_url:
             return base_url + file_id
         return "https://{}.s3.amazonaws.com/{}".format(bucket.name, file_id)
@@ -47,7 +47,7 @@ class S3Settings(models.TransientModel):
         access_key_id = config_obj.get_param("oss.access_key", ENV_OSS_ACCESS_KEY)
         secret_key = config_obj.get_param("oss.secret_key", ENV_OSS_SECRET_KEY)
         endpoint_url = config_obj.get_param("oss.endpoint", ENV_OSS_ENDPOINT)
-        bucket_name = config_obj.get_param("s3.bucket", 'oneshare_attachments')
+        bucket_name = config_obj.get_param("s3.bucket", 'oneshare-attachments')
 
         if not access_key_id or not secret_key or not bucket_name:
             raise NotAllCredentialsGiven(

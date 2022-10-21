@@ -10,8 +10,8 @@ import logging
 
 from odoo import _, models
 from odoo.exceptions import MissingError
+from odoo.tools import ustr
 from odoo.tools.safe_eval import safe_eval
-
 from .res_config_settings import NotAllCredentialsGiven
 
 _logger = logging.getLogger(__name__)
@@ -25,7 +25,6 @@ def is_s3_bucket(bucket):
 
 
 class IrAttachment(models.Model):
-
     _inherit = "ir.attachment"
 
     def _inverse_datas(self):
@@ -65,7 +64,7 @@ class IrAttachment(models.Model):
 
         bucket = self.env["res.config.settings"].get_s3_bucket()
 
-        file_id = fname[len(PREFIX) :]
+        file_id = fname[len(PREFIX):]
         _logger.debug("reading file with id {}".format(file_id))
 
         obj = bucket.Object(file_id)
@@ -78,7 +77,7 @@ class IrAttachment(models.Model):
 
         bucket = self.env["res.config.settings"].get_s3_bucket()
 
-        file_id = fname[len(PREFIX) :]
+        file_id = fname[len(PREFIX):]
         _logger.debug("deleting file with id {}".format(file_id))
 
         obj = bucket.Object(file_id)
@@ -100,6 +99,22 @@ class IrAttachment(models.Model):
         s3_condition = self.env["ir.config_parameter"].sudo().get_param("s3.condition")
         condition = s3_condition and safe_eval(s3_condition, mode="eval") or []
 
+        try:
+            self._force_storage_with_bucket(
+                bucket,
+                [
+                    ("type", "!=", "url"),
+                    ("id", "!=", 0),
+                    ("store_fname", "not ilike", PREFIX),
+                    ("store_fname", "!=", False),
+                    ("res_model", "not in", ["ir.ui.view", "ir.ui.menu"]),
+                ]
+                + condition,
+            )
+            self.env.user.notify_info('上传附件成功!!!')
+
+        except Exception as e:
+            self.env.user.notify_danger(f'上传附件失败: {ustr(e)}')
         return self._force_storage_with_bucket(
             bucket,
             [

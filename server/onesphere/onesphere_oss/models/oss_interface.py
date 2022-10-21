@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
-import io
-import os
-from typing import List
-from concurrent import futures
-
-from minio.deleteobjects import DeleteObject
-
-from odoo.tools.profiler import profile
-from odoo import models, _
-from odoo.tools import ustr
-import logging
 import functools
+import io
+import json
+import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List
+from typing import Optional, Union
+
 import urllib3
 from minio import Minio
+from minio.deleteobjects import DeleteObject
 from minio.helpers import ObjectWriteResult
-from odoo.addons.oneshare_utils.constants import ENV_OSS_BUCKET, ENV_OSS_ENDPOINT, ENV_OSS_ACCESS_KEY, \
+from odoo.addons.oneshare_utils.constants import DEFAULT_TIMEOUT
+from odoo.addons.oneshare_utils.constants import ENV_OSS_ENDPOINT, ENV_OSS_ACCESS_KEY, \
     ENV_OSS_SECRET_KEY, ENV_MAX_WORKERS, ENV_OSS_SECURITY_TRANSPORT
 
-from typing import Optional, Union
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from odoo import models
+from odoo.tools import ustr
+from odoo.tools.profiler import profile
 
 _logger = logging.getLogger(__name__)
 
@@ -75,7 +74,7 @@ class OSSInterface(models.AbstractModel):
         secret_key = ICP.get_param('oss.secret_key', ENV_OSS_SECRET_KEY)
         security = ICP.get_param('oss.security', ENV_OSS_SECURITY_TRANSPORT)
         c = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=security,
-                  http_client=urllib3.PoolManager(timeout=float(os.environ.get("ODOO_HTTP_SOCKET_TIMEOUT", '20')),
+                  http_client=urllib3.PoolManager(timeout=DEFAULT_TIMEOUT,
                                                   maxsize=ENV_MAX_WORKERS * 8,
                                                   retries=urllib3.Retry(
                                                       total=5,
@@ -101,7 +100,8 @@ class OSSInterface(models.AbstractModel):
                          object_name, curve_id in zip(object_names, curve_ids)})
             return data
         with ThreadPoolExecutor(max_workers=ENV_MAX_WORKERS * 8) as executor:
-            task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for object_name, curve_id in zip(object_names, curve_ids)}
+            task_list = {executor.submit(self.get_oss_object, bucket_name, object_name, client): curve_id for
+                         object_name, curve_id in zip(object_names, curve_ids)}
             for task in as_completed(task_list):
                 task_exception = task.exception()
                 if task_exception:
@@ -143,7 +143,7 @@ class OSSInterface(models.AbstractModel):
         return client.bucket_exists(bucket_name)
 
     @oss_wrapper(raw_resp=True)
-    def create_bucket(self, bucket_name: str, client: Union[Minio] = None):
+    def create_bucket(self, bucket_name: str, client: Union[Minio] = None, public=False):
         if not client:
             client = self.ensure_oss_client()
         ret = client.bucket_exists(bucket_name)
@@ -151,6 +151,35 @@ class OSSInterface(models.AbstractModel):
             return ret
         try:
             client.make_bucket(bucket_name)
+            if public:
+                policy = {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"AWS": "*"},
+                            "Action": [
+                                "s3:GetBucketLocation",
+                                "s3:ListBucket",
+                                "s3:ListBucketMultipartUploads",
+                            ],
+                            "Resource": f"arn:aws:s3:::{bucket_name}",
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"AWS": "*"},
+                            "Action": [
+                                "s3:GetObject",
+                                "s3:PutObject",
+                                "s3:DeleteObject",
+                                "s3:ListMultipartUploadParts",
+                                "s3:AbortMultipartUpload",
+                            ],
+                            "Resource": f"arn:aws:s3:::{bucket_name}/*",
+                        },
+                    ],
+                }
+                client.set_bucket_policy(bucket_name, policy=json.dumps(policy))
         except Exception as e:
             msg = f'对象存储: {bucket_name}创建失败: {ustr(e)}'
             _logger.error(msg)

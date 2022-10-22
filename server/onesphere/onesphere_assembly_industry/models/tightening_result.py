@@ -36,7 +36,7 @@ class OperationResult(HModel):
 
     def _compute_display_name(self):
         for result in self:
-            result.display_name = result.tightening_result or 'New Tightening Result'
+            result.display_name = result.tightening_result or _('Tightening Result')
 
     entity_id = fields.Char(string='Entity ID', default=lambda self: str(uuid.uuid4()), required=True)
 
@@ -66,7 +66,7 @@ class OperationResult(HModel):
 
     tightening_id = fields.Char(string='TighteningID', help='Tightening ID Per Tightening Controller')
 
-    error_code = fields.Char(string='Error Code', help='Error Code')
+    error_code = fields.Char(string='Error Code', help='Error Code')  # 对应CVINETWEB中的拧紧结果中的Stop Source
 
     display_name = fields.Char(string='Display Name', compute=_compute_display_name)
 

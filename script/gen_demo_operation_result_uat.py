@@ -5,7 +5,7 @@ from jinja2 import Template
 import random
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from script.constants import station_names, attribute_equipments
+from script.constants import station_names, attribute_equipments, error_codes
 
 DATETIME_LENGTH = len(datetime.today().now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
 
@@ -45,6 +45,7 @@ RECORD_TMPL = Template('''
             <field name="angle_min">{{ angle_min }}</field>
             <field name="angle_target">{{ angle_target }}</field>
             <field name="torque_max">{{ torque_max }}</field>
+            <field name="error_code">{{ error_code }}</field>
             <field name="torque_min">{{ torque_min }}</field>
             <field name="torque_target">{{ torque_target }}</field>
             <field name="torque_target">2</field>
@@ -83,6 +84,7 @@ if __name__ == '__main__':
         measurement_final_angle = data['measure_angle'][index]
         tightening_point_name = data["nut_no"][index]
         tightening_result = data['measure_result'][index].lower()
+        error_code = random.choice(error_codes) if tightening_result == 'nok' else ''
         tightening_strategy = random.choice(['AD', 'AW'])
         control_time = data['update_time'][index][:DATETIME_LENGTH] if data['update_time'][index] else datetime.now().strftime(
             DEFAULT_SERVER_DATETIME_FORMAT)
@@ -103,6 +105,7 @@ if __name__ == '__main__':
                            measurement_final_torque=measurement_final_torque,
                            measurement_final_angle=measurement_final_angle,
                            tightening_point_name=tightening_point_name, tightening_result=tightening_result,
+                           error_code=error_code,
                            tightening_strategy=tightening_strategy, control_time=control_time,
                            tightening_id=tightening_id, curve_file=curve_file, angle_max=angle_max, angle_min=angle_min,
                            angle_target=angle_target, torque_max=torque_max, torque_min=torque_min,

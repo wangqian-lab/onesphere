@@ -51,6 +51,8 @@ def get_temp_file_from_result(env, result_ids, platform=''):
                         encoding=download_tightening_results_encode)
         curve_datas = result_ids._get_curve_data()
         for curve_dict in curve_datas:
+            if not curve_dict:
+                continue
             if curve_dict.get('name'):
                 fn = curve_dict.pop('name')
             else:

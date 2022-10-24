@@ -34,6 +34,7 @@ G_TMPL = Template('''
 RECORD_TMPL = Template('''
         <record id="onesphere_assembly_industry.tightening_result_{{ id }}"  model="onesphere.tightening.result">
             <field name="analysis_result_state">{{ analysis_result_state }}</field>
+            <field name="final_judge_analysis_result_state">{{ analysis_result_state }}</field>
             <field name="cap_error_massage">{{ cap_error_massage }}</field>
         </record>
 ''')

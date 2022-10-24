@@ -1,11 +1,45 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+import logging
+
 from odoo.addons.oneshare_utils.constants import ENV_OSS_BUCKET, ENV_OSS_ENDPOINT, ENV_OSS_ACCESS_KEY, \
     ENV_OSS_SECRET_KEY, ENV_OSS_SECURITY_TRANSPORT
+
+from odoo import fields, models
+from odoo.tools import ustr
+from odoo.exceptions import UserError
+_logger = logging.getLogger(__name__)
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
+
+    def create_bucket(self):
+        bucket_name = self.oss_bucket_name
+        try:
+            oss_interface = self.env['onesphere.oss.interface']
+            ret = oss_interface.create_bucket(bucket_name)
+            if ret:
+                self.env.user.notify_info(f'对象存储: {bucket_name}已创建')
+            else:
+                raise UserError('创建失败!!!')
+        except Exception as e:
+            msg = f'对象存储: {bucket_name}创建失败: {ustr(e)}'
+            _logger.error(msg)
+            self.env.user.notify_danger(msg)
+
+    def bucket_existed(self):
+        bucket_name = self.oss_bucket_name
+        try:
+            oss_interface = self.env['onesphere.oss.interface']
+            existed = oss_interface.bucket_exists(bucket_name)
+            if existed:
+                self.env.user.notify_info(f'对象存储: {bucket_name}已存在')
+            else:
+                self.env.user.notify_danger(f'对象存储: {bucket_name}不存在!!!')
+        except Exception as e:
+            msg = ustr(e)
+            _logger.error(msg)
+            self.env.user.notify_danger(msg)
 
     oss_bucket_name = fields.Char(default=ENV_OSS_BUCKET,
                                   string='OSS Bucket Name',

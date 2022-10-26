@@ -77,7 +77,6 @@ if __name__ == '__main__':
     rec_str = []
     data = pd.read_csv(RESULT_DATA_PATH).to_dict()
     for index in range(len(data.get('pk'))):
-        entity_id = data['entity_id'][index].replace('/', '-')
         track_no = data['vin'][index][:8]
         tightening_process_no = data['pset'][index]
         measurement_final_torque = data['measure_torque'][index]
@@ -88,6 +87,8 @@ if __name__ == '__main__':
         tightening_strategy = random.choice(['AD', 'AW'])
         control_time = data['update_time'][index][:DATETIME_LENGTH] if data['update_time'][index] else datetime.now().strftime(
             DEFAULT_SERVER_DATETIME_FORMAT)
+        control_timestamp = int(datetime.strptime(control_time, DEFAULT_SERVER_DATETIME_FORMAT).timestamp())
+        entity_id = f"{track_no}_{data['tool_sn'][index]}_{control_timestamp}_{index}"
         tightening_id = data['tightening_id'][index]
         curve = f"{data['entity_id'][index].split('/')[-1]}.json"
         curve_file = '[{"file":"%s","op":1}]' % curve

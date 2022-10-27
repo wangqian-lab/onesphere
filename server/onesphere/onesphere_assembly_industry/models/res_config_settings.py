@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.onesphere_assembly_industry.constants import DEFAULT_BOLT_NAME_RULES, ENV_PROCESS_PROPOSAL_DURATION
+from odoo.addons.onesphere_assembly_industry.constants import DEFAULT_BOLT_NAME_RULES, ENV_PROCESS_PROPOSAL_DURATION, \
+    DEFAULT_ENTITY_ID_RULES
 
 from odoo import fields, models
 
@@ -17,3 +18,8 @@ class ResConfigSettings(models.TransientModel):
                                                           string='拧紧工艺建议计算间隔时间(天)',
                                                           help='拧紧工艺建议计算间隔时间, 默认为三十天',
                                                           config_parameter='oneshare.tightening.process.proposal.duration')
+
+    entity_id_rules = fields.Char(default=DEFAULT_ENTITY_ID_RULES,
+                                  string='曲线ID拼接规则',
+                                  help='the rules of curve id',
+                                  config_parameter='oneshare.entity_id.rules')

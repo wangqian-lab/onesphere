@@ -47,3 +47,5 @@ DEFAULT_BOLT_NAME_RULES = '{controller_name}_{job}_{batch_count}_{pset}'
 ENV_PROCESS_PROPOSAL_DURATION = int(os.getenv('ENV_PROCESS_PROPOSAL_DURATION', '30'))  # 默认拿过去三十天的数据进行工艺建议
 ENV_PROCESS_PROPOSAL_ANGLE_MARGIN = int(os.getenv('ENV_PROCESS_PROPOSAL_ANGLE_MARGIN', '3'))  # 默认拿过去三十天的数据进行工艺建议
 
+# 默认曲线id拼接规则
+DEFAULT_ENTITY_ID_RULES = '{track_no}_{tool_sn}_{control_time}'

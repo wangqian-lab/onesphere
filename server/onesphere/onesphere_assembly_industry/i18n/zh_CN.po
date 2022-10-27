@@ -103,8 +103,8 @@ msgstr "螺栓"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_bolt_name_rules_config_settings_view_form
-msgid "Bolt Name Rules"
-msgstr "螺栓编号规则"
+msgid "Bolt Name and Entity ID Rules"
+msgstr "螺栓名称和曲线ID规则"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__bolt_result_rel

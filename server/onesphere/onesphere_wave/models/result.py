@@ -16,7 +16,10 @@ ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(os.getenv('ENV_DOWNLOAD_TIGHTENING_RE
 
 
 def _create_wave_result_dict(x, data):
-    _data = json.loads(data)
+    if not data:
+        return {}
+    else:
+        _data = json.loads(data)
     _data['name'] = x.split('.')[0]
     _wave_cache[x] = _data  # 将其加入缓存
 
@@ -72,7 +75,7 @@ class OperationResult(HModel):
                 need_fetch_objects.append(_cur_file)
         try:
             _datas.extend(
-                map(lambda x: _create_wave_result_dict(x, oss_interface.get_oss_object(bucket_name, x).decode('utf-8')),
+                map(lambda x: _create_wave_result_dict(x, oss_interface.get_oss_object(bucket_name, x)),
                     need_fetch_objects))  # 合并结果
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')

@@ -28,7 +28,7 @@
                                 </div>
                                 <label for="parent_id"/>
                                 <div class="o_row">
-                                    <field name="parent_id" readonly="1"/>
+                                    <field name="parent_id"/>
                                 </div>
                             </group>
                         </group>

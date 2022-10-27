@@ -14,10 +14,10 @@ class MrpWorkcenterProductivity(models.Model):
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
-    parent_id = fields.Many2one('oneshare.mrp.work.area', string='Production Line', index=True,
-                                ondelete='restrict',  # 不允许删除产线
+    parent_id = fields.Many2one('oneshare.mrp.work.area', string='Production Section', index=True,
+                                ondelete='restrict',  # 不允许删除工段
                                 domain=lambda
-                                    self: "[('company_id', '=', company_id), ('category_id', '!=', {})]".format(
+                                    self: "[('company_id', '=', company_id), ('category_id', '=', {})]".format(
                                     self.env.ref('onesphere_mdm.oneshare_work_area_category_3').id))
 
     related_work_area_id = fields.Many2one('oneshare.mrp.work.area', string='Related Work Area', ondelete='cascade',

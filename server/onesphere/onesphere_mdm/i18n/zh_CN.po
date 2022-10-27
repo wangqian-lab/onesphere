@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-15 09:34+0000\n"
-"PO-Revision-Date: 2022-04-15 09:34+0000\n"
+"POT-Creation-Date: 2022-10-27 01:49+0000\n"
+"PO-Revision-Date: 2022-10-27 01:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -449,12 +449,6 @@ msgid "Name"
 msgstr "名称"
 
 #. module: onesphere_mdm
-#: code:addons/onesphere_mdm/controllers/template_download.py:0
-#, python-format
-msgid "No template record!"
-msgstr "没有选中记录！"
-
-#. module: onesphere_mdm
 #: model:ir.actions.act_window,name:onesphere_mdm.onesphere_template_download_action
 #: model:ir.ui.menu,name:onesphere_mdm.menu_onesphere_template_download
 msgid "Onesphere Template Download"
@@ -494,7 +488,6 @@ msgstr "产品类别"
 
 #. module: onesphere_mdm
 #: model:ir.actions.act_window,name:onesphere_mdm.oneshare_action_open_production_line
-#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__parent_id
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_work_production_line
 #: model_terms:ir.ui.view,arch_db:onesphere_mdm.oneshare_work_area_filter
 msgid "Production Line"
@@ -507,6 +500,11 @@ msgstr "产线"
 #, python-format
 msgid "Production Line Name"
 msgstr "产线名称"
+
+#. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__parent_id
+msgid "Production Section"
+msgstr "工段"
 
 #. module: onesphere_mdm
 #: model:maintenance.equipment.category,name:onesphere_mdm.equipment_plc
@@ -577,6 +575,11 @@ msgid "Sequence"
 msgstr "序号"
 
 #. module: onesphere_mdm
+#: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment__serial_no
+msgid "Serial Number"
+msgstr "序列号"
+
+#. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_maintenance_equipment_connection__tty
 msgid "Serial TTY"
 msgstr ""
@@ -628,6 +631,11 @@ msgstr "模板下载"
 #: model:ir.model.fields,field_description:onesphere_mdm.field_onesphere_template_download__template_file
 msgid "Template File"
 msgstr "模板文件"
+
+#. module: onesphere_mdm
+#: model:ir.model.constraint,message:onesphere_mdm.constraint_oneshare_mrp_work_area_category_code_uniq
+msgid "The code must be unique per category !"
+msgstr "不同类型的编号不可重复"
 
 #. module: onesphere_mdm
 #: model:ir.model.constraint,message:onesphere_mdm.constraint_maintenance_equipment_category_technical_name_uniq
@@ -822,7 +830,3 @@ msgstr "工作中心"
 msgid "下发工艺所有工步"
 msgstr ""
 
-#. module: onesphere_mdm
-#: model:ir.model.fields,help:onesphere_mdm.field_res_config_settings__send_operation_all_step
-msgid "下发工艺所有工步，使工位可以扫码生成工单"
-msgstr ""

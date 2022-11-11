@@ -67,6 +67,7 @@ def get_dist_echarts_options(data={}, query_type='torque', description='', type=
             'yAxisIndex': 0,
             'label': {'show': True},
             'data': data.get('y2', []),
+            'areaStyle': {'shadowColor': 'rgba(58,132,255, 0.5)', 'shadowBlur': 10, 'opacity': 0.2},
             'smooth': True
         }
     ]

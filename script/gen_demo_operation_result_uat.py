@@ -3,9 +3,14 @@ import os
 import pandas as pd
 from jinja2 import Template
 import random
+import glob
+import logging
 from datetime import datetime
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, ustr
 from script.constants import station_names, attribute_equipments, error_codes
+
+
+_logger = logging.getLogger(__name__)
 
 DATETIME_LENGTH = len(datetime.today().now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
 
@@ -15,6 +20,25 @@ DIST_FILE = 'tightening_result_demo.xml'
 DIST_PATH = '{}/{}'.format(DIST_DIR_PATH, DIST_FILE)
 
 RESULT_DATA_PATH = '/home/leext/work/resulta.csv'
+FEATURES_PATH = '/home/leext/work/features/*'
+
+TIGHTENING_FEATURES = {'曲线唯一标识': 'entity_id',
+                       "测量扭矩": "measure_torque",
+                       "分段拧紧数量": "step_results",
+                       "最大扭矩": "max_torque",
+                       "贴合点扭矩": "snug_torque",
+                       "终拧紧段扭矩角度序列均方差": "mse_final_tightening",
+                       "下旋阶段平均扭矩": "rundown_mean_torque",
+                       "下旋阶段扭矩方差": "rundown_torque_variance",
+                       "下旋阶段扭矩波峰数量": "rundown_number_of_peaks",
+                       "下旋阶段扭矩波谷数量": "rundown_number_of_troughs",
+                       "终拧紧段扭矩波峰数量": "final_number_of_peaks",
+                       "终拧紧段扭矩波谷数量": "final_number_of_troughs",
+                       "下旋阶段波峰波谷周期": "rundown_peaks_and_trough_period",
+                       "终拧紧阶段波峰波谷周期": "final_peaks_and_trough_period",
+                       "终拧紧段扭矩峰峰值": "final_p_p_values",
+                       "终拧紧段扭矩角度斜率": "final_toque_div_angle_slope"
+                       }
 
 G_TMPL = Template('''
 <odoo>
@@ -51,6 +75,7 @@ RECORD_TMPL = Template('''
             <field name="torque_target">2</field>
             <field name="measurement_step_results">{{ step_results }}</field>
             <field name="workcenter_code">{{ workcenter_code }}</field>
+            <field name="cap_features_save">{{ cap_features_save }}</field>
         </record>
 ''')
 
@@ -71,10 +96,39 @@ def get_step_result(step_results):
     return step_result_list
 
 
+def get_feature_df():
+    feature_df = False
+    for f in glob.glob(FEATURES_PATH):
+        feature_df_item = pd.read_excel(f)
+        if feature_df is not False:
+            feature_df = pd.concat([feature_df, feature_df_item], ignore_index=True)
+        else:
+            feature_df = feature_df_item
+    feature_df.set_index('曲线唯一标识', inplace=True)
+    feature_df.drop('人为识别拧紧结果', axis='columns', inplace=True)
+    feature_df.rename(columns=TIGHTENING_FEATURES, inplace=True)
+    return feature_df
+
+
+def get_feature_json(entity_id):
+    feature_json = ''
+    try:
+        feature_item = json.loads(feature_df.loc[entity_id].to_json())
+        feature_item.update({'step_results': len(json.loads(feature_item.get('step_results')))})
+        feature_dic = {
+            data['entity_id'][index]: feature_item
+        }
+        feature_json = json.dumps(feature_dic, indent=4)
+    except Exception as e:
+        _logger.error(f'get feature json failed: {ustr(e)}')
+    return feature_json
+
+
 if __name__ == '__main__':
     if os.path.exists(DIST_PATH):
         os.remove(DIST_PATH)
     rec_str = []
+    feature_df = get_feature_df()
     data = pd.read_csv(RESULT_DATA_PATH).to_dict()
     for index in range(len(data.get('pk'))):
         track_no = data['vin'][index][:8]
@@ -85,7 +139,8 @@ if __name__ == '__main__':
         tightening_result = data['measure_result'][index].lower()
         error_code = random.choice(error_codes) if tightening_result == 'nok' else ''
         tightening_strategy = random.choice(['AD', 'AW'])
-        control_time = data['update_time'][index][:DATETIME_LENGTH] if data['update_time'][index] else datetime.now().strftime(
+        control_time = data['update_time'][index][:DATETIME_LENGTH] if data['update_time'][
+            index] else datetime.now().strftime(
             DEFAULT_SERVER_DATETIME_FORMAT)
         control_timestamp = int(datetime.strptime(control_time, DEFAULT_SERVER_DATETIME_FORMAT).timestamp())
         entity_id = f"{track_no}_{data['tool_sn'][index]}_{control_timestamp}_{index}"
@@ -101,6 +156,7 @@ if __name__ == '__main__':
         step_results = json.dumps(get_step_result(data['step_results'][index]))
         workcenter_code = random.choice(station_names)
         attribute_equipment_no = random.choice(attribute_equipments)
+        feature_json = get_feature_json(data['entity_id'][index])
         m = gen_record_msg(id=index, entity_id=entity_id, track_no=track_no,
                            tightening_process_no=tightening_process_no,
                            measurement_final_torque=measurement_final_torque,
@@ -111,7 +167,7 @@ if __name__ == '__main__':
                            tightening_id=tightening_id, curve_file=curve_file, angle_max=angle_max, angle_min=angle_min,
                            angle_target=angle_target, torque_max=torque_max, torque_min=torque_min,
                            torque_target=torque_target, step_results=step_results, workcenter_code=workcenter_code,
-                           attribute_equipment_no=attribute_equipment_no)
+                           attribute_equipment_no=attribute_equipment_no, cap_features_save=feature_json)
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)
     with open(DIST_PATH, 'w') as f:

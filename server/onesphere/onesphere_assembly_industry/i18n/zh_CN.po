@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-27 07:57+0000\n"
-"PO-Revision-Date: 2022-10-27 07:57+0000\n"
+"POT-Creation-Date: 2022-11-22 06:43+0000\n"
+"PO-Revision-Date: 2022-11-22 06:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,7 @@ msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.wizard_tightening_result_report_view_form
 msgid "Cancel"
 msgstr "取消"
 
@@ -198,6 +199,7 @@ msgstr "所属控制器"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__create_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__create_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__create_uid
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -209,6 +211,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__create_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__create_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__create_date
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__create_date
 msgid "Created on"
 msgstr "创建日期"
 
@@ -272,6 +275,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -385,6 +389,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__id
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__id
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__id
 msgid "ID"
 msgstr "唯一识别码"
 
@@ -462,6 +467,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
@@ -473,6 +479,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__write_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__write_uid
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__write_uid
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -484,6 +491,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__write_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__write_date
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__write_date
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__write_date
 msgid "Last Updated on"
 msgstr "最后更新日期"
 
@@ -627,6 +635,12 @@ msgid "Name"
 msgstr "名称"
 
 #. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/wizard_tightening_result_report.py:0
+#, python-format
+msgid "No document record!"
+msgstr "未找到记录"
+
+#. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/tightening_result.py:0
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__onesphere_tightening_result__tightening_result__none
 #, python-format
@@ -741,6 +755,17 @@ msgstr "拍照"
 #: model:ir.ui.menu,name:onesphere_assembly_industry.menu_picture_result
 msgid "Picture Result"
 msgstr "拍照结果"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.wizard_tightening_result_report_view_form
+msgid "Print Report"
+msgstr "打印报告"
+
+#. module: onesphere_assembly_industry
+#: model:ir.actions.act_window,name:onesphere_assembly_industry.tightening_result_report_wizard_action
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.wizard_tightening_result_report_view_form
+msgid "Print Tightening Result Report"
+msgstr "打印拧紧报告"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_assy_failure_analysis__cpk
@@ -1162,6 +1187,11 @@ msgid "Tightening Result Failure Analysis"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model:ir.ui.menu,name:onesphere_assembly_industry.tightening_result_report
+msgid "Tightening Result Report"
+msgstr "拧紧结果报告"
+
+#. module: onesphere_assembly_industry
 #: model:ir.actions.act_window,name:onesphere_assembly_industry.action_tightening_result_spc_form
 #: model:ir.ui.menu,name:onesphere_assembly_industry.menu_assembly_tightening_result_spc
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
@@ -1340,6 +1370,11 @@ msgid "Track Image URL"
 msgstr "拍照结果图片路径"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__track_no
+msgid "Track No"
+msgstr "追溯码"
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "Track Number/Equipment"
 msgstr "追踪号/设备"
@@ -1430,6 +1465,11 @@ msgstr "版本"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_failure_analysis
 msgid "Weibull Distribution"
 msgstr "韦伯正态分布图"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model,name:onesphere_assembly_industry.model_wizard_tightening_result_report
+msgid "Wizard Tightening Result Report"
+msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_mrp_workcenter
@@ -1532,6 +1572,11 @@ msgid "picture"
 msgstr "拍照"
 
 #. module: onesphere_assembly_industry
+#: model:ir.actions.report,name:onesphere_assembly_industry.print_tightening_result_report
+msgid "print_tightening_result_report"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "register_byproducts"
 msgstr "扫码"
@@ -1574,6 +1619,11 @@ msgid "分段拧紧结果"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "扭矩(NM)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__tightening_process_proposal_duration
 msgid "拧紧工艺建议计算间隔时间(天)"
 msgstr ""
@@ -1584,6 +1634,11 @@ msgid "拧紧工艺建议计算间隔时间, 默认为三十天"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "拧紧时间"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_id
 msgid "拧紧组定义，当多轴或者多人同时作业时使用"
 msgstr ""
@@ -1591,6 +1646,16 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_sequence
 msgid "拧紧组定义，当多轴或者多人同时作业时使用,定义其顺序"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "拧紧结果"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "拧紧结果报告"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1667,6 +1732,11 @@ msgid "测试拧紧控制器8"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "程序号"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:product.product,name:onesphere_assembly_industry.product_product_screw_default
 #: model:product.template,name:onesphere_assembly_industry.product_product_screw_default_product_template
 msgid "缺省螺栓"
@@ -1706,6 +1776,11 @@ msgid "规格下限(LSL)"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "角度(Deg)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__attribute_equipment_no
 msgid "设备序列号"
 msgstr ""
@@ -1713,4 +1788,9 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__track_no
 msgid "追溯码"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "追溯码:"
 msgstr ""

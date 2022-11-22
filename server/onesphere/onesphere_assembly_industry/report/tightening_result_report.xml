@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="print_tightening_result_report"
+                model="onesphere.tightening.result"
+                string="print_tightening_result_report"
+                name="onesphere_assembly_industry.tightening_result_report_template"
+                report_type="qweb-html"/>
+
+    <template id="tightening_result_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h1 align="center">拧紧结果报告</h1>
+                    <p/>
+                    <h3>追溯码:<t t-esc="track_no"/></h3>
+                    <p/>
+                    <p/>
+                    <table class="table table-condensed" style="font-size: larger; text-align: center" boder="1">
+                        <thead>
+                            <tr>
+                                <th>拧紧结果</th>
+                                <th>程序号</th>
+                                <th>扭矩(NM)</th>
+                                <th>角度(Deg)</th>
+                                <th>拧紧时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="results" t-as="line">
+                                <t t-if="line[0]=='ok'">
+                                    <td style="background-color: #33FF66"><span t-esc="line[0]"/></td>
+                                </t>
+                                <t t-elif="line[0]=='nok'">
+                                    <td style="background-color: #FF6666"><span t-esc="line[0]"/></td>
+                                </t>
+                                <t t-else="">
+                                    <td style="background-color: #FFCC66"><span t-esc="line[0]"/></td>
+                                </t>
+                                <td><span t-esc="line[1]"/></td>
+                                <td><span t-esc="line[2]"/></td>
+<!--                                <td style="background-color: #FF6666"><span class="fa fa-arrow-circle-o-up"/><span style="margin-left: 5px" t-esc="line[2]"/></td>-->
+                                <td><span t-esc="line[3]"/></td>
+                                <td><span t-esc="line[4]"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

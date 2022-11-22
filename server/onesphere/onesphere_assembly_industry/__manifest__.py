@@ -49,6 +49,9 @@
         'views/res_config_settings_views.xml',
         'wizards/import_view.xml',
         'views/import_menu_views.xml',
+        'wizards/wizard_tightening_result_report.xml',
+        'views/tightening_result_report_views.xml',
+        'report/tightening_result_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

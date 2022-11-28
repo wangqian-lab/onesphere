@@ -637,8 +637,8 @@ msgstr "名称"
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/wizards/wizard_tightening_result_report.py:0
 #, python-format
-msgid "No document record!"
-msgstr "未找到记录"
+msgid "No result record!"
+msgstr "未找到拧紧结果记录!"
 
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/tightening_result.py:0

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="tightening_result_report"
+                name="Tightening Result Report"
+                action="tightening_result_report_wizard_action"
+                parent="onesphere_operation_result_report"
+                sequence="40"/>
+
+    </data>
+</odoo>

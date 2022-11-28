@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="wizard_tightening_result_report_view_form" model="ir.ui.view">
+            <field name="name">wizard_tightening_result_report_view_form</field>
+            <field name="model">wizard.tightening.result.report</field>
+            <field name="arch" type="xml">
+                <form string="Print Tightening Result Report">
+                    <sheet>
+                        <group>
+                            <field name="track_no"/>
+                        </group>
+                        <footer>
+                            <button name="print_report" string="Print Report" type="object" class="btn btn-primary active"/>
+                            <button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="tightening_result_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Print Tightening Result Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.tightening.result.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

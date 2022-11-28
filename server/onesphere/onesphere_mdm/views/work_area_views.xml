@@ -102,6 +102,9 @@
                         <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}"
                                 groups="base.group_multi_company"/>
                     </group>
+                    <searchpanel>
+                        <field name="parent_id" string="Parent Work Areas" enable_counters="1"/>
+                    </searchpanel>
                 </search>
             </field>
         </record>

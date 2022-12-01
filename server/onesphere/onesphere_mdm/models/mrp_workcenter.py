@@ -14,7 +14,7 @@ class MrpWorkcenterProductivity(models.Model):
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
-    parent_id = fields.Many2one('oneshare.mrp.work.area', string='Production Section', index=True,
+    section_id = fields.Many2one('oneshare.mrp.work.area', string='Production Section', index=True,
                                 ondelete='restrict',  # 不允许删除工段
                                 domain=lambda
                                     self: "[('company_id', '=', company_id), ('category_id', '=', {})]".format(
@@ -59,7 +59,7 @@ class MrpWorkcenter(models.Model):
             'code': self.code,
             'name': self.name,
             'time_efficiency': self.time_efficiency,
-            'parent_id': self.parent_id.id,
+            'parent_id': self.section_id.id,
         }
         ret = self.env['oneshare.mrp.work.area'].create_work_station(val)
         return ret

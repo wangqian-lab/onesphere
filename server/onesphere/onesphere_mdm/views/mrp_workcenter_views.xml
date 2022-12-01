@@ -26,9 +26,9 @@
                                     <field name="related_work_area_id" options="{'no_create_edit': True}"
                                            context="{'search_default_is_work_station':1}"/>
                                 </div>
-                                <label for="parent_id"/>
+                                <label for="section_id"/>
                                 <div class="o_row">
-                                    <field name="parent_id"/>
+                                    <field name="section_id"/>
                                 </div>
                             </group>
                         </group>

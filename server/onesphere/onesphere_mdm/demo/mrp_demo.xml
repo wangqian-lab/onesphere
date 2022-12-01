@@ -31,32 +31,32 @@
 
         <record id="mrp.mrp_workcenter_1" model="mrp.workcenter">
             <field name="code">OP101</field>
-            <field name="parent_id" ref="oneshare_work_segment_1"/>
+            <field name="section_id" ref="oneshare_work_segment_1"/>
         </record>
         <record id="mrp.mrp_workcenter_2" model="mrp.workcenter">
             <field name="code">OP102</field>
-            <field name="parent_id" ref="oneshare_work_segment_1"/>
+            <field name="section_id" ref="oneshare_work_segment_1"/>
         </record>
         <record id="mrp.mrp_workcenter_3" model="mrp.workcenter">
             <field name="code">OP103</field>
-            <field name="parent_id" ref="oneshare_work_segment_1"/>
+            <field name="section_id" ref="oneshare_work_segment_1"/>
         </record>
         <record id="mrp_workcenter_4" model="mrp.workcenter">
             <field name="name">OP104</field>
             <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
-            <field name="parent_id" ref="oneshare_work_segment_2"/>
+            <field name="section_id" ref="oneshare_work_segment_2"/>
             <field name="code">OP104</field>
         </record>
         <record id="mrp_workcenter_5" model="mrp.workcenter">
             <field name="name">OP105</field>
             <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
-            <field name="parent_id" ref="oneshare_work_segment_2"/>
+            <field name="section_id" ref="oneshare_work_segment_2"/>
             <field name="code">OP105</field>
         </record>
         <record id="mrp_workcenter_6" model="mrp.workcenter">
             <field name="name">OP106</field>
             <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
-            <field name="parent_id" ref="oneshare_work_segment_2"/>
+            <field name="section_id" ref="oneshare_work_segment_2"/>
             <field name="code">OP106</field>
         </record>
 

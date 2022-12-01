@@ -59,7 +59,7 @@ class MrpWorkcenter(models.Model):
             'code': self.code,
             'name': self.name,
             'time_efficiency': self.time_efficiency,
-            'parent_id': self.parent_id.id,
+            'parent_id': self.section_id.id,
         }
         ret = self.env['oneshare.mrp.work.area'].create_work_station(val)
         return ret

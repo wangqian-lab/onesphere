@@ -23,7 +23,7 @@ def _compute_dist_XR_js(data_list: List[float], step=10):
     return XR_data
 
 
-def get_xr_spc_echarts_options(data={}, query_type='torque', description=''):
+def get_xr_spc_echarts_options(data={}, query_type='torque', description='', step=10):
     """生成X_R控制图需要的序列
     Args:
         data ([type]): [description]
@@ -32,7 +32,7 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description=''):
     """
     y1 = data.get('data', [])
     y1 = [0] if len(y1) == 0 else y1
-    x1 = [(x + 1) * 10 for x in range(len(y1))]
+    x1 = [f'{i}({(i-1) * step}~{i * step})' for i in range(1, len(y1) + 1)]
     titleOptions = {
                        'text': f'X-Bar控制图\n{description}'
                    },
@@ -66,6 +66,8 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description=''):
         {
             'name': '曲线图',
             'type': 'line',
+            'symbol': 'roundRect',
+            'symbolSize': 10,
             'yAxisIndex': 0,
             'label': {'show': True},
             'data': y1,

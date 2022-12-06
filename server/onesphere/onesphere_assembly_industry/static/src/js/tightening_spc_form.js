@@ -95,7 +95,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                 } else {
                     self.displayNotification({
                         type: 'warning',
-                        title: result.title || 'SPC分析成功',
+                        title: result.title || 'SPC分析失败',
                         message: result.message || '',
                         sticky: false,
                     });

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report id="print_tightening_result_report"
-            model="onesphere.tightening.result"
-            string="print_tightening_result_report"
-            name="onesphere_assembly_industry.tightening_result_report_template"
-            report_type="qweb-html"/>
+    <record id="print_tightening_result_report" model="ir.actions.report">
+        <field name="model">onesphere.tightening.result</field>
+        <field name="name">Tightening Result Report</field>
+        <field name="report_name">onesphere_assembly_industry.tightening_result_report_template</field>
+        <field name="report_type">qweb-html</field>
+    </record>
 
     <template id="tightening_result_report_template">
         <t t-name="tightening_result_report_template">

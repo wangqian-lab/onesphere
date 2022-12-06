@@ -70,11 +70,11 @@ def get_temp_file_from_result(env, result_ids, platform=''):
                               encoding=download_tightening_results_encode)
             writer.save()
         curve_datas = oss_interface.get_oss_objects(bucket_name, curve_file_list, entity_id_list)
-        for k, v in curve_datas.items():
-            if not v:
+        for entity_id, curve in curve_datas.items():
+            if not curve:
                 continue
-            with zfp.open(f'{k}.csv', mode="w") as f:
-                df = pd.DataFrame.from_dict(json.loads(v))
+            with zfp.open(f'{entity_id}.csv', mode="w") as f:
+                df = pd.DataFrame.from_dict(json.loads(curve))
                 ret = df.to_csv(path_or_buf=None, index=False, columns=['cur_m', 'cur_w', 'cur_t'],
                                 header=['扭矩', '角度', '时间'])
                 f.write(ret.encode(download_tightening_results_encode))

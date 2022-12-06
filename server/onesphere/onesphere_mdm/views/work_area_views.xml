@@ -136,7 +136,7 @@
             <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
             <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
             <!--                ]"/>-->
-            <field name="context">{"search_default_is_production_line":1, "search_default_group_by_parent":1 }</field>
+            <field name="context">{"search_default_is_production_line":1, "search_default_group_by_parent":0 }</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's create a production line.
@@ -153,7 +153,7 @@
             <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
             <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
             <!--                ]"/>-->
-            <field name="context">{"search_default_is_work_segment":1, "search_default_group_by_parent":1 }</field>
+            <field name="context">{"search_default_is_work_segment":1, "search_default_group_by_parent":0 }</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's create a work segment.
@@ -162,7 +162,7 @@
         </record>
 
         <record id="mrp.mrp_workcenter_action" model="ir.actions.act_window">
-            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":1 }</field>
+            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":0 }</field>
         </record>
 
         <record id="oneshare_action_open_work_station" model="ir.actions.act_window">
@@ -170,7 +170,7 @@
             <field name="res_model">oneshare.mrp.work.area</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="oneshare_work_area_filter"/>
-            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":1 }</field>
+            <field name="context">{"search_default_is_work_station":1, "search_default_group_by_parent":0 }</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's create a work station.
@@ -187,7 +187,7 @@
             <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('oneshare_edu_core_view_class_tree')}),-->
             <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('oneshare_edu_core_view_class_form')})-->
             <!--                ]"/>-->
-            <field name="context">{"search_default_is_workstation_unit":1, "search_default_group_by_parent":1 }</field>
+            <field name="context">{"search_default_is_workstation_unit":1, "search_default_group_by_parent":0 }</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's create a work station unit.

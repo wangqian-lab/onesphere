@@ -383,7 +383,7 @@ msgstr "产品设备"
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_process
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_routing
 msgid "Manufacturing Process"
-msgstr "生产过程"
+msgstr "工艺"
 
 #. module: onesphere_mdm
 #: model:ir.ui.menu,name:onesphere_mdm.oneshare_mom_menu_manufacturing_resource

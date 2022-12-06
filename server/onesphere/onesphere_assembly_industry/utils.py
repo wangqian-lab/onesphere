@@ -34,7 +34,7 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description=''):
     y1 = [0] if len(y1) == 0 else y1
     x1 = [(x + 1) * 10 for x in range(len(y1))]
     titleOptions = {
-                       'text': f'X-R控制图\n{description}'
+                       'text': f'X-Bar控制图\n{description}'
                    },
     gridOptions = get_general_grid_option()
 

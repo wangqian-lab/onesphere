@@ -33,6 +33,7 @@ RECORD_TMPL = Template('''
             <field name="measurement_final_torque">{{ torque }}</field>
             <field name="measurement_final_angle">{{ degree }}</field>
             <field name="step_type">tightening</field>
+            <field name="tightening_process_no">{{ tightening_process_no }}</field>
             <field name="tightening_point_name" ref="{{ tightening_bolt_id }}"/>
             <field name="tightening_result">{{ result }}</field>
             <field name="tightening_strategy">{{ tightening_strategy }}</field>
@@ -61,6 +62,7 @@ if __name__ == '__main__':
         degree = round(random.uniform(165.5, 187.5), 2)
         result = random.choice(['ok', 'nok', 'ak2'])
         tightening_strategy = random.choice(['AD', 'AW'])
+        tightening_process_no = random.choice(['1', '2', '3'])
         delta_day = random.randint(1, 20)
         track_no = random.choice(track_codes)
         attribute_equipment_no = random.choice(attribute_equipments)
@@ -69,6 +71,7 @@ if __name__ == '__main__':
                            track_no=track_no, torque=torque,
                            degree=degree, result=result, tightening_bolt_id=tightening_bolt_id,
                            tightening_strategy=tightening_strategy,
+                           tightening_process_no=tightening_process_no,
                            delta_day=delta_day, tightening_id=i + 1)
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)

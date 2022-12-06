@@ -498,7 +498,7 @@ msgstr "最后更新日期"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "Last Week"
-msgstr "下个周"
+msgstr "上周"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.actions.act_window,help:onesphere_assembly_industry.action_measure_result

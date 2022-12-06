@@ -1,4 +1,4 @@
-odoo.define('onesphere.spc.view', function (require) {
+odoo.define('onesphere.spc.render', function (require) {
     "use strict";
 
     var FormView = require('web.FormView');
@@ -9,25 +9,41 @@ odoo.define('onesphere.spc.view', function (require) {
 
     var SPCViewerRenderer = FormRenderer.extend({
         _renderTabPage: function (page, page_id) {
-            var self = this;
-            var $result = this._super.apply(this, arguments);
-            $result.css({width: '100%'});
-            var native_page = $result.get(0);
-            var chart = echarts.init(native_page, null, {height: 600});
+            var $ret = this._super.apply(this, arguments);
+            $ret.css({width: '100%'});
+            var $container = $ret.get(0).firstChild;
+            var chart = echarts.init($container, null, {height: 600});
             $(window).resize(function () {
                 chart.resize();
             });
-            return $result;
+            return $ret;
         },
-        // _onNotebookTabChanged: function (evt) {
-        //     var activeTab = evt;
-        //     // var tab = activeTab.get(0);
-        //     var href = activeTab.attr('href'); //為id
-        //     var ele = activeTab.find(href).get(0);
-        //     var chart = echarts.getInstanceByDom(ele);
-        //     chart.resize();
-        //     this._super.apply(this, arguments);
-        // },
+
+        render_pages: function (pages) {
+            var self = this;
+            _.map(pages, function (opts, selection) {
+                var sel = 'div.' + selection;
+                var ele = self.$el.find(sel).get(0);
+                if (!!ele) {
+                    // 找到这个echarts DOM元素
+                    const charts = echarts.getInstanceByDom(ele);
+                    charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
+                    charts.resize();
+                }
+            });
+        },
+
+        _onNotebookTabChanged: function (evt) {
+            var self = this;
+            var selection = evt.target.hash; // 获取div id
+            var ele = self.$el.find(selection).children('div').get(0);
+            if (!!ele) {
+                // 找到这个echarts DOM元素
+                const charts = echarts.getInstanceByDom(ele);
+                charts.resize();
+            }
+            this._super.apply(this, arguments);
+        },
     });
 
 
@@ -40,6 +56,6 @@ odoo.define('onesphere.spc.view', function (require) {
 
     viewRegistry.add('spc_form', SPCFormView);
 
-    return SPCFormView;
+    return SPCViewerRenderer;
 
 });

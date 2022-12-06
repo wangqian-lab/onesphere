@@ -143,8 +143,9 @@ class OperationResult(HModel):
             query += f'''AND tightening_result='{filter_result}' '''
         if bolt_id:
             query += f'''AND tightening_point_name={bolt_id} '''
+        query += 'ORDER BY control_time ASC '
         if limit:
-            query += f'''limit {limit} '''
+            query += f'''LIMIT {limit} '''
         cr.execute(query, (date_from, date_to,))
         result = cr.fetchall()
         if not result:

@@ -4,8 +4,9 @@ from typing import List
 
 import numpy as np
 from odoo.addons.oneshare_utils.constants import ONESHARE_DEFAULT_SPC_MAX_LIMIT
-from odoo.addons.onesphere_assembly_industry.utils import get_general_grid_option, get_dist_echarts_options
-from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, xbar_rbar, covert2dArray, cr, cp
+from odoo.addons.onesphere_assembly_industry.utils import get_dist_echarts_options, get_xr_spc_echarts_options, \
+    _compute_dist_XR_js
+from odoo.addons.onesphere_spc.utils.lexen_spc.chart import cmk, cpk, cr, cp
 from odoo.addons.onesphere_spc.utils.lexen_spc.plot import normal, histogram
 from scipy.stats import exponweib
 
@@ -97,11 +98,14 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = f'拧紧点数量:{eff_length}/{len(data_list)},标准差:{np.std(data_list) or 0:.2f},均值:{np.mean(data_list) or 0:.2f}, 范围:[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]'
+            description = f'拧紧点数量(count):{eff_length}/{len(data_list)}\n' \
+                          f'原始数据范围(range):[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]\n' \
+                          f'均值(mean):{np.mean(data_list) or 0:.2f}\t\t标准差(sigma):{np.std(data_list) or 0:.2f}\n' \
+                # f'6sigma数据范围: []'
         else:
             description = '拧紧点数量: 0'
 
-        dict_xr_chart = self._compute_dist_XR_js(data_list)
+        dict_xr_chart = _compute_dist_XR_js(data_list)
 
         nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
                                                                       filter_result='nok',
@@ -120,7 +124,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                       # 'o_spc_weibull_dist': get_dist_echarts_options(dict_weill_dict, query_type, description,
                       #                                                type='weill'),
                       # 'o_spc_scatter': self.get_scatter_echarts_options(),
-                      'o_spc_xr_chart': self.get_xr_spc_echarts_options(dict_xr_chart, query_type, description),
+                      'o_spc_xr_chart': get_xr_spc_echarts_options(dict_xr_chart, query_type, description),
                       },
             'cmk': CMK if CMK else 0.0,
             'cpk': CPK if CPK else 0.0,
@@ -129,100 +133,6 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         return ret
-
-    @staticmethod
-    def get_xr_spc_echarts_options(data={}, query_type='torque', description=''):
-        """生成X_R控制图需要的序列
-        Args:
-            data ([type]): [description]
-        Returns:
-            [Dict]: [echarts series Option]
-        """
-        y1 = data.get('data', [])
-        y1 = [0] if len(y1) == 0 else y1
-        x1 = [(x + 1) * 10 for x in range(len(y1))]
-        titleOptions = {
-                           'text': 'X-R SPC 控制图(%s)' % description
-                       },
-        gridOptions = get_general_grid_option()
-
-        xAxisOptions = [{
-            'name': '分组(个数))',
-            'nameLocation': 'end',
-            'nameTextStyle': {
-                'fontStyle': 'bolder',
-                'fontSize': 16
-            },
-            'data': x1,
-
-        }]
-        yAxisOptions = [
-            {
-                'type': 'value',
-                'name': _('Torque(NM)') if query_type == 'torque' else _('Angle(Deg)'),
-                # 'min': data.get('lower', 0),
-                # 'max': data.get('upper', 'dataMax'),round(val * 100, 2)
-                'min': round(min(min(y1), data.get('lower', 0) * 1.1 - data.get('upper', 60) * 0.1), 2),
-                'max': round(max(max(y1), data.get('upper', 0) * 1.1 - data.get('lower', 0) * 0.1), 2),
-                'interval': 1,
-                'axisLabel': {
-                    'formatter': '{value}'
-                }
-            },
-        ]
-        seriesOptions = [
-            {
-                'name': '曲线图',
-                'type': 'line',
-                'yAxisIndex': 0,
-                'label': {'show': True},
-                'data': y1,
-                'markLine': {
-                    'data': [{'type': 'average',
-                              'name': '中心线-CL',
-                              'label': {
-                                  'show': True,
-                                  'position': 'end',
-                                  'formatter': '{b}\n{c}'
-                              },
-                              # 'lineStyle': {
-                              #     'color': 'green'
-                              # }
-                              },
-                             {
-                                 'name': '控制上限-UCL',
-                                 'label': {
-                                     'show': True,
-                                     'position': 'end',
-                                     'formatter': '{b}\n{c}'
-                                 },
-                                 'yAxis': data.get('upper', 'dataMax'),
-                                 # 'lineStyle': {
-                                 #     'color': 'green'
-                                 # }
-                             },
-                             {
-                                 'name': '控制下限-LCL',
-                                 'label': {
-                                     'show': True,
-                                     'position': 'end',
-                                     'formatter': '{b}\n{c}'
-                                 },
-                                 'yAxis': data.get('lower', 0),
-                                 # 'lineStyle': {
-                                 #     'color': 'green'
-                                 # }
-                             }]
-                }
-            }
-        ]
-        return {
-            'title': titleOptions,
-            'grid': gridOptions,
-            'xAxis': xAxisOptions,
-            'yAxis': yAxisOptions,
-            'series': seriesOptions
-        }
 
     def _compute_dist_js(self, data_list: List[float], usl: float, lsl: float, spc_step: float):
         histogram_data = histogram(data_list, usl, lsl, spc_step)
@@ -249,10 +159,3 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
             y_histogram_data.append(round(hist[i] / data_len * 100, 2))
             y_normal_data.append(round(y_pdf[i] * 100, 2))
         return x_axis_data, y_histogram_data, y_normal_data
-
-    def _compute_dist_XR_js(self, data_list: List[float], step=10):
-        # x_bar = np.arange(int(min), int(max), 1)
-        array_2d_data = covert2dArray(data_list, step)
-        XR_data = xbar_rbar(array_2d_data, step)
-        # C = rbar(A, 10)
-        return XR_data

@@ -36,8 +36,8 @@
                                 <field name="model_object_field" required="1" readonly="1"/>
                             </group>
                             <group string="Standard Setting(规格设定)">
-                                <field name="usl" required="1"/>
                                 <field name="lsl" required="1"/>
+                                <field name="usl" required="1"/>
                             </group>
                             <group string="Quality SPC">
                                 <field name="cmk" readonly="1"/>
@@ -46,21 +46,21 @@
                                 <field name="cr" readonly="1"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Normal Distribution">
+                                <div class="o_spc_norm_dist"/>
+                            </page>
+                            <!--                        <page string="Weibull Distribution">-->
+                            <!--                            <div class="o_spc_weibull_dist"/>-->
+                            <!--                        </page>-->
+                            <!--                        <page string="Scatter">-->
+                            <!--                            <div class="o_spc_scatter"/>-->
+                            <!--                        </page>-->
+                            <page string="X-R(X-R Control Chart)">
+                                <div class="o_spc_xr_chart"/>
+                            </page>
+                        </notebook>
                     </sheet>
-                    <notebook>
-                        <page string="Normal Distribution">
-                            <div class="o_spc_norm_dist"/>
-                        </page>
-                        <!--                        <page string="Weibull Distribution">-->
-                        <!--                            <div class="o_spc_weibull_dist"/>-->
-                        <!--                        </page>-->
-                        <!--                        <page string="Scatter">-->
-                        <!--                            <div class="o_spc_scatter"/>-->
-                        <!--                        </page>-->
-                        <page string="X-R(X-R Control Chart)">
-                            <div class="o_spc_xr_chart"/>
-                        </page>
-                    </notebook>
                 </form>
             </field>
         </record>

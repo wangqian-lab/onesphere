@@ -78,6 +78,11 @@ odoo.define('onesphere.spc.controller', function (require) {
             this._super.apply(this, arguments);
             this.step = 'months';
         },
+
+        canBeDiscarded: function (recordID) {
+            return new Promise(resolve => resolve(true)); //隐藏discard confirm提示窗口优化用户体验
+        },
+
         _onButtonQuerySPC: function (ev) {
         },
         renderButtons: function ($node) {

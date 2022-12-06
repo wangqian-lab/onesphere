@@ -1,15 +1,15 @@
 odoo.define('onesphere.tightening.spc.view', function (require) {
     "use strict";
 
+    var FormView = require('web.FormView');
     const SPCViewerController = require('onesphere.spc.controller');
     var viewRegistry = require('web.view_registry');
-    const SPCFormView = require('onesphere.spc.view');
     var Dialog = require('web.Dialog');
 
     var core = require('web.core');
 
     var _t = core._t;
-    var FormRenderingEngine = require('web.FormRenderer');
+    var SPCFormRenderingEngine = require('onesphere.spc.render');
     var TighteningSPCFormController = SPCViewerController.extend({
 
         init: function (parent, model, renderer, params) {
@@ -89,14 +89,14 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
                     self.displayNotification({
                         type: 'success',
                         title: result.title || 'SPC分析成功',
-                        message: result.message ||'',
+                        message: result.message || '',
                         sticky: false,
                     });
-                }else {
+                } else {
                     self.displayNotification({
                         type: 'warning',
                         title: result.title || 'SPC分析成功',
-                        message: result.message ||'',
+                        message: result.message || '',
                         sticky: false,
                     });
                 }
@@ -105,7 +105,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
         },
     });
 
-    var SPCViewerRenderer = FormRenderingEngine.extend({
+    var SPCViewerRenderer = SPCFormRenderingEngine.extend({
         init: function (parent, model, renderer, params) {
             this._super.apply(this, arguments);
             this.chartsData = null;
@@ -113,45 +113,25 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
 
         _renderTabPage: function (page, page_id) {
             var $ret = this._super.apply(this, arguments);
-            $ret.css({width: '100%'});
-            var $container = $ret.get(0).firstChild;
-            var chart = echarts.init($container, null, {height: 600});
-            $(window).resize(function () {
-                chart.resize();
-            });
             return $ret;
         },
 
-        render_pages: function (pages) {
-            var self = this;
-            _.map(pages, function (opts, selection) {
-                var sel = 'div.' + selection;
-                var ele = self.$el.find(sel).get(0);
-                if (!!ele) {
-                    // 找到这个echarts DOM元素
-                    const charts = echarts.getInstanceByDom(ele);
-                    charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
-                    charts.resize();
-                }
-            });
-        },
-
-        _onNotebookTabChanged: function (evt) {
-            if (!!this.chartsData) {
-                this.render_pages(this.chartsData);
-            }
-//             var activeTab = evt;
-//             // var tab = activeTab.get(0);
-//             var href = activeTab.attr('href'); //為id
-//             var ele =  $new_notebook.find(href).get(0);
-//             var chart = echarts.getInstanceByDom(ele);
-//             chart.resize();
-            this._super.apply(this, arguments);
-        },
+//         _onNotebookTabChanged: function (evt) {
+//             if (!!this.chartsData) {
+//                 this.render_pages(this.chartsData);
+//             }
+// //             var activeTab = evt;
+// //             // var tab = activeTab.get(0);
+// //             var href = activeTab.attr('href'); //為id
+// //             var ele =  $new_notebook.find(href).get(0);
+// //             var chart = echarts.getInstanceByDom(ele);
+// //             chart.resize();
+//             this._super.apply(this, arguments);
+//         },
 
     });
-    var TighteningSPCFormView = SPCFormView.extend({
-        config: _.extend({}, SPCFormView.prototype.config, {
+    var TighteningSPCFormView = FormView.extend({
+        config: _.extend({}, FormView.prototype.config, {
             Controller: TighteningSPCFormController,
             Renderer: SPCViewerRenderer
         }),

@@ -31,5 +31,17 @@
             <field name="view_mode">tree,form,kanban</field>
             <field name="context">{"search_default_supplies": 1}</field>
         </record>
+
+        <record id="oneshare_product_product_form_view_mdm" model="ir.ui.view">
+            <field name="name">oneshare.product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="mrp.product_product_form_view_bom_button"/>
+            <field name="arch" type="xml">
+                <field name="default_code" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+
     </data>
 </odoo>

@@ -70,6 +70,12 @@ class MrpWorkcenterGroup(models.Model):
         self._update_unlink_workcenter_group_tool()
         return ret
 
+    def name_get(self):
+        res = []
+        for wo in self:
+            res.append((wo.id, "[%s]@(%s)" % (wo.code, "/".join([w.code for w in wo.onesphere_workcenter_ids]))))
+        return res
+
 
 class MrpWorkcenterGroupTool(models.Model):
     _log_access = False
@@ -105,4 +111,3 @@ class MrpWorkcenterGroupTool(models.Model):
             workgroup_name = tool_group_id.workgroup_id.name if tool_group_id.workgroup_id else 'None'
             res.append((tool_group_id.id, f'[{serial_no}]@{workcenter_name}@{workgroup_name}'))
         return res
-

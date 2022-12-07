@@ -48,13 +48,13 @@
                 groups="mrp.group_mrp_manager"
                 sequence="50"/>
 
-        <menuitem
-                id="oneshare_mom_menu_manufacturing_setting_work_area_category"
-                name="Work Area Category"
-                parent="oneshare_mom_menu_manufacturing_setting"
-                action="oneshare_action_open_work_area_category"
-                groups="mrp.group_mrp_manager"
-                sequence="10"/>
+<!--        <menuitem-->
+<!--                id="oneshare_mom_menu_manufacturing_setting_work_area_category"-->
+<!--                name="Work Area Category"-->
+<!--                parent="oneshare_mom_menu_manufacturing_setting"-->
+<!--                action="oneshare_action_open_work_area_category"-->
+<!--                groups="mrp.group_mrp_manager"-->
+<!--                sequence="10"/>-->
 
         <menuitem
                 id="oneshare_mom_menu_manufacturing_setting_equipment_category"
@@ -65,13 +65,13 @@
                 sequence="20"/>
 
 
-        <menuitem
-                id="oneshare_mom_menu_manufacturing_setting_product_category"
-                name="Product Category"
-                parent="oneshare_mom_menu_manufacturing_setting"
-                action="product.product_category_action_form"
-                groups="product.group_product_variant"
-                sequence="30"/>
+<!--        <menuitem-->
+<!--                id="oneshare_mom_menu_manufacturing_setting_product_category"-->
+<!--                name="Product Category"-->
+<!--                parent="oneshare_mom_menu_manufacturing_setting"-->
+<!--                action="product.product_category_action_form"-->
+<!--                groups="product.group_product_variant"-->
+<!--                sequence="30"/>-->
 
 
         <menuitem
@@ -118,13 +118,7 @@
                 action="oneshare_action_open_work_station_unit"
                 sequence="50"/>
 
-        <menuitem
-                id="oneshare_mom_menu_manufacturing_setting_work_area_category"
-                name="Work Area Category"
-                parent="oneshare_mom_menu_manufacturing_setting"
-                action="oneshare_action_open_work_area_category"
-                groups="mrp.group_mrp_manager"
-                sequence="10"/>
+
 
         <menuitem
                 id="oneshare_mom_menu_manufacturing_product"

@@ -1019,7 +1019,7 @@ msgstr "拧紧"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_bolt_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
 msgid "Tightening Bolt"
-msgstr "拧紧螺栓"
+msgstr "螺栓编号"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_bolt

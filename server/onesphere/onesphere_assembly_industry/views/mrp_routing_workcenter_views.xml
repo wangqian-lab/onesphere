@@ -15,7 +15,7 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="code" required="1"/>
                     <field name="workcenter_group_id"/>
-<!--                    <field name="workcenter_ids" readonly="1" widget="many2many_tags"/>-->
+                    <field name="workcenter_ids" readonly="1" invisible="1" widget="many2many_tags"/>
                 </xpath>
             </field>
         </record>

@@ -74,7 +74,8 @@ class OneshareMeasurementItem(models.Model):
     tolerance_max = fields.Float('Max Tolerance', digits='Quality Tests')
     norm_unit = fields.Char('Unit of Measure', default=lambda self: 'mm')
 
-    test_equipment_id = fields.Many2one('maintenance.equipment', 'Test Equipment')
+    test_equipment_id = fields.Many2one('maintenance.equipment', 'Test Equipment'
+                                        , domain=[('category_id.technical_name', '=', 'standard_measure_equipment')])
 
     # @api.onchange('test_type')
     # def onchange_test_type(self):

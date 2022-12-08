@@ -54,7 +54,7 @@
         <field name="arch" type="xml">
             <tree string="Quality Point Type">
                 <field name="name"/>
-                <field name="technical_name" optional="show"/>
+<!--                <field name="technical_name" optional="show"/>-->
                 <field name="active" optional="show" string="Active"/>
             </tree>
         </field>

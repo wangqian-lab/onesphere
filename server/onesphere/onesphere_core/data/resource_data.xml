@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
 
+
+    <data noupdate="1">
+        <record id="resource_calendar_std11" model="resource.calendar">
+            <field name="name">标准40小时/周制</field>
+        </record>
+        <record id="resource.resource_calendar_std" model="resource.calendar">
+            <field name="name">标准40小时/周制</field>
+        </record>
+        <record id="resource.resource_calendar_std_38h" model="resource.calendar">
+            <field name="name">标准38小时/周制</field>
+        </record>
+        <record id="resource.resource_calendar_std_35h" model="resource.calendar">
+            <field name="name">标准35小时/周制</field>
+        </record>
         <record id="resource_calendar_std_140h" model="resource.calendar">
-            <field name="name">Standard 140 hours/week</field>
+            <field name="name">标准140小时/周制</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="hours_per_day">20.0</field>
             <field name="attendance_ids"

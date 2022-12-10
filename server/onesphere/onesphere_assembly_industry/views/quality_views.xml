@@ -28,7 +28,7 @@
                 <xpath expr="//field[@name='test_type_id']" position="after">
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="revision" readonly="1"/>
-                    <field name="barcode_rule" attrs="{'invisible': [('test_type','!=','register_byproducts')]}"/>
+                    <field name="barcode_rule" placeholder="正则表达式, e.g:/[1-9][0-9]*/" attrs="{'invisible': [('test_type','!=','register_byproducts')]}"/>
                     <field name="time_limit" attrs="{'readonly':[('test_type','!=','text')]}"/>
                 </xpath>
                 <xpath expr="//notebook/page[1]" position="before">

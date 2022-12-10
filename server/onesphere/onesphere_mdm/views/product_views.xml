@@ -21,7 +21,9 @@
             <field name="res_model">product.product</field>
             <field name="search_view_id" ref="oneshare_mrp_product_product_search_view"/>
             <field name="view_mode">tree,form,kanban</field>
-            <field name="context">{"search_default_manufactured_products": 1}</field>
+            <field name="context">{"search_default_manufactured_products":
+                1,"default_type":"product","default_tracking":"serial"}
+            </field>
         </record>
 
         <record id="oneshare_mrp_consumable_action" model="ir.actions.act_window">
@@ -43,14 +45,12 @@
                 <xpath expr="//field[@name='lst_price']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//label[@for='lst_price']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
                 <xpath expr="//field[@name='standard_price']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//label[@for='standard_price']" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                <xpath expr="//label[@for='lst_price']" position="replace">
+                </xpath>
+                <xpath expr="//label[@for='standard_price']" position="replace">
                 </xpath>
                 <xpath expr="//page[@name='inventory']" position="attributes">
                     <attribute name="invisible">1</attribute>

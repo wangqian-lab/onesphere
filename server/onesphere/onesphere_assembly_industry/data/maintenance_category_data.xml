@@ -28,8 +28,8 @@
         </record>
 
             <record id="equipment_standard_Measure" model="maintenance.equipment.category">
-            <field name="name">Sandard_MeasureTool(Measure)</field>
-            <field name="technical_name">standard_measure_equipment</field>
+            <field name="name">General_MeasureTool(Measure)</field>
+            <field name="technical_name">general_measure_equipment</field>
         </record>
     </data>
 </odoo>

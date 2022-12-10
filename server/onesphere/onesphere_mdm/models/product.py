@@ -3,18 +3,13 @@
 from odoo import models, fields, api, _
 
 
-class MaintenanceEquipment(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
     _check_company_auto = True
-    type = fields.Selection(default='product')
-    tracking = fields.Selection(default='serial')
 
+    # 目前只能想到这种方法，action中env ref，obj等字段不支持
     @api.model
-    def get_all_select_ids(self):
-        select_ids = self.env['stock.location.route'].search([('product_selectable', '=', True)])
-        vals = []
-        for item in select_ids.ids:
-            vals.append([6, 0, [item]])
-        return vals
-
-    route_ids = fields.Many2many(default=get_all_select_ids)
+    def default_select_ids(self):
+        item = self.env['ir.model.data'].xmlid_to_res_id('mrp.route_warehouse0_manufacture')
+        return [[6, 0, [item]]]
+    route_ids = fields.Many2many(default=default_select_ids)

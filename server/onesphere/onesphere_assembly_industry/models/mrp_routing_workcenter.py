@@ -63,21 +63,10 @@ class MrpRoutingWorkcenter(models.Model):
     #             })
     @api.onchange('workcenter_group_id')
     def onchange_workcenter_group_id(self):
-        for rec in self:
-            if rec.workcenter_group_id:
-                return {
-                    'domain': {
-                        'workcenter_id': [
-                            ('id', 'in', rec.workcenter_ids.ids)
-                        ]
-                    }
-                }
-            else:
-                return {
-                    'domain': {
-                        'workcenter_id': []
-                    }
-                }
+        domain = []
+        if self.workcenter_group_id:
+            domain = [('id', 'in', self.workcenter_ids.ids)]
+        return {'domain': {'workcenter_id': domain}}
 
     def _get_masterpc_url(self, master_pcs):
         connect_list = []

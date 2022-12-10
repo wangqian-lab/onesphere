@@ -3,6 +3,9 @@
 
 
     <data noupdate="1">
+        <record id="resource_calendar_std11" model="resource.calendar">
+            <field name="name">标准40小时/周制</field>
+        </record>
         <record id="resource.resource_calendar_std" model="resource.calendar">
             <field name="name">标准40小时/周制</field>
         </record>
@@ -12,11 +15,6 @@
         <record id="resource.resource_calendar_std_35h" model="resource.calendar">
             <field name="name">标准35小时/周制</field>
         </record>
-<!--        <delete model="resource.calendar" id="resource.resource_calendar_std_35h"/>-->
-<!--        <delete model="resource.calendar" id="resource.resource_calendar_std_38h"/>-->
-    </data>
-    <data noupdate="1">
-
         <record id="resource_calendar_std_140h" model="resource.calendar">
             <field name="name">标准140小时/周制</field>
             <field name="company_id" ref="base.main_company"/>

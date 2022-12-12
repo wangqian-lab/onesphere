@@ -13,3 +13,4 @@ from . import mrp_workcenter
 from . import onesphere_work_step_tag
 from . import onesphere_tightening_bolt
 from . import res_config_settings
+from . import ir_action_report

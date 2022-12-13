@@ -67,7 +67,9 @@
                         }
                     </style>
                     <div class="page">
-                        <title align="center" name="test">拧紧结果报告</title>
+                        <h2 align="center">
+                           <span>拧紧结果报告</span>
+                       </h2>
                         <br/>
                         <p/>
                         <h4 style="color: #000000">追溯码:

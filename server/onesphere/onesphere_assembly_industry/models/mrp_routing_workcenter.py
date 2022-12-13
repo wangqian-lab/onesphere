@@ -14,7 +14,7 @@ from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TES
     MULTI_MEASURE_TYPE, MASTER_ROUTING_API
 from odoo.addons.onesphere_assembly_industry.controllers.mrp_order_gateway import package_multi_measurement_items
 
-from odoo import fields, models, _
+from odoo import fields, models, _, api
 from odoo.exceptions import ValidationError
 from odoo.tools import ustr
 
@@ -61,6 +61,12 @@ class MrpRoutingWorkcenter(models.Model):
     #             ver_record.update({
     #                 'state': 'todo'
     #             })
+    @api.onchange('workcenter_group_id')
+    def onchange_workcenter_group_id(self):
+        domain = []
+        if self.workcenter_group_id:
+            domain = [('id', 'in', self.workcenter_ids.ids)]
+        return {'domain': {'workcenter_id': domain}}
 
     def _get_masterpc_url(self, master_pcs):
         connect_list = []

@@ -5,7 +5,10 @@ USER root
 #onesphere addons requirements
 COPY ./requirements.txt /
 
-RUN pip3 install --upgrade pip \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      phantomjs \
+    && pip3 install --upgrade pip \
     && pip3 install -r /requirements.txt \
     && curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/bin/mc \
     && chmod +x /usr/bin/mc

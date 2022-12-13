@@ -4,115 +4,212 @@
         <field name="model">onesphere.tightening.result</field>
         <field name="name">Tightening Result Report</field>
         <field name="report_name">onesphere_assembly_industry.tightening_result_report_template</field>
-        <field name="report_type">qweb-html</field>
+        <field name="report_type">qweb-pdf</field>
     </record>
 
     <template id="tightening_result_report_template">
         <t t-name="tightening_result_report_template">
             <t t-call="web.html_container">
-            <t t-call="web.external_layout">
-                <style>
-                    .row{
-                    margin: 1px auto -1px auto;
-                    display: -webkit-box;
-                    -webkit-box-orient: horizontal;
-                    text-align: center;
-                    }
-                    .child{
-                    -webkit-box-flex: 1;
-                    }
-                    .row1{
-                    margin: 1px auto -1px auto;
-                    display: -webkit-box;
-                    -webkit-box-orient: horizontal;
-                    }
-                </style>
-                <div class="page">
-                    <title align="center" name="test">拧紧结果报告</title>
-                    <br/>
-                    <p/>
-                    <h4 style="color: #000000">追溯码: <t t-esc="track_no"/></h4>
-                    <p/>
-                    <br/>
-                    <div class="row">
-                        <div class="child">总数</div>
-                        <div class="child">合格数 (比率)</div>
-                        <div class="child">异常数 (比率)</div>
-                    </div>
-                    <div class="row">
-                        <div class="child"><t t-esc="count"/></div>
-                        <div class="child"><t t-esc="ok_count"/> (<t t-esc="ok_percent"/>)</div>
-                        <div class="child"><t t-esc="nok_count"/> (<t t-esc="nok_percent"/>)</div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <div class="row">
-                        <div class="child">螺栓数</div>
-                        <div class="child">一次合格数 (比率)</div>
-                        <div class="child">最终合格数 (比率)</div>
-                    </div>
-                    <div class="row">
-                        <div class="child"><t t-esc="bolt_count"/></div>
-                        <div class="child"><t t-esc="first_ok_count"/> (<t t-esc="first_ok_percent"/>)</div>
-                        <div class="child"><t t-esc="final_ok_count"/> (<t t-esc="final_ok_percent"/>)</div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <p/>
-                    <t t-foreach="results" t-as="bolt_result">
-                        <div class="row1">
-                            <div class="child">螺栓: <t t-esc="bolt_result['bolt_name']"/></div>
-                            <div class="child">结果数: <t t-esc="bolt_result['count']"/></div>
-                            <div class="child">最终结果: <t t-esc="bolt_result['final_result']"/></div>
+                <t t-call="web.external_layout">
+                    <style>
+                        .row{
+                        margin: 1px auto -1px auto;
+                        display: -webkit-box;
+                        -webkit-box-orient: horizontal;
+                        text-align: center;
+                        }
+                        .child{
+                        -webkit-box-flex: 1;
+                        }
+                        .row1{
+                        margin: 1px auto -1px auto;
+                        display: -webkit-box;
+                        -webkit-box-orient: horizontal;
+                        }
+                        .thumbnail
+                        {
+                        display: inline-block;
+                        width:480px;
+                        height:300px;
+                        }
+                        .thumbnail-r
+                        {
+                        display: inline-block;
+                        height:300px;
+                        padding-top:30px;
+                        }
+                        .box{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        height: 100%;
+                        width: 100%;
+                        }
+                        .label
+                        {
+                        height: 60px;
+                        line-height: 60px;
+                        width：100%;
+                        <!--                        margin-bottom:60px;-->
+                        }
+                        .mb{
+                        margin-bottom:300px;
+                        }
+                        .inline-block{
+                        display: inline-block;
+                        height: 100%;
+                        width: 140px;
+                        }
+                        .inline-block1{
+                        display: inline-block;
+                        height: 100%;
+                        width: 100px;
+                        }
+                    </style>
+                    <div class="page">
+                        <h2 align="center">
+                           <span>拧紧结果报告</span>
+                       </h2>
+                        <br/>
+                        <p/>
+                        <h4 style="color: #000000">追溯码:
+                            <t t-esc="track_no"/>
+                        </h4>
+                        <p/>
+                        <br/>
+                        <div id="report_chart_bolt" height="1000px">
+                            <img t-att-src="bolt_statistic_pie_chart" class="thumbnail"/>
+                            <div height="100%" class="thumbnail-r">
+                                <div class="inline-block">
+                                    <div class="label">螺栓编号数量:</div>
+                                    <div class="label">一次合格数 (比率):</div>
+                                    <div class="label">最终合格数 (比率):</div>
+                                </div>
+                                <div class="inline-block1">
+                                    <div class="label">
+                                        <t t-esc="bolt_count"/>
+                                    </div>
+                                    <div class="label"><t t-esc="first_ok_count"/>(<t t-esc="first_ok_percent"/>)
+                                    </div>
+                                    <div class="label"><t t-esc="final_ok_count"/>(<t t-esc="final_ok_percent"/>)
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <table class="table table-condensed" style="font-size:16px; text-align: center" boder="1">
-                            <thead>
-                                <tr>
-                                    <th>拧紧结果</th>
-                                    <th>程序号</th>
-                                    <th>扭矩(NM)</th>
-                                    <th>角度(Deg)</th>
-                                    <th>拧紧时间</th>
-                                    <th>工位</th>
-                                    <th>设备序列号</th>
-                                    <th>错误信息</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="bolt_result['results']" t-as="line">
-                                    <t t-if="line[0]=='ok'">
-                                        <td style="background-color: #C8E6C9;">
-                                            <span style="color:#256029">OK</span>
+                        <div id="report_chart_result" width="100%" height="1000px" class="mb">
+                            <img t-att-src="result_statistic_pie_chart" class="thumbnail"/>
+                            <div height="100%" class="thumbnail-r">
+                                <div class="inline-block">
+                                    <div class="label">拧紧次数:</div>
+                                    <div class="label">合格数 (比率):</div>
+                                    <div class="label">异常数 (比率):</div>
+                                </div>
+                                <div class="inline-block1">
+                                    <div class="label">
+                                        <t t-esc="count"/>
+                                    </div>
+                                    <div class="label">
+                                        <t t-esc="ok_count"/>
+                                        (<t t-esc="ok_percent"/>)
+                                    </div>
+                                    <div class="label">
+                                        <t t-esc="abnormal_count"/>
+                                        (<t t-esc="abnormal_percent"/>)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <br/>-->
+                        <!--                        <br/>-->
+                        <!--                        <br/>-->
+                        <!--                        <br/>-->
+                        <!--                        <br/>-->
+                        <!--                        <br/>-->
+                        <!--                        <p/>-->
+                        <t t-foreach="results" t-as="bolt_result">
+                            <div class="row1">
+                                <div class="child">螺栓编号:
+                                    <t t-esc="bolt_result['bolt_name']"/>
+                                </div>
+                                <div class="child">结果数:
+                                    <t t-esc="bolt_result['count']"/>
+                                </div>
+                                <t t-if="bolt_result['final_result']=='ok'">
+                                    <div class="child" style="background-color: #C8E6C9;">最终结果:
+                                        OK
+                                    </div>
+                                </t>
+                                <t t-elif="bolt_result['final_result']=='nok'">
+                                    <div class="child" style="background-color: #FFCDD2;">最终结果:
+                                        NOK
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="child">最终结果:
+                                        <t t-esc="bolt_result['final_result']"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <table class="table table-condensed" style="font-size:16px; text-align: center" boder="1">
+                                <thead>
+                                    <tr>
+                                        <th>拧紧结果</th>
+                                        <th>程序号</th>
+                                        <th>扭矩(NM)</th>
+                                        <th>角度(Deg)</th>
+                                        <th>拧紧时间</th>
+                                        <th>工位</th>
+                                        <th>设备序列号</th>
+                                        <th>错误信息</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="bolt_result['results']" t-as="line">
+                                        <t t-if="line[0]=='ok'">
+                                            <td style="background-color: #C8E6C9;">
+                                                <span style="color:#256029">OK</span>
+                                            </td>
+                                        </t>
+                                        <t t-elif="line[0]=='nok'">
+                                            <td style="background-color: #FFCDD2">
+                                                <span style="color:#C63737">NOK</span>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="background-color: #D3D1D1">
+                                                <span t-esc="line[0].upper()"/>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <span t-esc="line[1]"/>
                                         </td>
-                                    </t>
-                                    <t t-elif="line[0]=='nok'">
-                                        <td style="background-color: #FFCDD2">
-                                            <span style="color:#C63737">NOK</span>
+                                        <td name="torque">
+                                            <span t-esc="line[2]"/>
                                         </td>
-                                    </t>
-                                    <t t-else="">
-                                        <td style="background-color: #D3D1D1">
-                                            <span t-esc="line[0].upper()"/>
+                                        <td name="angle">
+                                            <span t-esc="line[3]"/>
                                         </td>
-                                    </t>
-                                    <td><span t-esc="line[1]"/></td>
-                                    <td name="torque"><span t-esc="line[2]"/></td>
-                                    <td name="angle"><span t-esc="line[3]"/></td>
-                                    <td><span t-esc="line[4]"/></td>
-                                    <td><span t-esc="line[5]"/></td>
-                                    <td><span t-esc="line[6]"/></td>
-                                    <td><span t-esc="line[7]"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br/>
-                        <br/>
-                    </t>
-                </div>
+                                        <td>
+                                            <span t-esc="line[4]"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line[5]"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line[6]"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line[7]"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                        </t>
+                    </div>
+                </t>
             </t>
-        </t>
         </t>
     </template>
 

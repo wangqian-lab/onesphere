@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-22 06:43+0000\n"
-"PO-Revision-Date: 2022-11-22 06:43+0000\n"
+"POT-Creation-Date: 2022-12-08 07:23+0000\n"
+"PO-Revision-Date: 2022-12-08 07:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -635,17 +635,17 @@ msgid "Name"
 msgstr "名称"
 
 #. module: onesphere_assembly_industry
-#: code:addons/onesphere_assembly_industry/wizards/wizard_tightening_result_report.py:0
-#, python-format
-msgid "No result record!"
-msgstr "未找到拧紧结果记录!"
-
-#. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/tightening_result.py:0
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__onesphere_tightening_result__tightening_result__none
 #, python-format
 msgid "No measure"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/wizard_tightening_result_report.py:0
+#, python-format
+msgid "No result record!"
+msgstr "未找到拧紧结果记录!"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__onesphere_tightening_result__work_mode__normal
@@ -912,6 +912,11 @@ msgid "SPC Query Record Count Limit"
 msgstr "SPC查询结果数量限制"
 
 #. module: onesphere_assembly_industry
+#: model:maintenance.equipment.category,name:onesphere_assembly_industry.equipment_standard_Measure
+msgid "General_MeasureTool(Measure)"
+msgstr "通用测量设备"
+
+#. module: onesphere_assembly_industry
 #. openerp-web
 #: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
 #, python-format
@@ -1019,7 +1024,7 @@ msgstr "拧紧"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_bolt_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
 msgid "Tightening Bolt"
-msgstr "拧紧螺栓"
+msgstr "螺栓编号"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_bolt
@@ -1187,6 +1192,7 @@ msgid "Tightening Result Failure Analysis"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model:ir.actions.report,name:onesphere_assembly_industry.print_tightening_result_report
 #: model:ir.ui.menu,name:onesphere_assembly_industry.tightening_result_report
 msgid "Tightening Result Report"
 msgstr "拧紧结果报告"
@@ -1572,11 +1578,6 @@ msgid "picture"
 msgstr "拍照"
 
 #. module: onesphere_assembly_industry
-#: model:ir.actions.report,name:onesphere_assembly_industry.print_tightening_result_report
-msgid "print_tightening_result_report"
-msgstr ""
-
-#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "register_byproducts"
 msgstr "扫码"
@@ -1608,6 +1609,11 @@ msgid "y axis offset from top(%)"
 msgstr "y方向拧紧点偏移(%)"
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "一次合格数 (比率)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_product__onesphere_product_type
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_product_template__onesphere_product_type
 msgid "产品类型"
@@ -1616,6 +1622,26 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_result__measurement_step_results
 msgid "分段拧紧结果"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "合格数 (比率)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "工位"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "异常数 (比率)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "总数"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1654,11 +1680,6 @@ msgid "拧紧结果"
 msgstr ""
 
 #. module: onesphere_assembly_industry
-#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
-msgid "拧紧结果报告"
-msgstr ""
-
-#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
 msgid "拧紧角度建议"
 msgstr ""
@@ -1671,6 +1692,21 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__entity_id_rules
 msgid "曲线ID拼接规则"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "最终合格数 (比率)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "最终结果:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_assembly_industry_quality_point_view_form_inherit
+msgid "正则表达式, e.g:/[1-9][0-9]*/"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1737,9 +1773,19 @@ msgid "程序号"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "结果数:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
 #: model:product.product,name:onesphere_assembly_industry.product_product_screw_default
 #: model:product.template,name:onesphere_assembly_industry.product_product_screw_default_product_template
 msgid "缺省螺栓"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "螺栓:"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1750,6 +1796,11 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_opr_point_group
 msgid "螺栓拧紧点组(多轴)"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "螺栓数"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1782,6 +1833,7 @@ msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__attribute_equipment_no
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid "设备序列号"
 msgstr ""
 
@@ -1793,4 +1845,9 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid "追溯码:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "错误信息"
 msgstr ""

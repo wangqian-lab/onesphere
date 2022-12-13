@@ -26,5 +26,10 @@
             <field name="name">Tightening Tool(Spindle)</field>
             <field name="technical_name">tightening_spindle</field>
         </record>
+
+            <record id="equipment_standard_Measure" model="maintenance.equipment.category">
+            <field name="name">General_MeasureTool(Measure)</field>
+            <field name="technical_name">general_measure_equipment</field>
+        </record>
     </data>
 </odoo>

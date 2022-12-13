@@ -22,7 +22,7 @@
             <field name="search_view_id" ref="oneshare_mrp_product_product_search_view"/>
             <field name="view_mode">tree,form,kanban</field>
             <field name="context">{"search_default_manufactured_products":
-                1,"default_type":"product","default_tracking":"serial"}
+                1,"default_type":"product","default_tracking":"serial","context_route_ids":1}
             </field>
         </record>
 
@@ -52,9 +52,9 @@
                 </xpath>
                 <xpath expr="//label[@for='standard_price']" position="replace">
                 </xpath>
-                <xpath expr="//page[@name='inventory']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
+<!--                <xpath expr="//page[@name='inventory']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
             </field>
         </record>
 

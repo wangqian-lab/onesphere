@@ -68,12 +68,12 @@
             <field name="model">onesphere.tightening.bolt</field>
             <field name="arch" type="xml">
                 <tree create="false">
-                    <field name="tightening_results_count" invisible="1"/>
+<!--                    <field name="tightening_results_count" invisible="1"/>-->
                     <field name="name"/>
                     <field name="type"/>
                     <button name="button_open_tightening_results" string="Curve Details" type="object" icon="fa-exclamation-circle"
-                            class="btn btn-warning"
-                            attrs="{'invisible': [('tightening_results_count', '=', 0)]}"/>
+                            class="btn btn-warning"/>
+<!--                            attrs="{'invisible': [('tightening_results_count', '=', 0)]}"/>-->
                 </tree>
             </field>
         </record>

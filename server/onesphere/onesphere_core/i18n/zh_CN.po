@@ -552,12 +552,12 @@ msgstr "质量控制类型"
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_view_tree
 msgid "Quality Point Type"
-msgstr ""
+msgstr "质量控制点类型"
 
 #. module: onesphere_core
 #: model_terms:ir.ui.view,arch_db:onesphere_core.onesphere_quality_point_test_type_filter
 msgid "Quality Point Type Name"
-msgstr ""
+msgstr "质量控制点名称"
 
 #. module: onesphere_core
 #: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_operation_type__code__incoming

@@ -228,6 +228,9 @@
                 <group expand="1" string="Group By">
                     <filter string="Test Type" name="groupby_test_type" context="{'group_by': 'test_type_id'}"/>
                 </group>
+                <searchpanel>
+                    <field name="test_type_id" string="Categories" icon="fa-table" color="#875A7B" enable_counters="1"/>
+                </searchpanel>
             </search>
         </field>
     </record>

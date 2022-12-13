@@ -163,6 +163,8 @@
                                 context="{'group_by': 'control_time:week'}"/>
                         <filter string="Result" name="group_by_result" domain="[]"
                                 context="{'group_by': 'tightening_result'}"/>
+                        <filter string="Error Code" name="group_by_error_code" domain="[]"
+                                context="{'group_by': 'error_code'}"/>
                     </group>
                 </search>
             </field>

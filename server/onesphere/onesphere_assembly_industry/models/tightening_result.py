@@ -435,7 +435,7 @@ $$ LANGUAGE plpgsql;
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         context = self.env.context
-        if groupby[0] == 'attribute_equipment_no' and len(groupby) == 1:
+        if groupby[0] in ['attribute_equipment_no', 'error_code'] and len(groupby) == 1:
             custom_limit = context.get('custom_limit', None)
         else:
             custom_limit = None

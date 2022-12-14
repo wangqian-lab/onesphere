@@ -14,7 +14,7 @@ odoo.define('onesphere.spc.render', function (require) {
             $ret.css({width: '100%'});
             var $container = $ret.get(0).firstChild;
             var chart = echarts.init($container, null, {height: 600});
-            chart.on('click', function(params) {
+            chart.on('click', function (params) {
                 self.click_chart_data(params);
             });
             $(window).resize(function () {
@@ -35,8 +35,10 @@ odoo.define('onesphere.spc.render', function (require) {
                 if (!!ele) {
                     // 找到这个echarts DOM元素
                     const charts = echarts.getInstanceByDom(ele);
-                    charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
-                    charts.resize();
+                    if (!!charts) {
+                        charts.setOption(opts, {notMerge: false}); // 如果有的话会删除之前所有的option
+                        charts.resize();
+                    }
                 }
             });
         },
@@ -48,7 +50,9 @@ odoo.define('onesphere.spc.render', function (require) {
             if (!!ele) {
                 // 找到这个echarts DOM元素
                 const charts = echarts.getInstanceByDom(ele);
-                charts.resize();
+                if (!!charts) {
+                    charts.resize();
+                }
             }
             this._super.apply(this, arguments);
         },

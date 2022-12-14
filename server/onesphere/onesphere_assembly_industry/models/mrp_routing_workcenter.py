@@ -61,12 +61,17 @@ class MrpRoutingWorkcenter(models.Model):
     #             ver_record.update({
     #                 'state': 'todo'
     #             })
-    @api.onchange('workcenter_group_id')
+
+    @api.onchange('workcenter_group_id', 'workcenter_id')
     def onchange_workcenter_group_id(self):
-        domain = []
+        domain1, domain2 = [], []
         if self.workcenter_group_id:
-            domain = [('id', 'in', self.workcenter_ids.ids)]
-        return {'domain': {'workcenter_id': domain}}
+            domain1 = [('id', 'in', self.workcenter_ids.ids)]
+        if self.workcenter_id:
+            domain2 = [('id', 'in', self.workcenter_id.group_ids.ids)]
+        return {'domain': {'workcenter_id': domain1,
+                           'workcenter_group_id': domain2
+                           }}
 
     def _get_masterpc_url(self, master_pcs):
         connect_list = []

@@ -107,17 +107,17 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
         dict_xr_chart = _compute_dist_XR_js(data_list)
 
-        nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
-                                                                      filter_result='nok',
-                                                                      field=query_type_field,
-                                                                      limit=limit)
-        nok_data_list = nok_data[query_type]
-        x1, y1, y2 = self._compute_weill_dist_js(nok_data_list)
-        dict_weill_dict = {
-            'x1': x1,
-            'y1': y1,
-            'y2': y2
-        }
+        # nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
+        #                                                               filter_result='nok',
+        #                                                               field=query_type_field,
+        #                                                               limit=limit)
+        # nok_data_list = nok_data[query_type]
+        # x1, y1, y2 = self._compute_weill_dist_js(nok_data_list)
+        # dict_weill_dict = {
+        #     'x1': x1,
+        #     'y1': y1,
+        #     'y2': y2
+        # }
 
         ret = {
             'pages': {'o_spc_norm_dist': get_dist_echarts_options(dict_norm, query_type, description),

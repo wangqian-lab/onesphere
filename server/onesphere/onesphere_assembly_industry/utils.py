@@ -32,7 +32,7 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description='', ste
     """
     y1 = data.get('data', [])
     y1 = [0] if len(y1) == 0 else y1
-    x1 = [f'{i}({(i-1) * step}~{i * step})' for i in range(1, len(y1) + 1)]
+    x1 = [f'{i}({(i - 1) * step}~{i * step})' for i in range(1, len(y1) + 1)]
     titleOptions = {
                        'text': f'X-Bar控制图\n{description}'
                    },
@@ -105,6 +105,67 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description='', ste
                         'yAxis': data.get('upper', 'dataMax'),
                         'lineStyle': {
                             'type': 'solid',  # 目标值虚线，其他值实线
+                            'width': 1,
+                            'color': '#CC8925'
+                        },
+                    },
+                    {
+                        'name': '2/3控制上限-UCL',
+                        'label': {
+                            'show': True,
+                            'position': 'insideEndTop',
+                            'fontSize': 12,
+                            'formatter': '{b}\n{c}'
+                        },
+                        'yAxis': data.get('upper', 'dataMax') * 2 / 3 + data.get('center') / 3,
+                        'lineStyle': {
+                            'type': 'dashed',  # 目标值虚线，其他值实线
+                            'width': 1,
+                            'color': '#CC8925'
+                        },
+                    },
+
+                    {
+                        'name': '1/3控制上限-UCL',
+                        'label': {
+                            'show': True,
+                            'position': 'insideEndTop',
+                            'fontSize': 12,
+                            'formatter': '{b}\n{c}'
+                        },
+                        'yAxis': data.get('upper', 'dataMax') / 3 + data.get('center') * 2 / 3,
+                        'lineStyle': {
+                            'type': 'dashed',  # 目标值虚线，其他值实线
+                            'width': 1,
+                            'color': '#CC8925'
+                        },
+                    },
+                    {
+                        'name': '1/3控制下限-LCL',
+                        'label': {
+                            'show': True,
+                            'position': 'insideEndTop',
+                            'fontSize': 12,
+                            'formatter': '{b}\n{c}'
+                        },
+                        'yAxis': data.get('lower', 0) / 3 + data.get('center') * 2 / 3,
+                        'lineStyle': {
+                            'type': 'dashed',  # 目标值虚线，其他值实线
+                            'width': 1,
+                            'color': '#CC8925'
+                        },
+                    },
+                    {
+                        'name': '2/3控制下限-LCL',
+                        'label': {
+                            'show': True,
+                            'position': 'insideEndTop',
+                            'fontSize': 12,
+                            'formatter': '{b}\n{c}'
+                        },
+                        'yAxis': data.get('lower', 0) * 2 / 3 + data.get('center') / 3,
+                        'lineStyle': {
+                            'type': 'dashed',  # 目标值虚线，其他值实线
                             'width': 1,
                             'color': '#CC8925'
                         },

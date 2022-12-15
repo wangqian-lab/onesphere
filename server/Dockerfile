@@ -23,5 +23,5 @@ RUN mkdir /dask-worker-space \
 RUN pip3 install -r /mnt/extra-addons/requirements.txt \
     && rm -f /requirements.txt \
     && rm -f /mnt/extra-addons/requirements.txt
-
+ENV QT_QPA_PLATFORM=offscreen
 USER odoo

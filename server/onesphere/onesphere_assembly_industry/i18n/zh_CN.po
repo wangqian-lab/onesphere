@@ -627,12 +627,16 @@ msgid "NOK Trend Analysis For Tightening Tool %s"
 msgstr ""
 
 #. module: onesphere_assembly_industry
-#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__name
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Name"
 msgstr "名称"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__name
+msgid "Name"
+msgstr "螺栓编号"
 
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/tightening_result.py:0

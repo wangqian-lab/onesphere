@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 08:40+0000\n"
-"PO-Revision-Date: 2022-06-28 08:40+0000\n"
+"POT-Creation-Date: 2022-12-15 01:09+0000\n"
+"PO-Revision-Date: 2022-12-15 01:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,16 @@ msgid "Attachment Count"
 msgstr "附件数"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__onesphere_bom_id
+msgid "Bill Of Material"
+msgstr "物料"
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_mrp_bom
+msgid "Bill of Material"
+msgstr "物料清单"
+
+#. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__reason
 msgid "Cause"
 msgstr ""
@@ -85,6 +95,7 @@ msgstr "颜色"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__company_id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__company_id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__company_id
 msgid "Company"
 msgstr "公司"
@@ -148,6 +159,7 @@ msgid "Description"
 msgstr "描述"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_bom__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__display_name
@@ -159,6 +171,7 @@ msgstr "描述"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__display_name
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:onesphere_core.field_res_users__display_name
@@ -226,6 +239,7 @@ msgid "Helps you manage your quality alerts and quality checks."
 msgstr "帮你管理质量警告和质量检查"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_bom__id
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__id
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter__id
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role__id
@@ -237,6 +251,7 @@ msgstr "帮你管理质量警告和质量检查"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type__id
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code__id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item__id
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__id
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings__id
 #: model:ir.model.fields,field_description:onesphere_core.field_res_users__id
@@ -276,6 +291,7 @@ msgid "Is MRP Working Step?"
 msgstr "是否为MRP工步"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_bom____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_mrp_workcenter____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_hmi_user_role____last_update
@@ -287,6 +303,7 @@ msgstr "是否为MRP工步"
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point_test_type____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_track_code____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_daq_item____last_update
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:onesphere_core.field_res_users____last_update
@@ -333,6 +350,12 @@ msgstr "MOM额外信息"
 #: model:ir.model,name:onesphere_core.model_oneshare_hmi_user_role
 msgid "MOM HMI User Role"
 msgstr "MOM HMI用户角色"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_bom__onesphere_bom_operation_ids
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__onesphere_bom_ids
+msgid "MRP Bom Operation Relationship"
+msgstr "物料清单"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_main_attachment_id
@@ -490,6 +513,7 @@ msgid "Number of unread messages"
 msgstr "未读消息数量"
 
 #. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__onesphere_operation_id
 #: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_operation_step_rel__operation_id
 msgid "Operation"
 msgstr "作业"
@@ -507,8 +531,9 @@ msgstr "作业类型"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__onesphere_operation_ids
+#: model_terms:ir.ui.view,arch_db:onesphere_core.oneshare_mrp_bom_form_inherit
 msgid "Operations"
-msgstr ""
+msgstr "作业"
 
 #. module: onesphere_core
 #: model:ir.model.fields.selection,name:onesphere_core.selection__oneshare_measurement_item__test_type__passfail
@@ -593,6 +618,12 @@ msgstr "扫码"
 #: model:oneshare.quality.point.test_type,name:onesphere_core.test_type_register_consumed_materials
 msgid "Register Consumed Materials"
 msgstr "拣货"
+
+#. module: onesphere_core
+#: model:ir.model.fields,field_description:onesphere_core.field_mrp_routing_workcenter__revision
+#: model:ir.model.fields,field_description:onesphere_core.field_onesphere_mrp_bom_operation_rel__onesphere_operation_revision
+msgid "Revision"
+msgstr "版本"
 
 #. module: onesphere_core
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_quality_point__message_has_sms_error
@@ -769,6 +800,11 @@ msgid "Work step"
 msgstr "工步"
 
 #. module: onesphere_core
+#: model:ir.model.constraint,message:onesphere_core.constraint_mrp_workcenter_code_uniq
+msgid "WorkCenter Code Must Be Unique!"
+msgstr "工作中心编号必须唯一"
+
+#. module: onesphere_core
 #: model:ir.actions.act_window,name:onesphere_core.onesphere_action_open_work_step
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_calc_item__parent_quality_point_id
 #: model:ir.model.fields,field_description:onesphere_core.field_oneshare_measurement_item__parent_quality_point_id
@@ -821,6 +857,11 @@ msgstr ""
 #. module: onesphere_core
 #: model:ir.model,name:onesphere_core.model_oneshare_measurement_calc_item
 msgid "测量计算类型项"
+msgstr ""
+
+#. module: onesphere_core
+#: model:ir.model,name:onesphere_core.model_onesphere_mrp_bom_operation_rel
+msgid "物料清单作业关联表"
 msgstr ""
 
 #. module: onesphere_core

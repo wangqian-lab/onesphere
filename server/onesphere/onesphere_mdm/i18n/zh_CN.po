@@ -540,7 +540,7 @@ msgstr "参照"
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_mrp_workcenter__related_work_area_id
 msgid "Related Work Area"
-msgstr "关联工作区"
+msgstr "关联工位"
 
 #. module: onesphere_mdm
 #: model:ir.model.fields,field_description:onesphere_mdm.field_oneshare_mrp_work_area__related_workcenter_ids

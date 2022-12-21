@@ -230,6 +230,7 @@
                 </group>
                 <searchpanel>
                     <field name="test_type_id" string="Categories" icon="fa-table" color="#875A7B" enable_counters="1"/>
+                    <field name="onesphere_operation_ids" string="Operations" icon="fa-table" color="#875A7B" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>

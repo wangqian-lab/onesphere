@@ -267,7 +267,7 @@ msgstr "描述"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "Discharged"
-msgstr ""
+msgstr "AK2"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_ir_actions_report__display_name

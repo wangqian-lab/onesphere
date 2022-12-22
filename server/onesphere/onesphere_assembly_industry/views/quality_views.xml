@@ -18,7 +18,7 @@
             <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <button name="select_tightening_units" string="Select Tightening Units" type="object"
+                    <button name="multi_update_points" string="Multi Update Points" type="object"
                             class="btn-primary"
                             attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}"/>
                     <button name="change_points_sequence" string="Change Points Sequence" type="object"
@@ -45,7 +45,7 @@
                                 <field name="name" required="1"/>
                                 <field name="product_id"/>
                                 <field name="control_mode" optional="hide"/>
-                                <field name="tightening_pet"/>
+                                <field name="tightening_pset"/>
                                 <field name="tightening_units" required="1" widget="many2many_tags"/>
                                 <field name="x_offset" optional="hide"/>
                                 <field name="y_offset" optional="hide"/>
@@ -66,7 +66,7 @@
                                     <group>
                                         <field name="tightening_tool_ids" widget="many2many_tags"/>
                                         <field name="control_mode"/>
-                                        <field name="tightening_pet"/>
+                                        <field name="tightening_pset"/>
                                     </group>
                                     <group>
                                         <field name="x_offset"/>

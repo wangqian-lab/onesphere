@@ -53,6 +53,7 @@
         'wizards/wizard_tightening_result_report.xml',
         'views/tightening_result_report_views.xml',
         'report/tightening_result_report.xml',
+        'wizards/multi_update_wizard.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

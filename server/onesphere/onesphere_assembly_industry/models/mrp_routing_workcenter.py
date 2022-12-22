@@ -105,7 +105,7 @@ class MrpRoutingWorkcenter(models.Model):
                 'controller_sn': point.tightening_units.mapped('serial_no') if point.tightening_units else [],
                 'tightening_unit': point.tightening_units.mapped('ref') if point.tightening_units else [],
                 # 'tool_sn': point.tightening_tool_ids.tightening_tool_id.mapped('serial_no') or [],
-                'pset': point.tightening_pet,
+                'pset': point.tightening_pset,
                 'nut_no': point.product_id.name if point.product_id else '',  # 螺栓编号为拧紧点上的名称
                 'tightening_point_name': point.name,
             })

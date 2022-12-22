@@ -34,8 +34,8 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description='', ste
     y1 = [0] if len(y1) == 0 else y1
     x1 = [f'{i}({(i - 1) * step}~{i * step})' for i in range(1, len(y1) + 1)]
     titleOptions = {
-                       'text': f'X-Bar控制图\n{description}'
-                   },
+                       'text': description
+                   }
     gridOptions = get_general_grid_option()
 
     xAxisOptions = [{
@@ -206,15 +206,16 @@ def get_dist_echarts_options(data={}, query_type='torque', description='', type=
     """
     titleOptions = {
         'textAlign': 'auto',
+        'text': description
     }
-    if type == 'norm':
-        titleOptions.update({
-            'text': f'正态分布\n{description}'
-        })
-    if type == 'weill':
-        titleOptions.update({
-            'text': f'失效韦伯分布\n{description}'
-        })
+    # if type == 'norm':
+    #     titleOptions.update({
+    #         'text': f'正态分布\n{description}'
+    #     })
+    # if type == 'weill':
+    #     titleOptions.update({
+    #         'text': f'失效韦伯分布\n{description}'
+    #     })
     gridOptions = get_general_grid_option()
 
     xAxisOptions = [{

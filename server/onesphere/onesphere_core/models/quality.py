@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from collections.abc import Iterable
+from collections.abc import Collection
 
 from odoo import api, fields, models, _
 
 
 def find_index_subdomain_include_name(domain=None, name='onesphere_operation_ids'):
     for i, subdomain in enumerate(domain):
-        if isinstance(subdomain, Iterable) and len(subdomain) == 3 and subdomain[0] == name:
+        if isinstance(subdomain, Collection) and len(subdomain) == 3 and subdomain[0] == name:
             return i
     return -1
 

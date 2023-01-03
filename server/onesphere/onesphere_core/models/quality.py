@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from collections.abc import Iterable
+
 from odoo import api, fields, models, _
 
 
-def childofisindomain(domain=None):
-    for i in range(len(domain)):
-        domain1 = domain[i]
-        if isinstance(domain1, list) and len(domain1) == 3 and domain1[0] == 'onesphere_operation_ids':
+def find_index_subdomain_include_name(domain=None, name='onesphere_operation_ids'):
+    for i, subdomain in enumerate(domain):
+        if isinstance(subdomain, Iterable) and len(subdomain) == 3 and subdomain[0] == name:
             return i
     return -1
 
@@ -165,65 +166,75 @@ class OneshareQuality(models.Model):
                 '__count': len(steps)
             },
         }
-        products = self.env['mrp.bom'].search([])
-        for product in products:
+        bom_ids = self.env['mrp.bom'].search([])
+        for bom_id in bom_ids:
             field_range.update({
-                str(product.id): {'id': str(product.id),
-                                  'display_name': product.display_name,
-                                  'parent_id': False,
-                                  '__count': 0
-                                  }
+                str(bom_id.id): {'id': str(bom_id.id),
+                                 'display_name': bom_id.display_name,
+                                 'parent_id': False,
+                                 '__count': 0
+                                 }
             })
 
-            for op in product.onesphere_bom_operation_ids.onesphere_operation_id:
-                operation = op
-                field_range.update({
-                    str(product.id) + '-' + str(operation.id): {'id': str(product.id) + '-' + str(operation.id),
-                                                                'display_name': operation.display_name,
-                                                                'parent_id': str(product.id),
-                                                                '__count': len(operation.work_step_ids.ids)
-                                                                },
-                })
-                field_range[str(product.id)]['__count'] += len(operation.work_step_ids.ids)
+            # for operation in bom_id.onesphere_bom_operation_ids.onesphere_operation_id:
+            #     key = str(bom_id.id) + '-' + str(operation.id)
+            #     op_work_step_count = len(operation.work_step_ids.ids)
+            #     field_range.update({
+            #         key: {'id': key,
+            #               'display_name': operation.display_name,
+            #               'parent_id': str(bom_id.id),
+            #               '__count': op_work_step_count
+            #               },
+            #     })
+            #     field_range[str(bom_id.id)]['__count'] += op_work_step_count
 
-        operations = self.env['mrp.routing.workcenter'].search([('onesphere_bom_ids', '=', False)])
-
+        operations = self.env['mrp.routing.workcenter'].search([])
         for operation in operations:
-            field_range.update({
-                '0-' + str(operation.id): {
-                    'id': '0-' + str(operation.id),
-                    'display_name': operation.display_name,
-                    'parent_id': '0',
-                    '__count': len(operation.work_step_ids.ids)
-                },
-            })
-            field_range['0']['__count'] += len(operation.work_step_ids.ids)
+            bom_ids_list = operation.onesphere_bom_ids.ids if operation.onesphere_bom_ids else [0]
+            for bom_id in bom_ids_list:
+                str_bom_id = str(bom_id)
+                key= str_bom_id + '-' + str(operation.id)
+                op_work_step_count = len(operation.work_step_ids.ids)
+                field_range.update({
+                    key: {
+                        'id': key,
+                        'display_name': operation.display_name,
+                        'parent_id': str_bom_id,
+                        '__count': op_work_step_count
+                    },
+                })
+                field_range[str_bom_id]['__count'] += op_work_step_count
 
         return {
             'parent_field': 'parent_id',
             'values': list(field_range.values()),
         }
 
-    def convertchildofdomian(self, childofstring=""):
-        par = childofstring.split("-")
-        op = self.env['mrp.routing.workcenter'].search([('onesphere_bom_ids', '=', False)])
-        bugs = self.env['oneshare.quality.point'].search(
-            ['|', ('onesphere_operation_ids', '=', False), ('onesphere_operation_ids.operation_id', 'in', op.ids)])
-        if par[0] != "0":
-            id1 = int(par[0])
-            op1 = self.env['mrp.routing.workcenter'].search([('onesphere_bom_ids.onesphere_bom_id', 'in', [id1])])
-            bugs = self.env['oneshare.quality.point'].search([('onesphere_operation_ids.operation_id', 'in', op1.ids)])
-        if len(par) == 2:
-            id2 = int(par[1])
-            bugs = bugs.filtered(lambda l: (id2 in l.onesphere_operation_ids.operation_id.ids) or (len(
-                l.onesphere_operation_ids.operation_id.ids) == 0 and id2 == 0))
-        return bugs.ids
+    def convert_subdomain_part(self, subdomain="", domain_part=2):
+        subdomain_string = subdomain[domain_part]
+        bom_operation_ids_str = subdomain_string.split("-")
+        bom_id = int(bom_operation_ids_str[0])
+        if bom_id:
+            operation_domain = [('onesphere_bom_ids.onesphere_bom_id', 'in', [bom_id])]
+        else:
+            operation_domain = [('onesphere_bom_ids', '=', False)]
+        operation_ids = self.env['mrp.routing.workcenter'].search(operation_domain)
+        work_step_domain = [('onesphere_operation_ids.operation_id', 'in', operation_ids.ids)]
+        if len(bom_operation_ids_str) == 1 and bom_operation_ids_str[0] == '0':
+            # 点击在未知bom
+            work_step_domain += ['|', ('onesphere_operation_ids', '=', False)]
+        if len(bom_operation_ids_str) == 2 and bom_operation_ids_str[1] == '0':
+            # 点击在未知作业
+            work_step_domain = [('onesphere_operation_ids', '=', False)]
+        work_step_ids = self.env['oneshare.quality.point'].search(work_step_domain)
+        return work_step_ids.ids
 
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
-        i = childofisindomain(domain)
+        i = find_index_subdomain_include_name(domain)
         if i >= 0:
-            steps = self.convertchildofdomian(domain[i][2])
-            domain_repalce = ['id', 'in', steps]
-            domain[i] = domain_repalce
+            # 找到了相关需要关注的子domain
+            steps = self.convert_subdomain_part(domain[i], domain_part=2)
+            domain_replace = ['id', 'in', steps]
+            domain[i] = domain_replace
         return super(OneshareQuality, self).search_read(domain, fields, offset, limit, order)

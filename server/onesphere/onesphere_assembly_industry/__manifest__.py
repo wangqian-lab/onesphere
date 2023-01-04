@@ -30,7 +30,6 @@
         'data/tightening_data.xml',
         'data/tightening_vendor_data.xml',
         'data/product_category_data.xml',
-        'data/template_download_data.xml',
         'wizards/oneshare_modal.xml',
         'wizards/assembly_industry_spc_views.xml',
         'views/menu_hide_views.xml',

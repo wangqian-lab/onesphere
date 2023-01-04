@@ -29,7 +29,7 @@ class OnesphereAssyFailureAnalysis(models.TransientModel):
     display_name = fields.Char(default='Statistical Analysis Of Failure', store=False)
 
     @api.model
-    def query_spc(self, query_from=None, query_to=None, query_type='torque', usl=10.0, lsl=1.0,
+    def query_spc(self, bolt_id=None, query_from=None, query_to=None, query_type='torque', usl=10.0, lsl=1.0,
                   limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT, others={}, *args,
                   **kwargs):
         query_date_from = fields.Datetime.from_string(query_from[:DATETIME_LENGTH])  # UTC 时间
@@ -44,7 +44,7 @@ class OnesphereAssyFailureAnalysis(models.TransientModel):
 
         nok_data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
                                                                       filter_result='nok',
-                                                                      field=query_type_field,
+                                                                      field=query_type_field, bolt_id=bolt_id,
                                                                       limit=limit)
 
         nok_data_list = nok_data[query_type]

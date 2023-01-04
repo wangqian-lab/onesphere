@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-03 08:52+0000\n"
-"PO-Revision-Date: 2023-01-03 08:52+0000\n"
+"POT-Creation-Date: 2023-01-04 09:55+0000\n"
+"PO-Revision-Date: 2023-01-04 09:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -115,9 +115,17 @@ msgstr "批号"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__bolt_id
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__product_template__onesphere_product_type__bolt
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_failure_analysis
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_spc
 msgid "Bolt"
 msgstr "螺栓"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_assy_failure_analysis__bolt_id
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_assy_industry_spc__bolt_id
+msgid "Bolt ID"
+msgstr "拧紧螺栓"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_bolt_name_rules_config_settings_view_form
@@ -447,6 +455,7 @@ msgid "Import"
 msgstr "导入"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_import_operation
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
 msgid "Import Operation"
 msgstr "导入作业"

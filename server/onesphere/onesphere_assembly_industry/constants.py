@@ -52,4 +52,4 @@ DEFAULT_ENTITY_ID_RULES = '{track_no}_{tool_sn}_{workcenter_code}_{tightening_id
 
 # 当前文件夹和作业模板路径
 CURRENT_PATH = os.path.dirname(__file__)
-OPERATION_TEMPLATE_PATH = os.path.join(CURRENT_PATH, '作业模板.zip')
+OPERATION_TEMPLATE_PATH = os.path.join(CURRENT_PATH, 'templates/作业模板.zip')

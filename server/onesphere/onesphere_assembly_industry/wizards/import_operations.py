@@ -221,10 +221,7 @@ class ImportOperation(models.TransientModel):
 
     def operation_template_download(self):
         operation_template_path = OPERATION_TEMPLATE_PATH
-        try:
-            f = open(operation_template_path)
-            f.close()
-        except Exception as e:
+        if not os.path.exists(operation_template_path):
             raise ValidationError(f'Not Found File: {operation_template_path} !')
         return {
             'type': 'ir.actions.act_url',

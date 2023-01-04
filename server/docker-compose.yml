@@ -28,6 +28,11 @@ services:
     image: docker.pkg.github.com/masami10/onesphere/onesphere:14
     extra_hosts:
       - host.docker.internal:host-gateway
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "20"
     ports:
       - "38069:8069"
     volumes:

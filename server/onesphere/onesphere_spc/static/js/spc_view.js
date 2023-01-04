@@ -8,18 +8,31 @@ odoo.define('onesphere.spc.render', function (require) {
 
 
     var SPCViewerRenderer = FormRenderer.extend({
+        init: function (parent, state, params) {
+            this.charts = [];
+            this._super.apply(this, arguments);
+        },
+
+        on_detach_callback: function () {
+            this.charts.forEach((chart) => {
+                window.removeEventListener('resize', chart.resize);
+                chart.dispose();
+            });
+            this.charts = [];
+            this._super.apply(this, arguments);
+        },
+
         _renderTabPage: function (page, page_id) {
             var self = this;
             var $ret = this._super.apply(this, arguments);
             $ret.css({width: '100%'});
             var $container = $ret.find('div.o_echarts').get(0);
             var chart = echarts.init($container, null, {height: 600});
+            this.charts.push(chart);
             chart.on('click', function (params) {
                 self.click_chart_data(params);
             });
-            $(window).resize(function () {
-                chart.resize();
-            });
+            window.addEventListener('resize', chart.resize);
             return $ret;
         },
 

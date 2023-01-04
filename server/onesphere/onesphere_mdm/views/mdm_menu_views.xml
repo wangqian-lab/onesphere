@@ -188,12 +188,6 @@
                 groups="mrp.group_mrp_manager"
                 sequence="60"/>
 
-        <menuitem
-                id="menu_onesphere_template_download"
-                name="Onesphere Template Download"
-                action="onesphere_template_download_action"
-                parent="oneshare_mom_menu_mdm_root"
-                sequence="70"/>
 
     </data>
 </odoo>

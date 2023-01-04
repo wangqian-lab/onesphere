@@ -4,7 +4,7 @@ from odoo import models, fields, api, _
 import xlrd, base64
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import ustr
-from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE
+from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE, CURRENT_PATH
 import os
 import logging
 import binascii
@@ -125,8 +125,9 @@ class ImportOperation(models.TransientModel):
             # tool_group_id = self.env['mrp.workcenter.group.tightening.tool'].search(
             #     [('tightening_tool_id', '=', tool.id)]).id
             # tool_group_ids.append(tool_group_id)
-            tightening_unit = self.env['onesphere.tightening.unit'].search([('tightening_controller_id', '=', controller.id),
-                                                                            ('ref', '=', unit_code)])
+            tightening_unit = self.env['onesphere.tightening.unit'].search(
+                [('tightening_controller_id', '=', controller.id),
+                 ('ref', '=', unit_code)])
             # if not tightening_unit:
             #     raise ValidationError(f'Can not found tightening_unit,serial_no:{controller_sn},unit_code:{unit_code}!')
             if not tightening_unit:
@@ -199,8 +200,8 @@ class ImportOperation(models.TransientModel):
         return excel_file, img_list
 
     def button_import_operations(self):
-        if not self.file_type:
-            raise ValidationError(_('Please Select A File Type!'))
+        if not self.file:
+            raise ValidationError(_('Please Upload A File!'))
         excel_file, img_list = self.read_zipfile()
         book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
         for sheet in book:
@@ -216,3 +217,16 @@ class ImportOperation(models.TransientModel):
                 _logger.error(_(f'Create Operation Failed,Reason:{ustr(e)}'))
                 self.env.user.notify_warning(
                     _(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))
+
+    def operation_template_download(self, current_path=CURRENT_PATH):
+        template_path = self._context.get('template_path')
+        if not template_path:
+            raise ValidationError(f'No Template Path!')
+        complete_template_path = os.path.join(current_path, template_path)
+        if not os.path.exists(complete_template_path):
+            raise ValidationError(f'Not Found File: {complete_template_path} !')
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f"/oneshare/template_download?template_path={complete_template_path}",
+            'target': 'self',
+        }

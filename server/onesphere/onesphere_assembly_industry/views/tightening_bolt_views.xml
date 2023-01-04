@@ -55,7 +55,7 @@
                                 <field name="description"/>
                             </page>
                             <page string="拧紧角度建议" class="tightening_angle_proposal">
-                                <div class="o_angle_hist"/>
+                                <div class="o_angle_hist o_echarts"/>
                             </page>
                         </notebook>
                     </sheet>

@@ -48,7 +48,7 @@
                         </group>
                         <notebook>
                             <page string="Normal Distribution">
-                                <div class="o_spc_norm_dist"/>
+                                <div class="o_spc_norm_dist o_echarts"/>
                             </page>
                             <!--                        <page string="Weibull Distribution">-->
                             <!--                            <div class="o_spc_weibull_dist"/>-->
@@ -57,7 +57,7 @@
                             <!--                            <div class="o_spc_scatter"/>-->
                             <!--                        </page>-->
                             <page string="X-R(X-R Control Chart)">
-                                <div class="o_spc_xr_chart"/>
+                                <div class="o_spc_xr_chart o_echarts"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -106,7 +106,7 @@
                     </sheet>
                     <notebook>
                         <page string="Weibull Distribution">
-                            <div class="o_spc_weibull_dist"/>
+                            <div class="o_spc_weibull_dist o_echarts"/>
                         </page>
                         <!--                        <page string="Scatter">-->
                         <!--                            <div class="o_spc_scatter"/>-->

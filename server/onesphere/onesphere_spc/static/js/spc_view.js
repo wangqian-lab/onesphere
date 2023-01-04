@@ -12,7 +12,7 @@ odoo.define('onesphere.spc.render', function (require) {
             var self = this;
             var $ret = this._super.apply(this, arguments);
             $ret.css({width: '100%'});
-            var $container = $ret.get(0).firstChild;
+            var $container = $ret.find('div.o_echarts').get(0);
             var chart = echarts.init($container, null, {height: 600});
             chart.on('click', function (params) {
                 self.click_chart_data(params);

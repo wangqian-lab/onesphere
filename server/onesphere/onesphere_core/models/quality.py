@@ -222,7 +222,7 @@ class OneshareQuality(models.Model):
         work_step_domain = [('onesphere_operation_ids.operation_id', 'in', operation_ids.ids)]
         if len(bom_operation_ids_str) == 1 and bom_operation_ids_str[0] == '0':
             # 点击在未知bom
-            work_step_domain += ['|', ('onesphere_operation_ids', '=', False)]
+            work_step_domain = ['|', ('onesphere_operation_ids', '=', False)] + work_step_domain
         if len(bom_operation_ids_str) == 2 and bom_operation_ids_str[1] == '0':
             # 点击在未知作业
             work_step_domain = [('onesphere_operation_ids', '=', False)]

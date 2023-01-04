@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="oneshare_cap_view_app_theme_config_settings_inherit" model="ir.ui.view">
+            <field name="name">oneshare_cap_view_app_theme_config_settings_inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="app_odoo_customize.view_app_theme_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='data-clean']" position="inside">
+                    <div class="col-12 col-lg-12 mb4">
+                        <span class="col-3 col-lg-2 text-left">Operations</span>
+                        <button string="Delete All Operations"
+                                type="object" name="remove_all_operations"
+                                confirm="Please confirm to delete all operations?" class="oe_highlight"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

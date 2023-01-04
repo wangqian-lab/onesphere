@@ -51,6 +51,7 @@
         'views/import_menu_views.xml',
         'wizards/wizard_tightening_result_report.xml',
         'views/tightening_result_report_views.xml',
+        'views/app_theme_config_settings_views.xml',
         'report/tightening_result_report.xml',
         'wizards/multi_update_wizard.xml',
     ],

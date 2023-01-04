@@ -20,7 +20,7 @@
                         <button name="button_import_operations" string="Import Operation" type="object" icon="fa-mail-reply"
                                 class="btn btn-primary active"/>
                         <button name="operation_template_download" string="Template Download" type="object" icon="fa-download"
-                                class="btn btn-primary active"/>
+                                class="btn btn-primary active" context="{'template_path': 'templates/作业模板.zip'}"/>
                         <button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"/>
                     </footer>
                 </form>

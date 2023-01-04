@@ -50,6 +50,5 @@ ENV_PROCESS_PROPOSAL_ANGLE_MARGIN = int(os.getenv('ENV_PROCESS_PROPOSAL_ANGLE_MA
 # 默认曲线id拼接规则
 DEFAULT_ENTITY_ID_RULES = '{track_no}_{tool_sn}_{workcenter_code}_{tightening_id}'
 
-# 当前文件夹和作业模板路径
+# 当前文件夹路径
 CURRENT_PATH = os.path.dirname(__file__)
-OPERATION_TEMPLATE_PATH = os.path.join(CURRENT_PATH, 'templates/作业模板.zip')

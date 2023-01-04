@@ -4,8 +4,7 @@ from odoo import models, fields, api, _
 import xlrd, base64
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import ustr
-from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE, \
-    OPERATION_TEMPLATE_PATH
+from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE, CURRENT_PATH
 import os
 import logging
 import binascii
@@ -219,12 +218,15 @@ class ImportOperation(models.TransientModel):
                 self.env.user.notify_warning(
                     _(f'Create Operation Failed,Operation Code:{operation_code},reason:{ustr(e)}'))
 
-    def operation_template_download(self):
-        operation_template_path = OPERATION_TEMPLATE_PATH
-        if not os.path.exists(operation_template_path):
-            raise ValidationError(f'Not Found File: {operation_template_path} !')
+    def operation_template_download(self, current_path=CURRENT_PATH):
+        template_path = self._context.get('template_path')
+        if not template_path:
+            raise ValidationError(f'No Template Path!')
+        complete_template_path = os.path.join(current_path, template_path)
+        if not os.path.exists(complete_template_path):
+            raise ValidationError(f'Not Found File: {complete_template_path} !')
         return {
             'type': 'ir.actions.act_url',
-            'url': f"/oneshare/template_download?template_path={operation_template_path}",
+            'url': f"/oneshare/template_download?template_path={complete_template_path}",
             'target': 'self',
         }

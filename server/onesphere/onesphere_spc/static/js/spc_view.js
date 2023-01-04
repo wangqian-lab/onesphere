@@ -46,7 +46,7 @@ odoo.define('onesphere.spc.render', function (require) {
         _onNotebookTabChanged: function (evt) {
             var self = this;
             var selection = evt.target.hash; // 获取div id
-            var ele = self.$el.find(selection).children('div').get(0);
+            var ele = self.$el.find(selection).children('div.o_echarts').get(0);
             if (!!ele) {
                 // 找到这个echarts DOM元素
                 const charts = echarts.getInstanceByDom(ele);

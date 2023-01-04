@@ -225,7 +225,7 @@ class ImportOperation(models.TransientModel):
             f = open(operation_template_path)
             f.close()
         except Exception as e:
-            raise ValidationError(e)
+            raise ValidationError(f'Not Found File: {operation_template_path} !')
         return {
             'type': 'ir.actions.act_url',
             'url': f"/oneshare/template_download?template_path={operation_template_path}",

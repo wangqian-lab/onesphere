@@ -230,3 +230,63 @@ class ImportOperation(models.TransientModel):
             'url': f"/oneshare/template_download?template_path={complete_template_path}",
             'target': 'self',
         }
+
+
+class ImportTighteningUnit(models.TransientModel):
+    _name = 'onesphere.import.tightening.unit'
+    _description = 'Import Tightening Unit'
+    _inherit = ['onesphere.import.mixin']
+
+    def _import_tightening_unit(self, operation_data):
+        for i in range(FIRST_DATA_ROW, len(operation_data)):
+            row_data = [content for content in operation_data[i] if content != '']
+            if len(row_data) < 1:
+                continue
+            tightening_unit_name = row_data[0]
+            tightening_unit_code = row_data[1]
+            controller_code = row_data[2]
+            controller = self.env['maintenance.equipment'].search([('serial_no', '=', controller_code)])
+            if not controller:
+                raise ValidationError(_(f'Can Not Found controller,Code{controller_code}'))
+            tightening_unit_data = {
+                'name': tightening_unit_name,
+                'ref': tightening_unit_code,
+                'tightening_controller_id': controller.id,
+            }
+            self.env['onesphere.tightening.unit'].create(tightening_unit_data)
+
+    def read_zipfile(self):
+        file_content = binascii.a2b_base64(self.file)
+        temp_file = tempfile.TemporaryFile()
+        temp_file.write(file_content)
+        with zipfile.ZipFile(temp_file, 'r') as zfp:
+            img_list = []
+            for filename in zfp.namelist():
+                if filename.split('.')[-1] in EXCEL_TYPE:
+                    excel_file = zfp.read(filename)
+                elif filename.split('.')[-1] in IMG_TYPE:
+                    img_file = zfp.read(filename)
+                    img_list.append(
+                        {filename.encode('cp437').decode(): img_file}
+                    )
+        if not excel_file:
+            raise ValidationError(_('No excel file in zip!'))
+        return excel_file, img_list
+
+    def button_import_tightening_unit(self):
+        if not self.file_type:
+            raise ValidationError(_('Please Select A File Type!'))
+        excel_file, img_list = self.read_zipfile()
+        book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
+        for sheet in book:
+            if len(sheet) <= FIRST_DATA_ROW:
+                continue
+            try:
+                self._import_tightening_unit(sheet)
+                self.env.user.notify_success(_(f'Create Tightening Unit Success'))
+                self.env.cr.commit()
+            except Exception as e:
+                self.env.cr.rollback()
+                _logger.error(_(f'Create Tightening Unit Failed,Reason:{ustr(e)}'))
+                self.env.user.notify_warning(
+                    _(f'Create Tightening Unit Failed,reason:{ustr(e)}'))

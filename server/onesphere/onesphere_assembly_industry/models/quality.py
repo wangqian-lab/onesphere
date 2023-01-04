@@ -58,15 +58,15 @@ class OneshareQuality(models.Model):
             operation_step_rel.operation_id.revision += 1
         return super(OneshareQuality, self).write(vals)
 
-    def select_tightening_units(self):
+    def multi_update_points(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'name': '选择拧紧单元',
-            'res_model': 'onesphere.tightening.unit',
+            'res_model': 'multi.update.wizard',
             'target': 'new',
-            'view_id': self.env.ref('onesphere_assembly_industry.onesphere_tightening_unit_view_tree').id,
-            'view_mode': 'tree',
+            'view_id': self.env.ref('onesphere_assembly_industry.multi_update_wizard_view_form').id,
+            'view_mode': 'form',
             'context': {
                 'step_id': self.id
             }

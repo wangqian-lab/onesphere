@@ -98,9 +98,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         }
 
         if len(data) > 0:
-            description = f'拧紧点数量(count):{eff_length}/{len(data_list)}\n' \
-                          f'原始数据范围(range):[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]\n' \
-                          f'均值(mean):{np.mean(data_list) or 0:.2f}\t\t标准差(sigma):{np.std(data_list) or 0:.2f}\n' \
+            description = f'拧紧点数量(count):{eff_length}/{len(data_list)}, 均值(mean):{np.mean(data_list) or 0:.2f}, 标准差(sigma):{np.std(data_list) or 0:.2f}\n\n' \
+                          f'原始数据范围(range):[{np.min(data_list) or 0:.2f},{np.max(data_list) or 0:.2f}]'
                 # f'6sigma数据范围: []'
         else:
             description = '拧紧点数量: 0'

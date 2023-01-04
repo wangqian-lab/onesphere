@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="multi_update_wizard_view_form" model="ir.ui.view">
+            <field name="name">multi_update_wizard_view_form</field>
+            <field name="model">multi.update.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Multi Update Points">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="tightening_pset"/>
+                            </group>
+                            <group>
+                                <field name="tightening_units" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="multi_update" string="Multi Update" type="object" class="btn btn-primary active"/>
+                            <button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="multi_update_wizard_view_action" model="ir.actions.act_window">
+            <field name="name">Multi Update Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">multi.update.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

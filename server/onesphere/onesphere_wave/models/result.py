@@ -58,6 +58,7 @@ class OperationResult(HModel):
         if not client or not bucket_name:
             return [], None, []  ### 返回无结果数值
         cur_objects = self.mapped('curve_file')
+        entity_id_list = self.mapped('entity_id')
         _objects = [x for x in cur_objects if x]
         objects = []
         cur_objects = map(json.loads, _objects)
@@ -75,8 +76,8 @@ class OperationResult(HModel):
                 need_fetch_objects.append(_cur_file)
         try:
             _datas.extend(
-                map(lambda x: _create_wave_result_dict(x, oss_interface.get_oss_object(bucket_name, x)),
-                    need_fetch_objects))  # 合并结果
+                map(lambda curve_file, entity_id: _create_wave_result_dict(entity_id,
+                    oss_interface.get_oss_object(bucket_name,curve_file)), need_fetch_objects, entity_id_list))  # 合并结果
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')
             return []

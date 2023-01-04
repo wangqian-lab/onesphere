@@ -50,8 +50,8 @@ class OnesphereAssyFailureAnalysis(models.TransientModel):
         nok_data_list = nok_data[query_type]
 
         if len(nok_data_list) > 0:
-            description = f'拧紧点数量:{len(nok_data_list)},标准差:{np.std(nok_data_list) or 0:.2f},均值:{np.mean(nok_data_list) or 0:.2f}\n' \
-                          f'范围:[{np.min(nok_data_list) or 0:.2f},{np.max(nok_data_list) or 0:.2f}]'
+            description = f'拧紧点数量:{len(nok_data_list)}, 标准差:{np.std(nok_data_list) or 0:.2f}, 均值:{np.mean(nok_data_list) or 0:.2f}\n\n' \
+                          f'原始数据范围:[{np.min(nok_data_list) or 0:.2f},{np.max(nok_data_list) or 0:.2f}]'
         else:
             description = '拧紧点数量: 0'
         x1, y1, y2 = self._compute_weill_dist_js(nok_data_list)

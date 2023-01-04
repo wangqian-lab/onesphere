@@ -148,7 +148,7 @@ class ImportOperation(models.TransientModel):
             'name': tightening_point_name,
             'tightening_units': [(6, 0, tightening_unit_ids)],
             'product_id': screw.id,
-            'tightening_pet': tightening_pset,
+            'tightening_pset': tightening_pset,
             'parent_quality_point_id': step.id,
             'sequence': tightening_points_seq,
             'group_sequence': tightening_points_seq,

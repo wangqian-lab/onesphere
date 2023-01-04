@@ -25,8 +25,8 @@
                                 <field name="query_date_from" required="1"/>
                                 <field name="query_date_to"/>
                             </group>
-                            <group string="Product">
-                            </group>
+<!--                            <group string="Product">-->
+<!--                            </group>-->
                             <group string="SPC Parameter">
                                 <field name="spc_step" widget="radio"/>
                                 <field name="limit" required="1"/>
@@ -93,8 +93,8 @@
                                 <field name="query_date_from" required="1"/>
                                 <field name="query_date_to"/>
                             </group>
-                            <group string="Product">
-                            </group>
+<!--                            <group string="Product">-->
+<!--                            </group>-->
                             <group string="SPC Parameter">
                                 <field name="limit" required="1"/>
                             </group>

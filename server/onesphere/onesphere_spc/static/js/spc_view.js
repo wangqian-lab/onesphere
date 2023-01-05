@@ -27,6 +27,9 @@ odoo.define('onesphere.spc.render', function (require) {
             var $ret = this._super.apply(this, arguments);
             $ret.css({width: '100%'});
             var $container = $ret.find('div.o_echarts').get(0);
+            if(!!!$container){
+                return $ret;
+            }
             var chart = echarts.getInstanceByDom($container);
             if (!!!chart) { //如果为初始化过这个容器作为echarts容器
                 chart = echarts.init($container, null, {height: 600});

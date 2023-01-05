@@ -26,6 +26,10 @@ class OperationResult(HModel):
 
     _description = 'Tightening Result'
 
+    _hyper_field = 'control_time'
+
+    _dimensions = ['attribute_equipment_no']
+
     _hyper_interval = '1 month'
 
     _order = 'control_time DESC'
@@ -94,9 +98,9 @@ class OperationResult(HModel):
     user_list = fields.Char(string='User List', help='Operators')
 
     _sql_constraints = [
-        ('tid_track_no_gun_uniq', 'unique(attribute_equipment_no, tightening_id, track_no, control_time, time)',
+        ('tid_track_no_gun_uniq', 'unique(attribute_equipment_no, tightening_id, track_no, control_time)',
          'Per Screw Gun tightening ID Tracking Number must different'),
-        ('entity_id_uniq', 'unique(entity_id, time)', 'entity_id must be unique')]
+        ('entity_id_uniq', 'unique(entity_id, attribute_equipment_no, control_time)', 'entity_id must be unique')]
 
     def get_nok_tightening_result_time_bucket_count(self, date_from=None, date_to=None, bolt_id=None, step='week',
                                                     limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT):
@@ -249,7 +253,6 @@ class OperationResult(HModel):
                                                             user_id,
                                                             workcenter_code,
                                                             batch,
-                                                            time,
                                                             barcode,
                                                             track_img_url,
                                                             measure_rule_result,
@@ -274,7 +277,6 @@ class OperationResult(HModel):
                     user_id,
                     workcenter_code,
                     batch,
-                    now(),
                     barcode,
                     track_img_url,
                     measure_rule_result,
@@ -387,7 +389,6 @@ DECLARE
                                                     user_id,
                                                     workcenter_code,
                                                     batch,
-                                                    time,
                                                     barcode,
                                                     track_img_url,
                                                     measure_rule_result,
@@ -412,7 +413,6 @@ DECLARE
             user_id,
             workcenter_code,
             batch,
-            now(),
             barcode,
             track_img_url,
             measure_rule_result,

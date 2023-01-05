@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 
 class MultiUpdateWizard(models.TransientModel):
     _name = 'multi.update.wizard'
+    _description = '拧紧工具批量修改wizard'
 
     tightening_units = fields.Many2many('onesphere.tightening.unit', 'multi_update_unit_rel', 'multi_update_id',
                                         'tightening_unit_id', string='Tightening Units')

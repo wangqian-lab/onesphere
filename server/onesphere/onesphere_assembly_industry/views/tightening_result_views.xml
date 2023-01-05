@@ -103,7 +103,7 @@
                     <field name="measurement_final_torque"/>
                     <field name="measurement_final_angle"/>
                     <field name="tightening_id" optional="hide"/>
-                    <field name="error_code" optional="hide"/>
+                    <field name="error_code"/>
                     <field name="user_list" optional="hide"/>
                 </tree>
             </field>

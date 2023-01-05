@@ -8,10 +8,10 @@ from odoo import _
 
 def get_general_grid_option():
     return {
-        'left': '10%',
-        'right': 130,
-        'top': '20%',
-        'bottom': 30,
+        'left': '15%',
+        'right': '15%',
+        'top': '10%',
+        'bottom': '15%',
     }
 
 
@@ -34,8 +34,8 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description='', ste
     y1 = [0] if len(y1) == 0 else y1
     x1 = [f'{i}({(i - 1) * step}~{i * step})' for i in range(1, len(y1) + 1)]
     titleOptions = {
-                       'text': description
-                   }
+        'text': description
+    }
     gridOptions = get_general_grid_option()
 
     xAxisOptions = [{
@@ -195,6 +195,63 @@ def get_xr_spc_echarts_options(data={}, query_type='torque', description='', ste
         'yAxis': yAxisOptions,
         'series': seriesOptions
     }
+
+
+def get_heap_map_echarts_options(data={}, tooltip_name='', description='', dimension=2):
+    titleOptions = {
+        'textAlign': 'auto',
+        'text': description
+    }
+    option = {
+        'title': titleOptions,
+        'tooltip': {
+            'position': 'top'
+        },
+        'grid': get_general_grid_option(),
+        'xAxis': {
+            'type': 'category',
+            'data': data.get('x', []),
+            'splitArea': {
+                'show': True
+            }
+        },
+        'yAxis': {
+            'type': 'category',
+            'data': data.get('y', []),
+            'splitArea': {
+                'show': True
+            }
+        },
+        'visualMap': {
+            'dimension': dimension,
+            'calculable': True,
+            'orient': 'horizontal',
+            'left': 'center',
+            'bottom': '5%'
+        },
+        'series': [
+            {
+                'name': tooltip_name,
+                'type': 'heatmap',
+                'data': data.get('data', []),
+                'label': {
+                    'show': True,
+                    'width': 50,
+                    'height': 35,
+                    'fontSize': 20,
+                    'backgroundColor':'rgba(0,23,11,0.3)',
+                },
+                'emphasis': {
+                    'itemStyle': {
+                        'shadowBlur': 10,
+                        'shadowColor': 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    }
+
+    return option
 
 
 def get_dist_echarts_options(data={}, query_type='torque', description='', type='norm'):

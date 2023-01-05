@@ -18,6 +18,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
 
         _onButtonQuerySPC: function (ev) {
             var self = this;
+            var bolt_id = self.renderer.state.data['bolt_id'];
             var query_date_from = self.renderer.state.data['query_date_from'];
             var query_date_to = self.renderer.state.data['query_date_to'];
             var query_type = self.renderer.state.data['measurement_type'] || 'torque';
@@ -61,7 +62,7 @@ odoo.define('onesphere.tightening.spc.view', function (require) {
             this._rpc({
                 model: this.modelName,
                 method: 'query_spc',
-                args: [query_date_from.format('YYYY-MM-DD HH:mm:ss'), query_date_to.format('YYYY-MM-DD HH:mm:ss'), query_type, usl, lsl, limit, others],
+                args: [bolt_id.res_id, query_date_from.format('YYYY-MM-DD HH:mm:ss'), query_date_to.format('YYYY-MM-DD HH:mm:ss'), query_type, usl, lsl, limit, others],
             }).then(function (result) {
                 if (!!result.cmk) {
                     self.setData(self.handle, 'cmk', result.cmk);

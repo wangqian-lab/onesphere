@@ -38,6 +38,8 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
 
     display_name = fields.Char(default='Statistical Process Control(SPC)', store=False)
 
+    bolt_id = fields.Many2one('onesphere.tightening.bolt', string='Bolt ID')
+
     @api.model
     def default_get(self, fields_list):
         res = super(OnesphereAssyIndustrySPC, self).default_get(fields_list)
@@ -61,7 +63,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         self.model_object_field = self.env['ir.model.fields']._get('onesphere.tightening.result', field_name)
 
     @api.model
-    def query_spc(self, query_from=None, query_to=None, query_type='torque', usl=10.0, lsl=1.0,
+    def query_spc(self, bolt_id=None, query_from=None, query_to=None, query_type='torque', usl=10.0, lsl=1.0,
                   limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT, others={}, *args,
                   **kwargs):
         _logger.debug(f"query spc, params: {args}, {kwargs}")
@@ -76,7 +78,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         if not query_type_field:
             raise ValidationError(f'query_type: {query_type} is not valid. query_type_field is required')
         data = model_object.get_tightening_result_filter_datetime(date_from=query_date_from, date_to=query_date_to,
-                                                                  field=query_type_field,
+                                                                  field=query_type_field, bolt_id=bolt_id,
                                                                   limit=limit)
         _logger.debug(_(f"Spc Data of Query Result: {data}"))
 

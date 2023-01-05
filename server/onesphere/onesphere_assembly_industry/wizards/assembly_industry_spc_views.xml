@@ -18,6 +18,9 @@
                     <sheet>
                         <field name="display_name" invisible="1"/>
                         <group string="Query Parameters">
+                            <group string="Bolt">
+                                <field name="bolt_id" required="1" options="{'no_create': True, 'no_quick_create': True}"/>
+                            </group>
                             <group string="Type">
                                 <field name="measurement_type" widget="radio"/>
                             </group>
@@ -86,6 +89,9 @@
                     <sheet>
                         <field name="display_name" invisible="1"/>
                         <group string="Query Parameters">
+                            <group string="Bolt">
+                                <field name="bolt_id" required="1" options="{'no_create': True, 'no_quick_create': True}"/>
+                            </group>
                             <group string="Type">
                                 <field name="measurement_type" widget="radio"/>
                             </group>

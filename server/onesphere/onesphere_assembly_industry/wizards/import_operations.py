@@ -4,7 +4,8 @@ from odoo import models, fields, api, _
 import xlrd, base64
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import ustr
-from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE, CURRENT_PATH
+from odoo.addons.onesphere_assembly_industry.constants import ALL_TIGHTENING_TEST_TYPE_LIST, EXCEL_TYPE, IMG_TYPE, \
+    CURRENT_PATH
 import os
 import logging
 import binascii
@@ -274,8 +275,8 @@ class ImportTighteningUnit(models.TransientModel):
         return excel_file, img_list
 
     def button_import_tightening_unit(self):
-        if not self.file_type:
-            raise ValidationError(_('Please Select A File Type!'))
+        if not self.file:
+            raise ValidationError(_('Please Upload A File!'))
         excel_file, img_list = self.read_zipfile()
         book = pyexcel.get_book(file_type=self.file_type, file_content=excel_file)
         for sheet in book:
@@ -290,3 +291,16 @@ class ImportTighteningUnit(models.TransientModel):
                 _logger.error(_(f'Create Tightening Unit Failed,Reason:{ustr(e)}'))
                 self.env.user.notify_warning(
                     _(f'Create Tightening Unit Failed,reason:{ustr(e)}'))
+
+    def tightening_unit_template_download(self, current_path=CURRENT_PATH):
+        template_path = self._context.get('template_path')
+        if not template_path:
+            raise ValidationError(f'No Template Path!')
+        complete_template_path = os.path.join(current_path, template_path)
+        if not os.path.exists(complete_template_path):
+            raise ValidationError(f'Not Found File: {complete_template_path} !')
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f"/oneshare/template_download?template_path={complete_template_path}",
+            'target': 'self',
+        }

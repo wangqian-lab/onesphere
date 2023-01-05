@@ -194,7 +194,7 @@ class OneshareQuality(models.Model):
             bom_ids_list = operation.onesphere_bom_ids.ids if operation.onesphere_bom_ids else [0]
             for bom_id in bom_ids_list:
                 str_bom_id = str(bom_id)
-                key= str_bom_id + '-' + str(operation.id)
+                key = str_bom_id + '-' + str(operation.id)
                 op_work_step_count = len(operation.work_step_ids.ids)
                 field_range.update({
                     key: {

@@ -14,6 +14,12 @@
                 action="import_operations_wizard_action"
                 parent="menu_mdm_import"
                 sequence="10"/>
+        <menuitem
+                id="menu_tightening_unit_import"
+                name="Tightening Unit Import"
+                action="import_tightening_unit_wizard_action"
+                parent="menu_mdm_import"
+                sequence="20"/>
 
     </data>
 </odoo>

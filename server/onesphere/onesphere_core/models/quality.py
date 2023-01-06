@@ -150,6 +150,7 @@ class OneshareQuality(models.Model):
     @api.model
     def search_panel_select_range(self, field_name, **kwargs):
         if field_name != 'onesphere_operation_ids':
+            kwargs['category_domain'] = []
             return super(OneshareQuality, self).search_panel_select_range(field_name, **kwargs)
         steps = self.env['oneshare.quality.point'].search([('onesphere_operation_ids', '=', False)])
         steps = steps.ids
@@ -193,7 +194,7 @@ class OneshareQuality(models.Model):
             bom_ids_list = operation.onesphere_bom_ids.ids if operation.onesphere_bom_ids else [0]
             for bom_id in bom_ids_list:
                 str_bom_id = str(bom_id)
-                key= str_bom_id + '-' + str(operation.id)
+                key = str_bom_id + '-' + str(operation.id)
                 op_work_step_count = len(operation.work_step_ids.ids)
                 field_range.update({
                     key: {

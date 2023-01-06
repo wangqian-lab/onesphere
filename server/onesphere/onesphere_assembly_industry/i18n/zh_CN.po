@@ -166,6 +166,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.multi_update_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_unit_import_mdm_form_view
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.wizard_tightening_result_report_view_form
 msgid "Cancel"
 msgstr "取消"
@@ -411,11 +412,6 @@ msgstr "分组"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_sequence
 msgid "Group Sequence for Multi Spindle"
 msgstr "拧紧组序号"
-
-#. module: onesphere_assembly_industry
-#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
-msgid "Hyper Model"
-msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_ir_actions_report__id
@@ -862,7 +858,6 @@ msgstr "拍照结果"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.oneshare_cap_view_app_theme_config_settings_inherit
 msgid "Please confirm to delete all operations?"
 msgstr "请确认是否删除所有作业?"
-
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.wizard_tightening_result_report_view_form
 msgid "Print Report"
@@ -1091,7 +1086,7 @@ msgstr "工步类型"
 #: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
 #, python-format
 msgid "Success"
-msgstr "成功"
+msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__maintenance_equipment__tightening_controller_model__modeldesouttercvi3twin
@@ -1100,6 +1095,7 @@ msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_unit_import_mdm_form_view
 msgid "Template Download"
 msgstr "模板下载"
 

@@ -12,19 +12,19 @@
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <style>
-                        .row{
-                        margin: 1px auto -1px auto;
-                        display: -webkit-box;
-                        -webkit-box-orient: horizontal;
-                        text-align: center;
+                        tr {
+                        font-weight: lighter;
                         }
-                        .child{
+                        .tightening_bolt_overview_label{
+                        font-weight: bold;
+                        font-size: 20px;
                         -webkit-box-flex: 1;
                         }
-                        .row1{
-                        margin: 1px auto -1px auto;
-                        display: -webkit-box;
-                        -webkit-box-orient: horizontal;
+                        .tightening_bolt_overview_value {
+                        font-weight: lighter;
+                        }
+                        .tightening_bolt_overview{
+                        text-align: center;
                         }
                         .thumbnail
                         {
@@ -68,8 +68,8 @@
                     </style>
                     <div class="page">
                         <h2 align="center">
-                           <span>拧紧结果报告</span>
-                       </h2>
+                            <span>拧紧结果报告</span>
+                        </h2>
                         <br/>
                         <p/>
                         <h4 style="color: #000000">追溯码:
@@ -78,8 +78,8 @@
                         <p/>
                         <br/>
                         <div id="report_chart_bolt" height="1000px">
-                            <img t-att-src="bolt_statistic_pie_chart" class="thumbnail"/>
-                            <div height="100%" class="thumbnail-r">
+                            <img t-att-src="bolt_statistic_pie_chart" class="thumbnail oe_left"/>
+                            <div height="100%" class="thumbnail-r oe_right">
                                 <div class="inline-block">
                                     <div class="label">螺栓编号数量:</div>
                                     <div class="label">一次合格数 (比率):</div>
@@ -127,30 +127,31 @@
                         <!--                        <br/>-->
                         <!--                        <p/>-->
                         <t t-foreach="results" t-as="bolt_result">
-                            <div class="row1">
-                                <div class="child">螺栓编号:
-                                    <t t-esc="bolt_result['bolt_name']"/>
+                            <div class="row tightening_bolt_overview">
+                                <div class="tightening_bolt_overview_label">螺栓编号:
+                                    <span class="tightening_bolt_overview_value" t-esc="bolt_result['bolt_name']"/>
                                 </div>
-                                <div class="child">结果数:
-                                    <t t-esc="bolt_result['count']"/>
+                                <div class="tightening_bolt_overview_label">结果数:
+                                    <span class="tightening_bolt_overview_value" t-esc="bolt_result['count']"/>
                                 </div>
-                                <t t-if="bolt_result['final_result']=='ok'">
-                                    <div class="child" style="background-color: #C8E6C9;">最终结果:
-                                        OK
-                                    </div>
-                                </t>
-                                <t t-elif="bolt_result['final_result']=='nok'">
-                                    <div class="child" style="background-color: #FFCDD2;">最终结果:
-                                        NOK
-                                    </div>
-                                </t>
-                                <t t-else="">
-                                    <div class="child">最终结果:
-                                        <t t-esc="bolt_result['final_result']"/>
-                                    </div>
-                                </t>
+                                <div class="tightening_bolt_overview_label">最终结果:
+                                    <t t-if="bolt_result['final_result']=='ok'">
+                                        <span class="tightening_bolt_overview_value" style="background-color: #C8E6C9;">
+                                            OK
+                                        </span>
+                                    </t>
+                                    <t t-elif="bolt_result['final_result']=='nok'">
+                                        <span class="tightening_bolt_overview_value" style="background-color: #FFCDD2;">
+                                            NOK
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="tightening_bolt_overview_value"
+                                              t-esc="bolt_result['final_result']"/>
+                                    </t>
+                                </div>
                             </div>
-                            <table class="table table-condensed" style="font-size:16px; text-align: center" boder="1">
+                            <table class="table table-condensed table-bordered table-striped" style="text-align: center" boder="1">
                                 <thead>
                                     <tr>
                                         <th>拧紧结果</th>
@@ -198,7 +199,7 @@
                                         <td>
                                             <span t-esc="line[6]"/>
                                         </td>
-                                        <td>
+                                        <td t-att-style="'background-color: #FFCDD2;' if line[7] else ''">
                                             <span t-esc="line[7]"/>
                                         </td>
                                     </tr>

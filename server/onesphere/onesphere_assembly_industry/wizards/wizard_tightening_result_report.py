@@ -1,3 +1,4 @@
+from itertools import zip_longest
 from typing import Union
 
 import pandas as pd
@@ -21,44 +22,45 @@ def generate_base64_image_content_str(chart):
     return content
 
 
-def generate_pie_chart(title, subtitle, labels, values):
+def generate_pie_chart(title, subtitle, pairs):
     c = (
         Pie(init_opts=opts.InitOpts(width="800px", height="500px"),
             ).add(
             title,
-            [list(z) for z in zip(labels, values)],
-            radius=["40%", "55%"],
+            pairs,
+            radius=["35%", "50%"],
             label_opts=opts.LabelOpts(
                 position="outside",
-                formatter="{a|{a}}{abg|}\n{hr|}\n {b|{b}: }{c}  {per|{d}%}  ",
-                font_size=24,
+                formatter="{a|{a}}{abg|}\n{hr|}\n {b|{b}: }{c|{c}}  {per|{d}%}  ",
+                font_size=36,
                 background_color="#eee",
                 border_color="#aaa",
                 border_width=1,
                 border_radius=4,
                 rich={
-                    "a": {"color": "#999",
-                          "lineHeight": 24,
-                          "fontSize": 16,
+                    "a": {"color": "#86909c",
+                          "lineHeight": 40,
+                          "fontSize": 26,
                           "align": "center"},
                     "abg": {
                         "backgroundColor": "#e3e3e3",
                         "width": "100%",
                         "align": "right",
-                        "height": 24,
+                        "height": 50,
                         "borderRadius": [4, 4, 0, 0],
                     },
                     "hr": {
-                        "borderColor": "#aaa",
+                        "borderColor": "#c9cdd4",
                         "width": "100%",
                         "borderWidth": 0.5,
                         "height": 0,
                     },
-                    "b": {"fontSize": 16, "lineHeight": 33},
+                    "b": {"fontSize": 24, "fontWeight": "bold", "lineHeight": 33},
+                    "c": {"fontSize": 24, "lineHeight": 33},
                     "per": {
                         "color": "#eee",
-                        "fontSize": 16,
-                        "backgroundColor": "#334455",
+                        "fontSize": 24,
+                        "backgroundColor": "#4e5969",
                         "padding": [2, 4],
                         "borderRadius": 2,
                     },
@@ -76,21 +78,38 @@ def generate_pie_chart(title, subtitle, labels, values):
     return c
 
 
+def get_pie_label_value_color_pair(labels, values):
+    colors = ['#4CD263', '#F53F3F']
+
+    pairs = []
+    for label, value, color in zip_longest(labels, values, colors[:len(labels)], fillvalue='#86909c'):
+        pairs.append(opts.PieItem(
+            name=label,
+            value=value,
+            itemstyle_opts=opts.ItemStyleOpts(color=color)
+        ))
+    return pairs
+
+
 def bolt_statistic_pie_chart(final_ok_count=0, bolt_count=0, final_ok_percent='0.0%'):
     labels = ['最终合格数量', '最终不合格数量']
     values = [final_ok_count, bolt_count - final_ok_count]
 
-    c = generate_pie_chart("拧紧螺栓编号统计合格率", f'最终合格率:{final_ok_percent}', labels, values)
+    pairs = get_pie_label_value_color_pair(labels, values)
+
+    c = generate_pie_chart("拧紧螺栓编号统计合格率", f'最终合格率: {final_ok_percent}', pairs=pairs)
 
     content = generate_base64_image_content_str(c)
     return content
 
 
-def result_statistic_pie_chart(results_pd):
+def result_statistic_pie_chart(results_pd, abnormal_percent):
     labels = list(map(str.upper, results_pd.index.tolist()))
     values = results_pd['count'].tolist()
 
-    c = generate_pie_chart("拧紧合格异常比例", '拧紧合格异常比例', labels, values)
+    pairs = get_pie_label_value_color_pair(labels, values)
+
+    c = generate_pie_chart("拧紧合格异常比例", f'拧紧合格异常比例: {abnormal_percent}', pairs)
 
     content = generate_base64_image_content_str(c)
 
@@ -185,7 +204,7 @@ class WizardTighteningResultReport(models.TransientModel):
             'final_ok_percent': final_ok_percent,
             'results': results_group_by_bolt,
             'bolt_statistic_pie_chart': bolt_statistic_pie_chart(final_ok_count, bolt_count, final_ok_percent),
-            'result_statistic_pie_chart': result_statistic_pie_chart(results_pd),
+            'result_statistic_pie_chart': result_statistic_pie_chart(results_pd, abnormal_percent),
         }
         return data
 

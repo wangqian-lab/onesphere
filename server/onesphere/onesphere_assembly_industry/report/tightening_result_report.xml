@@ -22,9 +22,11 @@
                         }
                         .tightening_bolt_overview_value {
                         font-weight: lighter;
+                        margin-left: auto;
                         }
                         .tightening_bolt_overview{
                         text-align: center;
+                        width: 100%;
                         }
                         .thumbnail
                         {
@@ -36,6 +38,7 @@
                         {
                         display: inline-block;
                         height:300px;
+                        margin-left: auto;
                         padding-top:30px;
                         }
                         .box{
@@ -63,7 +66,12 @@
                         .inline-block1{
                         display: inline-block;
                         height: 100%;
-                        width: 100px;
+                        width: 200px;
+                        }
+                        .result-box{
+                        display: inline-block;
+                        width: 60px;
+                        text-aline: center;
                         }
                     </style>
                     <div class="page">
@@ -79,7 +87,7 @@
                         <br/>
                         <div id="report_chart_bolt" height="1000px">
                             <img t-att-src="bolt_statistic_pie_chart" class="thumbnail oe_left"/>
-                            <div height="100%" class="thumbnail-r oe_right">
+                            <div height="100%" class="thumbnail-r">
                                 <div class="inline-block">
                                     <div class="label">螺栓编号数量:</div>
                                     <div class="label">一次合格数 (比率):</div>
@@ -136,17 +144,17 @@
                                 </div>
                                 <div class="tightening_bolt_overview_label">最终结果:
                                     <t t-if="bolt_result['final_result']=='ok'">
-                                        <span class="tightening_bolt_overview_value" style="background-color: #C8E6C9;">
+                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #C8E6C9;">
                                             OK
                                         </span>
                                     </t>
                                     <t t-elif="bolt_result['final_result']=='nok'">
-                                        <span class="tightening_bolt_overview_value" style="background-color: #FFCDD2;">
+                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #FFCDD2;">
                                             NOK
                                         </span>
                                     </t>
                                     <t t-else="">
-                                        <span class="tightening_bolt_overview_value"
+                                        <span class="tightening_bolt_overview_value result-box"
                                               t-esc="bolt_result['final_result']"/>
                                     </t>
                                 </div>

@@ -24,11 +24,11 @@ def generate_base64_image_content_str(chart):
 
 def generate_pie_chart(title, subtitle, pairs):
     c = (
-        Pie(init_opts=opts.InitOpts(width="800px", height="500px"),
+        Pie(init_opts=opts.InitOpts(width="1000px", height="625px"),
             ).add(
             title,
             pairs,
-            radius=["35%", "50%"],
+            radius=["30%", "45%"],
             label_opts=opts.LabelOpts(
                 position="outside",
                 formatter="{a|{a}}{abg|}\n{hr|}\n {b|{b}: }{c|{c}}  {per|{d}%}  ",
@@ -97,7 +97,7 @@ def bolt_statistic_pie_chart(final_ok_count=0, bolt_count=0, final_ok_percent='0
 
     pairs = get_pie_label_value_color_pair(labels, values)
 
-    c = generate_pie_chart("拧紧螺栓编号统计合格率", f'最终合格率: {final_ok_percent}', pairs=pairs)
+    c = generate_pie_chart("螺栓编号合格率", f'最终合格率: {final_ok_percent}', pairs=pairs)
 
     content = generate_base64_image_content_str(c)
     return content
@@ -133,7 +133,7 @@ class WizardTighteningResultReport(models.TransientModel):
         return results
 
     def get_count_groupby_tightening_result(self, filter='1=1'):
-        sql = f'''SELECT tightening_result, count(*) FROM onesphere_tightening_result WHERE track_no='{self.track_no}' AND {filter} GROUP BY tightening_result'''
+        sql = f'''SELECT tightening_result, count(*) FROM onesphere_tightening_result WHERE track_no='{self.track_no}' AND {filter} GROUP BY tightening_result ORDER BY tightening_result desc'''
         self._cr.execute(sql)
         d = self._cr.fetchall()
         result = {dd[0]: dd[1] for dd in d}

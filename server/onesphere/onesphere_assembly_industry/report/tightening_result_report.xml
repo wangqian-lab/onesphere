@@ -154,8 +154,7 @@
                                         </span>
                                     </t>
                                     <t t-else="">
-                                        <span class="tightening_bolt_overview_value result-box"
-                                              t-esc="bolt_result['final_result']"/>
+                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #86909c;" t-esc="bolt_result['final_result'].upper()"/>
                                     </t>
                                 </div>
                             </div>

@@ -10,8 +10,8 @@ def get_general_grid_option():
     return {
         'left': '15%',
         'right': '15%',
-        'top': '10%',
-        'bottom': '15%',
+        'top': '20%',
+        'bottom': '25%',
     }
 
 

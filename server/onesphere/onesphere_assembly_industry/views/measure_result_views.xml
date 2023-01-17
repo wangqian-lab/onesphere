@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="onesphere_measure_result_view_tree" model="ir.ui.view">
+            <field name="name">onesphere_measure_result_view_tree</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <tree string="Measure Results" create="false" export_xlsx="false" import="false" delete="false"
+                      default_order="control_time desc"
+                      groups_limit="10" js_class="onesphere_disable_export">
+                    <field name="track_no"/>
+                    <field name="id" groups="base.group_no_one"/>
+                    <field name="measure_rule_result"/>
+                    <field name="control_time" string="Measure Date Time"/>
+                    <field name="attribute_equipment_no"/>
+                    <field name="workcenter_code"/>
+                    <field name="step_type" optional="hide"/>
+                    <field name="user_list" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_measure_result" model="ir.actions.act_window">
+            <field name="name">Measure Result</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_measure": 1 }
+            </field>
+            <field name="view_id" ref="onesphere_measure_result_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view measure result.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_action_measure_result" name="Measure Result"
+                  action="action_measure_result"
+                  parent="onesphere_operation_result" sequence="20"/>
+
+    </data>
+</odoo>

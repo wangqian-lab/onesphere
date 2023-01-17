@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="onesphere_register_byproducts_result_view_tree" model="ir.ui.view">
+            <field name="name">onesphere_register_byproducts_result_view_tree</field>
+            <field name="model">onesphere.tightening.result</field>
+            <field name="arch" type="xml">
+                <tree string="Register Byproducts Results" create="false" export_xlsx="false" import="false" delete="false"
+                      default_order="control_time desc"
+                      groups_limit="10" js_class="onesphere_disable_export">
+                    <field name="track_no"/>
+                    <field name="id" groups="base.group_no_one"/>
+                    <field name="barcode"/>
+                    <field name="control_time" string="Register Date Time"/>
+                    <field name="attribute_equipment_no"/>
+                    <field name="workcenter_code"/>
+                    <field name="step_type" optional="hide"/>
+                    <field name="user_list" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_register_byproducts_result" model="ir.actions.act_window">
+            <field name="name">Register Byproducts Result</field>
+            <field name="res_model">onesphere.tightening.result</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
+            <field name="context">{"search_default_filter_register_byproducts": 1 }
+            </field>
+            <field name="view_id" ref="onesphere_register_byproducts_result_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Let's view register byproducts result.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_register_byproducts_result" name="Register Byproducts Result"
+                  action="action_register_byproducts_result"
+                  parent="onesphere_operation_result" sequence="30"/>
+    </data>
+</odoo>

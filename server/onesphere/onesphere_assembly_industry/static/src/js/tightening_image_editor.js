@@ -50,7 +50,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                     },
                 }).done(function (resp) {
                     self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), false);
-                    self.do_action({"type": "ir.actions.act_window_close"});
+                    self.do_action({'type': 'ir.actions.client','tag': 'reload'});
                 }).fail(function (resp) {
                     self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), false);
                 });

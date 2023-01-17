@@ -36,7 +36,7 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
                                         default='torque',
                                         string='Assembly Industry SPC Measurement Type')
 
-    display_name = fields.Char(default='Statistical Process Control(SPC)', store=False)
+    display_name = fields.Char(default='SPC分析', store=False)
 
     bolt_id = fields.Many2one('onesphere.tightening.bolt', string='Bolt ID')
 

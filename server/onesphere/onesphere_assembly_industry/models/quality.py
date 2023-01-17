@@ -85,3 +85,17 @@ class OneshareQuality(models.Model):
         for point in self.tightening_opr_point_ids:
             point.sequence = sequence
             sequence += 1
+
+    def button_open_tightening_points(self):
+        self.ensure_one()
+        context = self.env.context.copy()
+        context.update({
+            'search_default_parent_quality_point_display_name': self.display_name
+        })
+        action = self.env["ir.actions.actions"]._for_xml_id("onesphere_assembly_industry.tightening_point_action")
+        action['context'] = context
+        name = _('Tightening Points')
+        action['name'] = name
+        # action['domain'] = [('parent_quality_point_id', '=', self.id)]
+        action['display_name'] = name
+        return action

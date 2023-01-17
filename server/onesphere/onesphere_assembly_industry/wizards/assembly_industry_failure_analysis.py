@@ -26,7 +26,7 @@ class OnesphereAssyFailureAnalysis(models.TransientModel):
     _description = '装配行业拧紧SPC分析'
     _inherit = ['onesphere.assy.industry.spc']
 
-    display_name = fields.Char(default='Statistical Analysis Of Failure', store=False)
+    display_name = fields.Char(default='失效分析', store=False)
 
     @api.model
     def query_spc(self, bolt_id=None, query_from=None, query_to=None, query_type='torque', usl=10.0, lsl=1.0,

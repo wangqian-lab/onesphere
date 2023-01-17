@@ -32,7 +32,7 @@
                             <group>
                             </group>
                             <group string="Manufacturing Info">
-                                <field name="entity_id" groups="base.group_no_one"/>
+                                <field name="entity_id" groups="base.group_no_one" attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
                                 <field name="attribute_equipment_no"/>
                                 <field name="control_time" string="Tightening Date Time"/>
                                 <field name="user_id"/>
@@ -212,47 +212,6 @@
             </field>
         </record>
 
-        <record id="action_measure_result" model="ir.actions.act_window">
-            <field name="name">Measure Result</field>
-            <field name="res_model">onesphere.tightening.result</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_measure": 1 }
-            </field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Let's view Measure result.
-                </p>
-            </field>
-        </record>
-
-        <record id="action_register_byproducts_result" model="ir.actions.act_window">
-            <field name="name">Register Byproducts Result</field>
-            <field name="res_model">onesphere.tightening.result</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_register_byproducts": 1 }
-            </field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Let's view register byproducts result.
-                </p>
-            </field>
-        </record>
-
-        <record id="action_picture_result" model="ir.actions.act_window">
-            <field name="name">Picture Result</field>
-            <field name="res_model">onesphere.tightening.result</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
-            <field name="context">{"search_default_filter_picture": 1 }
-            </field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Let's view picture result.
-                </p>
-            </field>
-        </record>
 
 
         <menuitem id="menu_assembly_ok_tightening_result" name="Tightening Result(OK)"
@@ -264,14 +223,5 @@
         <menuitem id="menu_assembly_ak2_tightening_result" name="Tightening Result(AK2)"
                   action="action_ak2_tightening_result"
                   parent="onesphere_tightening_result" sequence="20"/>
-        <menuitem id="menu_action_measure_result" name="Measure Result"
-                  action="action_measure_result"
-                  parent="onesphere_operation_result" sequence="20"/>
-        <menuitem id="menu_register_byproducts_result" name="Register Byproducts Result"
-                  action="action_register_byproducts_result"
-                  parent="onesphere_operation_result" sequence="30"/>
-        <menuitem id="menu_picture_result" name="Picture Result"
-                  action="action_picture_result"
-                  parent="onesphere_operation_result" sequence="40"/>
     </data>
 </odoo>

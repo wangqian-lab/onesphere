@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 from collections.abc import Collection
 
 from odoo import api, fields, models, _
@@ -67,7 +68,7 @@ class OneshareQuality(models.Model):
         return self.env['oneshare.quality.point.test_type'].search(domain, limit=1).id
 
     name = fields.Char(
-        'Reference', required=True)
+        'Reference', copy=False)
     sequence = fields.Integer('Sequence')
 
     code = fields.Char('Code', help='Reference(External)', required=True, default=lambda self: _('New'), copy=False)
@@ -191,7 +192,8 @@ class OneshareQuality(models.Model):
 
         operations = self.env['mrp.routing.workcenter'].search([])
         for operation in operations:
-            bom_ids_list = operation.onesphere_bom_ids.ids if operation.onesphere_bom_ids else [0]
+            bom_ids_list = operation.onesphere_bom_ids.mapped(
+                'onesphere_bom_id').ids if operation.onesphere_bom_ids else [0]
             for bom_id in bom_ids_list:
                 str_bom_id = str(bom_id)
                 key = str_bom_id + '-' + str(operation.id)
@@ -227,6 +229,11 @@ class OneshareQuality(models.Model):
         if len(bom_operation_ids_str) == 2 and bom_operation_ids_str[1] == '0':
             # 点击在未知作业
             work_step_domain = [('onesphere_operation_ids', '=', False)]
+        if len(bom_operation_ids_str) == 2 and bom_operation_ids_str[1] != '0':
+            # 点击在未知bom已知作业
+            op_id = int(bom_operation_ids_str[1])
+            operation_ids = self.env['mrp.routing.workcenter'].search([('id', 'in', [op_id])])
+            work_step_domain = [('onesphere_operation_ids.operation_id', 'in', operation_ids.ids)]
         work_step_ids = self.env['oneshare.quality.point'].search(work_step_domain)
         return work_step_ids.ids
 
@@ -239,3 +246,26 @@ class OneshareQuality(models.Model):
             domain_replace = ['id', 'in', steps]
             domain[i] = domain_replace
         return super(OneshareQuality, self).search_read(domain, fields, offset, limit, order)
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        """ copy(default=None)
+
+        Duplicate record ``self`` updating it with default values
+
+        :param dict default: dictionary of field values to override in the
+               original values of the copied record, e.g: ``{'field_name': overridden_value, ...}``
+        :returns: new record
+
+        """
+
+        new = super(OneshareQuality, self).copy(default=default)
+
+        for point in self.tightening_opr_point_ids:
+            vals = point.copy_data()[0]
+            vals.update({
+                'name': str(uuid.uuid4()),
+                'parent_quality_point_id': new.id,
+            })
+            self.env['onesphere.tightening.opr.point'].create(vals)
+        return new

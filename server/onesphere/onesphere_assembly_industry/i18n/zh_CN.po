@@ -18,7 +18,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.oneshare_cap_view_app_theme_config_settings_inherit
 msgid "<span class=\"col-3 col-lg-2 text-left\">Operations</span>"
-msgstr ""
+msgstr "<span class=\"col-3 col-lg-2 text-left\">作业</span>"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
@@ -278,7 +278,7 @@ msgstr "无效的时间选择窗口"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.oneshare_cap_view_app_theme_config_settings_inherit
 msgid "Delete All Operations"
-msgstr ""
+msgstr "删除所有作业"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__description

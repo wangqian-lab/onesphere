@@ -40,6 +40,7 @@
     ],
     'demo': [
         # 'demo/track_code_demo.xml',
+        'demo/mrp_demo.xml',
     ],
     'post_init_hook': '_onesphere_core_post_init',
     'uninstall_hook': '_oneshare_core_uninstall_hook',

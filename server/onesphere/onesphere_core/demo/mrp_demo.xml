@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--mrp_bom_manufacture  -->
+        <record id="mrp_bom_opr_rel_0" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_0"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_manufacture"/>
+        </record>
+        <record id="mrp_bom_opr_rel_1" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_1"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_manufacture"/>
+        </record>
+        <record id="mrp_bom_opr_rel_2" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_3"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_manufacture"/>
+        </record>
+        <!--mrp_bom_desk  -->
+        <record id="mrp_bom_opr_rel_4" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_1"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_desk"/>
+        </record>
+        <record id="mrp_bom_opr_rel_5" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_4"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_desk"/>
+        </record>
+        <record id="mrp_bom_opr_rel_6" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_5"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_desk"/>
+        </record>
+
+        <!--mrp_bom_table_top  -->
+        <record id="mrp_bom_opr_rel_7" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_3"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_table_top"/>
+        </record>
+        <record id="mrp_bom_opr_rel_8" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_4"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_table_top"/>
+        </record>
+        <record id="mrp_bom_opr_rel_9" model="onesphere.mrp.bom.operation.rel">
+            <field name="onesphere_operation_id" ref="mrp.mrp_routing_workcenter_5"/>
+            <field name="onesphere_bom_id" ref="mrp.mrp_bom_table_top"/>
+        </record>
+    </data>
+</odoo>

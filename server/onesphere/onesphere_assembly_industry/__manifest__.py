@@ -30,6 +30,7 @@
         'data/tightening_data.xml',
         'data/tightening_vendor_data.xml',
         'data/product_category_data.xml',
+        'views/templates.xml',
         'wizards/oneshare_modal.xml',
         'wizards/assembly_industry_spc_views.xml',
         'views/menu_hide_views.xml',
@@ -39,7 +40,6 @@
         'views/register_byproducts_result_views.xml',
         'views/picture_result_views.xml',
         'views/onesphere_assembly_report_views.xml',
-        'views/templates.xml',
         'views/tightening_unit_views.xml',
         'views/quality_views.xml',
         'views/work_step_tag_views.xml',
@@ -65,6 +65,7 @@
         'demo/tightening_bolt_demo.xml',
         'demo/tightening_unit_demo.xml',
         'demo/tightening_result_demo.xml',
+        'demo/mrp_demo.xml',
     ],
     'qweb': [
         'static/xml/template.xml',

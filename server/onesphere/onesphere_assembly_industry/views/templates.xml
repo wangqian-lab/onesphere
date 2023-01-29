@@ -3,6 +3,7 @@
         <xpath expr="//script[last()]" position="after">
             <script src="/onesphere_assembly_industry/static/src/lib/interact/interact.min.js"/>
             <link href="/onesphere_assembly_industry/static/src/scss/modal.scss" rel="stylesheet" type="text/scss"/>
+            <script src="/onesphere_assembly_industry/static/src/js/tightening_image_editor_form.js"/>
             <script src="/onesphere_assembly_industry/static/src/js/tightening_image_editor.js"/>
             <script src="/onesphere_assembly_industry/static/src/js/tightening_spc_form.js"/>
             <script src="/onesphere_assembly_industry/static/src/js/tightening_bolt_form.js"/>

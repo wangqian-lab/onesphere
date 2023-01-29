@@ -32,12 +32,49 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
             });
         },
 
+        // _setOne2ManyField: function (field, list, resolve, reject) {
+        //     var self = this;
+        //     var viewType = this.record.viewType;
+        //     if (list && this.record.fieldsInfo[viewType] && this.record.fieldsInfo[viewType][field]) {
+        //         list.forEach(function (item) {
+        //             var changes = {};
+        //             changes[field] = {
+        //                 operation: 'CREATE',
+        //                 data: item,
+        //             };
+        //
+        //             self.trigger_up('field_changed', {
+        //                 dataPointID: self.dataPointID,
+        //                 changes: changes,
+        //                 onSuccess: resolve,
+        //                 onFailure: reject,
+        //             });
+        //         });
+        //     }
+        // },
+
+        // _resolve: function () {
+        //     var self = this;
+        //     self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), false);
+        // },
+        //
+        // _reject: function () {
+        //     var self = this;
+        //     self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), false);
+        // },
+
         _saveAllMask: function () {
             var self = this;
             var active_id = this.recordData.res_record_id;
             var url = '/api/v1/tightening_work_step/';
             var markPoints = JSON.stringify(self.markPoints);
             try {
+                // self.trigger_up('save_tightening_points', {
+                //     dataPointID: self.dataPointID,
+                //     changes: self.markPoints,
+                //     onSuccess: self._resolve,
+                //     onFailure: self._reject,
+                // });
                 $.ajax({
                     type: "PUT",
                     url: url.concat(active_id, '/opr_points_edit'),
@@ -50,12 +87,12 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                     },
                 }).done(function (resp) {
                     self._notifyInfo('success', _t("Success"), _t('Save Tightening Points Success!'), false);
-                    self.do_action({'type': 'ir.actions.client','tag': 'reload'});
+                    self.do_action({'type': 'ir.actions.client', 'tag': 'reload'});
                 }).fail(function (resp) {
                     self._notifyInfo('danger', _t("Error"), _t('Save Tightening Points Error!'), false);
                 });
             } catch (e) {
-                self._notifyInfo('danger', _t("Error"), e.error(), false);
+                self._notifyInfo('danger', _t("Error"), e.message, false);
             }
         },
 
@@ -73,7 +110,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
             var t = _.str.sprintf('<div class="oe_mark_circle">%s</div>', _.str.escapeHTML(this.markPoints.length + 1));
             var e = $(t).css({
                 'left': leftOffset ? "calc(" + leftOffset + "% - 10px)" : "calc(" + leftOffset + "%)",
-                'top':  topOffset ? "calc(" + topOffset + "% - 10px)" : "calc(" + topOffset + "%)" ,
+                'top': topOffset ? "calc(" + topOffset + "% - 10px)" : "calc(" + topOffset + "%)",
                 'z-index': "" + (this.markPoints.length + 1)
             }).appendTo(self.$el.find('#img_container'));
 
@@ -93,11 +130,17 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
 
 
         _render: function () {
-            this._super.apply(this, arguments);
             var self = this;
             var activeModel = self.model;
             var active_id = self.recordData.res_record_id;
+            if (!!!active_id) {
+                //非已经创建的记录
+                self._notifyInfo('danger', _t("Error"), '请先保存记录后进行图片编辑', false);
+                self.trigger_up('do_parent_form_save'); //模拟点击保存按钮
+                return;
+            }
             try {
+                this._super.apply(this, arguments);
                 this._rpc({
                     model: 'oneshare.quality.point',
                     method: 'get_tightening_operation_points',
@@ -108,7 +151,7 @@ odoo.define('oneshare.tightening_image_editor', function (require) {
                     })
                 });
             } catch (e) {
-                self._notifyInfo('danger', _t("Error"), e.error(), false);
+                self._notifyInfo('danger', _t("Error"), e.message, false);
                 console.error(e);
             }
         },

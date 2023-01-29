@@ -41,9 +41,9 @@ class OneshareQuality(models.Model):
 
     def get_tightening_operation_points(self, *args, **kwargs):
         ret = []
-        self.ensure_one()
         if not self or not self.tightening_opr_point_ids:
             return ret
+        self.ensure_one()
         for point in self.tightening_opr_point_ids:
             ret.append({'y_offset': point.y_offset, 'x_offset': point.x_offset})
         return ret

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-16 06:09+0000\n"
-"PO-Revision-Date: 2023-01-16 06:09+0000\n"
+"POT-Creation-Date: 2023-02-08 06:01+0000\n"
+"PO-Revision-Date: 2023-02-08 06:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -180,6 +180,12 @@ msgid "CVI3"
 msgstr ""
 
 #. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/import_tightening_units.py:0
+#, python-format
+msgid "Can Not Found controller,Code %s"
+msgstr "找不到编号为%s的控制器"
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.multi_update_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.operation_import_mdm_form_view
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_unit_import_mdm_form_view
@@ -238,6 +244,24 @@ msgstr "控制拧紧点"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__tightening_controller_id
 msgid "Controller"
 msgstr "所属控制器"
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/import_tightening_units.py:0
+#, python-format
+msgid "Create Tightening Unit Failed,Reason: %s"
+msgstr "创建拧紧单元失败，原因： %s"
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/import_tightening_units.py:0
+#, python-format
+msgid "Create Tightening Unit Failed:"
+msgstr "创建拧紧单元失败"
+
+#. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/import_tightening_units.py:0
+#, python-format
+msgid "Create Tightening Unit Success"
+msgstr "创建拧紧单元成功！"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__create_uid
@@ -366,6 +390,7 @@ msgstr "设备类型"
 #: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
 #: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
 #: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
+#: code:addons/onesphere_assembly_industry/static/src/js/tightening_image_editor.js:0
 #, python-format
 msgid "Error"
 msgstr ""
@@ -429,11 +454,6 @@ msgstr "分组"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__group_sequence
 msgid "Group Sequence for Multi Spindle"
 msgstr "拧紧组序号"
-
-#. module: onesphere_assembly_industry
-#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
-msgid "Hyper Model"
-msgstr ""
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_ir_actions_report__id
@@ -554,7 +574,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改日"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__write_uid
@@ -903,6 +923,12 @@ msgid "Picture Results"
 msgstr "拍照结果"
 
 #. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/wizards/import_tightening_units.py:0
+#, python-format
+msgid "Please Upload A File!"
+msgstr "请上传文件！"
+
+#. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.oneshare_cap_view_app_theme_config_settings_inherit
 msgid "Please confirm to delete all operations?"
 msgstr "请确认是否删除所有作业?"
@@ -1107,7 +1133,6 @@ msgstr "状态"
 
 #. module: onesphere_assembly_industry
 #: model:ir.ui.menu,name:onesphere_assembly_industry.menu_assembly_tightening_failure_analysis
-#, python-format
 msgid "Statistical Analysis Of Failure"
 msgstr "失败结果统计分析"
 
@@ -1341,6 +1366,7 @@ msgstr "拧紧程序(Pset/Job)"
 
 #. module: onesphere_assembly_industry
 #: code:addons/onesphere_assembly_industry/models/tightening_result.py:0
+#: model:ir.model,name:onesphere_assembly_industry.model_onesphere_tightening_result
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_view_form
 #, python-format

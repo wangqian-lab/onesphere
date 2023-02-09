@@ -57,7 +57,7 @@
                                 class="btn btn-primary active"/>
                         <button name="tightening_unit_template_download" string="Template Download" type="object"
                                 icon="fa-download"
-                                class="btn btn-primary active" context="{'template_path': 'templates/拧紧单元模板.zip'}"/>
+                                class="btn btn-primary active" context="{'template_path': 'templates/拧紧单元模板.xlsx'}"/>
                         <button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"/>
                     </footer>
                 </form>

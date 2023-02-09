@@ -6,7 +6,6 @@ from odoo.addons.oneshare_utils.constants import ENV_ONESHARE_EXPERIMENTAL_ENABL
 
 ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL = strtobool(os.getenv('ENV_ONESPHERE_DAQ_WITH_TRACK_CODE_REL', 'false'))
 
-NORMAL_USER_FIELDS_READ = ['id', 'name', 'login', 'active', 'uuid', 'image_small']
 DEFAULT_LIMIT = 80
 
 

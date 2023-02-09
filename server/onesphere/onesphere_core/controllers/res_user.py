@@ -5,11 +5,11 @@ from http import HTTPStatus
 import odoo
 import json
 from odoo.addons.web.controllers.main import ensure_db
-from odoo.addons.onesphere_core.constants import NORMAL_USER_FIELDS_READ, DEFAULT_LIMIT
+from odoo.addons.onesphere_core.constants import DEFAULT_LIMIT
 
 
 class UsersAPI(http.Controller):
-    @http.route('/api/v1/res.users', type='http', auth='none', cors='*', csrf=False)
+    @http.api_route('/api/v1/res.users', type='apijson', auth='none', cors='*', csrf=False)
     def _get_users_list_info(self, **query_params):
         _limit = DEFAULT_LIMIT
         if 'limit' in query_params:
@@ -18,26 +18,18 @@ class UsersAPI(http.Controller):
         if 'uuids' in query_params:
             uuids = query_params['uuids'].split(',')
             domain += [('uuid', 'in', uuids)]
-        _users = request.env['res.users'].sudo().with_context(active_test=False).search(domain, limit=_limit)
-        users = []
-        if _users:
-            users = _users.read(fields=NORMAL_USER_FIELDS_READ)
-        for user in users:
-            if 'active' in user:
-                user.update({
-                    'status': 'active' if user['active'] else 'archived'
-                })
-                user.pop('active')
-            if 'image_1920' in user:
-                img_base64 = user['image_1920'].decode() if user['image_1920'] else ""
-                user.update({
-                    'image_small': f'data:image/png;base64,{img_base64}'
-                })
-        return Response(json.dumps(users), headers={'content-type': 'application/json'}, status=HTTPStatus.OK)
+        user_ids = request.env['res.users'].sudo().with_context(active_test=False).search(domain, limit=_limit)
+        ret = []
+        if not user_ids:
+            return Response(json.dumps({'msg': 'User not found'}), headers={'content-type': 'application/json'},
+                            status=HTTPStatus.BAD_REQUEST)
+        for user_id in user_ids:
+            ret.append(self.pack_user_info(user_id))
+        return Response(json.dumps(ret), headers={'content-type': 'application/json'}, status=HTTPStatus.OK)
 
     @staticmethod
     def pack_user_info(user_id):
-        img_base64 = user_id.image_1920.decode() if user_id.image_1920 else ""
+        img_base64 = user_id.partner_id.image_128.decode() if user_id.partner_id.image_128 else ""
         ret = {
             'id': user_id.id,
             'name': user_id.name,
@@ -53,7 +45,7 @@ class UsersAPI(http.Controller):
             })
         return ret
 
-    @http.route('/api/v1/res.users/<string:uuid>', type='http', auth='none', cors='*', csrf=False)
+    @http.api_route('/api/v1/res.users/<string:uuid>', type='apijson', auth='none', cors='*', csrf=False)
     def _get_user_info(self, uuid):
 
         user_id = request.env['res.users'].sudo().with_context(active_test=False).search([('uuid', '=', uuid)], limit=1)
@@ -96,9 +88,8 @@ class UsersAPI(http.Controller):
         return Response(json.dumps(ret), headers={'content-type': 'application/json'}, status=HTTPStatus.OK)
 
     @http.api_route('/api/v1/res.users/batch_archived', type='apijson', auth='none', cors='*', csrf=False)
-    def _bach_patch_user_archived(self):
-        params = request.ApiJsonRequest
-        uuids = params.get('uuids', [])
+    def _bach_patch_user_archived(self, **query_params):
+        uuids = query_params['uuids'].split(',') if query_params.get('uuids','') else []
         user_ids = request.env['res.users'].sudo().search([('uuid', 'in', uuids)])
 
         if not user_ids:
@@ -111,11 +102,5 @@ class UsersAPI(http.Controller):
         if not ret:
             return Response(json.dumps({'msg': 'Batch Archived fail'}), headers={'content-type': 'application/json'},
                             status=HTTPStatus.METHOD_NOT_ALLOWED)
-        ret = user_ids.sudo().read(fields=NORMAL_USER_FIELDS_READ)[0]
-        if 'active' in ret:
-            ret.update({
-                'status': 'active' if ret['active'] else 'archived'
-            })
-            ret.pop('active')
-
+        ret = self.pack_user_info(user_ids[0])
         return Response(json.dumps(ret), headers={'content-type': 'application/json'}, status=HTTPStatus.OK)

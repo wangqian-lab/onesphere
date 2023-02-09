@@ -76,6 +76,7 @@ RECORD_TMPL = Template('''
             <field name="measurement_step_results">{{ step_results }}</field>
             <field name="workcenter_code">{{ workcenter_code }}</field>
             <field name="cap_features_save">{{ cap_features_save }}</field>
+            <field name="cap_snug_features_save">{{ cap_snug_features_save }}</field>
         </record>
 ''')
 
@@ -111,17 +112,18 @@ def get_feature_df():
 
 
 def get_feature_json(entity_id):
-    feature_json = ''
+    feature_json, snug_data = '', ''
     try:
         feature_item = json.loads(feature_df.loc[entity_id].to_json())
         feature_item.update({'step_results': len(json.loads(feature_item.get('step_results')))})
+        snug_data = feature_item.pop('snug_data', '')
         feature_dic = {
             data['entity_id'][index]: feature_item
         }
         feature_json = json.dumps(feature_dic, indent=4)
     except Exception as e:
         _logger.error(f'get feature json failed: {ustr(e)}')
-    return feature_json
+    return feature_json, snug_data
 
 
 if __name__ == '__main__':
@@ -156,7 +158,7 @@ if __name__ == '__main__':
         step_results = json.dumps(get_step_result(data['step_results'][index]))
         workcenter_code = random.choice(station_names)
         attribute_equipment_no = random.choice(attribute_equipments)
-        feature_json = get_feature_json(data['entity_id'][index])
+        feature_json, snug_data = get_feature_json(data['entity_id'][index])
         m = gen_record_msg(id=index, entity_id=entity_id, track_no=track_no,
                            tightening_process_no=tightening_process_no,
                            measurement_final_torque=measurement_final_torque,
@@ -167,7 +169,8 @@ if __name__ == '__main__':
                            tightening_id=tightening_id, curve_file=curve_file, angle_max=angle_max, angle_min=angle_min,
                            angle_target=angle_target, torque_max=torque_max, torque_min=torque_min,
                            torque_target=torque_target, step_results=step_results, workcenter_code=workcenter_code,
-                           attribute_equipment_no=attribute_equipment_no, cap_features_save=feature_json)
+                           attribute_equipment_no=attribute_equipment_no, cap_features_save=feature_json,
+                           cap_snug_features_save=snug_data)
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)
     with open(DIST_PATH, 'w') as f:

@@ -15,7 +15,7 @@
             </field>
             <xpath expr="//form[1]" position="attributes">
                 <attribute name="string">Tightening Image Editor</attribute>
-                <attribute name="js_class">tightening_image_editor_form</attribute>
+<!--                <attribute name="js_class">tightening_image_editor_form</attribute>-->
             </xpath>
         </field>
     </record>

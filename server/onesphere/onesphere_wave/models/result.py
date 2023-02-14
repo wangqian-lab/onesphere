@@ -17,7 +17,7 @@ ENV_DOWNLOAD_TIGHTENING_RESULT_LIMIT = int(os.getenv('ENV_DOWNLOAD_TIGHTENING_RE
 
 def _create_wave_result_dict(x, data):
     if not data:
-        return {}
+        return False
     else:
         _data = json.loads(data)
     _data['name'] = x.split('.')[0]

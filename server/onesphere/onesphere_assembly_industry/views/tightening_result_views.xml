@@ -32,7 +32,8 @@
                             <group>
                             </group>
                             <group string="Manufacturing Info">
-                                <field name="entity_id" groups="base.group_no_one" attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
+                                <field name="entity_id" groups="base.group_no_one"
+                                       attrs="{'invisible': [('step_type', '!=', 'tightening')]}"/>
                                 <field name="attribute_equipment_no"/>
                                 <field name="control_time" string="Tightening Date Time"/>
                                 <field name="user_id"/>
@@ -177,6 +178,7 @@
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
             <field name="context">{"search_default_filter_ok": 1 }
             </field>
+            <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's view tightening result.
@@ -191,6 +193,7 @@
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
             <field name="context">{"search_default_filter_nok": 1,"search_default_group_by_error_code":2 }
             </field>
+            <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's view tightening result.
@@ -205,13 +208,13 @@
             <field name="search_view_id" ref="onesphere_tightening_result_filter"/>
             <field name="context">{"search_default_filter_discharged": 1 }
             </field>
+            <field name="view_id" ref="onesphere_tightening_result_view_tree"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Let's view tightening result.
                 </p>
             </field>
         </record>
-
 
 
         <menuitem id="menu_assembly_ok_tightening_result" name="Tightening Result(OK)"

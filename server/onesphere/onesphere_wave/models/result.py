@@ -77,7 +77,9 @@ class OperationResult(HModel):
         try:
             _datas.extend(
                 map(lambda curve_file, entity_id: _create_wave_result_dict(entity_id,
-                    oss_interface.get_oss_object(bucket_name,curve_file)), need_fetch_objects, entity_id_list))  # 合并结果
+                                                                           oss_interface.get_oss_object(bucket_name,
+                                                                                                        curve_file)),
+                    need_fetch_objects, entity_id_list))  # 合并结果
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')
             return []
@@ -102,3 +104,17 @@ class OperationResult(HModel):
             self.env.user.notify_warning(u'曲线Wizard视图:wave.compose.wave未找到')
             return None, None
         return wave_form.id, wave_wizard_id.id
+
+    def button_show_curves(self):
+        ret1, ret2 = self.show_curves()
+        if ret1 and ret2:
+            return {
+                'name': 'Curve Scope',
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'wave.compose.wave',
+                'view_id': ret1,
+                'res_id': ret2,
+                'target': 'new',
+            }

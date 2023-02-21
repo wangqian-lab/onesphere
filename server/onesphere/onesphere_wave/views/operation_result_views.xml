@@ -35,5 +35,16 @@ if ret1 and ret2:
         </field>
     </record>
 
-
+    <record id="onesphere_tightening_result_view_tree_inherit" model="ir.ui.view">
+        <field name="name">onesphere_tightening_result_view_tree_inherit</field>
+        <field name="model">onesphere.tightening.result</field>
+        <field name="inherit_id" ref="onesphere_assembly_industry.onesphere_tightening_result_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[last()]" position="after">
+                <button name="button_show_curves" string="Show Curve" type="object"
+                    icon="fa-exclamation-circle"
+                    class="btn btn-warning" groups="base.group_user"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

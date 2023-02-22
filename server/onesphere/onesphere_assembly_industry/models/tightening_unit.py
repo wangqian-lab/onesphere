@@ -13,7 +13,7 @@ class OnesphereTighteningUnit(models.Model):
     _check_company_auto = True
 
     ref = fields.Char('Tightening Unit Ref', required=True)
-    name = fields.Char('Tightening Unit', related='tightening_controller_id.name', required=True, readonly=False)
+    name = fields.Char('Tightening Unit', related='tightening_controller_id.name')
     tightening_controller_id = fields.Many2one('maintenance.equipment', 'Controller', ondelete='cascade',
                                          check_company=True,
                                          required=True,

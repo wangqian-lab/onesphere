@@ -1500,7 +1500,7 @@ msgstr "拧紧单元名称"
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__ref
 msgid "Tightening Unit Ref"
-msgstr "拧紧单元"
+msgstr "拧紧单元编号"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__tightening_units

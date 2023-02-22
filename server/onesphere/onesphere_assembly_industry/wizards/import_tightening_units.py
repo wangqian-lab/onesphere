@@ -12,7 +12,7 @@ import pyexcel
 
 _logger = logging.getLogger(__name__)
 
-FIRST_DATA_ROW = 3
+FIRST_DATA_ROW = 2
 
 
 class ImportTighteningUnit(models.TransientModel):
@@ -25,14 +25,12 @@ class ImportTighteningUnit(models.TransientModel):
             row_data = [content for content in operation_data[i] if content != '']
             if len(row_data) < 1:
                 continue
-            tightening_unit_name = row_data[0]
-            tightening_unit_code = row_data[1]
-            controller_code = row_data[2]
+            tightening_unit_code = row_data[0]
+            controller_code = row_data[1]
             controller = self.env['maintenance.equipment'].search([('serial_no', '=', controller_code)])
             if not controller:
                 raise ValidationError(_(f'Can Not Found controller,Code %s') % controller_code)
             tightening_unit_data = {
-                'name': tightening_unit_name,
                 'ref': tightening_unit_code,
                 'tightening_controller_id': controller.id,
             }

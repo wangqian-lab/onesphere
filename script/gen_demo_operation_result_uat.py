@@ -72,7 +72,6 @@ RECORD_TMPL = Template('''
             <field name="error_code">{{ error_code }}</field>
             <field name="torque_min">{{ torque_min }}</field>
             <field name="torque_target">{{ torque_target }}</field>
-            <field name="torque_target">2</field>
             <field name="measurement_step_results">{{ step_results }}</field>
             <field name="workcenter_code">{{ workcenter_code }}</field>
             <field name="cap_features_save">{{ cap_features_save }}</field>

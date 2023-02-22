@@ -90,7 +90,7 @@ class OSSInterface(models.AbstractModel):
         global glb_minio_client
         glb_minio_client = None
 
-    @profile
+    # @profile
     def get_oss_objects(self, bucket_name: str, object_names: List[str], curve_ids: List[str]):
         # 获取minio数据
         data = {}

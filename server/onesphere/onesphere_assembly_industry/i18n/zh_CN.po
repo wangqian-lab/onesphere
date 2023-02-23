@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-08 06:01+0000\n"
-"PO-Revision-Date: 2023-02-08 06:01+0000\n"
+"POT-Creation-Date: 2023-02-22 06:35+0000\n"
+"PO-Revision-Date: 2023-02-22 06:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "<span class=\"o_stat_text\">拧紧结果</span>"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid ""
-"<span class=\"tightening_bolt_overview_value result-box\" style=\"background-color: #C8E6C9;\">\n"
+"<span class=\"tightening_overview_value result-box\" style=\"background-color: #C8E6C9;\">\n"
 "                                            OK\n"
 "                                        </span>"
 msgstr ""
@@ -36,7 +36,7 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid ""
-"<span class=\"tightening_bolt_overview_value result-box\" style=\"background-color: #FFCDD2;\">\n"
+"<span class=\"tightening_overview_value result-box\" style=\"background-color: #FFCDD2;\">\n"
 "                                            NOK\n"
 "                                        </span>"
 msgstr ""
@@ -158,6 +158,11 @@ msgstr "螺栓名称和曲线ID规则"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__bolt_result_rel
 msgid "Bolt Result Rel"
 msgstr "螺栓对应结果"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__wizard_tightening_result_report__group_by__bolt_no
+msgid "Bolt_No"
+msgstr "螺栓"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__maintenance_equipment__tightening_controller_model__modeldesoutterconnector
@@ -574,7 +579,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report____last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr "最后更改日"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_multi_update_wizard__write_uid
@@ -1742,6 +1747,11 @@ msgid "Work Step Tag"
 msgstr "工步标签"
 
 #. module: onesphere_assembly_industry
+#: model:ir.model.fields.selection,name:onesphere_assembly_industry.selection__wizard_tightening_result_report__group_by__work_center
+msgid "Work_Center"
+msgstr "工位"
+
+#. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_mrp_routing_workcenter__workcenter_group_id
 msgid "Workcenter Group"
 msgstr "工作中心组"
@@ -1774,6 +1784,11 @@ msgstr "螺栓名称已经存在"
 #: model:ir.model.constraint,message:onesphere_assembly_industry.constraint_onesphere_tightening_result_entity_id_uniq
 msgid "entity_id must be unique"
 msgstr "曲线ID必须唯一"
+
+#. module: onesphere_assembly_industry
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__group_by
+msgid "group by"
+msgstr "分组方式"
 
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
@@ -1840,6 +1855,16 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid "工位"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "工位编号:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "工位编号数量:"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1915,6 +1940,21 @@ msgstr ""
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
 msgid "最终结果:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "未知"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "未知编号:"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "未知编号数量:"
 msgstr ""
 
 #. module: onesphere_assembly_industry
@@ -1994,6 +2034,11 @@ msgstr ""
 #: model:product.product,name:onesphere_assembly_industry.product_product_screw_default
 #: model:product.template,name:onesphere_assembly_industry.product_product_screw_default_product_template
 msgid "缺省螺栓"
+msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_result_report_template
+msgid "螺栓"
 msgstr ""
 
 #. module: onesphere_assembly_industry

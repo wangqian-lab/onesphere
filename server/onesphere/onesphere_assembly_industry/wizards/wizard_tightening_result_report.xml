@@ -7,10 +7,16 @@
                 <form string="Print Tightening Result Report">
                     <sheet>
                         <group>
-                            <field name="track_no"/>
+                            <group>
+                                <field name="track_no"/>
+                            </group>
+                            <group>
+                                <field name="group_by" required="1"/>
+                            </group>
                         </group>
                         <footer>
-                            <button name="print_report" string="Print Report" type="object" class="btn btn-primary active"/>
+                            <button name="print_report" string="Print Report" type="object"
+                                    class="btn btn-primary active"/>
                             <button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"/>
                         </footer>
                     </sheet>

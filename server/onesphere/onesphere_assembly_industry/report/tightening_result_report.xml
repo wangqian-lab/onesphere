@@ -15,16 +15,16 @@
                         tr {
                         font-weight: lighter;
                         }
-                        .tightening_bolt_overview_label{
+                        .tightening_overview_label{
                         font-weight: bold;
                         font-size: 20px;
                         -webkit-box-flex: 1;
                         }
-                        .tightening_bolt_overview_value {
+                        .tightening_overview_value {
                         font-weight: lighter;
                         margin-left: auto;
                         }
-                        .tightening_bolt_overview{
+                        .tightening_overview{
                         text-align: center;
                         width: 100%;
                         }
@@ -89,13 +89,23 @@
                             <img t-att-src="bolt_statistic_pie_chart" class="thumbnail oe_left"/>
                             <div height="100%" class="thumbnail-r">
                                 <div class="inline-block">
-                                    <div class="label">螺栓编号数量:</div>
+                                    <div class="label">
+                                        <t t-if="group_by=='bolt_no'">
+                                            螺栓编号数量:
+                                        </t>
+                                        <t t-elif="group_by=='work_center'">
+                                            工位编号数量:
+                                        </t>
+                                        <t t-else="">
+                                            未知编号数量:
+                                        </t>
+                                    </div>
                                     <div class="label">一次合格数 (比率):</div>
                                     <div class="label">最终合格数 (比率):</div>
                                 </div>
                                 <div class="inline-block1">
                                     <div class="label">
-                                        <t t-esc="bolt_count"/>
+                                        <t t-esc="sum_count"/>
                                     </div>
                                     <div class="label"><t t-esc="first_ok_count"/>(<t t-esc="first_ok_percent"/>)
                                     </div>
@@ -127,38 +137,45 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        <br/>-->
-                        <!--                        <br/>-->
-                        <!--                        <br/>-->
-                        <!--                        <br/>-->
-                        <!--                        <br/>-->
-                        <!--                        <br/>-->
-                        <!--                        <p/>-->
-                        <t t-foreach="results" t-as="bolt_result">
-                            <div class="row tightening_bolt_overview">
-                                <div class="tightening_bolt_overview_label">螺栓编号:
-                                    <span class="tightening_bolt_overview_value" t-esc="bolt_result['bolt_name']"/>
+                        <t t-foreach="results" t-as="result">
+                            <div class="row tightening_overview">
+                                <div class="tightening_overview_label">
+                                    <t t-if="group_by=='bolt_no'">
+                                        螺栓编号:
+                                    </t>
+                                    <t t-elif="group_by=='work_center'">
+                                        工位编号:
+                                    </t>
+                                    <t t-else="">
+                                        未知编号:
+                                    </t>
+                                    <span class="tightening_overview_value" t-esc="result['name']"/>
                                 </div>
-                                <div class="tightening_bolt_overview_label">结果数:
-                                    <span class="tightening_bolt_overview_value" t-esc="bolt_result['count']"/>
+                                <div class="tightening_overview_label">结果数:
+                                    <span class="tightening_overview_value" t-esc="result['count']"/>
                                 </div>
-                                <div class="tightening_bolt_overview_label">最终结果:
-                                    <t t-if="bolt_result['final_result']=='ok'">
-                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #C8E6C9;">
+                                <div class="tightening_overview_label">最终结果:
+                                    <t t-if="result['final_result']=='ok'">
+                                        <span class="tightening_overview_value result-box"
+                                              style="background-color: #C8E6C9;">
                                             OK
                                         </span>
                                     </t>
-                                    <t t-elif="bolt_result['final_result']=='nok'">
-                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #FFCDD2;">
+                                    <t t-elif="result['final_result']=='nok'">
+                                        <span class="tightening_overview_value result-box"
+                                              style="background-color: #FFCDD2;">
                                             NOK
                                         </span>
                                     </t>
                                     <t t-else="">
-                                        <span class="tightening_bolt_overview_value result-box" style="background-color: #86909c;" t-esc="bolt_result['final_result'].upper()"/>
+                                        <span class="tightening_overview_value result-box"
+                                              style="background-color: #86909c;"
+                                              t-esc="result['final_result'].upper()"/>
                                     </t>
                                 </div>
                             </div>
-                            <table class="table table-condensed table-bordered table-striped" style="text-align: center" boder="1">
+                            <table class="table table-condensed table-bordered table-striped" style="text-align: center"
+                                   boder="1">
                                 <thead>
                                     <tr>
                                         <th>拧紧结果</th>
@@ -166,13 +183,23 @@
                                         <th>扭矩(NM)</th>
                                         <th>角度(Deg)</th>
                                         <th>拧紧时间</th>
-                                        <th>工位</th>
+                                        <th>
+                                            <t t-if="group_by=='bolt_no'">
+                                                工位
+                                            </t>
+                                            <t t-elif="group_by=='work_center'">
+                                                螺栓
+                                            </t>
+                                            <t t-else="">
+                                                未知
+                                            </t>
+                                        </th>
                                         <th>设备序列号</th>
                                         <th>错误信息</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr t-foreach="bolt_result['results']" t-as="line">
+                                    <tr t-foreach="result['results']" t-as="line">
                                         <t t-if="line[0]=='ok'">
                                             <td style="background-color: #C8E6C9;">
                                                 <span style="color:#256029">OK</span>

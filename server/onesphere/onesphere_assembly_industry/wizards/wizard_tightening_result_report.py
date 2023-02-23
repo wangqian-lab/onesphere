@@ -91,13 +91,16 @@ def get_pie_label_value_color_pair(labels, values):
     return pairs
 
 
-def bolt_statistic_pie_chart(final_ok_count=0, bolt_count=0, final_ok_percent='0.0%'):
+def statistic_pie_chart(group_by, final_ok_count=0, bolt_count=0, final_ok_percent='0.0%'):
+    show_string = {'bolt_no': "螺栓编号合格率",
+                   'work_center': "工位编号合格率",
+                   }
     labels = ['最终合格数量', '最终不合格数量']
     values = [final_ok_count, bolt_count - final_ok_count]
 
     pairs = get_pie_label_value_color_pair(labels, values)
 
-    c = generate_pie_chart("螺栓编号合格率", f'最终合格率: {final_ok_percent}', pairs=pairs)
+    c = generate_pie_chart(show_string.get(group_by, "编号合格率"), f'最终合格率: {final_ok_percent}', pairs=pairs)
 
     content = generate_base64_image_content_str(c)
     return content
@@ -125,12 +128,43 @@ class WizardTighteningResultReport(models.TransientModel):
     _description = 'Wizard Tightening Result Report'
 
     track_no = fields.Char(string='Track No', required=True)
+    group_by = fields.Selection([
+        ('bolt_no', 'Bolt_No'),
+        ('work_center', 'Work_Center'), ], default='bolt_no', string='group by', required=True)
 
     def get_tightening_point(self):
         sql = f''' SELECT distinct(tightening_point_name) from onesphere_tightening_result WHERE track_no='{self.track_no}' '''
         self._cr.execute(sql)
         results = self._cr.fetchall()
         return results
+
+    def get_work_center(self):
+        sql = f''' SELECT distinct(workcenter_code) from onesphere_tightening_result WHERE track_no='{self.track_no}' '''
+        self._cr.execute(sql)
+        results = self._cr.fetchall()
+        return results
+
+    def get_results_via_work_center(self, work_center):
+        work_center_query = f''''workcenter_code = '{work_center}' '''
+        if not work_center:
+            work_center_query = 'workcenter_code is Null'
+
+        sql = f'''SELECT tightening_result, tightening_process_no, measurement_final_torque, measurement_final_angle, 
+                control_time, otb.name, attribute_equipment_no, error_code FROM onesphere_tightening_result 
+                             left join onesphere_tightening_bolt otb on otb.id = onesphere_tightening_result.tightening_point_name
+                WHERE track_no='{self.track_no}' AND  {work_center_query}  ORDER BY tightening_point_name, control_time'''
+        self._cr.execute(sql)
+        results = self._cr.fetchall()
+
+        sql2 = f'''SELECT tightening_result from 
+                (select t.*,row_number() over(partition by tightening_point_name order by control_time desc) rn
+                from onesphere_tightening_result t 
+                WHERE track_no='{self.track_no}' AND  {work_center_query} ) a  where a.rn = 1    
+        '''
+        self._cr.execute(sql2)
+        last_results = self._cr.fetchall()
+        final_result = 'ok' if all([result == ('ok',) for result in last_results]) else 'nok'
+        return results, final_result
 
     def get_count_groupby_tightening_result(self, filter='1=1'):
         sql = f'''SELECT tightening_result, count(*) FROM onesphere_tightening_result WHERE track_no='{self.track_no}' AND {filter} GROUP BY tightening_result ORDER BY tightening_result desc'''
@@ -162,7 +196,7 @@ class WizardTighteningResultReport(models.TransientModel):
             results_of_bolt = self.get_results_via_blot_id(bolt_id)
             tightening_results.append({
                 'bolt_id': bolt_id,
-                'bolt_name': bolt_name,
+                'name': bolt_name if bolt_name else "未知",
                 'results': results_of_bolt,
                 'count': len(results_of_bolt),
                 'final_result': results_of_bolt[-1][0],
@@ -172,6 +206,21 @@ class WizardTighteningResultReport(models.TransientModel):
             if results_of_bolt[-1][0] == 'ok':
                 final_ok_count += 1
         return tightening_results, first_ok_count, final_ok_count
+
+    def get_results_group_by_work_center(self, work_center_list):
+        tightening_results = []
+        final_ok_count = 0
+        for work_center in work_center_list:
+            results_of_work_center, final_result = self.get_results_via_work_center(work_center[0])
+            tightening_results.append({
+                'name': work_center[0] if work_center[0] else "未知",
+                'results': results_of_work_center,
+                'count': len(results_of_work_center),
+                'final_result': final_result,
+            })
+            if final_result == 'ok':
+                final_ok_count += 1
+        return tightening_results, final_ok_count
 
     def get_report_data(self):
         results = self.get_count_groupby_tightening_result()
@@ -184,26 +233,36 @@ class WizardTighteningResultReport(models.TransientModel):
         abnormal_count = result_count - ok_count
         ok_percent = calculate_percent(ok_count, result_count, 2)
         abnormal_percent = calculate_percent(abnormal_count, result_count, 2)
-        tightening_point_list = self.get_tightening_point()
-        bolt_count = len(tightening_point_list)
-        results_group_by_bolt, first_ok_count, final_ok_count = \
-            self.get_results_group_by_bolt(tightening_point_list)
-        first_ok_percent = calculate_percent(first_ok_count, bolt_count, 2)
-        final_ok_percent = calculate_percent(final_ok_count, bolt_count, 2)
+        results_group_by = []
+        first_ok_count, final_ok_count, sum_count = 0, 0, 0
+        if self.group_by == 'bolt_no':
+            tightening_point_list = self.get_tightening_point()
+            sum_count = len(tightening_point_list)
+            results_group_by, first_ok_count, final_ok_count = \
+                self.get_results_group_by_bolt(tightening_point_list)
+        if self.group_by == 'work_center':
+            work_center_list = self.get_work_center()
+            sum_count = len(work_center_list)
+            results_group_by, final_ok_count = \
+                self.get_results_group_by_work_center(work_center_list)
+
+        first_ok_percent = calculate_percent(first_ok_count, sum_count, 2)
+        final_ok_percent = calculate_percent(final_ok_count, sum_count, 2)
         data = {
+            'group_by': self.group_by,
             'track_no': self.track_no,
             'count': result_count,
             'ok_count': ok_count,
             'abnormal_count': abnormal_count,
             'ok_percent': ok_percent,
             'abnormal_percent': abnormal_percent,
-            'bolt_count': bolt_count,
+            'sum_count': sum_count,
             'first_ok_count': first_ok_count,
             'final_ok_count': final_ok_count,
             'first_ok_percent': first_ok_percent,
             'final_ok_percent': final_ok_percent,
-            'results': results_group_by_bolt,
-            'bolt_statistic_pie_chart': bolt_statistic_pie_chart(final_ok_count, bolt_count, final_ok_percent),
+            'results': results_group_by,
+            'bolt_statistic_pie_chart': statistic_pie_chart(self.group_by, final_ok_count, sum_count, final_ok_percent),
             'result_statistic_pie_chart': result_statistic_pie_chart(results_pd, abnormal_percent),
         }
         return data

@@ -128,6 +128,8 @@
                            filter_domain="[('workcenter_code','ilike', self)]"/>
                     <field name="barcode" string="Barcode"
                            filter_domain="[('barcode','ilike', self)]"/>
+                    <field name="entity_id" string="Entity ID"
+                           filter_domain="[('entity_id','ilike', self)]"/>
                     <separator/>
                     <filter string="OK" name="filter_ok"
                             domain="[('tightening_result', '=', 'ok'),('step_type', '=', 'tightening')]"/>

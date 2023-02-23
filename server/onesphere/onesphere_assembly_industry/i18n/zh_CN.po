@@ -366,6 +366,7 @@ msgstr "AK2"
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_wizard_tightening_result_report__display_name
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -376,6 +377,7 @@ msgstr "下发作业"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__entity_id
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "Entity ID"
 msgstr "曲线ID"
 
@@ -786,7 +788,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__name
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_point_filter
-#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Name"
 msgstr "螺栓编号"
 
@@ -879,7 +880,7 @@ msgstr "操作结果"
 #. module: onesphere_assembly_industry
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_result_filter
 msgid "Operator"
-msgstr ""
+msgstr "操作员"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,help:onesphere_assembly_industry.field_onesphere_tightening_result__user_list

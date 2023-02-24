@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+import itertools
+import json
+import logging
 import os
 
-from odoo import fields, models, api, _
-from odoo.tools import ustr
-import json
-import itertools
 from boltons.cacheutils import LRU
-import logging
+
+from odoo import _
+from odoo.tools import ustr
 
 _wave_cache = LRU(max_size=128)
 
@@ -57,9 +58,14 @@ class OperationResult(HModel):
         client = oss_interface.ensure_oss_client()
         if not client or not bucket_name:
             return [], None, []  ### 返回无结果数值
-        cur_objects = self.mapped('curve_file')
-        entity_id_list = self.mapped('entity_id')
-        _objects = [x for x in cur_objects if x]
+        # no_curve_file:结果中没有曲线文件的id，no_minio_result:有曲线文件但是Minio中取不到结果
+        no_curve_file, no_minio_result = [], []
+        no_curve_file_ids = self.filtered(lambda r: not r.curve_file)
+        no_curve_file = no_curve_file_ids.ids
+        curve_file_ids = self - no_curve_file_ids
+        curve_file = curve_file_ids.ids
+        _objects = curve_file_ids.mapped('curve_file')
+        entity_id_list = curve_file_ids.mapped('entity_id')
         objects = []
         cur_objects = map(json.loads, _objects)
         objs = list(itertools.chain.from_iterable(cur_objects))
@@ -67,7 +73,7 @@ class OperationResult(HModel):
             objects.append(cur['file'])
 
         need_fetch_objects = []
-        _datas = []
+        _datas, _datas_return = [], []
         for _cur_file in objects:
             try:
                 # 尝试从LRU cache中获取数据
@@ -83,7 +89,12 @@ class OperationResult(HModel):
         except Exception as e:
             logger.error(f'Error: {ustr(e)}')
             return []
-        return _datas
+        for i in range(len(_datas)):
+            if not _datas[i]:
+                no_minio_result.append(curve_file[i])
+                continue
+            _datas_return.append(_datas[i])
+        return _datas_return, no_curve_file, no_minio_result
 
     def show_curves(self):
         if not len(self):
@@ -93,10 +104,16 @@ class OperationResult(HModel):
         if not wave_form:
             self.env.user.notify_warning(u'曲线视图:onesphere_wave.spc_compose_wave_wizard_form 未找到')
             return None, None
-        curve_datas = self._get_curve_data()
-        if not len(curve_datas):
+        curve_datas, with_no_curvefile, with_no_minio_result = self._get_curve_data()
+        if len(with_no_curvefile):
             self.env.user.notify_warning(
-                _('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
+                _('%s have no curve file') % with_no_curvefile)
+        if len(with_no_minio_result):
+            self.env.user.notify_warning(
+                _('%s have no minio result') % with_no_minio_result)
+        if not len(curve_datas):
+            # self.env.user.notify_warning(
+            #     _('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
             return None, None
         curves = json.dumps(curve_datas)
         wave_wizard_id = self.env['wave.compose.wave'].sudo().create({'wave': curves})

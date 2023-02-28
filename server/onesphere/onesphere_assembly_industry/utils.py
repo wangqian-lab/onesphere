@@ -23,13 +23,15 @@ def _compute_dist_XR_js(data_list: List[float], step=10):
     return XR_data
 
 
-def get_xr_spc_echarts_options(data={}, query_type="torque", description="", step=10):
+def get_xr_spc_echarts_options(data=None, query_type="torque", description="", step=10):
     """生成X_R控制图需要的序列
     Args:
         data ([type]): [description]
     Returns:
         [Dict]: [echarts series Option]
     """
+    if data is None:
+        data = {}
     y1 = data.get("data", [])
     y1 = [0] if len(y1) == 0 else y1
     x1 = [f"{i}({(i - 1) * step}~{i * step})" for i in range(1, len(y1) + 1)]
@@ -196,7 +198,11 @@ def get_xr_spc_echarts_options(data={}, query_type="torque", description="", ste
     }
 
 
-def get_heap_map_echarts_options(data={}, tooltip_name="", description="", dimension=2):
+def get_heap_map_echarts_options(
+    data=None, tooltip_name="", description="", dimension=2
+):
+    if data is None:
+        data = {}
     titleOptions = {"textAlign": "auto", "text": description}
     option = {
         "title": titleOptions,
@@ -241,13 +247,17 @@ def get_heap_map_echarts_options(data={}, tooltip_name="", description="", dimen
     return option
 
 
-def get_dist_echarts_options(data={}, query_type="torque", description="", type="norm"):
+def get_dist_echarts_options(
+    data=None, query_type="torque", description="", type="norm"
+):
     """生成正态分布需要的序列
     Args:
         data ([type]): [description]
     Returns:
         [Dict]: [echarts series Option]
     """
+    if data is None:
+        data = {}
     titleOptions = {"textAlign": "auto", "text": description}
     # if type == 'norm':
     #     titleOptions.update({

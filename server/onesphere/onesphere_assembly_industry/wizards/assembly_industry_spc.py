@@ -84,10 +84,12 @@ class OnesphereAssyIndustrySPC(models.TransientModel):
         usl=10.0,
         lsl=1.0,
         limit=ONESHARE_DEFAULT_SPC_MAX_LIMIT,
-        others={},
+        others=None,
         *args,
         **kwargs,
     ):
+        if others is None:
+            others = {}
         _logger.debug(f"query spc, params: {args}, {kwargs}")
         query_date_from = fields.Datetime.from_string(
             query_from[:DATETIME_LENGTH]

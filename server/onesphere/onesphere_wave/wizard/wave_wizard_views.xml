@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <form string="Curve Scope">
                     <field name="wave" widget="web_echarts"/>
+                    <footer>
+                    </footer>
                 </form>
             </field>
         </record>

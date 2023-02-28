@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
 from odoo import http
-from odoo.exceptions import ValidationError
 from odoo.http import send_file, Controller, request
-import tempfile
 import logging
-import binascii
-import zipfile
 import mimetypes
 import os
 

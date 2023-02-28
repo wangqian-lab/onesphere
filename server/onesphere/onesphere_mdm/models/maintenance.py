@@ -5,7 +5,7 @@ import requests as Requests
 from http import HTTPStatus
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
-from validators import ip_address, ValidationFailure
+from validators import ip_address
 from odoo.tools import ustr
 from odoo.addons.oneshare_utils.constants import DEFAULT_TIMEOUT
 from odoo.addons.onesphere_mdm.constants import (

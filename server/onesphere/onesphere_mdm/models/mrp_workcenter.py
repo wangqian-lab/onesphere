@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class MrpWorkcenterProductivity(models.Model):

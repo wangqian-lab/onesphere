@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, exceptions, fields, models, _
+from odoo import fields, models
 
 
 class MrpWorkcenterGroup(models.Model):

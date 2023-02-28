@@ -5,7 +5,8 @@ test_patterns = ["**/tests/**"]
 exclude_patterns = [
   "*.md",
   "*.yaml",
-  "*.yml"
+  "*.yml",
+  "__init__.py"
 ]
 
 [[analyzers]]

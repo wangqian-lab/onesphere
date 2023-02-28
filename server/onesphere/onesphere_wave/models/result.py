@@ -108,7 +108,7 @@ class OperationResult(HModel):
         return _datas_return, no_curve_file, no_minio_result
 
     def show_curves(self):
-        if not len(self):
+        if not self:
             self.env.user.notify_warning("查询获取结果:0,请重新定义查询参数或等待新结果数据")
             return None, None
         wave_form = self.env.ref("onesphere_wave.spc_compose_wave_wizard_form")
@@ -120,11 +120,11 @@ class OperationResult(HModel):
         curve_datas, with_no_curvefile, with_no_minio_result = self._get_curve_data()
         if len(with_no_curvefile):
             self.env.user.notify_warning(_("%s have no curve file") % with_no_curvefile)
-        if len(with_no_minio_result):
+        if with_no_minio_result:
             self.env.user.notify_warning(
                 _("%s have no minio result") % with_no_minio_result
             )
-        if not len(curve_datas):
+        if not curve_datas:
             # self.env.user.notify_warning(
             #     _('Query Result Data:0,Please Redefine Parameter Of Query or Wait For New Result'))
             return None, None

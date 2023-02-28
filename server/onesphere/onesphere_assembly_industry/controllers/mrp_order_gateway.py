@@ -27,8 +27,8 @@ def package_multi_measurement_items(measu_items):
     for idx, item in enumerate(measu_items):
         val = {
             "title": item.name,
-            "code": getattr(item, 'name', ''),  # 多重测量的检测项的参照
-            "desc": item.note or '',
+            "code": getattr(item, "name", ""),  # 多重测量的检测项的参照
+            "desc": item.note or "",
             "sequence": idx + 1,
             "test_type": item.test_type,  # passfail or measure
             "tolerance_min": item.tolerance_min,

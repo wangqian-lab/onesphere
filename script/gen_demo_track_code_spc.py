@@ -6,12 +6,13 @@ from faker import Faker
 
 fake = Faker()
 
-DIST_DIR_PATH = '../server/onesphere/onesphere_core/demo'
-DIST_FILE = 'track_code_demo.xml'
+DIST_DIR_PATH = "../server/onesphere/onesphere_core/demo"
+DIST_FILE = "track_code_demo.xml"
 
-DIST_PATH = '{}/{}'.format(DIST_DIR_PATH, DIST_FILE)
+DIST_PATH = "{}/{}".format(DIST_DIR_PATH, DIST_FILE)
 
-G_TMPL = Template('''
+G_TMPL = Template(
+    """
 <odoo>
     <data noupdate="0">
         {% for item in items %}
@@ -19,13 +20,16 @@ G_TMPL = Template('''
         {% endfor %}
         </data>
 </odoo>
-''')
+"""
+)
 
-RECORD_TMPL = Template('''
+RECORD_TMPL = Template(
+    """
         <record id="track_code_{{ id }}" model="oneshare.track.code">
             <field name="track_code">{{ track_no }}</field>
         </record>
-''')
+"""
+)
 
 
 def gen_record_msg(*args, **kwargs):
@@ -33,7 +37,7 @@ def gen_record_msg(*args, **kwargs):
     return r
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if os.path.exists(DIST_PATH):
         os.remove(DIST_PATH)
     rec_str = []
@@ -41,5 +45,5 @@ if __name__ == '__main__':
         m = gen_record_msg(id=i, track_no=track_no)
         rec_str.append(m)
     ss = G_TMPL.render(items=rec_str)
-    with open(DIST_PATH, 'w') as f:
+    with open(DIST_PATH, "w") as f:
         f.write(ss)

@@ -1,34 +1,44 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-from odoo.addons.onesphere_assembly_industry.constants import ASSEMBLY_TOOLS_TECH_NAME, TIGHTENING_TEST_TYPE
+from odoo.addons.onesphere_assembly_industry.constants import (
+    ASSEMBLY_TOOLS_TECH_NAME,
+    TIGHTENING_TEST_TYPE,
+)
 
 
 class OneshareQuality(models.Model):
     _inherit = "oneshare.quality.point"
 
-    worksheet_img = fields.Binary('Image')
+    worksheet_img = fields.Binary("Image")
 
-    tightening_opr_point_ids = fields.One2many('onesphere.tightening.opr.point', 'parent_quality_point_id')
+    tightening_opr_point_ids = fields.One2many(
+        "onesphere.tightening.opr.point", "parent_quality_point_id"
+    )
 
-    revision = fields.Integer(default=1, string='Step Revision')
+    revision = fields.Integer(default=1, string="Step Revision")
 
-    tag_ids = fields.Many2many('onesphere.work.step.tag', 'step_tag_rel', 'onesphere_step_id', 'onesphere_tag_id',
-                               string='Step Tag Relationship')
+    tag_ids = fields.Many2many(
+        "onesphere.work.step.tag",
+        "step_tag_rel",
+        "onesphere_step_id",
+        "onesphere_tag_id",
+        string="Step Tag Relationship",
+    )
 
-    barcode_rule = fields.Char(string='Barcode Rule')
-    time_limit = fields.Integer(string='Time Limit(s)', default=-1)
+    barcode_rule = fields.Char(string="Barcode Rule")
+    time_limit = fields.Integer(string="Time Limit(s)", default=-1)
 
-    @api.onchange('test_type_id')
+    @api.onchange("test_type_id")
     def onchange_test_type_id(self):
-        if self.test_type_id.technical_name != 'text':
+        if self.test_type_id.technical_name != "text":
             self.time_limit = -1
         else:
             self.time_limit = 5
 
-    @api.onchange('tightening_opr_point_ids')
+    @api.onchange("tightening_opr_point_ids")
     def update_points_group_sequence(self):
-        group_sequence_list = self.tightening_opr_point_ids.mapped('group_sequence')
+        group_sequence_list = self.tightening_opr_point_ids.mapped("group_sequence")
         if not group_sequence_list or min(group_sequence_list) > 0:
             return
         current_group_sequence = 1
@@ -45,7 +55,7 @@ class OneshareQuality(models.Model):
             return ret
         self.ensure_one()
         for point in self.tightening_opr_point_ids:
-            ret.append({'y_offset': point.y_offset, 'x_offset': point.x_offset})
+            ret.append({"y_offset": point.y_offset, "x_offset": point.x_offset})
         return ret
 
     def write(self, vals):
@@ -61,24 +71,26 @@ class OneshareQuality(models.Model):
     def multi_update_points(self):
         self.ensure_one()
         return {
-            'type': 'ir.actions.act_window',
-            'name': '选择拧紧单元',
-            'res_model': 'multi.update.wizard',
-            'target': 'new',
-            'view_id': self.env.ref('onesphere_assembly_industry.multi_update_wizard_view_form').id,
-            'view_mode': 'form',
-            'context': {
-                'step_id': self.id
-            }
+            "type": "ir.actions.act_window",
+            "name": "选择拧紧单元",
+            "res_model": "multi.update.wizard",
+            "target": "new",
+            "view_id": self.env.ref(
+                "onesphere_assembly_industry.multi_update_wizard_view_form"
+            ).id,
+            "view_mode": "form",
+            "context": {"step_id": self.id},
         }
 
-    @api.constrains('tightening_opr_point_ids', 'test_type_id')
+    @api.constrains("tightening_opr_point_ids", "test_type_id")
     def tool_num_cons(self):
         if self.test_type_id.technical_name != TIGHTENING_TEST_TYPE:
             return
         for point in self.tightening_opr_point_ids:
             if len(point.tightening_units) > 1:
-                raise ValidationError(_('The Points Of Tightening Step Can Only Have One Tightening Unit'))
+                raise ValidationError(
+                    _("The Points Of Tightening Step Can Only Have One Tightening Unit")
+                )
 
     def change_points_sequence(self):
         sequence = 1
@@ -89,13 +101,15 @@ class OneshareQuality(models.Model):
     def button_open_tightening_points(self):
         self.ensure_one()
         context = self.env.context.copy()
-        context.update({
-            'search_default_parent_quality_point_display_name': self.display_name
-        })
-        action = self.env["ir.actions.actions"]._for_xml_id("onesphere_assembly_industry.tightening_point_action")
-        action['context'] = context
-        name = _('Tightening Points')
-        action['name'] = name
+        context.update(
+            {"search_default_parent_quality_point_display_name": self.display_name}
+        )
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "onesphere_assembly_industry.tightening_point_action"
+        )
+        action["context"] = context
+        name = _("Tightening Points")
+        action["name"] = name
         # action['domain'] = [('parent_quality_point_id', '=', self.id)]
-        action['display_name'] = name
+        action["display_name"] = name
         return action

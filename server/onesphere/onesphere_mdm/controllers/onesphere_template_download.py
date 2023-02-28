@@ -14,7 +14,6 @@ _logger = logging.getLogger(__name__)
 
 
 class OneshareTemplateDownloadController(Controller):
-
     # def _get_attachment_type(self, template_record):
     #     attachment_record = request.env['ir.attachment'].sudo().search(
     #         [('res_model', '=', 'onesphere.template.download'),
@@ -64,16 +63,26 @@ class OneshareTemplateDownloadController(Controller):
     #     res.headers['Cache-Control'] = 'no-cache'
     #     return res
 
-    @http.route('/oneshare/template_download', type='http', auth='user', cors='*',
-                csrf=False,
-                save_session=False)
+    @http.route(
+        "/oneshare/template_download",
+        type="http",
+        auth="user",
+        cors="*",
+        csrf=False,
+        save_session=False,
+    )
     def template_download(self):
         """
         Downloads the template by path
         """
-        template_path = request.params.get('template_path', '')
+        template_path = request.params.get("template_path", "")
         filename = os.path.basename(template_path)
         mimetype = mimetypes.guess_type(filename)
-        res = send_file(template_path, mimetype=mimetype[0], filename=filename.encode('utf-8'), as_attachment=True)
-        res.headers['Cache-Control'] = 'no-cache'
+        res = send_file(
+            template_path,
+            mimetype=mimetype[0],
+            filename=filename.encode("utf-8"),
+            as_attachment=True,
+        )
+        res.headers["Cache-Control"] = "no-cache"
         return res

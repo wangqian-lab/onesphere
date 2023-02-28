@@ -12,7 +12,8 @@ from odoo.tools import float_compare, float_round, format_datetime
 
 
 class MrpWorkorder(models.Model):
-    _inherit = 'mrp.workorder'
+    _inherit = "mrp.workorder"
 
     workcenter_id = fields.Many2one(
-        'mrp.workcenter', required=False, ondelete='set null')
+        "mrp.workcenter", required=False, ondelete="set null"
+    )

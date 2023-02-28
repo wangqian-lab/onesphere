@@ -15,7 +15,7 @@
     "demo": [],
     "post_load": None,
     "pre_init_hook": None,
-    "post_init_hook": '_ir_attachment_s3_post_init',
+    "post_init_hook": "_ir_attachment_s3_post_init",
     "auto_install": False,
     "installable": True,
 }

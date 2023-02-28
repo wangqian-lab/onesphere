@@ -5,13 +5,16 @@ from uuid import uuid4
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    onesphere_product_type = fields.Selection([('screw', 'Screw'), ('bolt', 'Bolt'), ('vehicle', 'Vehicle')],
-                                              string='产品类型')
+    onesphere_product_type = fields.Selection(
+        [("screw", "Screw"), ("bolt", "Bolt"), ("vehicle", "Vehicle")], string="产品类型"
+    )
 
 
 class ProductProduct(models.Model):
-    _inherit = 'product.product'
+    _inherit = "product.product"
 
-    onesphere_product_type = fields.Selection(related='product_tmpl_id.onesphere_product_type', store=True)
+    onesphere_product_type = fields.Selection(
+        related="product_tmpl_id.onesphere_product_type", store=True
+    )

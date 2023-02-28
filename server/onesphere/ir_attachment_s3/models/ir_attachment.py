@@ -40,7 +40,6 @@ class IrAttachment(models.Model):
             s3_records = self
 
         if s3_records:
-
             try:
                 bucket = self.env["res.config.settings"].get_s3_bucket()
             except NotAllCredentialsGiven:
@@ -64,7 +63,7 @@ class IrAttachment(models.Model):
 
         bucket = self.env["res.config.settings"].get_s3_bucket()
 
-        file_id = fname[len(PREFIX):]
+        file_id = fname[len(PREFIX) :]
         _logger.debug("reading file with id {}".format(file_id))
 
         obj = bucket.Object(file_id)
@@ -77,7 +76,7 @@ class IrAttachment(models.Model):
 
         bucket = self.env["res.config.settings"].get_s3_bucket()
 
-        file_id = fname[len(PREFIX):]
+        file_id = fname[len(PREFIX) :]
         _logger.debug("deleting file with id {}".format(file_id))
 
         obj = bucket.Object(file_id)
@@ -111,10 +110,10 @@ class IrAttachment(models.Model):
                 ]
                 + condition,
             )
-            self.env.user.notify_info('上传附件成功!!!')
+            self.env.user.notify_info("上传附件成功!!!")
 
         except Exception as e:
-            self.env.user.notify_danger(f'上传附件失败: {ustr(e)}')
+            self.env.user.notify_danger(f"上传附件失败: {ustr(e)}")
         return self._force_storage_with_bucket(
             bucket,
             [

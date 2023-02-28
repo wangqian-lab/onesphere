@@ -22,7 +22,6 @@ class TestS3(TransactionCase):
         self.assertEqual(datas, base64.b64encode(r.content))
 
     def test_main(self):
-
         try:
             self.env["res.config.settings"].get_s3_bucket()
         except Exception as e:

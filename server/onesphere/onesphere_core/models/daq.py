@@ -13,23 +13,26 @@ class OperationResult(models.AbstractModel):
     """
     采集数据表，直接插入到数据库中，平铺的数据，字段尽量没有关联关系
     """
+
     _name = "onesphere.daq.item"
-    _description = 'Daq Operation Result Abstract Model'
+    _description = "Daq Operation Result Abstract Model"
 
-    _rec_name = 'track_no'
+    _rec_name = "track_no"
 
-    _hyper_interval = '3 month'
+    _hyper_interval = "3 month"
 
-    _hyper_field = 'control_time'
+    _hyper_field = "control_time"
 
-    _dimensions = ['attribute_equipment_no']
+    _dimensions = ["attribute_equipment_no"]
 
-    control_time = fields.Datetime(string=u'数据生成时间', default=fields.Datetime.now, required=True)
+    control_time = fields.Datetime(
+        string="数据生成时间", default=fields.Datetime.now, required=True
+    )
 
     if oneshare_daq_with_track_code_rel_enable():
-        track_no = fields.Many2one('oneshare.track.code', string=u'追溯码')
+        track_no = fields.Many2one("oneshare.track.code", string="追溯码")
     else:
-        track_no = fields.Char(default='', string=u'追溯码')
+        track_no = fields.Char(default="", string="追溯码")
 
     # quality_point_id = fields.Many2one('oneshare.quality.point', string=u'相关联质量控制点')
     #
@@ -39,4 +42,4 @@ class OperationResult(models.AbstractModel):
     #
     # attribute_uom = fields.Char(u'单位')
 
-    attribute_equipment_no = fields.Char(u'设备序列号')
+    attribute_equipment_no = fields.Char("设备序列号")

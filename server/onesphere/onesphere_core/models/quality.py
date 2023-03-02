@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 from odoo import api, fields, models, _
 
 
@@ -137,3 +138,26 @@ class OneshareQuality(models.Model):
         if 'code' not in vals or vals['code'] == _('New'):
             vals['code'] = self.env['ir.sequence'].next_by_code('oneshare.quality.point') or _('New')
         return super(OneshareQuality, self).create(vals)
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        """ copy(default=None)
+
+        Duplicate record ``self`` updating it with default values
+
+        :param dict default: dictionary of field values to override in the
+               original values of the copied record, e.g: ``{'field_name': overridden_value, ...}``
+        :returns: new record
+
+        """
+
+        new = super(OneshareQuality, self).copy(default=default)
+
+        for point in self.tightening_opr_point_ids:
+            vals = point.copy_data()[0]
+            vals.update({
+                'name': str(uuid.uuid4()),
+                'parent_quality_point_id': new.id,
+            })
+            self.env['onesphere.tightening.opr.point'].create(vals)
+        return new

@@ -23,7 +23,7 @@ _logger = logging.getLogger(__name__)
 class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
-    code = fields.Char('Code')
+    code = fields.Char('Code', copy=False)
     oper_version = fields.Integer('Operation Version', default=1)
     workcenter_group_id = fields.Many2one('mrp.workcenter.group', string='Workcenter Group')
     workcenter_ids = fields.Many2many(
@@ -260,3 +260,24 @@ class MrpRoutingWorkcenter(models.Model):
             self._push_mrp_routing_workcenter(url_list)
         except Exception as e:
             self.env.user.notify_warning(_(f'Sync Operation Failure:{ustr(e)}'))
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        """ copy(default=None)
+
+        Duplicate record ``self`` updating it with default values
+
+        :param dict default: dictionary of field values to override in the
+               original values of the copied record, e.g: ``{'field_name': overridden_value, ...}``
+        :returns: new record
+
+        """
+        new = super(MrpRoutingWorkcenter, self).copy(default=default)
+        for work_step in self.work_step_ids:
+            operation_step_rel_dic = {
+                'operation_id': new.id,
+                'work_step_id': work_step.work_step_id.id,
+                'sequence': work_step.sequence,
+            }
+            self.env['onesphere.mrp.operation.step.rel'].create(operation_step_rel_dic)
+        return new

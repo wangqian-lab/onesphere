@@ -90,6 +90,7 @@ class TighteningOprPoint(models.Model):
     parent_quality_point_id = fields.Many2one('oneshare.quality.point', ondelete='cascade', index=True,
                                               string='Quality Control Point(Tightening Operation Step)')
 
+    parent_quality_point_display_name = fields.Char(related='parent_quality_point_id.display_name', store=True)
     # test_type_id = fields.Many2one('oneshare.quality.point.test_type',
     #                                default=lambda self: self.env.ref(
     #                                    'onesphere_assembly_industry.test_type_tightening_point'))

@@ -24,6 +24,9 @@
                     <button name="change_points_sequence" string="Change Points Sequence" type="object"
                             class="btn-primary"
                             attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}"/>
+                    <button name="button_open_tightening_points" string="Open Tightening Points" class="btn-primary" type="object"
+                            attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}">
+                        </button>
                 </xpath>
                 <xpath expr="//field[@name='test_type_id']" position="after">
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>

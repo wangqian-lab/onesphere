@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-02 08:54+0000\n"
-"PO-Revision-Date: 2023-03-02 08:54+0000\n"
+"POT-Creation-Date: 2023-03-02 10:01+0000\n"
+"PO-Revision-Date: 2023-03-02 10:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -248,6 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_import_operation__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__display_name
+#: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__parent_quality_point_display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point_group__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__display_name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_unit__display_name
@@ -605,6 +606,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_bolt__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point__name
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_work_step_tag__name
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_point_filter
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_unit_view_form
 msgid "Name"
 msgstr "名称"
@@ -658,6 +660,11 @@ msgstr ""
 #: model:ir.model,name:onesphere_assembly_industry.model_onesphere_import_mixin
 msgid "Onesphere Import Mixin"
 msgstr ""
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_assembly_industry_quality_point_view_form_inherit
+msgid "Open Tightening Points"
+msgstr "打开拧紧点"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_real_oper_version__operation_id
@@ -1061,7 +1068,10 @@ msgid "Tightening Params"
 msgstr "拧紧参数"
 
 #. module: onesphere_assembly_industry
+#: model:ir.actions.act_window,name:onesphere_assembly_industry.tightening_point_action
+#: model:ir.ui.menu,name:onesphere_assembly_industry.tightening_point_menu
 #: model:oneshare.quality.point.test_type,name:onesphere_assembly_industry.test_type_tightening_point
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_point_view_form
 msgid "Tightening Point"
 msgstr "拧紧点"
 
@@ -1076,8 +1086,10 @@ msgid "Tightening Point Name"
 msgstr "螺栓名称"
 
 #. module: onesphere_assembly_industry
+#: code:addons/onesphere_assembly_industry/models/quality.py:0
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_opr_point_group__operation_point_ids
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_assembly_industry_quality_point_view_form_inherit
+#, python-format
 msgid "Tightening Points"
 msgstr "拧紧点"
 
@@ -1123,6 +1135,11 @@ msgstr "拧紧结果(OK)"
 #: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.tightening_bolt_view_form
 msgid "Tightening Results"
 msgstr "拧紧结果"
+
+#. module: onesphere_assembly_industry
+#: model_terms:ir.ui.view,arch_db:onesphere_assembly_industry.onesphere_tightening_point_filter
+msgid "Tightening Step"
+msgstr "拧紧工步"
 
 #. module: onesphere_assembly_industry
 #: model:ir.model.fields,field_description:onesphere_assembly_industry.field_onesphere_tightening_result__measurement_step_results

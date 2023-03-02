@@ -48,9 +48,6 @@
             <field name="model">onesphere.tightening.unit</field>
             <field name="arch" type="xml">
                 <tree string="Tightening Unit" sample="1">
-                    <header>
-                        <button name="select_tightening_unit_confirm" string="Select Unit Confirm" type="object" class="oe_highlight"/>
-                    </header>
                     <field name="ref"/>
                     <field name="name"/>
                     <field name="serial_no"/>

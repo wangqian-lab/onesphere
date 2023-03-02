@@ -48,6 +48,7 @@
         'views/group_tightening_tool.xml',
         'views/res_config_settings_views.xml',
         'wizards/import_view.xml',
+        'wizards/multi_update_wizard.xml',
         'views/import_menu_views.xml',
     ],
     # only loaded in demonstration mode

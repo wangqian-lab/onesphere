@@ -18,7 +18,7 @@
             <field name="inherit_id" ref="onesphere_core.onesphere_quality_point_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <button name="select_tightening_units" string="Select Tightening Units" type="object"
+                    <button name="multi_update_points" string="Multi Update Points" type="object"
                             class="btn-primary"
                             attrs="{'invisible': [('test_type','not in',('tightening', 'promiscuous_tightening'))]}"/>
                     <button name="change_points_sequence" string="Change Points Sequence" type="object"

@@ -21,6 +21,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
+          ref: customize/ts039
           submodules: 'true'
           lfs: 'true'
           token: ${{ secrets.PAT }}

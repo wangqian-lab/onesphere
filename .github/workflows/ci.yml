@@ -24,7 +24,6 @@ jobs:
           ref: customize/ts039
           submodules: 'true'
           lfs: 'true'
-          token: ${{ secrets.PAT }}
       - name: docker login github package
         run: |
           docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.PAT }}

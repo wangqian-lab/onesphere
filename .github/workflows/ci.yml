@@ -3,7 +3,7 @@ name: Onesphere CI Workflow
 on:
   push:
     branches:
-      - main
+      - customize/ts039
   release:
     types: [ created ]
   repository_dispatch:
@@ -21,7 +21,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
-          ref: main
           submodules: 'true'
           lfs: 'true'
           token: ${{ secrets.PAT }}
@@ -31,7 +30,7 @@ jobs:
       - name: build image
         run: |
           cd ./server
-          docker build --tag "docker.pkg.github.com/masami10/onesphere/onesphere:14" --no-cache=true .
+          docker build --tag "docker.pkg.github.com/wangqian-lab/onesphere/onesphere:customize-ts039" --no-cache=true .
       - name: publish github docker registry
         run: |
-          docker push docker.pkg.github.com/masami10/onesphere/onesphere:14
+          docker push docker.pkg.github.com/wangqian-lab/onesphere/onesphere:customize-ts039

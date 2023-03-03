@@ -27,7 +27,7 @@ jobs:
           token: ${{ secrets.MY_PAT_TOKEN }}
       - name: docker login github package
         run: |
-          docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.PAT }}
+          docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.MY_PAT_TOKEN }}
       - name: build image
         run: |
           cd ./server

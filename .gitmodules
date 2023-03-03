@@ -3,7 +3,7 @@
 	url = https://github.com/masami10/oneshare_odoo_base.git
 [submodule "server/oneshare_enterprise"]
 	path = server/oneshare_enterprise
-	url = https://github.com/masami10/oneshare_enterprise.git
+	url = https://github.com/ethermeta-org/oneshare_enterprise.git
 [submodule "server/onesphere/onesphere_spc/utils"]
 	path = server/onesphere/onesphere_spc/utils
 	url = https://github.com/masami10/spc.git

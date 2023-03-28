@@ -13,6 +13,7 @@ class MultiUpdateWizard(models.TransientModel):
     product_id = fields.Many2one('product.product', 'Consume Product(Tightening Bolt/Screw)',
                                  domain="[('categ_id.name', '=', 'Bolt')]")
     tightening_pet = fields.Integer(string='Program Number(Pset/Job)')
+    max_attempt_times = fields.Integer(string="Tightening Operation Max Attempt Times")
 
     def multi_update(self):
         if not self.env.context.get('step_id'):
@@ -27,3 +28,8 @@ class MultiUpdateWizard(models.TransientModel):
                 (6, 0, self.tightening_units.ids)] if self.tightening_units else point.tightening_units
             point.product_id = self.product_id.id if self.product_id else point.product_id
             point.tightening_pet = self.tightening_pet if self.tightening_pet else point.tightening_pet
+            point.max_attempt_times = (
+                self.max_attempt_times
+                if self.max_attempt_times
+                else point.max_attempt_times
+            )
